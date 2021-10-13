@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    class Parsel
+    namespace DO
     {
+        public struct Parsel
+        {
+
+            public int Id { get; set; }
+            public int SenderId { get; set; }
+            public int TargetId { get; set; }
+
+
+
+        }
     }
 }
