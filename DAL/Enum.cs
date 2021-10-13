@@ -10,6 +10,7 @@ namespace IDAL
     {
         class Enum
         {
+
             public enum WeightCategories
             {
                 light,
