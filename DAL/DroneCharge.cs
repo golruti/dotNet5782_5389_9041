@@ -12,6 +12,8 @@ namespace IDAL
         {
            public int droneId { get; set; }
             public int stationId { get; set; }
+
+         
         }
     }
 }
