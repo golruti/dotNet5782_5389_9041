@@ -13,14 +13,18 @@ namespace DalObject
         {
             DataSource.initialize();
         }
+
+
+        //stations
         public void Insert(Station station)
         {
             DataSource.stations[DataSource.Config.indStation++] = station;
         }
 
-        public void Update(Station station)
+        public void Update(Station station,int idxChangeStation)
         {
-            DataSource.stations[DataSource.Config.indStation++] = station;
+            DataSource.stations[idxChangeStation] = station;
         }
+
     }
 }
