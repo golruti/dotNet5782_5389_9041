@@ -34,8 +34,8 @@ namespace DalObject
                 stations[Config.indStation].Id = Config.indStation;
                 stations[Config.indStation].Name = $"station {Config.indStation}";
                 stations[Config.indStation].ChargeSlote = rand.Next() + 1;
-                stations[Config.indStation].Lattitude = rand.Next(181);
-                stations[Config.indStation].Longitude = rand.Next(91);
+                stations[Config.indStation].Lattitude = rand.Next(181) + rand.NextDouble();
+                stations[Config.indStation].Longitude = rand.Next(91) + rand.NextDouble();
                 ++Config.indStation;
             }
 
@@ -44,6 +44,7 @@ namespace DalObject
             {
                 customers[Config.indCustomer].Id = Config.indCustomer;
                 customers[Config.indCustomer].Name = $"customer {Config.indCustomer}";
+                customers[Config.indCustomer].Phone = $"05 {rand.Next()} {}|";
 
                 ++Config.indCustomer;
             }
