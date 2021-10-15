@@ -10,11 +10,11 @@ namespace IDAL
     {
         class Drone
         {
-            public int id { get; set; }
-            public string model { get; set; }
-            public int maxWeight { get; set; }
-            public bool status { get; set; }
-            public double battery { get; set; }
+            public int Id { get; set; }
+            public string Model { get; set; }
+            public int MaxWeight { get; set; }
+            public bool Status { get; set; }
+            public double Battery { get; set; }
         }
     }
 }

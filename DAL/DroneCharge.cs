@@ -10,8 +10,8 @@ namespace IDAL
     {
         class DroneCarge
         {
-           public int droneId { get; set; }
-            public int stationId { get; set; }
+           public int DroneId { get; set; }
+            public int StationId { get; set; }
 
          
         }
