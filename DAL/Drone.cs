@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static IDAL.DO.Enum
+
 
 namespace IDAL
 {
@@ -12,8 +14,8 @@ namespace IDAL
         {
             public int Id { get; set; }
             public string Model { get; set; }
-            public int MaxWeight { get; set; }
-            public bool Status { get; set; }
+            public WeightCategories MaxWeight { get; set; }
+            public DroneStatuses Status { get; set; }
             public double Battery { get; set; }
         }
     }
