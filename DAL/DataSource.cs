@@ -7,8 +7,10 @@ using IDAL.DO;
 
 namespace DalObject
 {
-    class DataSource
+    public class DataSource
     {
+        public static Random rand = new Random();
+
         static internal Drone[] drones = new Drone[10];
         static internal Station[] stations = new Station[5];
         static internal Customer[] customers = new Customer[100];
@@ -18,15 +20,36 @@ namespace DalObject
         {
             public static int indDrone = 0;
             public static int indStation = 0;
-            public int indCustomer = 0;
-            public int indParsel = 0;
-            public int ContinuousNumber;
+            public static int indCustomer = 0;
+            public static int indParsel = 0;
+            public static int ContinuousNumber;
         }
 
         public static void initialize()
         {
 
+            //stations
+            for (int i = 0; i < 2; ++i)
+            {
+                stations[Config.indStation].Id = Config.indStation;
+                stations[Config.indStation].Name = $"station {Config.indStation}";
+                stations[Config.indStation].ChargeSlote = rand.Next() + 1;
+                stations[Config.indStation].Lattitude = rand.Next(181);
+                stations[Config.indStation].Longitude = rand.Next(91);
+                ++Config.indStation;
+            }
 
+            //customers
+            for (int i = 0; i < 10; ++i)
+            {
+                customers[Config.indCustomer].Id = Config.indCustomer;
+                customers[Config.indCustomer].Name = $"customer {Config.indCustomer}";
+
+                ++Config.indCustomer;
+            }
         }
     }
+
 }
+    
+

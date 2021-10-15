@@ -17,5 +17,10 @@ namespace DalObject
         {
             DataSource.stations[DataSource.Config.indStation++] = station;
         }
+
+        public void Update(Station station)
+        {
+            DataSource.stations[DataSource.Config.indStation++] = station;
+        }
     }
 }
