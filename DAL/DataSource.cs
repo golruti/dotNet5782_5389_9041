@@ -44,10 +44,25 @@ namespace DalObject
             {
                 customers[Config.indCustomer].Id = Config.indCustomer;
                 customers[Config.indCustomer].Name = $"customer {Config.indCustomer}";
-                customers[Config.indCustomer].Phone = $"05 {rand.Next()} {}|";
-
+                customers[Config.indCustomer].Phone = $"05 {rand.Next(100000000)}|";
+                customers[Config.indCustomer].Lattitude = rand.Next(181) + rand.NextDouble();
+                customers[Config.indCustomer].Longitude = rand.Next(91) + rand.NextDouble();
                 ++Config.indCustomer;
             }
+
+            //drones
+            for (int i = 0; i < 5; ++i)
+            {
+                drones[Config.indDrone].Id = Config.indDrone;
+                drones[Config.indDrone].Model = $"drone {Config.indDrone}";
+                drones[Config.indDrone].MaxWeight = (IDAL.DO.Enum.WeightCategories)rand.Next(0,3);
+                drones[Config.indDrone].Status = (IDAL.DO.Enum.DroneStatuses)rand.Next(0, 3);
+                drones[Config.indDrone].Battery =rand.Next(101);
+
+
+                ++Config.indDrone;
+            }
+
         }
     }
 
