@@ -4,7 +4,7 @@ namespace IDAL
 {
     namespace DO
     {
-        public class Station
+        public struct Station
         {
             public int Id{get;set;}
             public string Name{get;set;}
