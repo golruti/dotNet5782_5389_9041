@@ -16,8 +16,8 @@ namespace DalObject
 
         internal class Config
         {
-            public int indDrone = 0;
-            public int indStation = 0;
+            public static int indDrone = 0;
+            public static int indStation = 0;
             public int indCustomer = 0;
             public int indParsel = 0;
             public int ContinuousNumber;
@@ -25,6 +25,7 @@ namespace DalObject
 
         public static void initialize()
         {
+
 
         }
     }
