@@ -8,7 +8,7 @@ namespace IDAL
 {
     namespace DO
     {
-        class Enum
+        public struct Enum
         {
 
             public enum WeightCategories
