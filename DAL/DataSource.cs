@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
+using static IDAL.DO.Enum;
 
 namespace DalObject
 {
@@ -46,6 +47,26 @@ namespace DalObject
                 customers[Config.indCustomer].Name = $"customer {Config.indCustomer}";
 
                 ++Config.indCustomer;
+            }
+
+            //parcel
+            for (int i = 0; i < 10; ++i)
+            {
+                parseles[Config.indParsel].Id = Config.indParsel;
+                parseles[Config.indParsel].SenderId = rand.Next( Config.indCustomer);
+                parseles[Config.indParsel].TargetId = rand.Next(Config.indCustomer);
+                while(parseles[Config.indParsel].SenderId== parseles[Config.indParsel].TargetId)
+                {
+                    parseles[Config.indParsel].TargetId = rand.Next(Config.indCustomer);
+                }
+                parseles[Config.indParsel].Weight = (WeightCategories)(rand.Next(0,3));
+                parseles[Config.indParsel].Priority = (Priorities)(rand.Next(0, 3));
+                parseles[Config.indParsel].Id = rand.Next(Config.indDrone);
+                parseles[Config.indParsel].Requested = DateTime.Now;
+                parseles[Config.indParsel].Scheduled = DateTime.Now.AddDays(2);
+                parseles[Config.indParsel].PickedUp = DateTime.Now.AddDays(30);
+                parseles[Config.indParsel].Delivered = DateTime.Now.AddDays(32);
+                ++Config.indParsel;
             }
         }
     }
