@@ -50,17 +50,59 @@ namespace DalObject
         }
 
 
+
         //parsel
         public void InsertParsel(Parsel parsel)
         {
             DataSource.parseles[DataSource.Config.indParsel++] = parsel;
+            DataSource.parseles[DataSource.Config.indParsel].Id= DataSource.Config.indParsel;
         }
 
-        public void UpdateParsel(Parsel parsel, int idxChangeParsel)
+        public void UpdateParselDelivered(int idxParsel,int droneId)
         {
-            DataSource.parseles[idxChangeParsel] = parsel;
+            DataSource.parseles[idxParsel].Droneld= droneId;
         }
 
+        public void UpdateParselPickedUp(int idxParsel)
+        {
+            
+            DataSource.parseles[idxParsel].PickedUp = DateTime.Now;
+        }
 
+        public void UpdateParselDelivered(int idxParsel)
+        {
+
+            DataSource.parseles[idxParsel].Delivered = DateTime.Now;
+        }
+
+        //drone charge
+        public bool UpdatedroneCarge(int idxStation,int idxDrone)
+        {
+            bool exist = false;
+            DroneCharge droneCharge = new DroneCharge();
+            foreach(DroneCharge item in DataSource.droneCharges)
+            {
+                if(item.StationId== idxStation)
+                {
+                    return false;
+                }
+            }
+            
+                droneCharge.StationId = idxStation;
+                droneCharge.DroneId = idxDrone;
+                return true;
+
+        }
+
+        public void UpdatedroneCarge(int idxStation)
+        {
+            foreach (DroneCharge item in DataSource.droneCharges)
+            {
+                if (item.StationId == idxStation)
+                {
+                    DataSource.droneCharges.Remove(item);
+                }
+            }
+        }
     }
 }
