@@ -21,10 +21,7 @@ namespace DalObject
             DataSource.stations[DataSource.Config.indStation++] = station;
         }
 
-        public void UpdateStation(Station station,int idxChangeStation)
-        {
-            DataSource.stations[idxChangeStation] = station;
-        }
+
 
         //drone
         public void InsertDrone(Drone drone)
@@ -32,10 +29,7 @@ namespace DalObject
             DataSource.drones[DataSource.Config.indDrone++] = drone;
         }
 
-        public void UpdateDrone(Drone drone, int idxChangeDrone)
-        {
-            DataSource.drones[idxChangeDrone] = drone;
-        }
+  
 
         //customer
         public void InsertCustomer(Customer customer)
@@ -43,10 +37,7 @@ namespace DalObject
             DataSource.customers[DataSource.Config.indCustomer++] = customer;
         }
 
-        public void UpdateCustomer(Customer customer, int idxChangeCustomer)
-        {
-            DataSource.customers[idxChangeCustomer] = customer;
-        }
+       
 
 
         //parsel
@@ -55,11 +46,28 @@ namespace DalObject
             DataSource.parseles[DataSource.Config.indParsel++] = parsel;
         }
 
-        public void UpdateParsel(Parsel parsel, int idxChangeParsel)
+        public void UpdateParselDelivered(int idxParsel,int droneId)
         {
-            DataSource.parseles[idxChangeParsel] = parsel;
+            DataSource.parseles[idxParsel].Droneld= droneId;
         }
 
+        public void UpdateParselPickedUp(int idxParsel)
+        {
+            
+            DataSource.parseles[idxParsel].PickedUp = DateTime.Now;
+        }
 
+        public void UpdateParselDelivered(int idxParsel)
+        {
+
+            DataSource.parseles[idxParsel].Delivered = DateTime.Now;
+        }
+
+        //drone charge
+        public void UpdatedroneCarge(int idxStation,int idxDrone)
+        {
+
+            DroneCarge.
+        }
     }
 }
