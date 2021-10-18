@@ -44,6 +44,7 @@ namespace DalObject
         public void InsertParsel(Parsel parsel)
         {
             DataSource.parseles[DataSource.Config.indParsel++] = parsel;
+            DataSource.parseles[DataSource.Config.indParsel].Id= DataSource.Config.indParsel;
         }
 
         public void UpdateParselDelivered(int idxParsel,int droneId)
@@ -64,13 +65,33 @@ namespace DalObject
         }
 
         //drone charge
-        public void UpdatedroneCarge(int idxStation,int idxDrone)
+        public bool UpdatedroneCarge(int idxStation,int idxDrone)
         {
-           
+            bool exist = false;
+            DroneCharge droneCharge = new DroneCharge();
+            foreach(DroneCharge item in DataSource.droneCharges)
+            {
+                if(item.StationId== idxStation)
+                {
+                    return false;
+                }
+            }
+            
+                droneCharge.StationId = idxStation;
+                droneCharge.DroneId = idxDrone;
+                return true;
 
-            DroneCarge droneCarge = new DroneCarge();
-            droneCarge.StationId = idxStation;
-            droneCarge.DroneId = idxDrone;
+        }
+
+        public void UpdatedroneCarge(int idxStation)
+        {
+            foreach (DroneCharge item in DataSource.droneCharges)
+            {
+                if (item.StationId == idxStation)
+                {
+                    DataSource.droneCharges.Remove(item);
+                }
+            }
         }
     }
 }
