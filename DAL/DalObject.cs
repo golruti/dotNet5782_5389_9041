@@ -21,7 +21,8 @@ namespace DalObject
             DataSource.stations[DataSource.Config.indStation++] = station;
         }
 
-        public void UpdateStation(Station station,int idxChangeStation)
+ 
+       public void UpdateStation(Station station,int idxChangeStation)
         {
             DataSource.stations[idxChangeStation] = station;
         }
