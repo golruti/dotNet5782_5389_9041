@@ -16,15 +16,50 @@ namespace DalObject
 
 
         //stations
-        public void Insert(Station station)
+        public void InsertStation(Station station)
         {
             DataSource.stations[DataSource.Config.indStation++] = station;
         }
 
-        public void Update(Station station,int idxChangeStation)
+        public void UpdateStation(Station station,int idxChangeStation)
         {
             DataSource.stations[idxChangeStation] = station;
         }
+
+        //drone
+        public void InsertDrone(Drone drone)
+        {
+            DataSource.drones[DataSource.Config.indDrone++] = drone;
+        }
+
+        public void UpdateDrone(Drone drone, int idxChangeDrone)
+        {
+            DataSource.drones[idxChangeDrone] = drone;
+        }
+
+        //customer
+        public void InsertCustomer(Customer customer)
+        {
+            DataSource.customers[DataSource.Config.indCustomer++] = customer;
+        }
+
+        public void UpdateCustomer(Customer customer, int idxChangeCustomer)
+        {
+            DataSource.customers[idxChangeCustomer] = customer;
+        }
+
+
+        //parsel
+        public void InsertParsel(Parsel parsel)
+        {
+            DataSource.parseles[DataSource.Config.indParsel++] = parsel;
+        }
+
+        public void UpdateParsel(Parsel parsel, int idxChangeParsel)
+        {
+            DataSource.parseles[idxChangeParsel] = parsel;
+        }
+
 
     }
 }
