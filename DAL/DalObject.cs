@@ -66,8 +66,11 @@ namespace DalObject
         //drone charge
         public void UpdatedroneCarge(int idxStation,int idxDrone)
         {
+           
 
-            DroneCarge.
+            DroneCarge droneCarge = new DroneCarge();
+            droneCarge.StationId = idxStation;
+            droneCarge.DroneId = idxDrone;
         }
     }
 }
