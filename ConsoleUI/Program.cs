@@ -44,11 +44,7 @@ namespace ConsoleUI
                         {
 
                             case 1:
-                                DalObject.InsertStation(MainFunction.getStation());
-
-
-
-
+                              DalObject.DalObject.InsertStation(MainFunction.getStation());
                                 break;
                             case 2:
                                 // code block

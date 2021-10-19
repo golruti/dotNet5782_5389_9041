@@ -16,7 +16,7 @@ namespace DalObject
 
 
         //stations
-        public void InsertStation(Station station)
+        public static void InsertStation(Station station)
         {
             DataSource.stations[DataSource.Config.indStation++] = station;
         }

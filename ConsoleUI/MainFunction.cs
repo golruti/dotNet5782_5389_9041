@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DalObject.DalObject;
+using IDAL.DO;
 
-//הדף של הפונקציות לא מכיר את המחלקות האחרות והמיין לא מכיר את פונקציות ההכנסה\העדכון וכו
+
 namespace ConsoleUI
 {
    public class MainFunction
     {
-        public static int xx = 10;
 
-       public Station getStation()
+       public static Station getStation()
         {
             int tempID, tempChargeSlote;
             string tempName;
