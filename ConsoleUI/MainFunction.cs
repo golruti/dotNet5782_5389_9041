@@ -5,13 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
 
-
 namespace ConsoleUI
 {
    public class MainFunction
     {
-
-       public static Station getStation()
+        public static Station getStation()
         {
             int tempID, tempChargeSlote;
             string tempName;
@@ -40,5 +38,6 @@ namespace ConsoleUI
 
             return tempStation;
         }
+
     }
 }
