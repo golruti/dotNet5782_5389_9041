@@ -6,10 +6,10 @@ namespace ConsoleUI
     class Program
     {
         public enum Options { insert, update, disply, view };
-        public enum Insert { base_station, skimmer, customer, package };
-        public enum Update { collect_package, deliver_package, skimmer, release_skimmer };
-        public enum Disply { base_station, skimmer, customer, package };
-        public enum View { base_stations, skimmers, customers, packages, packages_not_skimmer, base_stations_vacant }
+        public enum Insert { base_station, drone, customer, package };
+        public enum Update { collect_package, deliver_package, drone, release_drone };
+        public enum Disply { base_station, drone, customer, package };
+        public enum View { base_stations, drone, customers, packages, packages_not_drone, base_stations_vacant }
 
 
 
@@ -25,7 +25,7 @@ namespace ConsoleUI
                 {
                     Console.Write(item + "-" + (id++) + "\n");
                 }
-                id = 0;
+                id = 1;
                 choice = int.Parse(Console.ReadLine());
 
 
@@ -35,6 +35,7 @@ namespace ConsoleUI
                     case 1:
                         foreach (var item in System.Enum.GetNames(typeof(Insert)))
                         {
+
                             Console.Write(item + "-" + (id++) + "\n");
                         }
                         id = 0;
@@ -47,10 +48,15 @@ namespace ConsoleUI
                               DalObject.DalObject.InsertStation(MainFunction.getStation());
                                 break;
                             case 2:
-                                // code block
+                                DalObject.DalObject.InsertDrone(MainFunction.getDrone());
+                                break;
+                            case 3:
+                                DalObject.DalObject.InsertCustomer(MainFunction.getCastomer());
+                                break;
+                            case 4:
+                                DalObject.DalObject.InsertParsel(MainFunction.getParsel());
                                 break;
                             default:
-                                // code block
                                 break;
                         }
                         break;
@@ -62,7 +68,7 @@ namespace ConsoleUI
                         {
                             Console.Write(item + "-" + (id++) + "\n");
                         }
-                        id = 0;
+                        id = 1;
                         choice = int.Parse(Console.ReadLine());
 
                         switch (choice)
@@ -88,7 +94,7 @@ namespace ConsoleUI
                         {
                             Console.Write(item + "-" + (id++) + "\n");
                         }
-                        id = 0;
+                        id = 1;
                         choice = int.Parse(Console.ReadLine());
 
                         switch (choice)
@@ -114,7 +120,7 @@ namespace ConsoleUI
                         {
                             Console.Write(item + "-" + (id++) + "\n");
                         }
-                        id = 0;
+                        id = 1;
                         choice = int.Parse(Console.ReadLine());
 
                         switch (choice)

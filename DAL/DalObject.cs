@@ -19,6 +19,8 @@ namespace DalObject
         public static void InsertStation(Station station)
         {
             DataSource.stations[DataSource.Config.indStation++] = station;
+            Console.Write("-------------------\n");
+
         }
 
  
@@ -28,7 +30,7 @@ namespace DalObject
         }
 
         //drone
-        public void InsertDrone(Drone drone)
+        public static void InsertDrone(Drone drone)
         {
             DataSource.drones[DataSource.Config.indDrone++] = drone;
         }
@@ -39,7 +41,7 @@ namespace DalObject
         }
 
         //customer
-        public void InsertCustomer(Customer customer)
+        public static void InsertCustomer(Customer customer)
         {
             DataSource.customers[DataSource.Config.indCustomer++] = customer;
         }
