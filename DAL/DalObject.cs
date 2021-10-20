@@ -78,7 +78,6 @@ namespace DalObject
         //drone charge
         public bool UpdatedroneCarge(int idxStation,int idxDrone)
         {
-            bool exist = false;
             DroneCharge droneCharge = new DroneCharge();
             foreach(DroneCharge item in DataSource.droneCharges)
             {
