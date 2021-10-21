@@ -167,7 +167,6 @@ namespace ConsoleUI
             }
             else if (tempChoice == 2)
             {
-                int x;
                 tempWeight = WeightCategories.Medium;
             }
             else
