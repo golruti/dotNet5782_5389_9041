@@ -29,6 +29,16 @@ namespace DalObject
             DataSource.stations[idxChangeStation] = station;
         }
 
+        public static void ToStringStation(int stationIdx)
+        {
+            Console.WriteLine($"Id:{0}./n Name:{1}", Station.Id, Station.Name) ;
+        }
+
+        public static void ToStringStations()
+        {
+
+        }
+
         //drone
         public static void InsertDrone(Drone drone)
         {
@@ -80,7 +90,6 @@ namespace DalObject
         //drone charge
         public bool UpdatedroneCarge(int idxStation,int idxDrone)
         {
-            bool exist = false;
             DroneCharge droneCharge = new DroneCharge();
             foreach(DroneCharge item in DataSource.droneCharges)
             {
@@ -106,5 +115,7 @@ namespace DalObject
                 }
             }
         }
+
+
     }
 }
