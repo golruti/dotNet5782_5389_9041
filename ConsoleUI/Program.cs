@@ -1,5 +1,6 @@
 ﻿using System;
-
+using IDAL.DO;
+using DalObject;
 namespace ConsoleUI
 {
     class Program
@@ -20,7 +21,7 @@ namespace ConsoleUI
 
             while (choice != 5)
             {
-                foreach (var item in Enum.GetNames(typeof(Options)))
+                foreach (var item in System.Enum.GetNames(typeof(Options)))
                 {
                     Console.Write(item + "-" + (id++) + "\n");
                 }
@@ -32,7 +33,7 @@ namespace ConsoleUI
                 {
 
                     case 1:
-                        foreach (var item in Enum.GetNames(typeof(Insert)))
+                        foreach (var item in System.Enum.GetNames(typeof(Insert)))
                         {
                             Console.Write(item + "-" + (id++) + "\n");
                         }
@@ -43,9 +44,7 @@ namespace ConsoleUI
                         {
 
                             case 1:
-                                //Station newStation = getStation();
-                                Console.Write(MainFunction.xx);
-
+                              DalObject.DalObject.InsertStation(MainFunction.getStation());
                                 break;
                             case 2:
                                 // code block
@@ -59,7 +58,7 @@ namespace ConsoleUI
 
                     case 2:
 
-                        foreach (var item in Enum.GetNames(typeof(Update)))
+                        foreach (var item in System.Enum.GetNames(typeof(Update)))
                         {
                             Console.Write(item + "-" + (id++) + "\n");
                         }
@@ -85,7 +84,7 @@ namespace ConsoleUI
 
 
                     case 3:
-                        foreach (var item in Enum.GetNames(typeof(Disply)))
+                        foreach (var item in System.Enum.GetNames(typeof(Disply)))
                         {
                             Console.Write(item + "-" + (id++) + "\n");
                         }
@@ -111,7 +110,7 @@ namespace ConsoleUI
 
 
                     case 4:
-                        foreach (var item in Enum.GetNames(typeof(View)))
+                        foreach (var item in System.Enum.GetNames(typeof(View)))
                         {
                             Console.Write(item + "-" + (id++) + "\n");
                         }
@@ -137,6 +136,9 @@ namespace ConsoleUI
                     default:
 
                         break;
+
+
+                        
                 }
 
 
@@ -144,6 +146,8 @@ namespace ConsoleUI
 
 
         }
+
+
     }
-    }
+}
 

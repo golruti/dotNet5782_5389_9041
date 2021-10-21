@@ -16,7 +16,7 @@ namespace DalObject
 
 
         //stations
-        public void InsertStation(Station station)
+        public static void InsertStation(Station station)
         {
             DataSource.stations[DataSource.Config.indStation++] = station;
         }
@@ -25,6 +25,16 @@ namespace DalObject
        public void UpdateStation(Station station,int idxChangeStation)
         {
             DataSource.stations[idxChangeStation] = station;
+        }
+
+        public static void ToStringStation(int stationIdx)
+        {
+            Console.WriteLine($"Id:{0}./n Name:{1}", Station.Id, Station.Name) ;
+        }
+
+        public static void ToStringStations()
+        {
+
         }
 
         //drone
@@ -103,5 +113,7 @@ namespace DalObject
                 }
             }
         }
+
+
     }
 }
