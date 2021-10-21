@@ -23,7 +23,6 @@ namespace DalObject
             public static int IndStation = 0;
             public static int IndCustomer = 0;
             public static int IndParsel = 0;
-            public static int ContinuousNumber;
         }
 
         public static void Initialize()

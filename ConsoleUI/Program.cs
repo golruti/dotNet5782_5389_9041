@@ -61,7 +61,7 @@ namespace ConsoleUI
                                 break;
                             case 4:
                                 DalObject.DalObject.InsertParsel(MainFunction.GetParsel());
-                                int yyy;
+
                                 break;
                             default:
                                 break;
@@ -80,14 +80,21 @@ namespace ConsoleUI
                         switch (choice)
                         {
                             case 1:
-                                // code block
+                                DalObject.DalObject.UpdateParselDelivered(MainFunction.GetIdOfParcel());
                                 break;
                             case 2:
                                 DalObject.DalObject.UpdateParselPickedUp(MainFunction.GetIdOfParcel());
                                 break;
                             case 3:
-                                DalObject.DalObject.UpdateParselPickedUp(MainFunction.GetIdOfParcel());
+                                // code block
                                 break;
+                            case 4:
+                                // code block
+                                break;
+                            case 5:
+                                // code block
+                                break;
+  
                             default:
                                 break;
                         }
