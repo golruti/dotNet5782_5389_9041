@@ -72,6 +72,8 @@ namespace DalObject
 
 
 
+        // לבדוק!!! הפונקציות לא עובדות
+
         //drone charge
         public bool UpdatedroneCarge(int idxStation,int idxDrone)
         {
