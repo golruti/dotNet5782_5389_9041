@@ -10,7 +10,7 @@ namespace DalObject
 {
     public class DataSource
     {
-        public static Random rand = new Random();
+        public static Random Rand = new Random();
 
         static internal Drone[] drones = new Drone[10];
         static internal Station[] stations = new Station[5];
@@ -19,69 +19,67 @@ namespace DalObject
         static internal List<DroneCharge> droneCharges =new List<DroneCharge>();
         internal class Config
         {
-            public static int indDrone = 0;
-            public static int indStation = 0;
-            public static int indCustomer = 0;
-            public static int indParsel = 0;
+            public static int IndDrone = 0;
+            public static int IndStation = 0;
+            public static int IndCustomer = 0;
+            public static int IndParsel = 0;
             public static int ContinuousNumber;
         }
 
-        public static void initialize()
+        public static void Initialize()
         {
 
             //stations
             for (int i = 0; i < 2; ++i)
             {
-                stations[Config.indStation].Id = Config.indStation;
-                stations[Config.indStation].Name = $"station {Config.indStation}";
-                stations[Config.indStation].ChargeSlote = rand.Next() + 1;
-                stations[Config.indStation].Lattitude = rand.Next(181) + rand.NextDouble();
-                stations[Config.indStation].Longitude = rand.Next(91) + rand.NextDouble();
-                ++Config.indStation;
+                stations[Config.IndStation].Id = Config.IndStation;
+                stations[Config.IndStation].Name = $"station {Config.IndStation}";
+                stations[Config.IndStation].ChargeSlote = Rand.Next() + 1;
+                stations[Config.IndStation].Lattitude = Rand.Next(181) + Rand.NextDouble();
+                stations[Config.IndStation].Longitude = Rand.Next(91) + Rand.NextDouble();
+                ++Config.IndStation;
             }
 
             //customers
             for (int i = 0; i < 10; ++i)
             {
-                customers[Config.indCustomer].Id = Config.indCustomer;
-                customers[Config.indCustomer].Name = $"customer {Config.indCustomer}";
-                customers[Config.indCustomer].Phone = $"05 {rand.Next(100000000)}|";
-                customers[Config.indCustomer].Lattitude = rand.Next(181) + rand.NextDouble();
-                customers[Config.indCustomer].Longitude = rand.Next(91) + rand.NextDouble();
-                ++Config.indCustomer;
+                customers[Config.IndCustomer].Id = Config.IndCustomer;
+                customers[Config.IndCustomer].Name = $"customer {Config.IndCustomer}";
+                customers[Config.IndCustomer].Phone = $"05 {Rand.Next(10000000,100000000)}|";
+                customers[Config.IndCustomer].Lattitude = Rand.Next(181) + Rand.NextDouble();
+                customers[Config.IndCustomer].Longitude = Rand.Next(91) + Rand.NextDouble();
+                ++Config.IndCustomer;
             }
 
             //drones
             for (int i = 0; i < 5; ++i)
             {
-                drones[Config.indDrone].Id = Config.indDrone;
-                drones[Config.indDrone].Model = $"drone {Config.indDrone}";
-                drones[Config.indDrone].MaxWeight = (IDAL.DO.Enum.WeightCategories)rand.Next(0,3);
-                drones[Config.indDrone].Status = (IDAL.DO.Enum.DroneStatuses)rand.Next(0, 3);
-                drones[Config.indDrone].Battery =rand.Next(101);
-
-
-                ++Config.indDrone;
+                drones[Config.IndDrone].Id = Config.IndDrone;
+                drones[Config.IndDrone].Model = $"drone {Config.IndDrone}";
+                drones[Config.IndDrone].MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0,3);
+                drones[Config.IndDrone].Status = (IDAL.DO.Enum.DroneStatuses)Rand.Next(0, 3);
+                drones[Config.IndDrone].Battery =Rand.Next(101);
+                ++Config.IndDrone;
             }
 
             //parcel
             for (int i = 0; i < 10; ++i)
             {
-                parseles[Config.indParsel].Id = Config.indParsel;
-                parseles[Config.indParsel].SenderId = rand.Next( Config.indCustomer);
-                parseles[Config.indParsel].TargetId = rand.Next(Config.indCustomer);
-                while(parseles[Config.indParsel].SenderId== parseles[Config.indParsel].TargetId)
+                parseles[Config.IndParsel].Id = Config.IndParsel;
+                parseles[Config.IndParsel].SenderId = Rand.Next( Config.IndCustomer);
+                parseles[Config.IndParsel].TargetId = Rand.Next(Config.IndCustomer);
+                while(parseles[Config.IndParsel].SenderId== parseles[Config.IndParsel].TargetId)
                 {
-                    parseles[Config.indParsel].TargetId = rand.Next(Config.indCustomer);
+                    parseles[Config.IndParsel].TargetId = Rand.Next(Config.IndCustomer);
                 }
-                parseles[Config.indParsel].Weight = (WeightCategories)(rand.Next(0,3));
-                parseles[Config.indParsel].Priority = (Priorities)(rand.Next(0, 3));
-                parseles[Config.indParsel].Id = rand.Next(Config.indDrone);
-                parseles[Config.indParsel].Requested = DateTime.Now;
-                parseles[Config.indParsel].Scheduled = DateTime.Now.AddDays(2);
-                parseles[Config.indParsel].PickedUp = DateTime.Now.AddDays(30);
-                parseles[Config.indParsel].Delivered = DateTime.Now.AddDays(32);
-                ++Config.indParsel;
+                parseles[Config.IndParsel].Weight = (WeightCategories)(Rand.Next(0,3));
+                parseles[Config.IndParsel].Priority = (Priorities)(Rand.Next(0, 3));
+                parseles[Config.IndParsel].Id = Rand.Next(Config.IndDrone);
+                parseles[Config.IndParsel].Requested = DateTime.Now;
+                parseles[Config.IndParsel].Scheduled = DateTime.Now.AddDays(2);
+                parseles[Config.IndParsel].PickedUp = DateTime.Now.AddDays(30);
+                parseles[Config.IndParsel].Delivered = DateTime.Now.AddDays(32);
+                ++Config.IndParsel;
             }
 
         }

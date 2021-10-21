@@ -7,9 +7,16 @@ namespace ConsoleUI
     {
         public enum Options { insert, update, disply, view };
         public enum Insert { base_station, drone, customer, package };
-        public enum Update { collect_package, deliver_package, drone, release_drone };
+        public enum Update
+        {
+            Assign_a_package_to_a_skimmer,
+            Package_assembly_by_skimmer,
+            Delivery_of_a_package_to_the_destination,
+            Sending_a_skimmer_for_charging_at_a_base_station,
+            Releasing_a_skimmer_from_charging
+        };
         public enum Disply { base_station, drone, customer, package };
-        public enum View { base_stations, drone, customers, packages, packages_not_drone, base_stations_vacant }
+        public enum View { base_stations, drone, customers, packages, packages_not_drone, base_stations_vacant };
 
 
 
@@ -38,24 +45,22 @@ namespace ConsoleUI
 
                             Console.Write(item + "-" + (id++) + "\n");
                         }
-                        id = 0;
+                        id = 1;
                         choice = int.Parse(Console.ReadLine());
 
                         switch (choice)
                         {
-
                             case 1:
-                              DalObject.DalObject.InsertStation(MainFunction.getStation());
+                                DalObject.DalObject.InsertStation(MainFunction.GetStation());
                                 break;
                             case 2:
-                                DalObject.DalObject.InsertDrone(MainFunction.getDrone());
+                                DalObject.DalObject.InsertDrone(MainFunction.GetDrone());
                                 break;
                             case 3:
-                                DalObject.DalObject.InsertCustomer(MainFunction.getCastomer());
+                                DalObject.DalObject.InsertCustomer(MainFunction.GetCustomer());
                                 break;
                             case 4:
-                                DalObject.DalObject.InsertParsel(MainFunction.getParsel());
-                                int t =5;
+                                DalObject.DalObject.InsertParsel(MainFunction.GetParsel());
                                 break;
                             default:
                                 break;
@@ -64,7 +69,6 @@ namespace ConsoleUI
 
 
                     case 2:
-
                         foreach (var item in System.Enum.GetNames(typeof(Update)))
                         {
                             Console.Write(item + "-" + (id++) + "\n");
@@ -74,15 +78,16 @@ namespace ConsoleUI
 
                         switch (choice)
                         {
-
                             case 1:
                                 // code block
                                 break;
                             case 2:
-                                // code block
+                                DalObject.DalObject.UpdateParselPickedUp(MainFunction.GetIdOfParcel());
+                                break;
+                            case 3:
+                                DalObject.DalObject.UpdateParselPickedUp(MainFunction.GetIdOfParcel());
                                 break;
                             default:
-                                // code block
                                 break;
                         }
                         break;
@@ -100,15 +105,19 @@ namespace ConsoleUI
 
                         switch (choice)
                         {
-
                             case 1:
                                 // code block
                                 break;
                             case 2:
                                 // code block
                                 break;
-                            default:
+                            case 3:
                                 // code block
+                                break;
+                            case 4:
+                                // code block
+                                break;
+                            default:
                                 break;
                         }
                         break;
@@ -133,28 +142,29 @@ namespace ConsoleUI
                             case 2:
                                 // code block
                                 break;
-                            default:
+                            case 3:
                                 // code block
+                                break;
+                            case 4:
+                                // code block
+                                break;
+                            case 5:
+                                // code block
+                                break;
+                            case 6:
+                                // code block
+                                break;
+                            default:
                                 break;
                         }
                         break;
 
 
                     default:
-
                         break;
-
-
-                        
                 }
-
-
             }
-
-
         }
-
-
     }
 }
 

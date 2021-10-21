@@ -11,38 +11,20 @@ namespace DalObject
     {
         public DalObject()
         {
-            DataSource.initialize();
+            DataSource.Initialize();
         }
 
 
-        //stations
+
         public static void InsertStation(Station station)
         {
-            DataSource.stations[DataSource.Config.indStation++] = station;
-            Console.Write("-------------------\n");
-
-        }
-
- 
-       public void UpdateStation(Station station,int idxChangeStation)
-        {
-            DataSource.stations[idxChangeStation] = station;
-        }
-
-        public static void ToStringStation(int stationIdx)
-        {
-            Console.WriteLine($"Id:{0}./n Name:{1}", Station.Id, Station.Name) ;
-        }
-
-        public static void ToStringStations()
-        {
-
+            DataSource.stations[DataSource.Config.IndStation++] = station;
         }
 
         //drone
         public static void InsertDrone(Drone drone)
         {
-            DataSource.drones[DataSource.Config.indDrone++] = drone;
+            DataSource.drones[DataSource.Config.IndDrone++] = drone;
         }
 
         public void UpdateDrone(Drone drone, int idxChangeDrone)
@@ -53,37 +35,30 @@ namespace DalObject
         //customer
         public static void InsertCustomer(Customer customer)
         {
-            DataSource.customers[DataSource.Config.indCustomer++] = customer;
-        }
-
-        public void UpdateCustomer(Customer customer, int idxChangeCustomer)
-        {
-            DataSource.customers[idxChangeCustomer] = customer;
+            DataSource.customers[DataSource.Config.IndCustomer++] = customer;
         }
 
 
 
         //parsel
-        public void InsertParsel(Parsel parsel)
+        public static void InsertParsel(Parsel parsel)
         {
-            DataSource.parseles[DataSource.Config.indParsel++] = parsel;
-            DataSource.parseles[DataSource.Config.indParsel].Id= DataSource.Config.indParsel;
+            DataSource.parseles[DataSource.Config.IndParsel++] = parsel;
+            DataSource.parseles[DataSource.Config.IndParsel].Id= DataSource.Config.IndParsel;
         }
 
         public void UpdateParselDelivered(int idxParsel,int droneId)
         {
             DataSource.parseles[idxParsel].Droneld= droneId;
-        }
+        } 
 
-        public void UpdateParselPickedUp(int idxParsel)
-        {
-            
+        public static void UpdateParselPickedUp(int idxParsel)
+        {        
             DataSource.parseles[idxParsel].PickedUp = DateTime.Now;
         }
 
         public void UpdateParselDelivered(int idxParsel)
         {
-
             DataSource.parseles[idxParsel].Delivered = DateTime.Now;
         }
 
