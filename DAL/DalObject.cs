@@ -12,6 +12,7 @@ namespace DalObject
         public DalObject()
         {
             DataSource.initialize();
+            int u = 12;
         }
 
 
