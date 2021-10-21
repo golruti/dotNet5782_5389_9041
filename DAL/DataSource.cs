@@ -73,7 +73,16 @@ namespace DalObject
                 }
                 parseles[Config.IndParsel].Weight = (WeightCategories)(Rand.Next(0,3));
                 parseles[Config.IndParsel].Priority = (Priorities)(Rand.Next(0, 3));
-                parseles[Config.IndParsel].Id = Rand.Next(Config.IndDrone);
+                parseles[Config.IndParsel].Droneld = 0;
+                for (int l = 0; l<Config.IndDrone;++l)
+                {
+                    if(drones[l].Id == i)
+                    {
+                        parseles[Config.IndParsel].Droneld = l;
+                        break;
+                    }
+                }
+                parseles[Config.IndParsel].Droneld = Rand.Next(Config.IndDrone);
                 parseles[Config.IndParsel].Requested = DateTime.Now;
                 parseles[Config.IndParsel].Scheduled = DateTime.Now.AddDays(2);
                 parseles[Config.IndParsel].PickedUp = DateTime.Now.AddDays(30);
