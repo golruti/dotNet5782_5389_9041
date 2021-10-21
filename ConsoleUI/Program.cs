@@ -61,6 +61,7 @@ namespace ConsoleUI
                                 break;
                             case 4:
                                 DalObject.DalObject.InsertParsel(MainFunction.GetParsel());
+                                int yyy;
                                 break;
                             default:
                                 break;
