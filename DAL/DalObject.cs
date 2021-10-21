@@ -39,47 +39,35 @@ namespace DalObject
 
 
 
-        //update
-        public static void UpdateParselDelivered(int idxParsel)
+        //שיוך חבילה לרחפן
+        public static void UpdateParseךScheduled(int idxParsel)
         {
-
             for (int i = 0; i < DataSource.Config.IndDrone; ++i)
             {
                 if (DataSource.drones[i].Status == IDAL.DO.Enum.DroneStatuses.Available)
                 {
+                    DataSource.parseles[idxParsel].Scheduled = new DateTime();
                     DataSource.parseles[idxParsel].Droneld = DataSource.drones[i].Id;
-                    DataSource.drones[i].Status = IDAL.DO.Enum.DroneStatuses.Delivery;
+                    DataSource.drones[i].Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
+                    DataSource.drones[i].MaxWeight = DataSource.parseles[idxParsel].Weight;
                     break;
                 }
             }
         }
-        public void UpdateDrone( int idxChangeDrone)
-        {
-            DataSource.drones[idxChangeDrone].;
-        }
-
-
-
+        //אסיפת חבילה עי רחפן
         public static void UpdateParselPickedUp(int idxParsel)
-        {        
+        {
             DataSource.parseles[idxParsel].PickedUp = DateTime.Now;
-            DataSource.parseles[idxParsel].Droneld = 0;
-            for (int i = 0; i < DataSource.Config.IndDrone; ++i)
-            {
-                if (DataSource.drones[i].Id == DataSource.parseles[idxParsel].Droneld)
-                {
-                    DataSource.drones[i].Status = IDAL.DO.Enum.DroneStatuses.Available;
-                    break;
-                }
-            }
+            DataSource.drones[DataSource.parseles[idxParsel].Droneld].Status = IDAL.DO.Enum.DroneStatuses.Delivery;
         }
 
 
-
-
-
-
-
+        //אספקת חבילה ליעד
+        public static void UpdateParselDelivered(int idxParsel)
+        {
+            DataSource.parseles[idxParsel].Delivered = DateTime.Now;
+            DataSource.drones[DataSource.parseles[idxParsel].Droneld].Status = IDAL.DO.Enum.DroneStatuses.Available;
+        }
 
 
 

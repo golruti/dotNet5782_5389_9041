@@ -80,13 +80,13 @@ namespace ConsoleUI
                         switch (choice)
                         {
                             case 1:
-                                DalObject.DalObject.UpdateParselDelivered(MainFunction.GetIdOfParcel());
+                                DalObject.DalObject.UpdateParseךScheduled(MainFunction.GetIdOfParcel());
                                 break;
                             case 2:
                                 DalObject.DalObject.UpdateParselPickedUp(MainFunction.GetIdOfParcel());
                                 break;
                             case 3:
-                                // code block
+                                DalObject.DalObject.UpdateParselDelivered(MainFunction.GetIdOfParcel());
                                 break;
                             case 4:
                                 // code block
