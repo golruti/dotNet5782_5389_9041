@@ -55,7 +55,7 @@ namespace ConsoleUI
                                 break;
                             case 4:
                                 DalObject.DalObject.InsertParsel(MainFunction.getParsel());
-                                int x = 10;
+                                int x = 20;
                                 break;
                             default:
                                 break;
