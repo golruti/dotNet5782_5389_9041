@@ -29,8 +29,8 @@ namespace IDAL
             public enum DroneStatuses
             {
                 Available,
+                Delivery,
                 Maintenance,
-                Delivery
             }
 
           

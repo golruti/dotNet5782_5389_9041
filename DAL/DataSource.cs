@@ -56,7 +56,7 @@ namespace DalObject
                 drones[Config.IndDrone].Id = Config.IndDrone;
                 drones[Config.IndDrone].Model = $"drone {Config.IndDrone}";
                 drones[Config.IndDrone].MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0,3);
-                drones[Config.IndDrone].Status = (IDAL.DO.Enum.DroneStatuses)Rand.Next(0, 3);
+                drones[Config.IndDrone].Status = (IDAL.DO.Enum.DroneStatuses)Rand.Next(0, (int)IDAL.DO.Enum.DroneStatuses.Delivery);
                 drones[Config.IndDrone].Battery =Rand.Next(101);
                 ++Config.IndDrone;
             }

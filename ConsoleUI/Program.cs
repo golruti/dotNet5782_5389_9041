@@ -52,7 +52,7 @@ namespace ConsoleUI
                         switch (choice)
                         {
                             case 1:
-                               dal.InsertStation(MainFunction.GetStation());
+                                dal.InsertStation(MainFunction.GetStation());
                                 break;
                             case 2:
                                 dal.InsertDrone(MainFunction.GetDrone());
@@ -61,7 +61,7 @@ namespace ConsoleUI
                                 dal.InsertCustomer(MainFunction.GetCustomer());
                                 break;
                             case 4:
-                               dal.InsertParsel(MainFunction.GetParsel());
+                                dal.InsertParsel(MainFunction.GetParsel());
 
                                 break;
                             default:
@@ -81,19 +81,25 @@ namespace ConsoleUI
                         switch (choice)
                         {
                             case 1:
-                                dal.UpdateParseךScheduled(MainFunction.GetIdOfParcel());
+                                dal.UpdateParseךScheduled(MainFunction.GetId());
                                 break;
                             case 2:
-                                dal.UpdateParselPickedUp(MainFunction.GetIdOfParcel());
+                                dal.UpdateParselPickedUp(MainFunction.GetId());
                                 break;
                             case 3:
-                                dal.UpdateParselDelivered(MainFunction.GetIdOfParcel());
+                                dal.UpdateParselDelivered(MainFunction.GetId());
                                 break;
                             case 4:
-                                // code block
+                                if (!dal.TryAddDroneCarge(MainFunction.GetId()))
+                                    Console.WriteLine("X");
+                                else
+                                    Console.WriteLine("V");
                                 break;
                             case 5:
-                                // code block
+                                if (!dal.TryRemoveDroneCarge(MainFunction.GetId()))
+                                    Console.WriteLine("X");
+                                else
+                                    Console.WriteLine("V");
                                 break;
 
                             default:
@@ -174,10 +180,14 @@ namespace ConsoleUI
                                 {
                                     Console.Write(parsel);
                                 }
-                               
+
                                 break;
                             case 6:
-                                // code block
+                                foreach (var station in dal.GetAvaStations())
+                                {
+                                    Console.Write(station);
+                                }
+
                                 break;
                             default:
                                 break;

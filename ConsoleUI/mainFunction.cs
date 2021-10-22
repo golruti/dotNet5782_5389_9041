@@ -199,7 +199,7 @@ namespace ConsoleUI
 
 
 
-        public static int GetIdOfParcel()
+        public static int GetId()
         {
             Console.Write("Enter a package number");
             int droneId = int.Parse(Console.ReadLine());

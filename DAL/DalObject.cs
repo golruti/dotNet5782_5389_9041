@@ -72,36 +72,39 @@ namespace DalObject
 
 
 
-        // לבדוק!!! הפונקציות לא עובדות
+
 
         //drone charge
-        public bool UpdatedroneCarge(int idxStation, int idxDrone)
+        public bool TryAddDroneCarge(int droneId)
         {
-            DroneCharge droneCharge = new DroneCharge();
-            foreach (DroneCharge item in DataSource.droneCharges)
-            {
-                if (item.StationId == idxStation)
-                {
-                    return false;
-                }
-            }
+            var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
+            if (drone.Equals(default))
+                return false;
 
-            droneCharge.StationId = idxStation;
-            droneCharge.DroneId = idxDrone;
+            var station = DataSource.stations.FirstOrDefault(s => s.ChargeSlote < DataSource.droneCharges.Count(dc => dc.StationId == s.Id));
+            if (station.Equals(default))
+                return false;
+
+            DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
+            DataSource.droneCharges.Add(droneCharge);
+            drone.Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
             return true;
-
         }
-
-        public void UpdatedroneCarge(int idxStation)
+        public bool TryRemoveDroneCarge(int droneId)
         {
-            foreach (DroneCharge item in DataSource.droneCharges)
-            {
-                if (item.StationId == idxStation)
-                {
-                    DataSource.droneCharges.Remove(item);
-                }
-            }
+            var droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId);
+            if (droneCharge.Equals(default))
+                return false;
+
+            var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
+            if (drone.Equals(default))
+                return false;
+
+            DataSource.droneCharges.Remove(droneCharge);
+            drone.Status = IDAL.DO.Enum.DroneStatuses.Available;
+            return true;
         }
+
 
 
         //פונקציות השולפות לפי אינדקס
@@ -197,7 +200,12 @@ namespace DalObject
         }
 
 
-        //●	הצגת  תחנות-בסיס עם עמדות טעינה פנויות
-
+        //	הצגת  תחנות-בסיס עם עמדות טעינה פנויות
+        public Station[] GetAvaStations()
+        {
+            return DataSource.stations
+                         .Where(s => s.ChargeSlote < DataSource.droneCharges.Count(dc => dc.StationId == s.Id))
+                         .ToArray();
+        }
     }
 }
