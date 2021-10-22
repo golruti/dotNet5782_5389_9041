@@ -24,20 +24,22 @@ namespace ConsoleUI
         {
 
             int choice = 0;
+            int choice2 = 0;
+
             int id = 1;
             DalObject.DalObject dal = new DalObject.DalObject();
 
-            while (choice != 5)
+            while (choice2 != 5)
             {
                 foreach (var item in System.Enum.GetNames(typeof(Options)))
                 {
                     Console.Write(item + "-" + (id++) + "\n");
                 }
                 id = 1;
-                choice = int.Parse(Console.ReadLine());
+                choice2 = int.Parse(Console.ReadLine());
 
 
-                switch (choice)
+                switch (choice2)
                 {
 
                     case 1:

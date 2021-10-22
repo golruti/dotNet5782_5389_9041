@@ -81,7 +81,7 @@ namespace DalObject
             if (drone.Equals(default))
                 return false;
 
-            var station = DataSource.stations.FirstOrDefault(s => s.ChargeSlote < DataSource.droneCharges.Count(dc => dc.StationId == s.Id));
+            var station = DataSource.stations.FirstOrDefault(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id));
             if (station.Equals(default))
                 return false;
 
@@ -92,10 +92,10 @@ namespace DalObject
         }
         public bool TryRemoveDroneCarge(int droneId)
         {
-            var droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId);
-            if (droneCharge.Equals(default))
+            if (!DataSource.droneCharges.Any(dc => dc.DroneId == droneId))
                 return false;
-
+            var droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId);
+            
             var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
             if (drone.Equals(default))
                 return false;
@@ -204,7 +204,7 @@ namespace DalObject
         public Station[] GetAvaStations()
         {
             return DataSource.stations
-                         .Where(s => s.ChargeSlote < DataSource.droneCharges.Count(dc => dc.StationId == s.Id))
+                         .Where(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id))
                          .ToArray();
         }
     }
