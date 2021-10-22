@@ -6,7 +6,7 @@ namespace ConsoleUI
     class Program
     {
         public enum Options { insert, update, disply, view };
-        public enum Insert { base_station, drone, customer, package };
+        public enum Insert { base_station, drone, customer, parcel };
         public enum Update
         {
             Assign_a_package_to_a_skimmer,
@@ -15,8 +15,8 @@ namespace ConsoleUI
             Sending_a_skimmer_for_charging_at_a_base_station,
             Releasing_a_skimmer_from_charging
         };
-        public enum Disply { base_station, drone, customer, package };
-        public enum View { base_stations, drone, customers, packages, packages_not_drone, base_stations_vacant };
+        public enum Disply { base_station, drone, customer, parcel };
+        public enum View { base_stations, drone, customers, parsel, parsels_not_drone, base_stations_vacant };
 
 
 
@@ -25,6 +25,7 @@ namespace ConsoleUI
 
             int choice = 0;
             int id = 1;
+            DalObject.DalObject dal = new DalObject.DalObject();
 
             while (choice != 5)
             {
@@ -51,16 +52,16 @@ namespace ConsoleUI
                         switch (choice)
                         {
                             case 1:
-                                DalObject.DalObject.InsertStation(MainFunction.GetStation());
+                               dal.InsertStation(MainFunction.GetStation());
                                 break;
                             case 2:
-                                DalObject.DalObject.InsertDrone(MainFunction.GetDrone());
+                                dal.InsertDrone(MainFunction.GetDrone());
                                 break;
                             case 3:
-                                DalObject.DalObject.InsertCustomer(MainFunction.GetCustomer());
+                                dal.InsertCustomer(MainFunction.GetCustomer());
                                 break;
                             case 4:
-                                DalObject.DalObject.InsertParsel(MainFunction.GetParsel());
+                               dal.InsertParsel(MainFunction.GetParsel());
 
                                 break;
                             default:
@@ -80,13 +81,13 @@ namespace ConsoleUI
                         switch (choice)
                         {
                             case 1:
-                                DalObject.DalObject.UpdateParseךScheduled(MainFunction.GetIdOfParcel());
+                                dal.UpdateParseךScheduled(MainFunction.GetIdOfParcel());
                                 break;
                             case 2:
-                                DalObject.DalObject.UpdateParselPickedUp(MainFunction.GetIdOfParcel());
+                                dal.UpdateParselPickedUp(MainFunction.GetIdOfParcel());
                                 break;
                             case 3:
-                                DalObject.DalObject.UpdateParselDelivered(MainFunction.GetIdOfParcel());
+                                dal.UpdateParselDelivered(MainFunction.GetIdOfParcel());
                                 break;
                             case 4:
                                 // code block
@@ -94,7 +95,7 @@ namespace ConsoleUI
                             case 5:
                                 // code block
                                 break;
-  
+
                             default:
                                 break;
                         }
@@ -114,16 +115,16 @@ namespace ConsoleUI
                         switch (choice)
                         {
                             case 1:
-                                // code block
+                                Console.WriteLine(dal.GetStation(MainFunction.EnterId()));
                                 break;
                             case 2:
-                                // code block
+                                Console.WriteLine(dal.GetDrone(MainFunction.EnterId()));
                                 break;
                             case 3:
-                                // code block
+                                Console.WriteLine(dal.GetCustomer(MainFunction.EnterId()));
                                 break;
                             case 4:
-                                // code block
+                                Console.WriteLine(dal.GetParsel(MainFunction.EnterId()));
                                 break;
                             default:
                                 break;
@@ -145,19 +146,35 @@ namespace ConsoleUI
                         {
 
                             case 1:
-                                // code block
+                                foreach (var station in dal.GetStations())
+                                {
+                                    Console.Write(station);
+                                }
                                 break;
                             case 2:
-                                // code block
+                                foreach (var drone in dal.GetDrones())
+                                {
+                                    Console.Write(drone);
+                                }
                                 break;
                             case 3:
-                                // code block
+                                foreach (var customer in dal.GetCustomers())
+                                {
+                                    Console.Write(customer);
+                                }
                                 break;
                             case 4:
-                                // code block
+                                foreach (var parsel in dal.GetParsels())
+                                {
+                                    Console.Write(parsel);
+                                }
                                 break;
                             case 5:
-                                // code block
+                                foreach (var parsel in dal.UnassignedPackages())
+                                {
+                                    Console.Write(parsel);
+                                }
+                               
                                 break;
                             case 6:
                                 // code block

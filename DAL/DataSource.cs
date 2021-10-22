@@ -15,7 +15,7 @@ namespace DalObject
         static internal Drone[] drones = new Drone[10];
         static internal Station[] stations = new Station[5];
         static internal Customer[] customers = new Customer[100];
-        static internal Parsel[] parseles = new Parsel[1000];
+        static internal Parsel[] parsels = new Parsel[1000];
         static internal List<DroneCharge> droneCharges =new List<DroneCharge>();
         internal class Config
         {
@@ -62,31 +62,22 @@ namespace DalObject
             }
 
             //parcel
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i <10; ++i)
             {
-                parseles[Config.IndParsel].Id = Config.IndParsel;
-                parseles[Config.IndParsel].SenderId = Rand.Next( Config.IndCustomer);
-                parseles[Config.IndParsel].TargetId = Rand.Next(Config.IndCustomer);
-                while(parseles[Config.IndParsel].SenderId== parseles[Config.IndParsel].TargetId)
+                parsels[Config.IndParsel].Id = Config.IndParsel;
+                parsels[Config.IndParsel].SenderId = Rand.Next( Config.IndCustomer);
+                parsels[Config.IndParsel].TargetId = Rand.Next(Config.IndCustomer);
+                while(parsels[Config.IndParsel].SenderId== parsels[Config.IndParsel].TargetId)
                 {
-                    parseles[Config.IndParsel].TargetId = Rand.Next(Config.IndCustomer);
+                    parsels[Config.IndParsel].TargetId = Rand.Next(Config.IndCustomer);
                 }
-                parseles[Config.IndParsel].Weight = (WeightCategories)(Rand.Next(0,3));
-                parseles[Config.IndParsel].Priority = (Priorities)(Rand.Next(0, 3));
-                parseles[Config.IndParsel].Droneld = 0;
-                for (int l = 0; l<Config.IndDrone;++l)
-                {
-                    if(drones[l].Id == i)
-                    {
-                        parseles[Config.IndParsel].Droneld = l;
-                        break;
-                    }
-                }
-                parseles[Config.IndParsel].Droneld = Rand.Next(Config.IndDrone);
-                parseles[Config.IndParsel].Requested = DateTime.Now;
-                parseles[Config.IndParsel].Scheduled = DateTime.Now.AddDays(2);
-                parseles[Config.IndParsel].PickedUp = DateTime.Now.AddDays(30);
-                parseles[Config.IndParsel].Delivered = DateTime.Now.AddDays(32);
+                parsels[Config.IndParsel].Weight = (WeightCategories)(Rand.Next(0,3));
+                parsels[Config.IndParsel].Priority = (Priorities)(Rand.Next(0, 3));
+                parsels[Config.IndParsel].Droneld = Config.IndParsel;
+                parsels[Config.IndParsel].Requested = DateTime.Now;
+                parsels[Config.IndParsel].Scheduled = DateTime.Now.AddDays(2);
+                parsels[Config.IndParsel].PickedUp = DateTime.Now.AddDays(30);
+                parsels[Config.IndParsel].Delivered = DateTime.Now.AddDays(32);
                 ++Config.IndParsel;
             }
 

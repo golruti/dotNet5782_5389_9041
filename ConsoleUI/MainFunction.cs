@@ -207,5 +207,13 @@ namespace ConsoleUI
 
         }
 
+
+        public static int EnterId()
+        {
+            Console.Write("Enter a number");
+            int Id = int.Parse(Console.ReadLine());
+            return Id;
+        }
+
     }
 }

@@ -23,6 +23,28 @@ namespace IDAL
             public DateTime PickedUp { get; set; }
             public DateTime Delivered { get; set; }
 
+            public override string ToString()
+            {
+                return ("\nid: " + Id + "\nSenderId: " + SenderId + "\nTargetId: " + TargetId +
+                    "\nWeight: " + Weight + "\nRequested: " + Requested + "\nDroneld: " + Droneld
+                    + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered+"\n");
+            }
+
+            public Parsel Clone()
+            {
+                return new Parsel()
+                {
+                    Id = this.Id,
+                    SenderId = this.SenderId,
+                    TargetId = this.TargetId,
+                    Weight = this.Weight,
+                    Requested = this.Requested,
+                    Droneld = this.Droneld,
+                    Scheduled = this.Scheduled,
+                    PickedUp = this.PickedUp,
+                    Delivered = this.Delivered
+                };
+            }
 
         }
     }
