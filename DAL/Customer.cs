@@ -17,12 +17,20 @@ namespace IDAL
             public double Lattitude { get; set; }
 
 
-
+            /// <summary>
+            /// String of details for skimmer
+            /// </summary>
+            /// <returns>String of details for skimmer</returns>
             public override string ToString()
             {
                 return ("\nId: " + Id + "\nName: " + Name + "\nPhone: " + Phone +
                     "\nLongitude: " + Longitude + "\nLattitude: " + Lattitude+"\n");
             }
+
+            /// <summary>
+            /// constructor-create a new customer
+            /// </summary>
+            /// <returns>customer</returns>
             public Customer Clone()
             {
                 return new Customer()

@@ -25,6 +25,9 @@ namespace DalObject
             public static int IndParsel = 0;
         }
 
+        /// <summary>
+        /// The function initializes 2 base stations, 10 customers, 5 skimmers and 10 packages
+        /// </summary>
         public static void Initialize()
         {
 

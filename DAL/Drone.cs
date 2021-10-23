@@ -18,12 +18,20 @@ namespace IDAL
             public DroneStatuses Status { get; set; }
             public double Battery { get; set; }
 
+            /// <summary>
+            /// String of details for skimmer
+            /// </summary>
+            /// <returns>String of details for skimmer</returns>
             public override string ToString()
             {
                 return ("\nId: " + Id + "\nModel: " + Model + "\nMaxWeight: " + MaxWeight + 
                     "\nStatus: " + Status + "\nBattery: " + Battery+"%\n");
             }
 
+            /// <summary>
+            /// constructor-create a new drone
+            /// </summary>
+            /// <returns>drone</returns>
             public Drone Clone()
             {
                 return new Drone()

@@ -12,7 +12,10 @@ namespace ConsoleUI
 {
     public class MainFunction
     {
-
+        /// <summary>
+        /// The function asks the user to enter station details
+        /// </summary>
+        /// <returns>station</returns>
         public static Station GetStation()
         {
             Station tempStation = new Station();
@@ -37,7 +40,10 @@ namespace ConsoleUI
 
 
 
-
+        /// <summary>
+        /// The function asks the user to enter skimmer details
+        /// </summary>
+        /// <returns>drone</returns>
         public static Drone GetDrone()
         {
             int tempChoice;
@@ -88,7 +94,10 @@ namespace ConsoleUI
 
 
 
-
+        /// <summary>
+        /// The function asks the user to enter customer details
+        /// </summary>
+        /// <returns>customer</returns>
         public static Customer GetCustomer()
         {
             Customer tempCustomer = new Customer();
@@ -113,7 +122,10 @@ namespace ConsoleUI
         }
 
 
-
+        /// <summary>
+        /// The function asks the user to enter package details
+        /// </summary>
+        /// <returns>parsel</returns>
         public static Parsel GetParsel()
         {
             int tempChoice;
@@ -169,6 +181,11 @@ namespace ConsoleUI
 
 
 
+
+        /// <summary>
+        /// ask from the user too press number for id
+        /// </summary>
+        /// <returns>id</returns>
         public static int EnterId()
         {
             Console.Write("Enter a number ");

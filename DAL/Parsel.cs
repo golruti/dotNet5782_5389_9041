@@ -22,6 +22,10 @@ namespace IDAL
             public DateTime PickedUp { get; set; }
             public DateTime Delivered { get; set; }
 
+            /// <summary>
+            /// String of details for package
+            /// </summary>
+            /// <returns>String of details for package</returns>
             public override string ToString()
             {
                 return ("\nid: " + Id + "\nSenderId: " + SenderId + "\nTargetId: " + TargetId +
@@ -29,6 +33,10 @@ namespace IDAL
                     + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered+"\n");
             }
 
+            /// <summary>
+            /// constructor-create a new parsel
+            /// </summary>
+            /// <returns>parsel</returns>
             public Parsel Clone()
             {
                 return new Parsel()
