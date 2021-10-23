@@ -18,7 +18,6 @@ namespace ConsoleUI
         public enum Disply { Base_station, Drone, Customer, Parcel };
         public enum View { Base_stations, Drone, Customers, Parsel, Parsels_not_drone, Base_stations_vacant };
 
-
         static void Main(string[] args)
         {
             int choice = 0;
@@ -56,6 +55,7 @@ namespace ConsoleUI
                             case 2:
                                 dal.InsertDrone(MainFunction.GetDrone());
                                 break;
+
                             case 3:
                                 dal.InsertCustomer(MainFunction.GetCustomer());
                                 break;

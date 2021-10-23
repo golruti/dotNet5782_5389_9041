@@ -14,8 +14,7 @@ namespace IDAL
             public override string ToString()
             {
                 return ("\nid: " + Id + "\nname: " + Name + "\nLongitude: " + Longitude +
-                    "\nLattitude: " + Lattitude + "\nChargeSlote: " + ChargeSlote+"\n");
-
+                    "\nLattitude: " + Lattitude + "\nChargeSlote: " + ChargeSlote + "\n");
             }
             public Station Clone()
             {

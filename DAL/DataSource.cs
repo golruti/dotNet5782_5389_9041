@@ -80,10 +80,8 @@ namespace DalObject
                 parsels[Config.IndParsel].Delivered = DateTime.Now.AddDays(32);
                 ++Config.IndParsel;
             }
-
         }
     }
-
 }
     
 
