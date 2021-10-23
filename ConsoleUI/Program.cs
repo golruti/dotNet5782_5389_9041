@@ -19,10 +19,8 @@ namespace ConsoleUI
         public enum View { Base_stations, Drone, Customers, Parsel, Parsels_not_drone, Base_stations_vacant };
 
 
-
         static void Main(string[] args)
         {
-
             int choice = 0;
             int choice2 = 0;
 
@@ -40,10 +38,8 @@ namespace ConsoleUI
                 id = 1;
                 choice2 = int.Parse(Console.ReadLine());
 
-
                 switch (choice2)
                 {
-
                     case 1:
                         foreach (var option in System.Enum.GetNames(typeof(Insert)))
                         {
@@ -52,7 +48,6 @@ namespace ConsoleUI
                         }
                         id = 1;
                         choice = int.Parse(Console.ReadLine());
-
                         switch (choice)
                         {
                             case 1:
@@ -72,7 +67,6 @@ namespace ConsoleUI
                         }
                         break;
 
-
                     case 2:
                         foreach (var option in System.Enum.GetNames(typeof(Update)))
                         {
@@ -80,7 +74,6 @@ namespace ConsoleUI
                         }
                         id = 1;
                         choice = int.Parse(Console.ReadLine());
-
                         switch (choice)
                         {
                             case 1:
@@ -107,14 +100,10 @@ namespace ConsoleUI
                                 else
                                     Console.WriteLine("##OK##");
                                 break;
-
                             default:
                                 break;
                         }
                         break;
-
-
-
 
                     case 3:
                         foreach (var option in System.Enum.GetNames(typeof(Disply)))
@@ -123,7 +112,6 @@ namespace ConsoleUI
                         }
                         id = 1;
                         choice = int.Parse(Console.ReadLine());
-
                         switch (choice)
                         {
                             case 1:
@@ -143,9 +131,6 @@ namespace ConsoleUI
                         }
                         break;
 
-
-
-
                     case 4:
                         foreach (var option in System.Enum.GetNames(typeof(View)))
                         {
@@ -153,10 +138,8 @@ namespace ConsoleUI
                         }
                         id = 1;
                         choice = int.Parse(Console.ReadLine());
-
                         switch (choice)
                         {
-
                             case 1:
                                 foreach (var station in dal.GetStations())
                                 {
@@ -186,20 +169,17 @@ namespace ConsoleUI
                                 {
                                     Console.Write(parsel);
                                 }
-
                                 break;
                             case 6:
                                 foreach (var station in dal.GetAvaStations())
                                 {
                                     Console.Write(station);
                                 }
-
                                 break;
                             default:
                                 break;
                         }
                         break;
-
 
                     default:
                         break;
