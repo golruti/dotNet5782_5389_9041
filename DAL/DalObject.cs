@@ -14,6 +14,7 @@ namespace DalObject
             DataSource.Initialize();
         }
 
+
         //insert
         public void InsertStation(Station station)
         {
@@ -71,9 +72,6 @@ namespace DalObject
 
 
 
-
-
-
         //drone charge
         public bool TryAddDroneCarge(int droneId)
         {
@@ -90,6 +88,7 @@ namespace DalObject
             drone.Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
             return true;
         }
+
         public bool TryRemoveDroneCarge(int droneId)
          {
             if (!DataSource.droneCharges.Any(dc => dc.DroneId == droneId))
