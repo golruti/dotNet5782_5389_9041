@@ -91,7 +91,7 @@ namespace DalObject
             return true;
         }
         public bool TryRemoveDroneCarge(int droneId)
-        {
+         {
             if (!DataSource.droneCharges.Any(dc => dc.DroneId == droneId))
                 return false;
             var droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId);
@@ -108,21 +108,29 @@ namespace DalObject
 
 
         //פונקציות השולפות לפי אינדקס
+
+
         public Station GetStation(int idxStation)
         {
-            return DataSource.stations[idxStation];
+            var station = DataSource.stations.FirstOrDefault(s => s.Id == idxStation);
+            return station;
         }
+
+
         public Drone GetDrone(int idxDrone)
         {
-            return DataSource.drones[idxDrone];
+            var drone = DataSource.drones.FirstOrDefault(d => d.Id == idxDrone);
+            return drone;
         }
         public Customer GetCustomer(int idxCustomer)
         {
-            return DataSource.customers[idxCustomer];
+            var customer = DataSource.customers.FirstOrDefault(c => c.Id == idxCustomer);
+            return customer;
         }
         public Parsel GetParsel(int idxParsel)
         {
-            return DataSource.parsels[idxParsel];
+            var parsel = DataSource.parsels.FirstOrDefault(p => p.Id == idxParsel);
+            return parsel;
         }
 
 

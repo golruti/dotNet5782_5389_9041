@@ -19,25 +19,26 @@ namespace ConsoleUI
             string tempName;
             double tempLongitude, tempLattitude;
             Station tempStation = new Station();
-            Console.Write("Enter id");
+            Console.Write("Enter id ");
             tempID = int.Parse(Console.ReadLine());
             tempStation.Id = tempID;
 
-            Console.Write("Enter name");
+            Console.Write("Enter name ");
             tempName = Console.ReadLine();
             tempStation.Name = tempName;
 
-            Console.Write("Enter longitude");
+            Console.Write("Enter longitude ");
             tempLongitude = double.Parse(Console.ReadLine());
             tempStation.Longitude = tempLongitude;
 
-            Console.Write("Enter lattitude");
+            Console.Write("Enter lattitude ");
             tempLattitude = double.Parse(Console.ReadLine());
             tempStation.Lattitude = tempLattitude;
 
-            Console.Write("Enter chargeSlote");
+            Console.Write("Enter chargeSlote ");
             tempChargeSlote = int.Parse(Console.ReadLine());
             tempStation.ChargeSlote = tempChargeSlote;
+            Console.Write("##OK##\n\n");
 
             return tempStation;
         }
@@ -54,19 +55,19 @@ namespace ConsoleUI
             double tempLBettery;
             Drone tempDrone = new Drone();
 
-            Console.Write("Enter id");
+            Console.Write("Enter id ");
             tempID = int.Parse(Console.ReadLine());
             tempDrone.Id = tempID;
 
-            Console.Write("Enter model");
+            Console.Write("Enter model ");
             tempModel = Console.ReadLine();
             tempDrone.Model = tempModel;
 
-            Console.Write("Enter bettery");
+            Console.Write("Enter bettery ");
             tempLBettery = double.Parse(Console.ReadLine());
             tempDrone.Battery = tempLBettery;
 
-            Console.Write("Enter max weight, 1-light,2-heavy,3-medium");
+            Console.Write("Enter max weight: 1--light,2--heavy,3--medium  ");
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
@@ -83,7 +84,7 @@ namespace ConsoleUI
             tempDrone.MaxWeight = tempMaxWeight;
 
 
-            Console.Write("Enter status, 1-available,2- maintenance,3-delivery");
+            Console.Write("Enter status: 1--available,2--maintenance,3--delivery  ");
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
@@ -97,6 +98,8 @@ namespace ConsoleUI
             {
                 tempStatus = DroneStatuses.Maintenance;
             }
+
+            Console.Write("##OK##\n\n");
             return tempDrone;
         }
 
@@ -110,26 +113,27 @@ namespace ConsoleUI
             double tempLongitude, tempLattitude;
             Customer tempCustomer = new Customer();
 
-            Console.Write("Enter id");
+            Console.Write("Enter id ");
             tempID = int.Parse(Console.ReadLine());
             tempCustomer.Id = tempID;
 
-            Console.Write("Enter name");
+            Console.Write("Enter name ");
             tempName = Console.ReadLine();
             tempCustomer.Name = tempName;
 
-            Console.Write("Enter phone");
+            Console.Write("Enter phone ");
             tempPhone = Console.ReadLine();
             tempCustomer.Phone = tempPhone;
 
-            Console.Write("Enter longitude");
+            Console.Write("Enter longitude ");
             tempLongitude = double.Parse(Console.ReadLine());
             tempCustomer.Longitude = tempLongitude;
 
-            Console.Write("Enter lattitude");
+            Console.Write("Enter lattitude ");
             tempLattitude = double.Parse(Console.ReadLine());
             tempCustomer.Longitude = tempLattitude;
 
+            Console.Write("##OK##\n\n");
             return tempCustomer;
         }
 
@@ -142,24 +146,24 @@ namespace ConsoleUI
             Priorities tempPriority;
             Parsel tempParsel = new Parsel();
 
-            Console.Write("Enter id");
+            Console.Write("Enter id ");
             tempID = int.Parse(Console.ReadLine());
             tempParsel.Id = tempID;
 
-            Console.Write("Enter sender id");
+            Console.Write("Enter sender id ");
             tempSenderId = int.Parse(Console.ReadLine());
             tempParsel.SenderId = tempSenderId;
 
-            Console.Write("Enter terget id");
+            Console.Write("Enter terget id ");
             tempTargetId = int.Parse(Console.ReadLine());
             tempParsel.TargetId = tempTargetId;
 
-            Console.Write("Enter drone id");
+            Console.Write("Enter drone id ");
             tempDroneId = int.Parse(Console.ReadLine());
             tempParsel.Droneld = tempDroneId;
 
 
-            Console.Write("Enter the weight, 1-light,2-heavy,3-medium");
+            Console.Write("Enter the weight: 1--light,2--heavy,3--medium  ");
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
@@ -176,7 +180,7 @@ namespace ConsoleUI
             tempParsel.Weight = tempWeight;
 
 
-            Console.Write("Enter prioruty, 1-regular,2-fast,3-emergency");
+            Console.Write("Enter prioruty: 1--regular,2--fast,3--emergency  ");
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
@@ -193,24 +197,18 @@ namespace ConsoleUI
             tempParsel.Priority = tempPriority;
 
             tempParsel.Requested = DateTime.Now;
+
+            Console.Write("##OK##\n\n");
             return tempParsel;
         }
 
 
 
 
-        public static int GetId()
-        {
-            Console.Write("Enter a package number");
-            int droneId = int.Parse(Console.ReadLine());
-            return droneId;
-
-        }
-
-
+ 
         public static int EnterId()
         {
-            Console.Write("Enter a number");
+            Console.Write("Enter a number ");
             int Id = int.Parse(Console.ReadLine());
             return Id;
         }

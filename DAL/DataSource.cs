@@ -44,7 +44,7 @@ namespace DalObject
             {
                 customers[Config.IndCustomer].Id = Config.IndCustomer;
                 customers[Config.IndCustomer].Name = $"customer {Config.IndCustomer}";
-                customers[Config.IndCustomer].Phone = $"05 {Rand.Next(10000000,100000000)}|";
+                customers[Config.IndCustomer].Phone = $"05{Rand.Next(10000000,100000000)}";
                 customers[Config.IndCustomer].Lattitude = Rand.Next(181) + Rand.NextDouble();
                 customers[Config.IndCustomer].Longitude = Rand.Next(91) + Rand.NextDouble();
                 ++Config.IndCustomer;

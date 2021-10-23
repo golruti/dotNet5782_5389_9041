@@ -5,18 +5,18 @@ namespace ConsoleUI
 {
     class Program
     {
-        public enum Options { insert, update, disply, view };
-        public enum Insert { base_station, drone, customer, parcel };
+        public enum Options { Insert, Update, Disply, View, Exit };
+        public enum Insert { Base_station, Drone, Customer, Parcel };
         public enum Update
         {
-            Assign_a_package_to_a_skimmer,
-            Package_assembly_by_skimmer,
+            Assign_a_package_to_a_drone,
+            Package_assembly_by_drone,
             Delivery_of_a_package_to_the_destination,
-            Sending_a_skimmer_for_charging_at_a_base_station,
-            Releasing_a_skimmer_from_charging
+            Sending_a_drone_for_charging_at_a_base_station,
+            Releasing_a_drone_from_charging
         };
-        public enum Disply { base_station, drone, customer, parcel };
-        public enum View { base_stations, drone, customers, parsel, parsels_not_drone, base_stations_vacant };
+        public enum Disply { Base_station, Drone, Customer, Parcel };
+        public enum View { Base_stations, Drone, Customers, Parsel, Parsels_not_drone, Base_stations_vacant };
 
 
 
@@ -31,10 +31,12 @@ namespace ConsoleUI
 
             while (choice2 != 5)
             {
-                foreach (var item in System.Enum.GetNames(typeof(Options)))
+                Console.Write("------------\n");
+                foreach (var option in System.Enum.GetNames(typeof(Options)))
                 {
-                    Console.Write(item + "-" + (id++) + "\n");
+                  Console.Write((id++) + "--- " + option + "\n");
                 }
+                Console.Write("------------\n");
                 id = 1;
                 choice2 = int.Parse(Console.ReadLine());
 
@@ -43,10 +45,10 @@ namespace ConsoleUI
                 {
 
                     case 1:
-                        foreach (var item in System.Enum.GetNames(typeof(Insert)))
+                        foreach (var option in System.Enum.GetNames(typeof(Insert)))
                         {
 
-                            Console.Write(item + "-" + (id++) + "\n");
+                            Console.Write((id++) + "--- " + option + "\n");
                         }
                         id = 1;
                         choice = int.Parse(Console.ReadLine());
@@ -64,7 +66,6 @@ namespace ConsoleUI
                                 break;
                             case 4:
                                 dal.InsertParsel(MainFunction.GetParsel());
-
                                 break;
                             default:
                                 break;
@@ -73,9 +74,9 @@ namespace ConsoleUI
 
 
                     case 2:
-                        foreach (var item in System.Enum.GetNames(typeof(Update)))
+                        foreach (var option in System.Enum.GetNames(typeof(Update)))
                         {
-                            Console.Write(item + "-" + (id++) + "\n");
+                            Console.Write((id++) + "--- " + option + "\n");
                         }
                         id = 1;
                         choice = int.Parse(Console.ReadLine());
@@ -83,25 +84,28 @@ namespace ConsoleUI
                         switch (choice)
                         {
                             case 1:
-                                dal.UpdateParseךScheduled(MainFunction.GetId());
+                                dal.UpdateParseךScheduled(MainFunction.EnterId());
+                                Console.Write("##OK##\n");
                                 break;
                             case 2:
-                                dal.UpdateParselPickedUp(MainFunction.GetId());
+                                dal.UpdateParselPickedUp(MainFunction.EnterId());
+                                Console.Write("##OK##\n");
                                 break;
                             case 3:
-                                dal.UpdateParselDelivered(MainFunction.GetId());
+                                dal.UpdateParselDelivered(MainFunction.EnterId());
+                                Console.Write("##OK##\n");
                                 break;
                             case 4:
-                                if (!dal.TryAddDroneCarge(MainFunction.GetId()))
-                                    Console.WriteLine("X");
+                                if (!dal.TryAddDroneCarge(MainFunction.EnterId()))
+                                    Console.WriteLine("Skimmer does not exist or there is no available charging station\n");
                                 else
-                                    Console.WriteLine("V");
+                                    Console.WriteLine("##OK##");
                                 break;
                             case 5:
-                                if (!dal.TryRemoveDroneCarge(MainFunction.GetId()))
-                                    Console.WriteLine("X");
+                                if (!dal.TryRemoveDroneCarge(MainFunction.EnterId()))
+                                    Console.WriteLine("The drone is not charging\n");
                                 else
-                                    Console.WriteLine("V");
+                                    Console.WriteLine("##OK##");
                                 break;
 
                             default:
@@ -113,9 +117,9 @@ namespace ConsoleUI
 
 
                     case 3:
-                        foreach (var item in System.Enum.GetNames(typeof(Disply)))
+                        foreach (var option in System.Enum.GetNames(typeof(Disply)))
                         {
-                            Console.Write(item + "-" + (id++) + "\n");
+                            Console.Write((id++) + "--- " + option + "\n");
                         }
                         id = 1;
                         choice = int.Parse(Console.ReadLine());
@@ -143,9 +147,9 @@ namespace ConsoleUI
 
 
                     case 4:
-                        foreach (var item in System.Enum.GetNames(typeof(View)))
+                        foreach (var option in System.Enum.GetNames(typeof(View)))
                         {
-                            Console.Write(item + "-" + (id++) + "\n");
+                            Console.Write((id++) + "--- " + option + "\n");
                         }
                         id = 1;
                         choice = int.Parse(Console.ReadLine());

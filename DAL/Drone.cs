@@ -21,7 +21,7 @@ namespace IDAL
             public override string ToString()
             {
                 return ("\nId: " + Id + "\nModel: " + Model + "\nMaxWeight: " + MaxWeight + 
-                    "\nStatus: " + Status + "\nBattery: " + Battery+"\n");
+                    "\nStatus: " + Status + "\nBattery: " + Battery+"%\n");
             }
 
             public Drone Clone()
