@@ -29,11 +29,5 @@ namespace IDAL
                 };
             }
         }
-
-        //public override void ToString()
-        //{
-        //    return "id: " + base.Id + "name: " + base.nameId + "logitude: " + base.Logitude + "lattitude: " + base.Lattitude +
-        //   "charge slote: " + base.ChargeSlote;
-        //}
     }
 }
