@@ -20,7 +20,6 @@ namespace IDAL
 
             public enum Priorities
             {
-
                 Regular,
                 Fast,
                 Emergency
