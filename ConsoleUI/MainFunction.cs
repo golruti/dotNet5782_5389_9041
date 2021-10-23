@@ -15,29 +15,21 @@ namespace ConsoleUI
 
         public static Station GetStation()
         {
-            int tempID, tempChargeSlote;
-            string tempName;
-            double tempLongitude, tempLattitude;
             Station tempStation = new Station();
             Console.Write("Enter id ");
-            tempID = int.Parse(Console.ReadLine());
-            tempStation.Id = tempID;
+            tempStation.Id = int.Parse(Console.ReadLine());
 
             Console.Write("Enter name ");
-            tempName = Console.ReadLine();
-            tempStation.Name = tempName;
+            tempStation.Name = Console.ReadLine();
 
             Console.Write("Enter longitude ");
-            tempLongitude = double.Parse(Console.ReadLine());
-            tempStation.Longitude = tempLongitude;
+            tempStation.Longitude = double.Parse(Console.ReadLine());
 
             Console.Write("Enter lattitude ");
-            tempLattitude = double.Parse(Console.ReadLine());
-            tempStation.Lattitude = tempLattitude;
+            tempStation.Lattitude = double.Parse(Console.ReadLine());
 
             Console.Write("Enter chargeSlote ");
-            tempChargeSlote = int.Parse(Console.ReadLine());
-            tempStation.ChargeSlote = tempChargeSlote;
+            tempStation.ChargeSlote = int.Parse(Console.ReadLine());
             Console.Write("##OK##\n\n");
 
             return tempStation;
@@ -48,55 +40,46 @@ namespace ConsoleUI
 
         public static Drone GetDrone()
         {
-            int tempID, tempChoice;
-            string tempModel;
-            WeightCategories tempMaxWeight;
-            DroneStatuses tempStatus;
-            double tempLBettery;
+            int tempChoice;
             Drone tempDrone = new Drone();
 
             Console.Write("Enter id ");
-            tempID = int.Parse(Console.ReadLine());
-            tempDrone.Id = tempID;
+            tempDrone.Id = int.Parse(Console.ReadLine());
 
             Console.Write("Enter model ");
-            tempModel = Console.ReadLine();
-            tempDrone.Model = tempModel;
+            tempDrone.Model = Console.ReadLine(); ;
 
             Console.Write("Enter bettery ");
-            tempLBettery = double.Parse(Console.ReadLine());
-            tempDrone.Battery = tempLBettery;
+            tempDrone.Battery = double.Parse(Console.ReadLine());
 
             Console.Write("Enter max weight: 1--light,2--heavy,3--medium  ");
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
-                tempMaxWeight = WeightCategories.Light;
+                tempDrone.MaxWeight = WeightCategories.Light;
             }
             else if (tempChoice == 2)
             {
-                tempMaxWeight = WeightCategories.Medium;
+                tempDrone.MaxWeight = WeightCategories.Medium;
             }
             else
             {
-                tempMaxWeight = WeightCategories.Heavy;
+                tempDrone.MaxWeight = WeightCategories.Heavy;
             }
-            tempDrone.MaxWeight = tempMaxWeight;
-
 
             Console.Write("Enter status: 1--available,2--maintenance,3--delivery  ");
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
-                tempStatus = DroneStatuses.Available;
+                tempDrone.Status= DroneStatuses.Available;
             }
             else if (tempChoice == 2)
             {
-                tempStatus = DroneStatuses.Delivery;
+                tempDrone.Status = DroneStatuses.Delivery;
             }
             else
             {
-                tempStatus = DroneStatuses.Maintenance;
+                tempDrone.Status = DroneStatuses.Maintenance;
             }
 
             Console.Write("##OK##\n\n");
@@ -108,30 +91,22 @@ namespace ConsoleUI
 
         public static Customer GetCustomer()
         {
-            int tempID;
-            string tempName, tempPhone;
-            double tempLongitude, tempLattitude;
             Customer tempCustomer = new Customer();
 
             Console.Write("Enter id ");
-            tempID = int.Parse(Console.ReadLine());
-            tempCustomer.Id = tempID;
+            tempCustomer.Id = int.Parse(Console.ReadLine());
 
             Console.Write("Enter name ");
-            tempName = Console.ReadLine();
-            tempCustomer.Name = tempName;
+            tempCustomer.Name = Console.ReadLine();
 
             Console.Write("Enter phone ");
-            tempPhone = Console.ReadLine();
-            tempCustomer.Phone = tempPhone;
+            tempCustomer.Phone = Console.ReadLine();
 
             Console.Write("Enter longitude ");
-            tempLongitude = double.Parse(Console.ReadLine());
-            tempCustomer.Longitude = tempLongitude;
+            tempCustomer.Longitude = double.Parse(Console.ReadLine());
 
             Console.Write("Enter lattitude ");
-            tempLattitude = double.Parse(Console.ReadLine());
-            tempCustomer.Longitude = tempLattitude;
+            tempCustomer.Longitude = double.Parse(Console.ReadLine());
 
             Console.Write("##OK##\n\n");
             return tempCustomer;
@@ -141,60 +116,50 @@ namespace ConsoleUI
 
         public static Parsel GetParsel()
         {
-            int tempID, tempDroneId, tempSenderId, tempTargetId, tempChoice;
-            WeightCategories tempWeight;
-            Priorities tempPriority;
+            int tempChoice;
             Parsel tempParsel = new Parsel();
 
             Console.Write("Enter id ");
-            tempID = int.Parse(Console.ReadLine());
-            tempParsel.Id = tempID;
+            tempParsel.Id = int.Parse(Console.ReadLine());
 
             Console.Write("Enter sender id ");
-            tempSenderId = int.Parse(Console.ReadLine());
-            tempParsel.SenderId = tempSenderId;
+            tempParsel.SenderId = int.Parse(Console.ReadLine());
 
             Console.Write("Enter terget id ");
-            tempTargetId = int.Parse(Console.ReadLine());
-            tempParsel.TargetId = tempTargetId;
+            tempParsel.TargetId = int.Parse(Console.ReadLine());
 
             Console.Write("Enter drone id ");
-            tempDroneId = int.Parse(Console.ReadLine());
-            tempParsel.Droneld = tempDroneId;
-
+            tempParsel.Droneld = int.Parse(Console.ReadLine());
 
             Console.Write("Enter the weight: 1--light,2--heavy,3--medium  ");
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
-                tempWeight = WeightCategories.Light;
+                tempParsel.Weight = WeightCategories.Light;
             }
             else if (tempChoice == 2)
             {
-                tempWeight = WeightCategories.Medium;
+                tempParsel.Weight = WeightCategories.Medium;
             }
             else
             {
-                tempWeight = WeightCategories.Heavy;
+                tempParsel.Weight = WeightCategories.Heavy;
             }
-            tempParsel.Weight = tempWeight;
-
 
             Console.Write("Enter prioruty: 1--regular,2--fast,3--emergency  ");
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
-                tempPriority = Priorities.Regular;
+                tempParsel.Priority = Priorities.Regular;
             }
             else if (tempChoice == 2)
             {
-                tempPriority = Priorities.Fast;
+                tempParsel.Priority = Priorities.Fast;
             }
             else
             {
-                tempPriority = Priorities.Fast;
+                tempParsel.Priority = Priorities.Fast;
             }
-            tempParsel.Priority = tempPriority;
 
             tempParsel.Requested = DateTime.Now;
 
@@ -204,8 +169,6 @@ namespace ConsoleUI
 
 
 
-
- 
         public static int EnterId()
         {
             Console.Write("Enter a number ");
