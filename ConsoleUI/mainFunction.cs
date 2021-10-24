@@ -41,7 +41,7 @@ namespace ConsoleUI
 
 
         /// <summary>
-        /// The function asks the user to enter skimmer details
+        /// The function asks the user to enter drone details
         /// </summary>
         /// <returns>drone</returns>
         public static Drone GetDrone()
@@ -77,7 +77,7 @@ namespace ConsoleUI
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
-                tempDrone.Status= DroneStatuses.Available;
+                tempDrone.Status = DroneStatuses.Available;
             }
             else if (tempChoice == 2)
             {
@@ -123,63 +123,61 @@ namespace ConsoleUI
 
 
         /// <summary>
-        /// The function asks the user to enter package details
+        /// The function asks the user to enter parcel details
         /// </summary>
-        /// <returns>parsel</returns>
-        public static Parsel GetParsel()
+        /// <returns>parcel</returns>
+        public static parcel GetParcel()
         {
             int tempChoice;
-            Parsel tempParsel = new Parsel();
+            parcel tempParcel = new parcel();
 
             Console.Write("Enter id ");
-            tempParsel.Id = int.Parse(Console.ReadLine());
+            tempParcel.Id = int.Parse(Console.ReadLine());
 
             Console.Write("Enter sender id ");
-            tempParsel.SenderId = int.Parse(Console.ReadLine());
+            tempParcel.SenderId = int.Parse(Console.ReadLine());
 
             Console.Write("Enter terget id ");
-            tempParsel.TargetId = int.Parse(Console.ReadLine());
+            tempParcel.TargetId = int.Parse(Console.ReadLine());
 
             Console.Write("Enter drone id ");
-            tempParsel.Droneld = int.Parse(Console.ReadLine());
+            tempParcel.Droneld = int.Parse(Console.ReadLine());
 
             Console.Write("Enter the weight: 1--light,2--heavy,3--medium  ");
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
-                tempParsel.Weight = WeightCategories.Light;
+                tempParcel.Weight = WeightCategories.Light;
             }
             else if (tempChoice == 2)
             {
-                tempParsel.Weight = WeightCategories.Medium;
+                tempParcel.Weight = WeightCategories.Medium;
             }
             else
             {
-                tempParsel.Weight = WeightCategories.Heavy;
+                tempParcel.Weight = WeightCategories.Heavy;
             }
 
             Console.Write("Enter prioruty: 1--regular,2--fast,3--emergency  ");
             tempChoice = int.Parse(Console.ReadLine());
             if (tempChoice == 1)
             {
-                tempParsel.Priority = Priorities.Regular;
+                tempParcel.Priority = Priorities.Regular;
             }
             else if (tempChoice == 2)
             {
-                tempParsel.Priority = Priorities.Fast;
+                tempParcel.Priority = Priorities.Fast;
             }
             else
             {
-                tempParsel.Priority = Priorities.Fast;
+                tempParcel.Priority = Priorities.Fast;
             }
 
-            tempParsel.Requested = DateTime.Now;
+            tempParcel.Requested = DateTime.Now;
 
             Console.Write("##OK##\n\n");
-            return tempParsel;
+            return tempParcel;
         }
-
-
 
 
         /// <summary>

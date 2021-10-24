@@ -18,17 +18,17 @@ namespace IDAL
 
 
             /// <summary>
-            /// String of details for skimmer
+            /// String of details for drone
             /// </summary>
-            /// <returns>String of details for skimmer</returns>
+            /// <returns>String of details for drone</returns>
             public override string ToString()
             {
                 return ("\nId: " + Id + "\nName: " + Name + "\nPhone: " + Phone +
-                    "\nLongitude: " + Longitude + "\nLattitude: " + Lattitude+"\n");
+                    "\nLongitude: " + Longitude + "\nLattitude: " + Lattitude + "\n");
             }
 
             /// <summary>
-            /// constructor-create a new customer
+            /// The functions create a new instance of customer and copy a deep copy
             /// </summary>
             /// <returns>customer</returns>
             public Customer Clone()

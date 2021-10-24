@@ -10,7 +10,6 @@ namespace IDAL
     {
         public struct Enum
         {
-
             public enum WeightCategories
             {
                 Light,
@@ -31,8 +30,6 @@ namespace IDAL
                 Delivery,
                 Maintenance,
             }
-
-          
         }
     }
 }

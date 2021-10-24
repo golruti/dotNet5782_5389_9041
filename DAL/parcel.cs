@@ -9,7 +9,7 @@ namespace IDAL
 {
     namespace DO
     {
-        public struct Parsel
+        public struct parcel
         {
             public int Id { get; set; }
             public int SenderId { get; set; }
@@ -23,23 +23,23 @@ namespace IDAL
             public DateTime Delivered { get; set; }
 
             /// <summary>
-            /// String of details for package
+            /// String of details for parsel
             /// </summary>
-            /// <returns>String of details for package</returns>
+            /// <returns>String of details for parsel</returns>
             public override string ToString()
             {
                 return ("\nid: " + Id + "\nSenderId: " + SenderId + "\nTargetId: " + TargetId +
                     "\nWeight: " + Weight + "\nRequested: " + Requested + "\nDroneld: " + Droneld
-                    + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered+"\n");
+                    + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n");
             }
 
             /// <summary>
-            /// constructor-create a new parsel
+            /// The functions create a new instance of parsel and copy a deep copy
             /// </summary>
             /// <returns>parsel</returns>
-            public Parsel Clone()
+            public parcel Clone()
             {
-                return new Parsel()
+                return new parcel()
                 {
                     Id = this.Id,
                     SenderId = this.SenderId,

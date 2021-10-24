@@ -10,7 +10,7 @@ namespace DalObject
     public class DalObject
     {
         /// <summary>
-        /// A constructive function of a department that initializes skimmers, stations, customers and packages
+        /// A constructive function of a department that initializes drones, stations, customers and packages
         /// </summary>
         public DalObject()
         {
@@ -18,7 +18,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Add a base station to the list of stations
+        /// Add a base station to the array of stations
         /// </summary>
         /// <param name="station">struct of station</param>
         public void InsertStation(Station station)
@@ -27,7 +27,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Add a skimmer to the list of existing skimmers
+        /// Add a drone to the array of existing drones
         /// </summary>
         /// <param name="drone">struct of drone</param>
         public void InsertDrone(Drone drone)
@@ -36,7 +36,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Admission of a new customer to the customer list
+        /// Add a customer to the array of existing customers
         /// </summary>
         /// <param name="customer">struct of customer</param>
         public void InsertCustomer(Customer customer)
@@ -45,61 +45,61 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Receipt of package for shipment.
+        /// Receipt of parcel for shipment.
         /// </summary>
-        /// <param name="parsel">struct of parsel</param>
-        public void InsertParsel(Parsel parsel)
+        /// <param name="parcel">struct of parcel</param>
+        public void InsertParcel(parcel parcel)
         {
-            DataSource.parsels[DataSource.Config.IndParsel++] = parsel;
-            DataSource.parsels[DataSource.Config.IndParsel].Id = DataSource.Config.IndParsel;
+            DataSource.parcels[DataSource.Config.IndParcel++] = parcel;
+            DataSource.parcels[DataSource.Config.IndParcel].Id = DataSource.Config.IndParcel;
         }
 
 
         /// <summary>
-        /// Assigning a package to a skimmer
+        /// Assigning a parcel to a drone
         /// </summary>
-        /// <param name="idxParsel">Id of the parsel</param>
-        public void UpdateParseךScheduled(int idxParsel)
+        /// <param name="idxParcel">Id of the parcel</param>
+        public void UpdateParcelScheduled(int idxParcel)
         {
             for (int i = 0; i < DataSource.Config.IndDrone; ++i)
             {
                 if (DataSource.drones[i].Status == IDAL.DO.Enum.DroneStatuses.Available)
                 {
-                    DataSource.parsels[idxParsel].Scheduled = new DateTime();
-                    DataSource.parsels[idxParsel].Droneld = DataSource.drones[i].Id;
+                    DataSource.parcels[idxParcel].Scheduled = new DateTime();
+                    DataSource.parcels[idxParcel].Droneld = DataSource.drones[i].Id;
                     DataSource.drones[i].Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
-                    DataSource.drones[i].MaxWeight = DataSource.parsels[idxParsel].Weight;
+                    DataSource.drones[i].MaxWeight = DataSource.parcels[idxParcel].Weight;
                     break;
                 }
             }
         }
 
         /// <summary>
-        /// Skimmer package assembly
+        /// Assigning a parcel to a drone
         /// </summary>
-        /// <param name="idxParsel">Id of the parsel</param>
-        public void UpdateParselPickedUp(int idxParsel)
+        /// <param name="idxParcel">Id of the parcel</param>
+        public void UpdateParcelPickedUp(int idxParcel)
         {
-            DataSource.parsels[idxParsel].PickedUp = DateTime.Now;
-            DataSource.drones[DataSource.parsels[idxParsel].Droneld].Status = IDAL.DO.Enum.DroneStatuses.Delivery;
+            DataSource.parcels[idxParcel].PickedUp = DateTime.Now;
+            DataSource.drones[DataSource.parcels[idxParcel].Droneld].Status = IDAL.DO.Enum.DroneStatuses.Delivery;
         }
 
 
         /// <summary>
-        /// Delivery of a package to the destination
+        /// Delivery of a parcel to the destination
         /// </summary>
-        /// <param name="idxParsel">Id of the parsel</param>
-        public void UpdateParselDelivered(int idxParsel)
+        /// <param name="idxParcel">Id of the parcel</param>
+        public void UpdateParcelDelivered(int idxParcel)
         {
-            DataSource.parsels[idxParsel].Delivered = DateTime.Now;
-            DataSource.drones[DataSource.parsels[idxParsel].Droneld].Status = IDAL.DO.Enum.DroneStatuses.Available;
+            DataSource.parcels[idxParcel].Delivered = DateTime.Now;
+            DataSource.drones[DataSource.parcels[idxParcel].Droneld].Status = IDAL.DO.Enum.DroneStatuses.Available;
         }
 
 
 
 
         /// <summary>
-        /// Sending a skimmer for charging at a base station By changing the skimmer mode and adding a record of a skimmer battery charging entity
+        /// Sending a drone for charging at a base station By changing the drone mode and adding a record of a drone battery charging entity
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
         /// <returns>Returns if the base station is available to receive the glider</returns>
@@ -120,16 +120,16 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Release skimmer from charging at base station
+        /// Release drone from charging at base station
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
-        /// <returns>Returns the mother skimmer released from charging</returns>
+        /// <returns>Returns the mother drone released from charging</returns>
         public bool TryRemoveDroneCarge(int droneId)
-         {
+        {
             if (!DataSource.droneCharges.Any(dc => dc.DroneId == droneId))
                 return false;
             var droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId);
-            
+
             var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
             if (drone.Equals(default))
                 return false;
@@ -152,7 +152,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Removes a skimmer from an array of skimmers by id
+        /// Removes a drone from an array of drones by id
         /// </summary>
         /// <param name="idxDrone">struct of drone</param>
         /// <returns>drone</returns>
@@ -174,14 +174,14 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Exits a package from an array of packages by id
+        /// Exits a parcel from an array of parcels by id
         /// </summary>
-        /// <param name="idxParsel">struct ofo parsel</param>
-        /// <returns>parsel</returns>
-        public Parsel GetParsel(int idxParsel)
+        /// <param name="idxParcel">struct ofo parcel</param>
+        /// <returns>parcel</returns>
+        public parcel GetParcel(int idxParcel)
         {
-            var parsel = DataSource.parsels.FirstOrDefault(p => p.Id == idxParsel);
-            return parsel;
+            var parcel = DataSource.parcels.FirstOrDefault(p => p.Id == idxParcel);
+            return parcel;
         }
 
 
@@ -216,7 +216,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// The function prepares a new array of all existing skimmers
+        /// The function prepares a new array of all existing drones
         /// </summary>
         /// <returns>array of drones</returns>
         public Drone[] GetDrones()
@@ -231,18 +231,18 @@ namespace DalObject
         }
 
         /// <summary>
-        /// The function prepares a new array of all existing packages
+        /// The function prepares a new array of all existing parcels
         /// </summary>
-        /// <returns>array of parseles</returns>
-        public Parsel[] GetParsels()
+        /// <returns>array of parceles</returns>
+        public parcel[] GetParcels()
         {
-            Parsel[] parsels = new Parsel[DataSource.Config.IndParsel];
-            for (int i = 0; i < DataSource.Config.IndParsel; i++)
+            parcel[] parcels = new parcel[DataSource.Config.IndParcel];
+            for (int i = 0; i < DataSource.Config.IndParcel; i++)
             {
-                Parsel source = DataSource.parsels[i];
-                parsels[i] = source.Clone();
+                parcel source = DataSource.parcels[i];
+                parcels[i] = source.Clone();
             }
-            return parsels;
+            return parcels;
         }
 
 
@@ -250,29 +250,29 @@ namespace DalObject
         /// <summary>
         /// Displays a list of packages that have not yet been assigned to the glider
         /// </summary>
-        /// <returns>array of parsels that have not yet been assigned to the glider</returns>
-        public Parsel[] UnassignedPackages()
+        /// <returns>array of parcels that have not yet been assigned to the glider</returns>
+        public parcel[] UnassignedPackages()
         {
-            int amountOfParsel = 0, j = 0;
-            for (int i = 0; i < DataSource.Config.IndParsel; i++)
+            int amountOfParcel = 0, j = 0;
+            for (int i = 0; i < DataSource.Config.IndParcel; i++)
             {
-                if (DataSource.parsels[i].Droneld != 0)
+                if (DataSource.parcels[i].Droneld != 0)
                 {
-                    ++amountOfParsel;
+                    ++amountOfParcel;
                 }
             }
 
-            Parsel[] parsels = new Parsel[amountOfParsel];
-            for (int i = 0; i < DataSource.Config.IndParsel; i++)
+            parcel[] parcels = new parcel[amountOfParcel];
+            for (int i = 0; i < DataSource.Config.IndParcel; i++)
             {
-                if (DataSource.parsels[i].Droneld != 0)
+                if (DataSource.parcels[i].Droneld != 0)
                 {
-                    Parsel source = DataSource.parsels[i];
-                    parsels[j] = source.Clone();
+                    parcel source = DataSource.parcels[i];
+                    parcels[j] = source.Clone();
                     ++j;
                 }
             }
-            return parsels;
+            return parcels;
         }
 
 

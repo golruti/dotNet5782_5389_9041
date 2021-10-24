@@ -23,7 +23,7 @@ namespace IDAL
             }
 
             /// <summary>
-            /// constructor-create a new station
+            /// The functions create a new instancenew of base-station and copy a deep copy
             /// </summary>
             /// <returns>station</returns>
             public Station Clone()

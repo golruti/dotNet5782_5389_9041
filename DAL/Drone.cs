@@ -19,17 +19,17 @@ namespace IDAL
             public double Battery { get; set; }
 
             /// <summary>
-            /// String of details for skimmer
+            /// String of details for drone
             /// </summary>
-            /// <returns>String of details for skimmer</returns>
+            /// <returns>String of details for drone</returns>
             public override string ToString()
             {
-                return ("\nId: " + Id + "\nModel: " + Model + "\nMaxWeight: " + MaxWeight + 
-                    "\nStatus: " + Status + "\nBattery: " + Battery+"%\n");
+                return ("\nId: " + Id + "\nModel: " + Model + "\nMaxWeight: " + MaxWeight +
+                    "\nStatus: " + Status + "\nBattery: " + Battery + "%\n");
             }
 
             /// <summary>
-            /// constructor-create a new drone
+            /// The functions create a new instance of drone and copy a deep copy
             /// </summary>
             /// <returns>drone</returns>
             public Drone Clone()

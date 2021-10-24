@@ -16,7 +16,7 @@ namespace ConsoleUI
             Releasing_a_drone_from_charging
         };
         public enum Disply { Base_station, Drone, Customer, Parcel };
-        public enum View { Base_stations, Drone, Customers, Parsel, Parsels_not_drone, Base_stations_vacant };
+        public enum View { Base_stations, Drone, Customers, Parcel, Parcels_not_drone, Base_stations_vacant };
 
         static void Main(string[] args)
         {
@@ -31,7 +31,7 @@ namespace ConsoleUI
                 Console.Write("------------\n");
                 foreach (var option in System.Enum.GetNames(typeof(Options)))
                 {
-                  Console.Write((id++) + "--- " + option + "\n");
+                    Console.Write((id++) + "--- " + option + "\n");
                 }
                 Console.Write("------------\n");
                 id = 1;
@@ -60,7 +60,7 @@ namespace ConsoleUI
                                 dal.InsertCustomer(MainFunction.GetCustomer());
                                 break;
                             case 4:
-                                dal.InsertParsel(MainFunction.GetParsel());
+                                dal.InsertParcel(MainFunction.GetParcel());
                                 break;
                             default:
                                 break;
@@ -77,15 +77,15 @@ namespace ConsoleUI
                         switch (choice)
                         {
                             case 1:
-                                dal.UpdateParseךScheduled(MainFunction.EnterId());
+                                dal.UpdateParcelScheduled(MainFunction.EnterId());
                                 Console.Write("##OK##\n");
                                 break;
                             case 2:
-                                dal.UpdateParselPickedUp(MainFunction.EnterId());
+                                dal.UpdateParcelPickedUp(MainFunction.EnterId());
                                 Console.Write("##OK##\n");
                                 break;
                             case 3:
-                                dal.UpdateParselDelivered(MainFunction.EnterId());
+                                dal.UpdateParcelDelivered(MainFunction.EnterId());
                                 Console.Write("##OK##\n");
                                 break;
                             case 4:
@@ -124,7 +124,7 @@ namespace ConsoleUI
                                 Console.WriteLine(dal.GetCustomer(MainFunction.EnterId()));
                                 break;
                             case 4:
-                                Console.WriteLine(dal.GetParsel(MainFunction.EnterId()));
+                                Console.WriteLine(dal.GetParcel(MainFunction.EnterId()));
                                 break;
                             default:
                                 break;
@@ -159,15 +159,15 @@ namespace ConsoleUI
                                 }
                                 break;
                             case 4:
-                                foreach (var parsel in dal.GetParsels())
+                                foreach (var parcel in dal.GetParcels())
                                 {
-                                    Console.Write(parsel);
+                                    Console.Write(parcel);
                                 }
                                 break;
                             case 5:
-                                foreach (var parsel in dal.UnassignedPackages())
+                                foreach (var parcel in dal.UnassignedPackages())
                                 {
-                                    Console.Write(parsel);
+                                    Console.Write(parcel);
                                 }
                                 break;
                             case 6:
