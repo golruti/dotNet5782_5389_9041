@@ -12,11 +12,10 @@ namespace DalObject
     {
         public static Random Rand = new Random();
 
-        static internal Drone[] drones = new Drone[10];
-
-        static internal Station[] stations = new Station[5];
-        static internal Customer[] customers = new Customer[100];
-        static internal parcel[] parcels = new parcel[1000];
+        static internal List<Drone> drones = new List<Drone>();
+        static internal List<Station> stations = new List<Station>();
+        static internal List<Customer> customers = new List<Customer>();
+        static internal List<parcel> parcels = new List<parcel>();
         static internal List<DroneCharge> droneCharges = new List<DroneCharge>();
         internal class Config
         {
