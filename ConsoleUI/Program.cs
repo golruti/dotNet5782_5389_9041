@@ -93,7 +93,7 @@ namespace ConsoleUI
                                 if (!dal.TryAddDroneCarge(MainFunction.EnterId()))
                                     Console.WriteLine("Skimmer does not exist or there is no available charging station\n");
                                 else
-                                    Console.WriteLine("##OK##");
+                                    Console.WriteLine("##OK#");
                                 break;
                             case 5:
                                 if (!dal.TryRemoveDroneCarge(MainFunction.EnterId()))

@@ -19,10 +19,6 @@ namespace DalObject
         static internal List<DroneCharge> droneCharges = new List<DroneCharge>();
         internal class Config
         {
-            public static int IndDrone = 0;
-            public static int IndStation = 0;
-            public static int IndCustomer = 0;
-            public static int IndParcel = 0;
         }
 
         /// <summary>
