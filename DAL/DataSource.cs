@@ -34,23 +34,27 @@ namespace DalObject
             //stations
             for (int i = 0; i < 2; ++i)
             {
-                stations[Config.IndStation].Id = Config.IndStation;
-                stations[Config.IndStation].Name = $"station {Config.IndStation}";
-                stations[Config.IndStation].ChargeSlote = Rand.Next() + 1;
-                stations[Config.IndStation].Lattitude = Rand.Next(181) + Rand.NextDouble();
-                stations[Config.IndStation].Longitude = Rand.Next(91) + Rand.NextDouble();
+                Station station=new Station();
+                Station.Id = Config.IndStation;
+                Station.Name = $"station {Config.IndStation}";
+                Station.ChargeSlote = Rand.Next() + 1;
+                Station.Lattitude = Rand.Next(181) + Rand.NextDouble();
+                Station.Longitude = Rand.Next(91) + Rand.NextDouble();
+                stations.push(station);
                 ++Config.IndStation;
             }
 
             //customers
             for (int i = 0; i < 10; ++i)
             {
-                customers[Config.IndCustomer].Id = Config.IndCustomer;
-                customers[Config.IndCustomer].Name = $"customer {Config.IndCustomer}";
-                customers[Config.IndCustomer].Phone = $"05{Rand.Next(10000000, 100000000)}";
-                customers[Config.IndCustomer].Lattitude = Rand.Next(181) + Rand.NextDouble();
-                customers[Config.IndCustomer].Longitude = Rand.Next(91) + Rand.NextDouble();
+                Customer customer=new Customer();
+                customer.Id = Config.IndCustomer;
+                customer.Name = $"customer {Config.IndCustomer}";
+                customer.Phone = $"05{Rand.Next(10000000, 100000000)}";
+                customer.Lattitude = Rand.Next(181) + Rand.NextDouble();
+                customer.Longitude = Rand.Next(91) + Rand.NextDouble();
                 ++Config.IndCustomer;
+                customers.push(customer);
             }
 
             //drones
