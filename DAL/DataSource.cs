@@ -48,6 +48,7 @@ namespace DalObject
                 customers[Config.IndCustomer].Lattitude = Rand.Next(181) + Rand.NextDouble();
                 customers[Config.IndCustomer].Longitude = Rand.Next(91) + Rand.NextDouble();
                 ++Config.IndCustomer;
+                customers.Add(new Customer() { Id =5, Name = "jj" });
             }
 
             //drones
@@ -59,6 +60,8 @@ namespace DalObject
                 drones[Config.IndDrone].Status = (IDAL.DO.Enum.DroneStatuses)Rand.Next(0, (int)IDAL.DO.Enum.DroneStatuses.Delivery);
                 drones[Config.IndDrone].Battery = Rand.Next(101);
                 ++Config.IndDrone;
+
+                customers.Add(new Customer() { Id = 5, Name = "jj" });
             }
 
             //parcel
