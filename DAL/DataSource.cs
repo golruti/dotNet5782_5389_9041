@@ -30,7 +30,8 @@ namespace DalObject
             //stations
             for (int i = 0; i < 2; ++i)
             {
-                Station station = new Station();
+                Station temp
+                Station station=new Station();
                 Station.Id = Config.IndStation;
                 Station.Name = $"station {Config.IndStation}";
                 Station.ChargeSlote = Rand.Next() + 1;
@@ -50,45 +51,42 @@ namespace DalObject
                 customer.Lattitude = Rand.Next(181) + Rand.NextDouble();
                 customer.Longitude = Rand.Next(91) + Rand.NextDouble();
                 ++Config.IndCustomer;
-                customers.Add(new Customer() { Id = 5, Name = "jj" });
+                customers.Add(new Customer() { Id =5, Name = "jj" });
             }
 
             //drones
             for (int i = 0; i < 5; ++i)
             {
-                drones.Add(new Drone()
-                {
-                    Id = i,
-                    Model = $"drone {i}",
-                    MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0, 3),
-                    Status = (IDAL.DO.Enum.DroneStatuses)Rand.Next(0, (int)IDAL.DO.Enum.DroneStatuses.Delivery),
-                    Battery = Rand.Next(101)
-                });
+                drones[Config.IndDrone].Id = Config.IndDrone;
+                drones[Config.IndDrone].Model = $"drone {Config.IndDrone}";
+                drones[Config.IndDrone].MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0, 3);
+                drones[Config.IndDrone].Status = (IDAL.DO.Enum.DroneStatuses)Rand.Next(0, (int)IDAL.DO.Enum.DroneStatuses.Delivery);
+                drones[Config.IndDrone].Battery = Rand.Next(101);
+                ++Config.IndDrone;
+
+                customers.Add(new Customer() { Id = 5, Name = "jj" });
             }
 
             //parcel
             for (int i = 0; i < 10; ++i)
             {
+                Parcel tempParcel = new Parcel();
 
-
-                parcels.Add(new parcel()
+                tempParcel.Id = il;
+                tempParcel.SenderId = Rand.Next(customers.Count());
+                tempParcel.TargetId = Rand.Next(customers.Count());
+                while (tempParcel.SenderId == tempParcel.TargetId)
                 {
-                    Id = i,
-                    SenderId = Rand.Next(customers.Count),
-                    TargetId = Rand.Next(customers.Count),
-                   Weight = (WeightCategories)(Rand.Next(0, 3)),
-                   Priority = (Priorities)(Rand.Next(0, 3)),
-                   Droneld = Config.IndParcel,
-                   Requested = DateTime.Now,
-                   Scheduled = DateTime.Now.AddDays(2),
-                   PickedUp = DateTime.Now.AddDays(30),
-                   Delivered = DateTime.Now.AddDays(32)
-                });
+                    tempParcel.TargetId = Rand.Next(customers.Count());
+                }
+                tempParcel.Weight = (WeightCategories)(Rand.Next(0, 3));
+                tempParcel.Priority = (Priorities)(Rand.Next(0, 3));
+                tempParcel.Droneld = Config.IndParcel;
+                tempParcel.Requested = DateTime.Now;
+                tempParcel.Scheduled = DateTime.Now.AddDays(2);
+                tempParcel.PickedUp = DateTime.Now.AddDays(30);
+                tempParcel.Delivered = DateTime.Now.AddDays(32);
 
-                 while (parcels[i].SenderId == parcels[i].TargetId)
-                 {
-                    parcels[i].TargetId = Rand.Next(customers.Count);
-                 }
             }
         }
     }
