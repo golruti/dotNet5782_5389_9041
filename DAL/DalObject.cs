@@ -23,7 +23,7 @@ namespace DalObject
         /// <param name="station">struct of station</param>
         public void InsertStation(Station station)
         {
-            DataSource.stations[DataSource.Config.IndStation++] = station;
+            DataSource.stations.Add(station);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace DalObject
         /// <param name="drone">struct of drone</param>
         public void InsertDrone(Drone drone)
         {
-            DataSource.drones[DataSource.Config.IndDrone++] = drone;
+            DataSource.drones.Add(drone);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace DalObject
         /// <param name="customer">struct of customer</param>
         public void InsertCustomer(Customer customer)
         {
-            DataSource.customers[DataSource.Config.IndCustomer++] = customer;
+            DataSource.customers.Add(customer);
         }
 
         /// <summary>
@@ -50,9 +50,9 @@ namespace DalObject
         /// <param name="parcel">struct of parcel</param>
         public void InsertParcel(parcel parcel)
         {
-            DataSource.parcels[DataSource.Config.IndParcel++] = parcel;
-            DataSource.parcels[DataSource.Config.IndParcel].Id = DataSource.Config.IndParcel;
+            DataSource.parcels.Add(parcel);
         }
+
 
 
         /// <summary>
@@ -61,27 +61,53 @@ namespace DalObject
         /// <param name="idxParcel">Id of the parcel</param>
         public void UpdateParcelScheduled(int idxParcel)
         {
-            for (int i = 0; i < DataSource.Config.IndDrone; ++i)
+            for (int i = 0; i < DataSource.drones.Count; ++i)
             {
                 if (DataSource.drones[i].Status == IDAL.DO.Enum.DroneStatuses.Available)
                 {
-                    DataSource.parcels[idxParcel].Scheduled = new DateTime();
-                    DataSource.parcels[idxParcel].Droneld = DataSource.drones[i].Id;
-                    DataSource.drones[i].Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
-                    DataSource.drones[i].MaxWeight = DataSource.parcels[idxParcel].Weight;
+                    parcel p = DataSource.parcels[idxParcel];
+                    p.Scheduled = new DateTime();
+                    p.Droneld = DataSource.drones[i].Id;
+                    DataSource.parcels[idxParcel] = p;
+
+                    Drone d = DataSource.drones[i];
+                    d.Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
+
+                    d.MaxWeight = DataSource.parcels[idxParcel].Weight;
+
+                    DataSource.drones[DataSource.drones.Count] = d;
                     break;
                 }
             }
         }
-
         /// <summary>
-        /// Assigning a parcel to a drone
+        /// Package assembly by drone
         /// </summary>
         /// <param name="idxParcel">Id of the parcel</param>
-        public void UpdateParcelPickedUp(int idxParcel)
+        public void UpdateParcelPickedUp(int idParcel)
         {
-            DataSource.parcels[idxParcel].PickedUp = DateTime.Now;
-            DataSource.drones[DataSource.parcels[idxParcel].Droneld].Status = IDAL.DO.Enum.DroneStatuses.Delivery;
+            //אסיפת חבילה עי רחפן
+            for (int i = 0; i < DataSource.parcels.Count(); ++i)
+            {
+                if (DataSource.parcels[i].Id == idParcel)
+                {
+                    //עדכון זמן איסוף
+                    parcel p = DataSource.parcels[i];
+                    p.PickedUp = DateTime.Now;
+                    DataSource.parcels[i] = p;
+
+                    //עדכון מצב הרחפן למשלוח
+                    for (int j = 0; j < DataSource.drones.Count(); ++j)
+                    {
+                        if (DataSource.drones[j].Id == DataSource.parcels[i].Droneld)
+                        {
+                            Drone d = DataSource.drones[j];
+                            d.Status = IDAL.DO.Enum.DroneStatuses.Delivery;
+                            DataSource.drones[j] = d;
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -89,12 +115,33 @@ namespace DalObject
         /// Delivery of a parcel to the destination
         /// </summary>
         /// <param name="idxParcel">Id of the parcel</param>
-        public void UpdateParcelDelivered(int idxParcel)
+        /// //אספקת חבילה ליעד
+        public void UpdateParcelDelivered(int idParcel)
         {
-            DataSource.parcels[idxParcel].Delivered = DateTime.Now;
-            DataSource.drones[DataSource.parcels[idxParcel].Droneld].Status = IDAL.DO.Enum.DroneStatuses.Available;
-        }
+            for (int i = 0; i < DataSource.parcels.Count; ++i)
+            {
+                if (DataSource.parcels[i].Id == idParcel)
+                {
+                    //עדכון זמן אספקת חבילה
+                    parcel p = DataSource.parcels[i];
+                    p.Delivered = DateTime.Now;
+                    DataSource.parcels[i] = p;
 
+                    //עדכון מצב הרחפן לפנוי
+                    for (int j = 0; j < DataSource.drones.Count(); ++j)
+                    {
+                        if (DataSource.drones[j].Id == DataSource.parcels[i].Droneld)
+                        {
+                            Drone d = DataSource.drones[j];
+                            d.Status = IDAL.DO.Enum.DroneStatuses.Available;
+                            DataSource.drones[j] = d;
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+        }
 
 
 
@@ -103,6 +150,8 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
         /// <returns>Returns if the base station is available to receive the glider</returns>
+        /// 
+       //	שליחת רחפן לטעינה בתחנת-בסיס
         public bool TryAddDroneCarge(int droneId)
         {
             var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
