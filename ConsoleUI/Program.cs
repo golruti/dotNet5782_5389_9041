@@ -79,7 +79,7 @@ namespace ConsoleUI
                         {
                             case 1:
                                 dal.UpdateParcelScheduled(MainFunction.EnterId());
-                                Console.Write("##OK##\n");
+                                Console.Write("#OK##\n");
                                 break;
                             case 2:
                                 dal.UpdateParcelPickedUp(MainFunction.EnterId());
