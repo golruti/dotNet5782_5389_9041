@@ -30,58 +30,46 @@ namespace DalObject
             //stations
             for (int i = 0; i < 2; ++i)
             {
-                Station station=new Station();
-                Station.Id = Config.IndStation;
-                Station.Name = $"station {Config.IndStation}";
-                Station.ChargeSlote = Rand.Next() + 1;
-                Station.Lattitude = Rand.Next(181) + Rand.NextDouble();
-                Station.Longitude = Rand.Next(91) + Rand.NextDouble();
-                stations.push(station);
-                ++Config.IndStation;
+               
+
+
+                stations.Add(new Station(){ Id = i, Name = $"station {i}", ChargeSlote = Rand.Next() + 1, Lattitude = Rand.Next(181) + Rand.NextDouble() , Longitude = Rand.Next(91) + Rand.NextDouble() });
+                
             }
 
             //customers
             for (int i = 0; i < 10; ++i)
             {
-                Customer customer=new Customer();
-                customer.Id = Config.IndCustomer;
-                customer.Name = $"customer {Config.IndCustomer}";
-                customer.Phone = $"05{Rand.Next(10000000, 100000000)}";
-                customer.Lattitude = Rand.Next(181) + Rand.NextDouble();
-                customer.Longitude = Rand.Next(91) + Rand.NextDouble();
-                ++Config.IndCustomer;
-                customers.push(customer);
+          
+                customers.Add(new Customer() { Id = i, Name = $"customer {i}", Phone = $"05{Rand.Next(10000000, 100000000)}" , Lattitude = Rand.Next(181) + Rand.NextDouble() , Longitude = Rand.Next(91) + Rand.NextDouble() });
             }
 
             //drones
             for (int i = 0; i < 5; ++i)
             {
-                drones[Config.IndDrone].Id = Config.IndDrone;
-                drones[Config.IndDrone].Model = $"drone {Config.IndDrone}";
-                drones[Config.IndDrone].MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0, 3);
-                drones[Config.IndDrone].Status = (IDAL.DO.Enum.DroneStatuses)Rand.Next(0, (int)IDAL.DO.Enum.DroneStatuses.Delivery);
-                drones[Config.IndDrone].Battery = Rand.Next(101);
-                ++Config.IndDrone;
+              
             }
 
             //parcel
             for (int i = 0; i < 10; ++i)
             {
-                parcels[Config.IndParcel].Id = Config.IndParcel;
-                parcels[Config.IndParcel].SenderId = Rand.Next(Config.IndCustomer);
-                parcels[Config.IndParcel].TargetId = Rand.Next(Config.IndCustomer);
-                while (parcels[Config.IndParcel].SenderId == parcels[Config.IndParcel].TargetId)
+                Parcel tempParcel = new Parcel();
+
+                tempParcel.Id = il;
+                tempParcel.SenderId = Rand.Next(customers.Count());
+                tempParcel.TargetId = Rand.Next(customers.Count());
+                while (tempParcel.SenderId == tempParcel.TargetId)
                 {
-                    parcels[Config.IndParcel].TargetId = Rand.Next(Config.IndCustomer);
+                    tempParcel.TargetId = Rand.Next(customers.Count());
                 }
-                parcels[Config.IndParcel].Weight = (WeightCategories)(Rand.Next(0, 3));
-                parcels[Config.IndParcel].Priority = (Priorities)(Rand.Next(0, 3));
-                parcels[Config.IndParcel].Droneld = Config.IndParcel;
-                parcels[Config.IndParcel].Requested = DateTime.Now;
-                parcels[Config.IndParcel].Scheduled = DateTime.Now.AddDays(2);
-                parcels[Config.IndParcel].PickedUp = DateTime.Now.AddDays(30);
-                parcels[Config.IndParcel].Delivered = DateTime.Now.AddDays(32);
-                ++Config.IndParcel;
+                tempParcel.Weight = (WeightCategories)(Rand.Next(0, 3));
+                tempParcel.Priority = (Priorities)(Rand.Next(0, 3));
+                tempParcel.Droneld = Config.IndParcel;
+                tempParcel.Requested = DateTime.Now;
+                tempParcel.Scheduled = DateTime.Now.AddDays(2);
+                tempParcel.PickedUp = DateTime.Now.AddDays(30);
+                tempParcel.Delivered = DateTime.Now.AddDays(32);
+
             }
         }
     }
