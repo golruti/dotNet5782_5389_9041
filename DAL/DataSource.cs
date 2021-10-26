@@ -30,6 +30,7 @@ namespace DalObject
             //stations
             for (int i = 0; i < 2; ++i)
             {
+                Station temp
                 Station station=new Station();
                 Station.Id = Config.IndStation;
                 Station.Name = $"station {Config.IndStation}";
