@@ -67,6 +67,7 @@ namespace ConsoleUI
                         }
                         break;
 
+
                     case 2:
                         foreach (var option in System.Enum.GetNames(typeof(Update)))
                         {
