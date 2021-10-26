@@ -227,7 +227,7 @@ namespace DalObject
         /// </summary>
         /// <param name="idxParcel">struct ofo parcel</param>
         /// <returns>parcel</returns>
-        public parcel GetParcel(int idxParcel)
+        public Parcel GetParcel(int idxParcel)
         {
             var parcel = DataSource.parcels.FirstOrDefault(p => p.Id == idxParcel);
             return parcel;
@@ -238,60 +238,44 @@ namespace DalObject
         /// The function prepares a new array of all existing stations
         /// </summary>
         /// <returns>array of station</returns>
-        public Station[] GetStations()
+        public List<Station> GetStations()
         {
-            Station[] stations = new Station[DataSource.Config.IndStation];
-            for (int i = 0; i < DataSource.Config.IndStation; i++)
-            {
-                Station source = DataSource.stations[i];
-                stations[i] = source.Clone();
-            }
-            return stations;
+            List<Station> tempStations = new();
+            tempStations = DataSource.stations;
+            return tempStations;
         }
 
         /// <summary>
         /// The function prepares a new array of all existing customers
         /// </summary>
         /// <returns>array of station</returns>
-        public Customer[] GetCustomers()
+        public List<Customer> GetCustomers()
         {
-            Customer[] customers = new Customer[DataSource.Config.IndCustomer];
-            for (int i = 0; i < DataSource.Config.IndCustomer; i++)
-            {
-                Customer source = DataSource.customers[i];
-                customers[i] = source.Clone();
-            }
-            return customers;
+            List<Customer> tempCustomers = new();
+            tempCustomers = DataSource.customers;
+            return tempCustomers;
         }
 
         /// <summary>
         /// The function prepares a new array of all existing drones
         /// </summary>
         /// <returns>array of drones</returns>
-        public Drone[] GetDrones()
+        public List<Drone> GetDrones()
         {
-            Drone[] drones = new Drone[DataSource.Config.IndDrone];
-            for (int i = 0; i < DataSource.Config.IndDrone; i++)
-            {
-                Drone source = DataSource.drones[i];
-                drones[i] = source.Clone();
-            }
-            return drones;
+            List<Drone> tempDrones = new();
+            tempDrones = DataSource.drones;
+            return tempDrones;
         }
 
         /// <summary>
         /// The function prepares a new array of all existing parcels
         /// </summary>
         /// <returns>array of parceles</returns>
-        public parcel[] GetParcels()
+        public List<Parcel> GetParcels()
         {
-            parcel[] parcels = new parcel[DataSource.Config.IndParcel];
-            for (int i = 0; i < DataSource.Config.IndParcel; i++)
-            {
-                parcel source = DataSource.parcels[i];
-                parcels[i] = source.Clone();
-            }
-            return parcels;
+            List<Parcel> tempParcels = new();
+            tempParcels = DataSource.parcels;
+            return tempParcels;
         }
 
 
