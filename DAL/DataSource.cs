@@ -30,7 +30,7 @@ namespace DalObject
             //stations
             for (int i = 0; i < 2; ++i)
             {
-                Station station=new Station();
+                Station station = new Station();
                 Station.Id = Config.IndStation;
                 Station.Name = $"station {Config.IndStation}";
                 Station.ChargeSlote = Rand.Next() + 1;
@@ -43,50 +43,56 @@ namespace DalObject
             //customers
             for (int i = 0; i < 10; ++i)
             {
-                Customer customer=new Customer();
+                Customer customer = new Customer();
                 customer.Id = Config.IndCustomer;
                 customer.Name = $"customer {Config.IndCustomer}";
                 customer.Phone = $"05{Rand.Next(10000000, 100000000)}";
                 customer.Lattitude = Rand.Next(181) + Rand.NextDouble();
                 customer.Longitude = Rand.Next(91) + Rand.NextDouble();
                 ++Config.IndCustomer;
-                customers.Add(new Customer() { Id =5, Name = "jj" });
+                customers.Add(new Customer() { Id = 5, Name = "jj" });
             }
 
             //drones
             for (int i = 0; i < 5; ++i)
             {
-                drones[Config.IndDrone].Id = Config.IndDrone;
-                drones[Config.IndDrone].Model = $"drone {Config.IndDrone}";
-                drones[Config.IndDrone].MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0, 3);
-                drones[Config.IndDrone].Status = (IDAL.DO.Enum.DroneStatuses)Rand.Next(0, (int)IDAL.DO.Enum.DroneStatuses.Delivery);
-                drones[Config.IndDrone].Battery = Rand.Next(101);
-                ++Config.IndDrone;
-
-                customers.Add(new Customer() { Id = 5, Name = "jj" });
+                drones.Add(new Drone()
+                {
+                    Id = i,
+                    Model = $"drone {i}",
+                    MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0, 3),
+                    Status = (IDAL.DO.Enum.DroneStatuses)Rand.Next(0, (int)IDAL.DO.Enum.DroneStatuses.Delivery),
+                    Battery = Rand.Next(101)
+                });
             }
 
             //parcel
             for (int i = 0; i < 10; ++i)
             {
-                parcels[Config.IndParcel].Id = Config.IndParcel;
-                parcels[Config.IndParcel].SenderId = Rand.Next(Config.IndCustomer);
-                parcels[Config.IndParcel].TargetId = Rand.Next(Config.IndCustomer);
-                while (parcels[Config.IndParcel].SenderId == parcels[Config.IndParcel].TargetId)
+
+
+                parcels.Add(new parcel()
                 {
-                    parcels[Config.IndParcel].TargetId = Rand.Next(Config.IndCustomer);
-                }
-                parcels[Config.IndParcel].Weight = (WeightCategories)(Rand.Next(0, 3));
-                parcels[Config.IndParcel].Priority = (Priorities)(Rand.Next(0, 3));
-                parcels[Config.IndParcel].Droneld = Config.IndParcel;
-                parcels[Config.IndParcel].Requested = DateTime.Now;
-                parcels[Config.IndParcel].Scheduled = DateTime.Now.AddDays(2);
-                parcels[Config.IndParcel].PickedUp = DateTime.Now.AddDays(30);
-                parcels[Config.IndParcel].Delivered = DateTime.Now.AddDays(32);
-                ++Config.IndParcel;
+                    Id = i,
+                    SenderId = Rand.Next(customers.Count),
+                    TargetId = Rand.Next(customers.Count),
+                   Weight = (WeightCategories)(Rand.Next(0, 3)),
+                   Priority = (Priorities)(Rand.Next(0, 3)),
+                   Droneld = Config.IndParcel,
+                   Requested = DateTime.Now,
+                   Scheduled = DateTime.Now.AddDays(2),
+                   PickedUp = DateTime.Now.AddDays(30),
+                   Delivered = DateTime.Now.AddDays(32)
+                });
+
+                 while (parcels[i].SenderId == parcels[i].TargetId)
+                 {
+                    parcels[i].TargetId = Rand.Next(customers.Count);
+                 }
             }
         }
     }
+
 }
 
 
