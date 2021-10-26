@@ -25,7 +25,7 @@ namespace IDAL
             public override string ToString()
             {
                 return ("\nId: " + Id + "\nModel: " + Model + "\nMaxWeight: " + MaxWeight +
-                    "\nStatus: " + Status + "\nBattery: " + Battery + "%\n");
+                    "\n\nStatus: " + Status + "\nBattery: " + Battery + "%\n")
             }
 
             /// <summary>
