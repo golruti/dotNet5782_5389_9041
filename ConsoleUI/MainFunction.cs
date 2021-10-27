@@ -126,10 +126,10 @@ namespace ConsoleUI
         /// The function asks the user to enter parcel details
         /// </summary>
         /// <returns>parcel</returns>
-        public static parcel GetParcel()
+        public static Parcel GetParcel()
         {
             int tempChoice;
-            parcel tempParcel = new parcel();
+            Parcel tempParcel = new Parcel();
 
             Console.Write("Enter id ");
             tempParcel.Id = int.Parse(Console.ReadLine());
