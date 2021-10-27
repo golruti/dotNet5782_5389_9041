@@ -48,7 +48,7 @@ namespace DalObject
         /// Receipt of parcel for shipment.
         /// </summary>
         /// <param name="parcel">struct of parcel</param>
-        public void InsertParcel(parcel parcel)
+        public void InsertParcel(Parcel parcel)
         {
             DataSource.parcels.Add(parcel);
         }
@@ -65,7 +65,7 @@ namespace DalObject
             {
                 if (DataSource.drones[i].Status == IDAL.DO.Enum.DroneStatuses.Available)
                 {
-                    parcel p = DataSource.parcels[idxParcel];
+                    Parcel p = DataSource.parcels[idxParcel];
                     p.Scheduled = new DateTime();
                     p.Droneld = DataSource.drones[i].Id;
                     DataSource.parcels[idxParcel] = p;
@@ -92,7 +92,7 @@ namespace DalObject
                 if (DataSource.parcels[i].Id == idParcel)
                 {
                     //עדכון זמן איסוף
-                    parcel p = DataSource.parcels[i];
+                    Parcel p = DataSource.parcels[i];
                     p.PickedUp = DateTime.Now;
                     DataSource.parcels[i] = p;
 
@@ -123,7 +123,7 @@ namespace DalObject
                 if (DataSource.parcels[i].Id == idParcel)
                 {
                     //עדכון זמן אספקת חבילה
-                    parcel p = DataSource.parcels[i];
+                    Parcel p = DataSource.parcels[i];
                     p.Delivered = DateTime.Now;
                     DataSource.parcels[i] = p;
 
@@ -158,12 +158,15 @@ namespace DalObject
             if (drone.Equals(default))
                 return false;
 
+            //	יש לוודא שתחנת הבסיס פנויה לקבל את הרחפן לטעינה
             var station = DataSource.stations.FirstOrDefault(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id));
             if (station.Equals(default))
                 return false;
 
+            // הוספת רשומה של ישות טעינת סוללת רחפן
             DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
             DataSource.droneCharges.Add(droneCharge);
+            //שינוי מצב הרחפן
             drone.Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
             return true;
         }
@@ -173,6 +176,8 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
         /// <returns>Returns the mother drone released from charging</returns>
+        /// 
+        //	שחרור רחפן מטעינה בתחנת-בסיס
         public bool TryRemoveDroneCarge(int droneId)
         {
             if (!DataSource.droneCharges.Any(dc => dc.DroneId == droneId))
@@ -194,9 +199,9 @@ namespace DalObject
         /// </summary>
         /// <param name="idxStation">struct of station</param>
         /// <returns>base station</returns>
-        public Station GetStation(int idxStation)
+        public Station GetStation(int idStation)
         {
-            var station = DataSource.stations.FirstOrDefault(s => s.Id == idxStation);
+            var station = DataSource.stations.FirstOrDefault(s => s.Id == idStation);
             return station;
         }
 
@@ -205,9 +210,9 @@ namespace DalObject
         /// </summary>
         /// <param name="idxDrone">struct of drone</param>
         /// <returns>drone</returns>
-        public Drone GetDrone(int idxDrone)
+        public Drone GetDrone(int idDrone)
         {
-            var drone = DataSource.drones.FirstOrDefault(d => d.Id == idxDrone);
+            var drone = DataSource.drones.FirstOrDefault(d => d.Id == idDrone);
             return drone;
         }
 
@@ -216,9 +221,9 @@ namespace DalObject
         /// </summary>
         /// <param name="idxCustomer">struct of customer</param>
         /// <returns>customer</returns>
-        public Customer GetCustomer(int idxCustomer)
+        public Customer GetCustomer(int idCustomer)
         {
-            var customer = DataSource.customers.FirstOrDefault(c => c.Id == idxCustomer);
+            var customer = DataSource.customers.FirstOrDefault(c => c.Id == idCustomer);
             return customer;
         }
 
@@ -227,9 +232,9 @@ namespace DalObject
         /// </summary>
         /// <param name="idxParcel">struct ofo parcel</param>
         /// <returns>parcel</returns>
-        public Parcel GetParcel(int idxParcel)
+        public Parcel GetParcel(int idParcel)
         {
-            var parcel = DataSource.parcels.FirstOrDefault(p => p.Id == idxParcel);
+            var parcel = DataSource.parcels.FirstOrDefault(p => p.Id == idParcel);
             return parcel;
         }
 
@@ -284,10 +289,10 @@ namespace DalObject
         /// Displays a list of packages that have not yet been assigned to the glider
         /// </summary>
         /// <returns>array of parcels that have not yet been assigned to the glider</returns>
-        public parcel[] UnassignedPackages()
+        public Parcel[] UnassignedPackages()
         {
             int amountOfParcel = 0, j = 0;
-            for (int i = 0; i < DataSource.Config.IndParcel; i++)
+            for (int i = 0; i < DataSource.parcels.Count(); i++)
             {
                 if (DataSource.parcels[i].Droneld != 0)
                 {
@@ -295,12 +300,12 @@ namespace DalObject
                 }
             }
 
-            parcel[] parcels = new parcel[amountOfParcel];
+            Parcel[] parcels = new Parcel[amountOfParcel];
             for (int i = 0; i < DataSource.Config.IndParcel; i++)
             {
                 if (DataSource.parcels[i].Droneld != 0)
                 {
-                    parcel source = DataSource.parcels[i];
+                    Parcel source = DataSource.parcels[i];
                     parcels[j] = source.Clone();
                     ++j;
                 }

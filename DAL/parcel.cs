@@ -37,9 +37,9 @@ namespace IDAL
             /// The functions create a new instance of parsel and copy a deep copy
             /// </summary>
             /// <returns>parsel</returns>
-            public parcel Clone()
+            public Parcel Clone()
             {
-                return new parcel()
+                return new Parcel()
                 {
                     Id = this.Id,
                     SenderId = this.SenderId,

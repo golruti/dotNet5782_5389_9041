@@ -43,14 +43,14 @@ namespace DalObject
             //customers
             for (int i = 0; i < 10; ++i)
             {
-                Customer customer = new Customer();
-                customer.Id = Config.IndCustomer;
-                customer.Name = $"customer {Config.IndCustomer}";
-                customer.Phone = $"05{Rand.Next(10000000, 100000000)}";
-                customer.Lattitude = Rand.Next(181) + Rand.NextDouble();
-                customer.Longitude = Rand.Next(91) + Rand.NextDouble();
-                ++Config.IndCustomer;
-                customers.Add(new Customer() { Id =5, Name = "jj" });
+                Customer tempCustomer = new Customer();
+                tempCustomer.Id =i;
+                tempCustomer.Name = $"customer {i}";
+                tempCustomer.Phone = $"05{Rand.Next(10000000, 100000000)}";
+                tempCustomer.Lattitude = Rand.Next(181) + Rand.NextDouble();
+                tempCustomer.Longitude = Rand.Next(91) + Rand.NextDouble();
+
+                customers.Add(tempCustomer);
             }
 
             //drones
