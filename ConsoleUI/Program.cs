@@ -5,7 +5,7 @@ namespace ConsoleUI
 {
     class Program
     {
-        public enum Options { Insert, Update, Disply, View, Exit };
+        public enum Options { Create, Update, Disply, View, Exit };
         public enum Insert { Base_station, Drone, Customer, Parcel };
         public enum Update
         {

@@ -201,8 +201,7 @@ namespace DalObject
         /// <returns>base station</returns>
         public Station GetStation(int idStation)
         {
-            var station = DataSource.stations.FirstOrDefault(s => s.Id == idStation);
-            return station;
+            return DataSource.stations.First(station => station.Id == idStation);
         }
 
         /// <summary>
@@ -212,8 +211,7 @@ namespace DalObject
         /// <returns>drone</returns>
         public Drone GetDrone(int idDrone)
         {
-            var drone = DataSource.drones.FirstOrDefault(d => d.Id == idDrone);
-            return drone;
+            return DataSource.drones.First(drone => drone.Id == idDrone);
         }
 
         /// <summary>
@@ -223,8 +221,7 @@ namespace DalObject
         /// <returns>customer</returns>
         public Customer GetCustomer(int idCustomer)
         {
-            var customer = DataSource.customers.FirstOrDefault(c => c.Id == idCustomer);
-            return customer;
+            return DataSource.customers.First(customer => customer.Id == idCustomer);
         }
 
         /// <summary>
@@ -234,8 +231,7 @@ namespace DalObject
         /// <returns>parcel</returns>
         public Parcel GetParcel(int idParcel)
         {
-            var parcel = DataSource.parcels.FirstOrDefault(p => p.Id == idParcel);
-            return parcel;
+            return DataSource.parcels.First(parcel => parcel.Id == idParcel);
         }
 
 
@@ -245,9 +241,8 @@ namespace DalObject
         /// <returns>array of station</returns>
         public List<Station> GetStations()
         {
-            List<Station> tempStations = new();
-            tempStations = DataSource.stations;
-            return tempStations;
+
+            return DataSource.stations.Select(station =>station.Clone()).ToList();
         }
 
         /// <summary>
@@ -256,9 +251,7 @@ namespace DalObject
         /// <returns>array of station</returns>
         public List<Customer> GetCustomers()
         {
-            List<Customer> tempCustomers = new();
-            tempCustomers = DataSource.customers;
-            return tempCustomers;
+            return DataSource.customers.Select(customer => customer.Clone()).ToList();
         }
 
         /// <summary>
@@ -267,9 +260,7 @@ namespace DalObject
         /// <returns>array of drones</returns>
         public List<Drone> GetDrones()
         {
-            List<Drone> tempDrones = new();
-            tempDrones = DataSource.drones;
-            return tempDrones;
+            return DataSource.drones.Select(drone => drone.Clone()).ToList();
         }
 
         /// <summary>
@@ -278,9 +269,7 @@ namespace DalObject
         /// <returns>array of parceles</returns>
         public List<Parcel> GetParcels()
         {
-            List<Parcel> tempParcels = new();
-            tempParcels = DataSource.parcels;
-            return tempParcels;
+            return DataSource.parcels.Select(parcel => parcel.Clone()).ToList();
         }
 
 
@@ -289,28 +278,11 @@ namespace DalObject
         /// Displays a list of packages that have not yet been assigned to the glider
         /// </summary>
         /// <returns>array of parcels that have not yet been assigned to the glider</returns>
-        public Parcel[] UnassignedPackages()
+        /// 
+        //	הצגת רשימת חבילות שעוד לא שויכו לרחפן
+        public List<Parcel> UnassignedPackages()
         {
-            int amountOfParcel = 0, j = 0;
-            for (int i = 0; i < DataSource.parcels.Count(); i++)
-            {
-                if (DataSource.parcels[i].Droneld != 0)
-                {
-                    ++amountOfParcel;
-                }
-            }
-
-            Parcel[] parcels = new Parcel[amountOfParcel];
-            for (int i = 0; i < DataSource.Config.IndParcel; i++)
-            {
-                if (DataSource.parcels[i].Droneld != 0)
-                {
-                    Parcel source = DataSource.parcels[i];
-                    parcels[j] = source.Clone();
-                    ++j;
-                }
-            }
-            return parcels;
+            return new List<Parcel>(DataSource.parcels.Where(parcel => parcel.Droneld == 0).ToList());
         }
 
 
@@ -318,11 +290,14 @@ namespace DalObject
         /// Display base stations with available charging stations
         /// </summary>
         /// <returns>array of stations</returns>
+        /// //●	הצגת  תחנות-בסיס עם עמדות טעינה פנויות
+        /// // הפונקציה לא מתאימה לליסטים!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public Station[] GetAvaStations()
         {
             return DataSource.stations
                          .Where(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id))
                          .ToArray();
+
         }
     }
 }
