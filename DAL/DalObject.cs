@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public class DalObject
+    public class DalObject: IDal 
     {
         /// <summary>
         /// A constructive function of a department that initializes drones, stations, customers and packages
@@ -260,6 +260,8 @@ namespace DalObject
         }
 
 
+
+        //מפה אין שינויים!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         /// <summary>
         /// Displays a list of packages that have not yet been assigned to the glider

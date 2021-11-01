@@ -8,9 +8,10 @@ using IBL.BO;
 
 namespace BL
 {
-    class BL
+    class BL: IBL
     {
         internal List<Drone> drones = new();
+        //למה STATIC
         static BL()
         {
             IDal.IDal DalObject = new DalObject.DalObject();
