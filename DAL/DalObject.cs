@@ -258,7 +258,7 @@ namespace DalObject
         /// <returns>array of parcels that have not yet been assigned to the glider</returns>
         /// 
         //	הצגת רשימת חבילות שעוד לא שויכו לרחפן
-        public List<Parcel> UnassignedPackages()
+        public IEnumerable<Parcel> UnassignedPackages()
         {
             return new List<Parcel>(DataSource.parcels.Where(parcel => parcel.Droneld == 0).ToList());
         }
@@ -270,11 +270,11 @@ namespace DalObject
         /// <returns>array of stations</returns>
         /// //●	הצגת  תחנות-בסיס עם עמדות טעינה פנויות
         /// // הפונקציה לא מתאימה לליסטים!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        public Station[] GetAvaStations()
+        public IEnumerable<Station> GetAvaStations()
         {
             return DataSource.stations
                          .Where(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id))
-                         .ToArray();
+                         .ToList();
 
         }
     }
