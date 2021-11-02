@@ -22,11 +22,11 @@ namespace IDal
         public Drone GetDrone(int idxDrone);
         public Customer GetCustomer(int idxCustomer);
         public Parcel GetParcel(int idxParcel);
-        public List<Station> GetStations();
-        public List<Customer> GetCustomers();
-        public List<Drone> GetDrones();
-        public List<Parcel> GetParcels();
-        public List<Parcel> UnassignedPackages();
-        public List<Station> GetAvaStations();
+        public IEnumerable<Station> GetStations();
+        public IEnumerable<Customer> GetCustomers();
+        public IEnumerable<Drone> GetDrones();
+        public IEnumerable<Parcel> GetParcels();
+        public IEnumerable<Parcel> UnassignedPackages();
+        public IEnumerable<Station> GetAvaStations();
     }
 }

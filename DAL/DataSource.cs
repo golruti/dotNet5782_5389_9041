@@ -19,6 +19,12 @@ namespace DalObject
         static internal List<DroneCharge> droneCharges = new();
         internal class Config
         {
+           static double vacant;
+           static double CarriesLightWeigh;
+           static double CarriesMediumWeigh;
+           static double CarriesHeavyWeight;
+           static double ChargingRatel;
+
         }
 
         /// <summary>
@@ -60,8 +66,6 @@ namespace DalObject
                 tempDrone.Id = i;
                 tempDrone.Model = $"drone {i}";
                 tempDrone.MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0, 3);
-                tempDrone.Status = (IDAL.DO.Enum.DroneStatuses)Rand.Next(0, (int)IDAL.DO.Enum.DroneStatuses.Delivery);
-                tempDrone.Battery = Rand.Next(101);
                 drones.Add(tempDrone);
 
            

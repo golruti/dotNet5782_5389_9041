@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public class DalObject
+    public class DalObject: IDal 
     {
         /// <summary>
         /// A constructive function of a department that initializes drones, stations, customers and packages
@@ -55,31 +55,7 @@ namespace DalObject
 
 
 
-        /// <summary>
-        /// Assigning a parcel to a drone
-        /// </summary>
-        /// <param name="idxParcel">Id of the parcel</param>
-        public void UpdateParcelScheduled(int idxParcel)
-        {
-            for (int i = 0; i < DataSource.drones.Count; ++i)
-            {
-                if (DataSource.drones[i].Status == IDAL.DO.Enum.DroneStatuses.Available)
-                {
-                    Parcel p = DataSource.parcels[idxParcel];
-                    p.Scheduled = new DateTime();
-                    p.Droneld = DataSource.drones[i].Id;
-                    DataSource.parcels[idxParcel] = p;
-
-                    Drone d = DataSource.drones[i];
-                    d.Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
-
-                    d.MaxWeight = DataSource.parcels[idxParcel].Weight;
-
-                    DataSource.drones[DataSource.drones.Count] = d;
-                    break;
-                }
-            }
-        }
+        
         /// <summary>
         /// Package assembly by drone
         /// </summary>
@@ -96,7 +72,7 @@ namespace DalObject
                     p.PickedUp = DateTime.Now;
                     DataSource.parcels[i] = p;
 
-                    //עדכון מצב הרחפן למשלוח
+                    //עדכון מצב הרחפן למשלוח ..צריך להעביר לבל 
                     for (int j = 0; j < DataSource.drones.Count(); ++j)
                     {
                         if (DataSource.drones[j].Id == DataSource.parcels[i].Droneld)
@@ -127,7 +103,7 @@ namespace DalObject
                     p.Delivered = DateTime.Now;
                     DataSource.parcels[i] = p;
 
-                    //עדכון מצב הרחפן לפנוי
+                    //עדכון מצב הרחפן לפנוי..צריך להעביר לבל
                     for (int j = 0; j < DataSource.drones.Count(); ++j)
                     {
                         if (DataSource.drones[j].Id == DataSource.parcels[i].Droneld)
@@ -166,7 +142,7 @@ namespace DalObject
             // הוספת רשומה של ישות טעינת סוללת רחפן
             DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
             DataSource.droneCharges.Add(droneCharge);
-            //שינוי מצב הרחפן
+            // צריך להעביר לבל..שינוי מצב הרחפן
             drone.Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
             return true;
         }
@@ -177,7 +153,7 @@ namespace DalObject
         /// <param name="droneId">Id of the drone</param>
         /// <returns>Returns the mother drone released from charging</returns>
         /// 
-        //	שחרור רחפן מטעינה בתחנת-בסיס
+        //	צריך להיות בבל ..שחרור רחפן מטעינה בתחנת-בסיס
         public bool TryRemoveDroneCarge(int droneId)
         {
             if (!DataSource.droneCharges.Any(dc => dc.DroneId == droneId))
@@ -239,7 +215,7 @@ namespace DalObject
         /// The function prepares a new array of all existing stations
         /// </summary>
         /// <returns>array of station</returns>
-        public List<Station> GetStations()
+        public IEnumerable<Station> GetStations()
         {
 
             return DataSource.stations.Select(station =>station.Clone()).ToList();
@@ -249,7 +225,7 @@ namespace DalObject
         /// The function prepares a new array of all existing customers
         /// </summary>
         /// <returns>array of station</returns>
-        public List<Customer> GetCustomers()
+        public IEnumerable<Customer> GetCustomers()
         {
             return DataSource.customers.Select(customer => customer.Clone()).ToList();
         }
@@ -258,7 +234,7 @@ namespace DalObject
         /// The function prepares a new array of all existing drones
         /// </summary>
         /// <returns>array of drones</returns>
-        public List<Drone> GetDrones()
+        public IEnumerable<Drone> GetDrones()
         {
             return DataSource.drones.Select(drone => drone.Clone()).ToList();
         }
@@ -267,12 +243,14 @@ namespace DalObject
         /// The function prepares a new array of all existing parcels
         /// </summary>
         /// <returns>array of parceles</returns>
-        public List<Parcel> GetParcels()
+        public IEnumerable<Parcel> GetParcels()
         {
             return DataSource.parcels.Select(parcel => parcel.Clone()).ToList();
         }
 
 
+
+        //מפה אין שינויים!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         /// <summary>
         /// Displays a list of packages that have not yet been assigned to the glider
