@@ -250,8 +250,6 @@ namespace DalObject
 
 
 
-        //מפה אין שינויים!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         /// <summary>
         /// Displays a list of packages that have not yet been assigned to the glider
         /// </summary>
@@ -269,7 +267,6 @@ namespace DalObject
         /// </summary>
         /// <returns>array of stations</returns>
         /// //●	הצגת  תחנות-בסיס עם עמדות טעינה פנויות
-        /// // הפונקציה לא מתאימה לליסטים!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public IEnumerable<Station> GetAvaStations()
         {
             return DataSource.stations
