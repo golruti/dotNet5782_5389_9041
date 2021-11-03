@@ -7,8 +7,11 @@ using static IDAL.DO.Enum;
 
 namespace IBL.BO
 {
+<<<<<<< HEAD:BL/BL_Parcel.cs
     public class BL_Parcel
+=======
     public struct Parcel
+>>>>>>> 67260fd232c3a98bb3b838d730d3a99cce49c4cc:BL/parcel.cs
         {
             public int Id { get; set; }
             public int SenderId { get; set; }

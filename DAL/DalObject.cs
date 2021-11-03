@@ -91,6 +91,7 @@ namespace DalObject
             //drone.Status = IDAL.DO.Enum.DroneStatuses.Available;
             return true;
         }
+        */
 
 
 
