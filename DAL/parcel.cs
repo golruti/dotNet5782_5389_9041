@@ -21,6 +21,10 @@ namespace IDAL
             public DateTime Scheduled { get; set; }
             public DateTime PickedUp { get; set; }
             public DateTime Delivered { get; set; }
+            public double TargetLongitude { get; set; }
+            public double TargetLattitude { get; set; }
+            public double SenderLongitude { get; set; }
+            public double SenderLattitude { get; set; }
 
             /// <summary>
             /// String of details for parsel
