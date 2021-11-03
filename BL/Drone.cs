@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 using static IDAL.DO.Enum;
 
 
-namespace IBL.BO
+namespace IDAL
 {
-    public struct Drone
+    namespace DO
+    {
+        public struct Drone
         {
             public int Id { get; set; }
+            public string Model { get; set; }
+            public WeightCategories MaxWeight { get; set; }
+            public int Battery { get; set; }
             public DroneStatuses Status { get; set; }
-            public double Battery { get; set; }
+            public Location kk { get; set; }
 
             /// <summary>
             /// String of details for drone
@@ -20,11 +25,25 @@ namespace IBL.BO
             /// <returns>String of details for drone</returns>
             public override string ToString()
             {
-                return ("\nId: " + Id  +
+                return ("\nId: " + Id + "\nModel: " + Model + "\nMaxWeight: " + MaxWeight +
                     "\n\nStatus: " + "%\n");
             }
 
-     
+            /// <summary>
+            /// The functions create a new instance of drone and copy a deep copy
+            /// </summary>
+            /// <returns>drone</returns>
+            public Drone Clone()
+            {
+                return new Drone()
+                {
+                    Id = this.Id,
+                    Model = this.Model,
+                    MaxWeight = this.MaxWeight,
+                    Status = this.Status,
+                    Battery = this.Battery
+                };
+            }
         }
-    
+    }
 }

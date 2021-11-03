@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL.BO
+namespace BL
 {
-    class SkimmerInCharging
+    class StationForList
     {
-        public int Id { get; set; }
-        public int Battery { get; set; }
     }
 }

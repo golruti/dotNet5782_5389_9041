@@ -11,21 +11,25 @@ namespace IBL.BO
     {
         public enum WeightCategories
         {
-            Light,Heavy,Medium
+            Light,
+            Heavy,
+            Medium
         }
 
         public enum Priorities
         {
-            Regular,Fast,Emergency
+            Regular,
+            Fast,
+            Emergency
         }
 
         public enum DroneStatuses
         {
-            Available,Delivery, Maintenance,
+            Available,
+            Delivery,
+            Maintenance,
         }
-        public enum ParselStatus
-        {
-            Created, associated, collected, provided
-        }
+
+        public enum Package
     }
 }
