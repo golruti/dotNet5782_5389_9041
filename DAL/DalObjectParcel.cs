@@ -1,0 +1,97 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using IDAL.DO;
+
+namespace DalObject
+{
+    public partial class DalObject
+    {
+
+        //------------------------------------------Add------------------------------------------
+        /// <summary>
+        /// Receipt of parcel for shipment.
+        /// </summary>
+        /// <param name="parcel">struct of parcel</param>
+        public void InsertParcel(Parcel parcel)
+        {
+            DataSource.parcels.Add(parcel);
+        }
+
+
+        //------------------------------------------Display------------------------------------------
+        /// <summary>
+        /// Exits a parcel from an array of parcels by id
+        /// </summary>
+        /// <param name="idxParcel">struct ofo parcel</param>
+        /// <returns>parcel</returns>
+        public Parcel GetParcel(int idParcel)
+        {
+            return DataSource.parcels.First(parcel => parcel.Id == idParcel);
+        }
+
+        /// <summary>
+        /// The function prepares a new array of all existing parcels
+        /// </summary>
+        /// <returns>array of parceles</returns>
+        public IEnumerable<Parcel> GetParcels()
+        {
+            return DataSource.parcels.Select(parcel => parcel.Clone()).ToList();
+        }
+
+
+
+
+
+        //--------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------
+
+
+        /// <summary>
+        /// Package assembly by drone
+        ///   //אסיפת חבילה עי רחפן
+        /// </summary>
+        /// <param name="idParcel">Id of the parcel</param>
+        public void UpdateParcelPickedUp(int idParcel)
+        {
+            for (int i = 0; i < DataSource.parcels.Count(); ++i)
+            {
+                if (DataSource.parcels[i].Id == idParcel)
+                {
+                    //עדכון זמן איסוף
+                    Parcel p = DataSource.parcels[i];
+                    p.PickedUp = DateTime.Now;
+                    DataSource.parcels[i] = p;
+                    //קריאה לפונקציה המעדכנת את סטטוס הרחפן
+                    UpdateDroneStatus(DataSource.parcels[i].Droneld);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Delivery of a parcel to the destination
+        /// </summary>
+        /// <param name="idxParcel">Id of the parcel</param>
+        /// //אספקת חבילה ליעד
+        public void UpdateParcelDelivered(int idParcel)
+        {
+            for (int i = 0; i < DataSource.parcels.Count; ++i)
+            {
+                if (DataSource.parcels[i].Id == idParcel)
+                {
+                    //עדכון זמן אספקת חבילה
+                    Parcel p = DataSource.parcels[i];
+                    p.Delivered = DateTime.Now;
+                    DataSource.parcels[i] = p;
+                    UpdateDroneStatus(DataSource.parcels[i].Droneld);
+
+                    break;
+                }
+            }
+        }
+
+    }
+}

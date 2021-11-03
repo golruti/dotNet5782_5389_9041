@@ -13,7 +13,6 @@ namespace IDAL
         public struct Drone
         {
             public int Id { get; set; }
-
             public string Model { get; set; }
             public WeightCategories MaxWeight { get; set; }
           
@@ -38,8 +37,6 @@ namespace IDAL
                     Id = this.Id,
                     Model = this.Model,
                     MaxWeight = this.MaxWeight,
-                    Status = this.Status,
-                    Battery = this.Battery
                 };
             }
         }

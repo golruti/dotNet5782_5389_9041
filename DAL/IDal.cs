@@ -9,24 +9,27 @@ namespace IDal
 {
     public interface IDal
     {
-        public void InsertStation(Station station);
-        public void InsertDrone(Drone drone);
-        public void InsertCustomer(Customer customer);
-        public void InsertParcel(Parcel parcel);
-        public void UpdateParcelScheduled(int idxParcel);
-        public void UpdateParcelPickedUp(int idxParcel);
-        public void UpdateParcelDelivered(int idxParcel);
-        public bool TryAddDroneCarge(int droneId);
-        public bool TryRemoveDroneCarge(int droneId);
-        public Station GetStation(int idxStation);
-        public Drone GetDrone(int idxDrone);
-        public Customer GetCustomer(int idxCustomer);
-        public Parcel GetParcel(int idxParcel);
-        public IEnumerable<Station> GetStations();
-        public IEnumerable<Customer> GetCustomers();
-        public IEnumerable<Drone> GetDrones();
-        public IEnumerable<Parcel> GetParcels();
-        public IEnumerable<Parcel> UnassignedPackages();
-        public IEnumerable<Station> GetAvaStations();
+        void InsertStation(Station station);
+        void InsertDrone(Drone drone);
+        void InsertCustomer(Customer customer);
+        void InsertParcel(Parcel parcel);
+         void UpdateParcelScheduled(int idxParcel);
+        void UpdateParcelPickedUp(int idxParcel);
+        public void UpdateDroneStatus(int IdParcel);
+        void UpdateParcelDelivered(int idxParcel);
+        bool TryAddDroneCarge(int droneId);
+        bool TryRemoveDroneCarge(int droneId);
+        Station GetStation(int idxStation);
+        Drone GetDrone(int idxDrone);
+        Customer GetCustomer(int idxCustomer);
+        Parcel GetParcel(int idxParcel);
+        IEnumerable<Station> GetStations();
+        IEnumerable<Customer> GetCustomers();
+        IEnumerable<Drone> GetDrones();
+        IEnumerable<Parcel> GetParcels();
+        IEnumerable<Parcel> UnassignedPackages();
+        IEnumerable<Station> GetAvaStations();
+
+        double[] DronePowerConsumptionRequest(); 
     }
 }

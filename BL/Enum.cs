@@ -29,5 +29,13 @@ namespace IBL.BO
             Delivery,
             Maintenance,
         }
+
+        public enum ParcelStatuses
+        {
+            Defined,
+            Associated,
+            Collected,
+            Provided
+        }
     }
 }
