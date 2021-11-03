@@ -2,8 +2,7 @@
 
 namespace IBL.BO
 {
-   
-        public class Station
+    public struct Station
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -21,8 +20,7 @@ namespace IBL.BO
                     "\nLattitude: " + Lattitude + "\nChargeSlote: " + ChargeSlote + "\n");
             }
 
-            
-            }
+
         }
     
 }

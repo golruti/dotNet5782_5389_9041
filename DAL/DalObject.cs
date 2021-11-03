@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public class DalObject: IDal 
+    public class DalObject:IDal.IDal 
     {
         /// <summary>
         /// A constructive function of a department that initializes drones, stations, customers and packages
@@ -55,7 +55,7 @@ namespace DalObject
 
 
 
-        
+       /*BL 
         /// <summary>
         /// Package assembly by drone
         /// </summary>
@@ -168,7 +168,7 @@ namespace DalObject
             drone.Status = IDAL.DO.Enum.DroneStatuses.Available;
             return true;
         }
-
+        */
 
         /// <summary>
         /// Removes a station from an array of stations by id
@@ -266,7 +266,7 @@ namespace DalObject
         /// Display base stations with available charging stations
         /// </summary>
         /// <returns>array of stations</returns>
-        /// //●	הצגת  תחנות-בסיס עם עמדות טעינה פנויות
+        /// //הצגת  תחנות-בסיס עם עמדות טעינה פנויות
         public IEnumerable<Station> GetAvaStations()
         {
             return DataSource.stations

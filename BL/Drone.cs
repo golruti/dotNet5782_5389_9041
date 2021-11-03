@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enum;
+using static IDAL.DO.Enum;
 
 
 namespace IBL.BO
 {
-  
-        public class Drone
+    public struct Drone
         {
             public int Id { get; set; }
-            public string Model { get; set; }
-            public WeightCategories MaxWeight { get; set; }
             public DroneStatuses Status { get; set; }
             public double Battery { get; set; }
 
@@ -23,11 +20,11 @@ namespace IBL.BO
             /// <returns>String of details for drone</returns>
             public override string ToString()
             {
-            return ("\nId: " + Id + "\nModel: " + Model + "\nMaxWeight: " + MaxWeight +
-                "\n\nStatus: " + Status + "\nBattery: " + Battery + "%\n");
+                return ("\nId: " + Id  +
+                    "\n\nStatus: " + "%\n");
             }
 
-            
+     
         }
     
 }

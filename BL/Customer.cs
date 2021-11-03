@@ -6,27 +6,28 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-   
-        public class Customer
+    public class Customer
         {
             public int Id { get; set; }
             public string Name { get; set; }
-            public string Phone { get; set; }
-            public double Longitude { get; set; }
-            public double Lattitude { get; set; }
+            public int Phone { get; set; }
+            public Location DeliveryLocatn { get; set; }
 
 
-            /// <summary>
-            /// String of details for drone
-            /// </summary>
-            /// <returns>String of details for drone</returns>
-            public override string ToString()
+            public List<Customer> DeliveryListFromTheCustomer { get; set; }
+            public List<Customer> DeliveryListToTheCustomer { get; set; }
+
+
+
+        /// <summary>
+        /// String of details for drone
+        /// </summary>
+        /// <returns>String of details for drone</returns>
+        public override string ToString()
             {
-                return ("\nId: " + Id + "\nName: " + Name + "\nPhone: " + Phone +
-                    "\nLongitude: " + Longitude + "\nLattitude: " + Lattitude + "\n");
+                return ("\nId: " + Id + "\nName: " + Name + "\n");
             }
 
-         
         }
     
 }

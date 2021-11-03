@@ -24,7 +24,7 @@ namespace ConsoleUI
             int choice2 = 0;
 
             int id = 1;
-            DalObject.DalObject dal = new DalObject.DalObject();
+            IDal.IDal dal = new DalObject.DalObject();
 
             while (choice2 != 5)
             {

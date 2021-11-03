@@ -38,8 +38,7 @@ namespace IDAL
                     Id = this.Id,
                     Model = this.Model,
                     MaxWeight = this.MaxWeight,
-                    Status = this.Status,
-                    Battery = this.Battery
+                    
                 };
             }
         }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enum;
+using static IDAL.DO.Enum;
 
 namespace IBL.BO
 {
-   
-        public class Parcel
+    public struct Parcel
         {
             public int Id { get; set; }
             public int SenderId { get; set; }
@@ -32,8 +31,6 @@ namespace IBL.BO
                     + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n");
             }
 
-          
-
+     
         }
-    
 }
