@@ -7,7 +7,7 @@ namespace ConsoleUI_BL
       
 
 
-              public enum Options { Insert, Update, Disply, View, Exit };
+        public enum Options { Insert, Update, Disply, View, Exit };
         public enum Insert { Base_station, Drone, Customer, Parcel };
         public enum Update
         {
@@ -27,7 +27,7 @@ namespace ConsoleUI_BL
 
             int id = 1;
             IBL bl= new BL();
-
+            IDal.IDal dal = new DalObject.DalObject();
             while (choice2 != 5)
             {
                 Console.Write("------------\n");

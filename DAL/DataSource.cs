@@ -19,11 +19,11 @@ namespace DalObject
         static internal List<DroneCharge> droneCharges = new();
         internal class Config
         {
-           static public double vacant;
-           static public double CarriesLightWeigh;
-           static public double CarriesMediumWeigh;
-           static public double CarriesHeavyWeight;
-           static public double ChargingRatel;
+           static double vacant;
+           static double CarriesLightWeigh;
+           static double CarriesMediumWeigh;
+           static double CarriesHeavyWeight;
+           static double ChargingRatel;
 
         }
 

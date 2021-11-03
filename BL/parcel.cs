@@ -5,11 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using static IDAL.DO.Enum;
 
-namespace IDAL
+namespace IBL.BO
 {
-    namespace DO
-    {
-        public struct Parcel
+    public struct Parcel
         {
             public int Id { get; set; }
             public int SenderId { get; set; }
@@ -21,10 +19,6 @@ namespace IDAL
             public DateTime Scheduled { get; set; }
             public DateTime PickedUp { get; set; }
             public DateTime Delivered { get; set; }
-            public double TargetLongitude { get; set; }
-            public double TargetLattitude { get; set; }
-            public double SenderLongitude { get; set; }
-            public double SenderLattitude { get; set; }
 
             /// <summary>
             /// String of details for parsel
@@ -37,26 +31,6 @@ namespace IDAL
                     + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n");
             }
 
-            /// <summary>
-            /// The functions create a new instance of parsel and copy a deep copy
-            /// </summary>
-            /// <returns>parsel</returns>
-            public Parcel Clone()
-            {
-                return new Parcel()
-                {
-                    Id = this.Id,
-                    SenderId = this.SenderId,
-                    TargetId = this.TargetId,
-                    Weight = this.Weight,
-                    Requested = this.Requested,
-                    Droneld = this.Droneld,
-                    Scheduled = this.Scheduled,
-                    PickedUp = this.PickedUp,
-                    Delivered = this.Delivered
-                };
-            }
-
+     
         }
-    }
 }

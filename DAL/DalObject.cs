@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public class DalObject: IDal.IDal
+    public class DalObject:IDal.IDal 
     {
         /// <summary>
         /// A constructive function of a department that initializes drones, stations, customers and packages
@@ -55,27 +55,7 @@ namespace DalObject
 
 
 
-
-
-        /// Assigning a parcel to a drone
-        /// </summary>
-        /// <param name="idxParcel">Id of the parcel</param>
-        //public void UpdateParcelScheduled(int idxParcel)
-        //{
-        //    for (int i = 0; i < DataSource.drones.Count(); ++i)
-        //    {
-        //        if (DataSource.drones[i].Status == IDAL.DO.Enum.DroneStatuses.Available)
-        //        {
-        //            DataSource.parcels[idxParcel].Scheduled = new DateTime();
-        //            DataSource.parcels[idxParcel].Droneld = DataSource.drones[i].Id;
-        //            DataSource.drones[i].Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
-        //            DataSource.drones[i].MaxWeight = DataSource.parcels[idxParcel].Weight;
-        //            break;
-        //        }
-        //    }
-        //}
-
-
+       /*BL 
         /// <summary>
         /// Package assembly by drone
         /// </summary>
@@ -98,7 +78,7 @@ namespace DalObject
                         if (DataSource.drones[j].Id == DataSource.parcels[i].Droneld)
                         {
                             Drone d = DataSource.drones[j];
-                            //d.Status = IDAL.DO.Enum.DroneStatuses.Delivery;
+                            d.Status = IDAL.DO.Enum.DroneStatuses.Delivery;
                             DataSource.drones[j] = d;
                         }
                     }
@@ -129,7 +109,7 @@ namespace DalObject
                         if (DataSource.drones[j].Id == DataSource.parcels[i].Droneld)
                         {
                             Drone d = DataSource.drones[j];
-                            //d.Status = IDAL.DO.Enum.DroneStatuses.Available;
+                            d.Status = IDAL.DO.Enum.DroneStatuses.Available;
                             DataSource.drones[j] = d;
                             break;
                         }
@@ -163,7 +143,7 @@ namespace DalObject
             DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
             DataSource.droneCharges.Add(droneCharge);
             // צריך להעביר לבל..שינוי מצב הרחפן
-            //drone.Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
+            drone.Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
             return true;
         }
 
@@ -185,10 +165,10 @@ namespace DalObject
                 return false;
 
             DataSource.droneCharges.Remove(droneCharge);
-            //drone.Status = IDAL.DO.Enum.DroneStatuses.Available;
+            drone.Status = IDAL.DO.Enum.DroneStatuses.Available;
             return true;
         }
-
+        */
 
         /// <summary>
         /// Removes a station from an array of stations by id
@@ -270,8 +250,6 @@ namespace DalObject
 
 
 
-        //מפה אין שינויים!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         /// <summary>
         /// Displays a list of packages that have not yet been assigned to the glider
         /// </summary>
@@ -288,27 +266,13 @@ namespace DalObject
         /// Display base stations with available charging stations
         /// </summary>
         /// <returns>array of stations</returns>
-        /// //●	הצגת  תחנות-בסיס עם עמדות טעינה פנויות
-        /// // הפונקציה לא מתאימה לליסטים!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /// //הצגת  תחנות-בסיס עם עמדות טעינה פנויות
         public IEnumerable<Station> GetAvaStations()
         {
             return DataSource.stations
                          .Where(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id))
                          .ToList();
-        }
 
-
-
-
-       public double[] DronePowerConsumptionRequest()
-        {
-            return (new double[5]{
-                DataSource.Config.vacant,
-                 DataSource.Config.CarriesLightWeigh,
-                  DataSource.Config.CarriesMediumWeigh,
-                   DataSource.Config.CarriesHeavyWeight,
-                    DataSource.Config.ChargingRatel
-                  });
         }
     }
 }

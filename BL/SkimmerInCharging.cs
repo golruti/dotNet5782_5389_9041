@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class Location
+    class SkimmerInCharging
     {
-        public double longitude { get; set; }
-        public double latitude { get; set; }
+        public int Id { get; set; }
+        public int Battery { get; set; }
     }
 }
