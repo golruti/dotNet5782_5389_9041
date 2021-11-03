@@ -19,7 +19,7 @@ namespace DalObject
         {
             foreach (var item in lst)
             {
-                if ((int)item.GetType().GetProperty("id").GetValue(item, null) == id)
+                if ((int)item.GetType().GetProperty("id").GetValue(item, null) == id) 
                     return false;
             }
             return true;
