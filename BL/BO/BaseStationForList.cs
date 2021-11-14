@@ -6,20 +6,17 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class CustomerInDelivery
+    class BaseStationForList
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int AvailableChargingPorts { get; set; }
+        public int UsedChargingPorts { get; set; }
 
-        /// <summary>
-        /// String of details for drone
-        /// </summary>
-        /// <returns>String of details for drone</returns>
         public override string ToString()
         {
-            return ("\nId: " + Id + "\nName: " + Name + "\n");
+            return $"Station #{Id}: {Name}, Available Charging Ports={AvailableChargingPorts}, Used Charging Ports={UsedChargingPorts}";
         }
-
     }
 }
-}
+

@@ -1,18 +1,20 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enum;
+using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
-    class ParcelInTransfer
+    public class DeliveryToCustomer
     {
         public int Id { get; set; }
+        public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
         public ParselStatus status { get; set; }
-        public CustomerInDelivery Source { get; set; }
-        public CustomerInDelivery Destination { get; set; }
+        public CustomerDelivery SourceOrDestination { get; set; }
     }
 }
+

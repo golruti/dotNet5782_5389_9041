@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enum;
+using static IBL.BO.Enums;
 
 namespace ConsoleUI_BL
 {
@@ -14,9 +14,9 @@ namespace ConsoleUI_BL
         /// The function asks the user to enter station details
         /// </summary>
         /// <returns>station</returns>
-        public static Station GetStation()
+        public static BaseStation GetStation()
         {
-            Station tempStation = new Station();
+            BaseStation tempStation = new BaseStation();
             Console.Write("Enter id ");
             tempStation.Id = int.Parse(Console.ReadLine());
 

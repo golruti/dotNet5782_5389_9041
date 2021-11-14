@@ -6,22 +6,37 @@ using DalObject;
 using IBL.BO;
 
 
-namespace BL
+
+namespace IBL
 {
-    class BL : IBL.IBL
+    class BL : IBL
     {
-        IDal.IDal _dal;
+        private IDAl.IDal dal;
+        private List<DroneForList> drones;
+        private static Random rand = new Random();
+
         public BL()
         {
-            _dal = new DalObject.DalObject();
-            IEnumerable drones = DalObject.GetDrones();
+            dal = new DalObject.DalObject();
+            drones = new List<DroneForList>();
 
+            foreach (var drone in dal.GetDrones())
+            {
+                drones.Add(new DroneForList
+                {
+                    Id = drone.Id,
+                    Model = drone.Model,
+                    MaxWeight = (Enums.WeightCategories)drone.MaxWeight,
+                    DeliveryId = 0,
+                    Battery = 1
 
+                });
+            }
 
         }
 
 
-        public BL_Drone CreateLogicDrone(int idDrone)
+        public Drone CreateLogicDrone(int idDrone)
         {
             var dalDrones = _dal.GetDrones();
             foreach (var drone in dalDrones)

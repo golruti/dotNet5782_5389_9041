@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDal
+namespace IDAl
 {
     public interface IDal
     {
@@ -13,7 +13,7 @@ namespace IDal
         void InsertDrone(Drone drone);
         void InsertCustomer(Customer customer);
         void InsertParcel(Parcel parcel);
-         void UpdateParcelScheduled(int idxParcel);
+        void UpdateParcelScheduled(int idxParcel);
         void UpdateParcelPickedUp(int idxParcel);
         public void UpdateDroneStatus(int IdParcel);
         void UpdateParcelDelivered(int idxParcel);
@@ -30,6 +30,6 @@ namespace IDal
         IEnumerable<Parcel> UnassignedPackages();
         IEnumerable<Station> GetAvaStations();
 
-        double[] DronePowerConsumptionRequest(); 
+        double[] DronePowerConsumptionRequest();
     }
 }

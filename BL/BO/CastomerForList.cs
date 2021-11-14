@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BL
+namespace IBL.BO
 {
     class CastomerForList
     {
@@ -18,3 +18,4 @@ namespace BL
 
     }
 }
+

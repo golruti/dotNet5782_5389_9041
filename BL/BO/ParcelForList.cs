@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enum;
+using static IBL.BO.Enums;
 
-namespace BL
+namespace IBL.BO
 {
     class ParcelForList
     {
@@ -19,3 +19,4 @@ namespace BL
 
     }
 }
+
