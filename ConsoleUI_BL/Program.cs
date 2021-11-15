@@ -1,192 +1,204 @@
 ﻿using System;
+using System.Collections.Generic;
+using IBL;
+using IBL.BO;
+
 
 namespace ConsoleUI_BL
 {
     class Program
     {
-      
-
-
-        public enum Options { Insert, Update, Disply, View, Exit };
-        public enum Insert { Base_station, Drone, Customer, Parcel };
-        public enum Update
+        private static IBL.IBL bl;
+        static void Main(string[] args)
         {
-            Assign_a_package_to_a_drone,
-            Package_assembly_by_drone,
-            Delivery_of_a_package_to_the_destination,
-            Sending_a_drone_for_charging_at_a_base_station,
-            Releasing_a_drone_from_charging
-        };
-        public enum Disply { Base_station, Drone, Customer, Parcel };
-        public enum View { Base_stations, Drone, Customers, Parcel, Parcels_not_drone, Base_stations_vacant };
+            bl = new IBL.BL();
+            ShowMenu();
+        }
 
-        private static void Main(string[] args)
+        enum MenuOptions { Exit, Add, Update, Show_One, Show_List }
+        enum EntityOptions { Exit, BaseStation, Drone, Customer, Parcel }
+        enum UpdateOptions { Exit, Assignment, Pickedup, Delivery, Recharge, Release }
+        enum ListOptions { Exit, BaseStations, Drones, Customers, Parcels, UnAssignmentParcels, AvailableChargingStations }
+        private static void ShowMenu()
         {
-            int choice = 0;
-            int choice2 = 0;
-
-            int id = 1;
-            IBL bl= new BL();
-            IDal.IDal dal = new DalObject.DalObject();
-            while (choice2 != 5)
+            MenuOptions menuOption;
+            do
             {
-                Console.Write("------------\n");
-                foreach (var option in System.Enum.GetNames(typeof(Options)))
+                Console.WriteLine("Welcome!");
+                Console.WriteLine("option:\n 1-Add,\n 2-Update,\n 3-Show item,\n 4-Show list,\n 0-Exit");
+                menuOption = (MenuOptions)int.Parse(Console.ReadLine());
+                switch (menuOption)
                 {
-                    Console.Write((id++) + "--- " + option + "\n");
-                }
-                Console.Write("------------\n");
-                id = 1;
-                choice2 = int.Parse(Console.ReadLine());
-
-                switch (choice2)
-                {
-                    case 1:
-                        foreach (var option in System.Enum.GetNames(typeof(Insert)))
-                        {
-
-                            Console.Write((id++) + "--- " + option + "\n");
-                        }
-                        id = 1;
-                        choice = int.Parse(Console.ReadLine());
-                        switch (choice)
-                        {
-                            case 1:
-                                IBL.InsertStation(MainFunction.GetStation());
-                                break;
-                            case 2:
-                                IBL.InsertDrone(MainFunction.GetDrone());
-                                break;
-
-                            case 3:
-                                IBL.InsertCustomer(MainFunction.GetCustomer());
-                                break;
-                            case 4:
-                                IBL.InsertParcel(MainFunction.GetParcel());
-                                break;
-                            default:
-                                break;
-                        }
+                    case MenuOptions.Add:
+                        MenuAddOptions();
                         break;
-
-
-                    case 2:
-                        foreach (var option in System.Enum.GetNames(typeof(Update)))
-                        {
-                            Console.Write((id++) + "--- " + option + "\n");
-                        }
-                        id = 1;
-                        choice = int.Parse(Console.ReadLine());
-                        switch (choice)
-                        {
-                            case 1:
-                                IBL.UpdateParcelScheduled(MainFunction.EnterId());
-                                Console.Write("##OK##\n");
-                                break;
-                            case 2:
-                                IBL.UpdateParcelPickedUp(MainFunction.EnterId());
-                                Console.Write("##OK##\n");
-                                break;
-                            case 3:
-                                IBL.UpdateParcelDelivered(MainFunction.EnterId());
-                                Console.Write("##OK##\n");
-                                break;
-                            case 4:
-                                if (!IBL.TryAddDroneCarge(MainFunction.EnterId()))
-                                    Console.WriteLine("Skimmer does not exist or there is no available charging station\n");
-                                else
-                                    Console.WriteLine("##OK#");
-                                break;
-                            case 5:
-                                if (!IBL.TryRemoveDroneCarge(MainFunction.EnterId()))
-                                    Console.WriteLine("The drone is not charging\n");
-                                else
-                                    Console.WriteLine("##OK##");
-                                break;
-                            default:
-                                break;
-                        }
+                    case MenuOptions.Update:
+                        MenuUpdateOptions();
                         break;
-
-                    case 3:
-                        foreach (var option in System.Enum.GetNames(typeof(Disply)))
-                        {
-                            Console.Write((id++) + "--- " + option + "\n");
-                        }
-                        id = 1;
-                        choice = int.Parse(Console.ReadLine());
-                        switch (choice)
-                        {
-                            case 1:
-                                Console.WriteLine(IBL.GetStation(MainFunction.EnterId()));
-                                break;
-                            case 2:
-                                Console.WriteLine(IBL.GetDrone(MainFunction.EnterId()));
-                                break;
-                            case 3:
-                                Console.WriteLine(IBL.GetCustomer(MainFunction.EnterId()));
-                                break;
-                            case 4:
-                                Console.WriteLine(IBL.GetParcel(MainFunction.EnterId()));
-                                break;
-                            default:
-                                break;
-                        }
+                    case MenuOptions.Show_One:
+                        MenuShowOneOptions();
                         break;
-
-                    case 4:
-                        foreach (var option in System.Enum.GetNames(typeof(View)))
-                        {
-                            Console.Write((id++) + "--- " + option + "\n");
-                        }
-                        id = 1;
-                        choice = int.Parse(Console.ReadLine());
-                        switch (choice)
-                        {
-                            case 1:
-                                foreach (var station in IBL.GetStations())
-                                {
-                                    Console.Write(station);
-                                }
-                                break;
-                            case 2:
-                                foreach (var drone in IBL.GetDrones())
-                                {
-                                    Console.Write(drone);
-                                }
-                                break;
-                            case 3:
-                                foreach (var customer in IBL.GetCustomers())
-                                {
-                                    Console.Write(customer);
-                                }
-                                break;
-                            case 4:
-                                foreach (var parcel in IBL.GetParcels())
-                                {
-                                    Console.Write(parcel);
-                                }
-                                break;
-                            case 5:
-                                foreach (var parcel in IBL.UnassignedPackages())
-                                {
-                                    Console.Write(parcel);
-                                }
-                                break;
-                            case 6:
-                                foreach (var station in IBL.GetAvaStations())
-                                {
-                                    Console.Write(station);
-                                }
-                                break;
-                            default:
-                                break;
-                        }
+                    case MenuOptions.Show_List:
+                        MenuShowListOptions();
                         break;
-
-                    default:
+                    case MenuOptions.Exit:
                         break;
                 }
+            } while (menuOption != MenuOptions.Exit);
+        }
+
+        private static void MenuShowListOptions()
+        {
+            Console.WriteLine(
+                "List option:\n 1-Base Stations,\n 2-Drones,\n 3-Customers,\n 4-Parcels,\n 5-UnAssignment Parcels,\n 6-Available Charging Stations,\n 0-Exit");
+            ListOptions listOptions = (ListOptions)int.Parse(Console.ReadLine());
+            switch (listOptions)
+            {
+                case ListOptions.BaseStations:
+                    //foreach (var item in bl.GetBaseStations())
+                    //{
+                    //    Console.WriteLine(item);
+                    //}
+                    ShowList(bl.GetBaseStations());
+                    break;
+                case ListOptions.Drones:
+                    foreach (var item in bl.GetDrones())
+                    {
+                        Console.WriteLine(item);
+                    }
+
+                    break;
+                case ListOptions.Customers:
+                    foreach (var item in bl.GetCustomers())
+                    {
+                        Console.WriteLine(item);
+                    }
+
+                    break;
+                case ListOptions.Parcels:
+                    foreach (var item in bl.GetParcels())
+                    {
+                        Console.WriteLine(item);
+                    }
+
+                    break;
+                case ListOptions.UnAssignmentParcels:
+                    foreach (var item in bl.UnAssignmentParcels())
+                    {
+                        Console.WriteLine(item);
+                    }
+
+                    break;
+                case ListOptions.AvailableChargingStations:
+                    foreach (var item in bl.AvailableChargingStations())
+                    {
+                        Console.WriteLine(item);
+                    }
+
+                    break;
+                case ListOptions.Exit:
+                    break;
             }
-        } }
+        }
+
+        private static void MenuShowOneOptions()
+        {
+            EntityOptions entityOption;
+            Console.WriteLine("View item option:\n 1-Base Station,\n 2-Drone,\n 3-Customer,\n 4-Parcel\n, 0-Exit");
+            entityOption = (EntityOptions)int.Parse(Console.ReadLine());
+            Console.WriteLine($"Enter a requested {entityOption} id");
+            int requestedId;
+            int.TryParse(Console.ReadLine(), out requestedId);
+            switch (entityOption)
+            {
+                case EntityOptions.BaseStation:
+                    BaseStation baseStation = bl.GetBaseStation(requestedId);
+                    Console.WriteLine(baseStation);
+                    ShowList(baseStation.DronesInCharging);
+                    break;
+                case EntityOptions.Drone:
+                    Console.WriteLine(bl.GetDrone(requestedId));
+                    break;
+                case EntityOptions.Customer:
+                    Customer customer = bl.GetCustomer(requestedId);
+                    Console.WriteLine(customer);
+                    break;
+                case EntityOptions.Parcel:
+                    Console.WriteLine(bl.GetParcel(requestedId));
+                    break;
+                case EntityOptions.Exit:
+                    break;
+            }
+        }
+
+        private static void MenuUpdateOptions()
+        {
+            Console.WriteLine("Update option:\n 1-Assignment,\n 2-Pickedup,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
+            UpdateOptions updateOptions;
+            updateOptions = (UpdateOptions)int.Parse(Console.ReadLine());
+            int parcelId;
+            int droneId;
+            switch (updateOptions)
+            {
+                case UpdateOptions.Assignment:
+                    Console.WriteLine("Enter IDs for parcel and drone:");
+                    parcelId = int.Parse(Console.ReadLine());
+                    droneId = int.Parse(Console.ReadLine());
+                    bl.AssignmentParcelToDrone(parcelId, droneId);
+                    break;
+                case UpdateOptions.Pickedup:
+                    Console.WriteLine("Enter parcel Id:");
+                    parcelId = int.Parse(Console.ReadLine());
+                    bl.PickedupParcel(parcelId);
+                    break;
+                case UpdateOptions.Delivery:
+
+                    break;
+                case UpdateOptions.Recharge:
+                    Console.WriteLine("Enter IDs for drone and base station:");
+                    droneId = int.Parse(Console.ReadLine());
+                    var baseStationId = int.Parse(Console.ReadLine());
+                    bl.SendDroneToRecharge(droneId, baseStationId);
+                    break;
+                case UpdateOptions.Release:
+                    Console.WriteLine("Enter ID for drone:");
+                    droneId = int.Parse(Console.ReadLine());
+                    bl.ReleaseDroneFromRecharge(droneId);
+                    break;
+                case UpdateOptions.Exit:
+                    break;
+            }
+        }
+
+        private static void MenuAddOptions()
+        {
+            EntityOptions entityOption;
+            Console.WriteLine("Adding option:\n 1-Base Station,\n 2-Drone,\n 3-Customer,\n 4-Parcel");
+            entityOption = (EntityOptions)int.Parse(Console.ReadLine());
+            switch (entityOption)
+            {
+                case EntityOptions.BaseStation:
+                    Console.WriteLine("Enter Name and Number of charging positions:");
+                    string stationName = Console.ReadLine();
+                    int positions;
+                    int.TryParse(Console.ReadLine(), out positions);
+                    bl.AddBaseStation(stationName, positions);
+                    break;
+                case EntityOptions.Drone:
+                    bl.AddDrone();
+                    break;
+                case EntityOptions.Exit:
+                    break;
+            }
+            return;
+        }
+
+        private static void ShowList<T>(IEnumerable<T> collection)
+        {
+            foreach (var item in collection)
+            {
+                Console.WriteLine(item);
+            }
+        }
     }
+}

@@ -7,16 +7,17 @@ using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
-    public class DeliveryByTransfer
+    //חבילה בהעברה
+    public class ParcelByTransfer
     {
         public int Id { get; set; }
         public Priorities Priority { get; set; }
         public WeightCategories Weight { get; set; }
-        public DeliveryToCustomer Sender { get; set; }
-        public DeliveryToCustomer Target { get; set; }
+        public ParcelToCustomer Sender { get; set; }
+        public ParcelToCustomer Target { get; set; }
         public Location SenderLocation { get; set; }
         public Location TargetLocation { get; set; }
-
+        public bool ParcelStatus { get; set; }
         public double Distance { get; set; }
     }
 }

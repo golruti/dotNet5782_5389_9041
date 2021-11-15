@@ -10,7 +10,6 @@ namespace IBL.BO
     class ParcelForList
     {
         public int Id { get; set; }
-        public string CustomerSends { get; set; }
         public string SendCustomer { get; set; }
         public string ReceiveCustomer { get; set; }
         public WeightCategories Weight { get; set; }

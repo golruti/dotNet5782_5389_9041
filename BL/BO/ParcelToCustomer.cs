@@ -8,7 +8,8 @@ using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
-    public class DeliveryToCustomer
+    //חבילה אצל לקוח
+    public class ParcelToCustomer
     {
         public int Id { get; set; }
         public WeightCategories Weight { get; set; }
