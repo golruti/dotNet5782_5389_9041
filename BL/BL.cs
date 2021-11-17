@@ -11,11 +11,15 @@ using IBL.BO;
 
 namespace IBL
 {
-    partial class BL : IBL
+    private IDAL.IDal dal;
+    private List<DroneForList> drones;
+    private static Random rand = new Random();
+
+    public BL()
     {
-        private IDAl.IDal dal;
-        private List<DroneForList> drones;
-        private static Random rand = new Random();
+        dal = new DalObject.DalObject();
+        drones = new List<DroneForList>();
+
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
 
 

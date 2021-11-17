@@ -33,6 +33,12 @@ namespace IBL
             return CustomerForList;
         }
 
+        public void AddCustomer(int id, string name, string phone, double longitude, double latitude)
+        {
+            Customer tempCustomer = new Customer(id, name, phone, longitude, latitude);
+            IDAL.DO.Customer customer = new IDAL.DO.Customer(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
+            dal.InsertCustomer(customer);
+        }
 
     }
 }
