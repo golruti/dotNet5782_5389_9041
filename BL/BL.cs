@@ -53,9 +53,9 @@ namespace IBL
 
         public void AddBaseStation(int id,string name, double longitude, double latitude,int chargingStations)
         {
-            BaseStation tempBaseStation = new BaseStation(id, name, longitude, latitude,chargingStations);
+            BO.BaseStation tempBaseStation = new BO.BaseStation(id, name, longitude, latitude, chargingStations);
 
-            Station station = new Station(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, chargingStations);
+            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, chargingStations);
             dal.InsertStation(station);
             
         }
@@ -83,6 +83,18 @@ namespace IBL
             dal.InsertParcel(parcel);
         }
 
+        public void UpdateDroneModel(int id,string model)
+        {
+            DroneForList tempDroneForList = drones.Find(item=> item.Id == id);
+            drones.Remove(tempDroneForList);
+            tempDroneForList.Model = model;
+            drones.Add(tempDroneForList);
+            dal.DeleteDrone(id);
+            IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDroneForList.Id, tempDroneForList.Model, (IDAL.DO.Enum.WeightCategories)tempDroneForList.MaxWeight);
+            dal.InsertDrone(drone);
+
+
+        }
 
         public void UpdateParcelScheduled(int idxParcel)
         {
@@ -109,7 +121,7 @@ namespace IBL
             throw new NotImplementedException();
         }
 
-        public Station GetStation(int idxStation)
+        public IDAL.DO.BaseStation GetStation(int idxStation)
         {
             throw new NotImplementedException();
         }
@@ -129,7 +141,7 @@ namespace IBL
             throw new NotImplementedException();
         }
 
-        public List<Station> GetStations()
+        public List<IDAL.DO.BaseStation> GetStations()
         {
             throw new NotImplementedException();
         }
@@ -154,7 +166,7 @@ namespace IBL
             throw new NotImplementedException();
         }
 
-        public List<Station> GetAvaStations()
+        public List<IDAL.DO.BaseStation> GetAvaStations()
         {
             throw new NotImplementedException();
         }
@@ -165,6 +177,11 @@ namespace IBL
         }
 
         public void AddDrone(int idDrone, string modelDrone, int maxWeightDrone, int longitudeDrone, int latitudeDrone)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddCustomer(int idCustomer, string nameCustomer, string phoneCustomer, int longitudeCustomer, int latitudeCustomer)
         {
             throw new NotImplementedException();
         }

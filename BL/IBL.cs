@@ -14,26 +14,26 @@ namespace IBL
     public interface IBL
     {
         public void AddBaseStation(int id, string name, double longitude, double latitude, int availableChargingStations);
-        public void InsertDrone(Drone drone);
-        public void InsertCustomer(Customer customer);
-        public void InsertParcel(Parcel parcel);
+        public void AddDrone(int id, string model, int maxWeight, double longitude, double latitude);
+        public void AddCustomer(int id, string name, string phone, double longitude, double latitude);
+        public void AddParcel(int idSender, int idReceiver, int weight, int priority);
         public void UpdateParcelScheduled(int idxParcel);
         public void UpdateParcelPickedUp(int idxParcel);
         public void UpdateParcelDelivered(int idxParcel);
         public bool TryAddDroneCarge(int droneId);
         public bool TryRemoveDroneCarge(int droneId);
-        public Station GetStation(int idxStation);
+        public IDAL.DO.BaseStation GetStation(int idxStation);
         public Drone GetDrone(int idxDrone);
         public Customer GetCustomer(int idxCustomer);
         public Parcel GetParcel(int idxParcel);
-        public List<Station> GetStations();
+        public List<IDAL.DO.BaseStation> GetStations();
         public List<Customer> GetCustomers();
         public List<Drone> GetDrones();
         public List<Parcel> GetParcels();
         public List<Parcel> UnassignedPackages();
-        public List<Station> GetAvaStations();
+        public List<IDAL.DO.BaseStation> GetAvaStations();
         void AddDrone(int idDrone, string modelDrone, int maxWeightDrone, int longitudeDrone, int latitudeDrone);
         void AddCustomer(int idCustomer, string nameCustomer, string phoneCustomer, int longitudeCustomer, int latitudeCustomer);
-        void AddParcel(int idSenderParcel, int idReceiverParcel, int weightParcel, int priorityParcel);
+       
     }
 }

@@ -83,7 +83,11 @@ namespace DalObject
             //}
         }
 
-
+        public void DeleteDrone(int id)
+        {
+            List<Drone> tempDrones = (List<Drone>)GetDrones();
+            tempDrones.RemoveAll(item => item.Id == id);
+        }
 
     }
 }
