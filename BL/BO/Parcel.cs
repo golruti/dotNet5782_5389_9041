@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IDAL.DO.Enum;
+using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
     public class Parcel
     {
-        private int idSender;
-        private int idReceiver;
-        private Enums.WeightCategories weight;
-        private Enums.Priorities priority;
+        
 
         public int Id { get; set; }
+        public int SenderId { get; set; }
+        public int ReceiverId { get; set; }
         public CustomerDelivery Sender { get; set; }
         public CustomerDelivery Receiver { get; set; }
         public WeightCategories Weight { get; set; }
@@ -31,8 +30,8 @@ namespace IBL.BO
         /// <returns>String of details for parsel</returns>
         public override string ToString()
         {
-            return ("\nid: " + Id + "\nSenderId: " + SenderId + "\nTargetId: " + TargetId +
-                "\nWeight: " + Weight + "\nRequested: " + Requested + "\nDroneld: " + Droneld
+            return ("\nid: " + Id + "\nSenderId: " + SenderId + "\nTargetId: " + ReceiverId +
+                "\nWeight: " + Weight + "\nRequested: " + Requested + "\nDroneld: " 
                 + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n");
         }
         public Parcel(int id, CustomerDelivery sender,CustomerDelivery receiver,WeightCategories weight,Priorities priority,DroneInParcel droneParcel)
@@ -45,12 +44,12 @@ namespace IBL.BO
             DroneParcel = droneParcel;
         }
 
-        public Parcel(int idSender, int idReceiver, Enums.WeightCategories weight, Enums.Priorities priority)
+        public Parcel(int idSender, int idReceiver, WeightCategories weight, Priorities priority)
         {
-            this.idSender = idSender;
-            this.idReceiver = idReceiver;
-            this.weight = weight;
-            this.priority = priority;
+            SenderId = idSender;
+            ReceiverId = idReceiver;
+            Weight = weight;
+            Priority = priority;
         }
     }
 }

@@ -79,7 +79,8 @@ namespace IBL
         public void AddParcel(int idSender, int idReceiver, int weight, int priority)
         {
             Parcel tempParcel = new Parcel(idSender, idReceiver, (Enums.WeightCategories)weight, (Enums.Priorities)priority);
-            IDAl.DO.Parcel parcel=new DO.Parcel()
+            IDAl.DO.Parcel parcel = new IDAL.DO.Parcel(tempParcel.SenderId, tempParcel.ReceiverId, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
+            dal.InsertParcel(parcel);
         }
 
 
