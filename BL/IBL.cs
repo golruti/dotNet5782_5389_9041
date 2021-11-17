@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IBL
 {
-    interface IBL
+   public interface IBL
     {
         //public void InsertStation(Station station);
         //public void InsertDrone(Drone drone);
