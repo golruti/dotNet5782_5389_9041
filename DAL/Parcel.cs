@@ -14,17 +14,22 @@ namespace IDAL
             public int Id { get; set; }
             public int SenderId { get; set; }
             public int TargetId { get; set; }
+            public int Droneld { get; set; }
+
             public WeightCategories Weight { get; set; }
             public Priorities Priority { get; set; }
+
+            //זמן יצירת חבילה
             public DateTime Requested { get; set; }
-            public int Droneld { get; set; }
+            //זמן שיוך
             public DateTime Scheduled { get; set; }
+            //זמן איסוף
             public DateTime PickedUp { get; set; }
+            //זמן הגעה
             public DateTime Delivered { get; set; }
-            public double TargetLongitude { get; set; }
-            public double TargetLattitude { get; set; }
-            public double SenderLongitude { get; set; }
-            public double SenderLattitude { get; set; }
+
+
+
 
             /// <summary>
             /// String of details for parsel
