@@ -31,7 +31,8 @@ namespace IDAL
         IEnumerable<Parcel> UnassignedParcels();
         double[] DronePowerConsumptionRequest();
         void DeleteDrone(int id);
-        double[] DronePowerConsumptionRequest();
+        
         int IncreastNumberIndea();
+        void DeleteBaseStation(int id);
     }
 }

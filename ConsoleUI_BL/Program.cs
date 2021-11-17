@@ -150,8 +150,10 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Enter number of station and name and/or sum of Charging positions and sum with loaded skimmers:");
                     stationlId = int.Parse(Console.ReadLine());
                     string name= (Console.ReadLine());
+                    int chargeSlote = int.Parse(Console.ReadLine());
 
-                    bl.UpdathBaseStation(parcelId,);
+
+                    bl.UpdathBaseStation(stationlId,name,chargeSlote);
                     break;
                 case UpdateOptions.Delivery:
 

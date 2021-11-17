@@ -136,9 +136,12 @@ namespace IBL
 
         }
 
-        public void UpdathBaseStation(int id,)
+        public void UpdathBaseStation(int id, string name, int chargeSlote)
         {
+            IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
             dal.DeleteBaseStation(id);
+            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id,name, tempBaseStation.Longitude, tempBaseStation.Lattitude, chargeSlote);
+            dal.InsertStation(station);
         }
         public void UpdateParcelScheduled(int idxParcel)
         {
