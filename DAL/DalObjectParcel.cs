@@ -93,17 +93,5 @@ namespace DalObject
             }
         }
 
-        /// <summary>
-        /// Displays a list of packages that have not yet been assigned to the glider
-        /// </summary>
-        /// <returns>array of parcels that have not yet been assigned to the glider</returns>
-        /// 
-        //	הצגת רשימת חבילות שעוד לא שויכו לרחפן
-        public IEnumerable<Parcel> UnassignedParcels()
-        {
-            return new List<Parcel>(DataSource.parcels.Where(parcel => parcel.Droneld == 0).ToList());
-        }
-
-
     }
 }

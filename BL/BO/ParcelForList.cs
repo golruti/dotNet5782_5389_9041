@@ -13,7 +13,7 @@ namespace IBL.BO
         public string SendCustomer { get; set; }
         public string ReceiveCustomer { get; set; }
         public WeightCategories Weight { get; set; }
-        public Priorities Priority { get; set; }
+        public Priorities priority { get; set; }
         public ParcelStatuses Status { get; set; }
 
     }
