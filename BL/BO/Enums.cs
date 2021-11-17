@@ -18,21 +18,17 @@ namespace IBL.BO
                 Regular, Emergency, Fast
         }
 
-            public enum DroneStatuses
-            {
-                Available, Delivery, Maintenance,
-            }
-            public enum ParselStatus
-            {
-                Created, associated, collected, provided
-            }
+        public enum DroneStatuses
+        {
+            Available, Delivery, Maintenance,
+        }
 
-            public enum ParcelStatuses
-            {
-                Defined,
-                Associated,
-                Collected,
-                Provided
-            }
+        public enum ParcelStatuses
+        {
+            Created,
+            Associated,
+            Collected,
+            Provided
         }
     }
+}

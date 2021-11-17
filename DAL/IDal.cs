@@ -15,7 +15,7 @@ namespace IDAl
         void InsertParcel(Parcel parcel);
         void UpdateParcelScheduled(int idxParcel);
         void UpdateParcelPickedUp(int idxParcel);
-        public void UpdateDroneStatus(int IdParcel);
+        void UpdateDroneStatus(int IdParcel);
         void UpdateParcelDelivered(int idxParcel);
         bool TryAddDroneCarge(int droneId);
         bool TryRemoveDroneCarge(int droneId);
@@ -23,13 +23,16 @@ namespace IDAl
         Drone GetDrone(int idxDrone);
         Customer GetCustomer(int idxCustomer);
         Parcel GetParcel(int idxParcel);
-        IEnumerable<BaseStation> GetStations();
+        IEnumerable<BaseStation> GetBaseStations();
         IEnumerable<Customer> GetCustomers();
         IEnumerable<Drone> GetDrones();
         IEnumerable<Parcel> GetParcels();
-        IEnumerable<Parcel> UnassignedPackages();
-        IEnumerable<BaseStation> GetAvaStations();
+        IEnumerable<Parcel> UnassignedParcels();
+
+        IEnumerable<BaseStation> GetAvaBaseStations()
 
         double[] DronePowerConsumptionRequest();
+        List<BaseStation> GetBaseStation();
+
     }
 }

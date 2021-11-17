@@ -11,7 +11,7 @@ using Parcel = IBL.BO.Parcel;
 
 namespace IBL
 {
-    public interface IBL
+   public interface IBL
     {
         public void AddBaseStation(int id, string name, double longitude, double latitude, int availableChargingStations);
         public void AddDrone(int id, string model, int maxWeight, double longitude, double latitude);
