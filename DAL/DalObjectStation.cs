@@ -14,7 +14,7 @@ namespace DalObject
         /// Add a base station to the array of stations
         /// </summary>
         /// <param name="station">struct of station</param>
-        public void InsertStation(BaseStation station)
+        public void InsertStation(Station station)
         {
             DataSource.stations.Add(station);
         }
@@ -26,7 +26,7 @@ namespace DalObject
         /// </summary>
         /// <param name="idxStation">struct of station</param>
         /// <returns>base station</returns>
-        public BaseStation GetBaseStation(int idStation)
+        public Station GetStation(int idStation)
         {
             return DataSource.stations.First(station => station.Id == idStation);
         }
@@ -37,22 +37,20 @@ namespace DalObject
         /// The function prepares a new array of all existing stations
         /// </summary>
         /// <returns>array of station</returns>
-        public IEnumerable<BaseStation> GetBaseStations()
+        public IEnumerable<Station> GetStations()
         {
 
             return DataSource.stations.Select(station => station.Clone()).ToList();
         }
 
 
-
-        //הפונקציה מחשבת לא נכון---!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         /// <summary>
         /// Display base stations with available charging stations
         /// </summary>
         /// <returns>array of stations</returns>
         /// //●	הצגת  תחנות-בסיס עם עמדות טעינה פנויות
         /// //לבדוק אם הפונקציה מתאימה לליסטים
-        public IEnumerable<BaseStation> GetAvaBaseStations()
+        public IEnumerable<Station> GetAvaStations()
         {
             return DataSource.stations
                          .Where(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id))

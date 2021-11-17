@@ -10,13 +10,13 @@ namespace IBL.BO
         {
             public enum WeightCategories
             {
-                Light, Heavy, Medium
+                Light, Medium, Heavy
             }
 
             public enum Priorities
             {
-                Regular, Fast, Emergency
-            }
+                Regular, Emergency, Fast
+        }
 
             public enum DroneStatuses
             {

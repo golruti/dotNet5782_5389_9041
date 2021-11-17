@@ -14,6 +14,15 @@ namespace IBL.BO
         {
             return $"Station #{Id}: {Name}, charge slots={AvailableChargingPorts}, location={Location}";
         }
+
+        public BaseStation( int id, string name, double longitude, double latitude, int availableChargingStations)
+        {
+            Id = id;
+            Name = name;
+            Location = new Location(longitude, latitude);
+            AvailableChargingPorts = availableChargingStations;
+            DronesInCharging = new List<DroneInCharging>();
+        }
     }
 }
 

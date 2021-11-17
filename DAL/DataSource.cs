@@ -13,7 +13,7 @@ namespace DalObject
         public static Random Rand = new Random();
 
         static internal List<Drone> drones = new();
-        static internal List<BaseStation> stations = new();
+        static internal List<Station> stations = new();
         static internal List<Customer> customers = new();
         static internal List<Parcel> parcels = new();
         static internal List<DroneCharge> droneCharges = new();
@@ -37,7 +37,7 @@ namespace DalObject
             //stations
             for (int i = 0; i < 2; ++i)
             {
-                BaseStation tempStation = new BaseStation();
+                Station tempStation = new Station();
                 tempStation.Id = i;
                 tempStation.Name = $"station {i}";
                 tempStation.ChargeSlote = Rand.Next() + 1;

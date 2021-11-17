@@ -9,29 +9,27 @@ namespace IDAl
 {
     public interface IDal
     {
-        void InsertStation(BaseStation station);
+        void InsertStation(Station station);
         void InsertDrone(Drone drone);
         void InsertCustomer(Customer customer);
         void InsertParcel(Parcel parcel);
         void UpdateParcelScheduled(int idxParcel);
         void UpdateParcelPickedUp(int idxParcel);
-         void UpdateDroneStatus(int IdParcel);
+        public void UpdateDroneStatus(int IdParcel);
         void UpdateParcelDelivered(int idxParcel);
         bool TryAddDroneCarge(int droneId);
         bool TryRemoveDroneCarge(int droneId);
-        BaseStation GetStation(int idxStation);
+        Station GetStation(int idxStation);
         Drone GetDrone(int idxDrone);
         Customer GetCustomer(int idxCustomer);
         Parcel GetParcel(int idxParcel);
-         IEnumerable<BaseStation> GetBaseStations();
+        IEnumerable<Station> GetStations();
         IEnumerable<Customer> GetCustomers();
         IEnumerable<Drone> GetDrones();
-         IEnumerable<Parcel> GetParcels();
+        IEnumerable<Parcel> GetParcels();
         IEnumerable<Parcel> UnassignedPackages();
-        IEnumerable<BaseStation> GetAvaStations();
+        IEnumerable<Station> GetAvaStations();
 
         double[] DronePowerConsumptionRequest();
-        List<BaseStation> GetBaseStation();
-        
     }
 }
