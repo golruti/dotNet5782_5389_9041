@@ -15,7 +15,7 @@ namespace IBL
     private List<DroneForList> drones;
     private static Random rand = new Random();
 
-    public BL()
+    public BL():IBL
     {
         dal = new DalObject.DalObject();
         drones = new List<DroneForList>();
@@ -31,7 +31,7 @@ namespace IBL
         }
 
 
-        private void initializeDrones()
+        private void InitializeDrones()
         {
             foreach (var drone in dal.GetDrones())
             {
