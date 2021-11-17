@@ -24,12 +24,6 @@ namespace IDAL
                 Emergency
             }
 
-            public enum DroneStatuses
-            {
-                Available,
-                Delivery,
-                Maintenance,
-            }
         }
     }
 }

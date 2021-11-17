@@ -37,7 +37,7 @@ namespace DalObject
         /// The function prepares a new array of all existing stations
         /// </summary>
         /// <returns>array of station</returns>
-        public IEnumerable<BaseStation> GetStations()
+        public IEnumerable<BaseStation> GetBaseStations()
         {
 
             return DataSource.stations.Select(station => station.Clone()).ToList();
@@ -50,7 +50,7 @@ namespace DalObject
         /// <returns>array of stations</returns>
         /// //●	הצגת  תחנות-בסיס עם עמדות טעינה פנויות
         /// //לבדוק אם הפונקציה מתאימה לליסטים
-        public IEnumerable<BaseStation> GetAvaStations()
+        public IEnumerable<BaseStation> GetAvaBaseStations()
         {
             return DataSource.stations
                          .Where(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id))

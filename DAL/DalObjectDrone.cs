@@ -87,7 +87,6 @@ namespace DalObject
         {
             List<Drone> tempDrones = (List<Drone>)GetDrones();
             tempDrones.RemoveAll(item => item.Id == id);
-            DataSource.drones = tempDrones;
         }
 
     }

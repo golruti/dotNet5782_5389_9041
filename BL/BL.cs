@@ -1,57 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using DalObject;
 using IBL.BO;
-using IDAL.DO;
-using IDAL;
 using static IBL.BO.Enums;
-using Drone = IBL.BO.Drone;
-using Customer = IBL.BO.Customer;
-using Parcel = IBL.BO.Parcel;
 
 namespace IBL
 {
-    class BL : IBL
+    partial class BL : IBL
     {
+
         private IDAL.IDal dal;
         private List<DroneForList> drones;
         private static Random rand = new Random();
+        private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
+
 
         public BL()
         {
-
-
             dal = new DalObject.DalObject();
             drones = new List<DroneForList>();
-
-            //foreach (var drone in dal.GetDrones())
-            //{
-            //    drones.Add(new DroneForList
-            //    {
-            //        Id = drone.Id,
-            //        Model = drone.Model,
-            //        MaxWeight = (Enums.WeightCategories)drone.MaxWeight,
-            //        DeliveryId = 0,
-            //        Battery = 1
-
-            //    });
-            //}
-
+            initializeDrones();
         }
 
 
-        //public Drone CreateLogicDrone(int idDrone)
-        //{
-        //    var dalDrones = dal.GetDrones();
-        //    foreach (var drone in dalDrones)
-        //    {
+        private void initializeDrones()
+        {
+            foreach (var drone in dal.GetDrones())
+            {
+                DroneForList newDrone = new DroneForList();
+                newDrone.Id = drone.Id;
+                newDrone.Model = drone.Model;
+                newDrone.MaxWeight = (Enums.WeightCategories)drone.MaxWeight;
+                newDrone.DeliveryId = 0;
+                newDrone.Battery = 1;
 
-        //    }
-        //}
+                if (IsDroneMakesDelivery(newDrone.Id))  //אם הרחפן מבצע משלוח
+                {
+                    newDrone.Status = BO.Enums.DroneStatuses.Delivery;
+                    if (findParcelState(newDrone.Id) == parcelState.associatedNotCollected)
+                    {
+                        //newDrone.Battery =
+                        //newDrone.Location =
+                    }
+                    else if (findParcelState(newDrone.Id) == parcelState.collectedNotDelivered)
+                    {
+                        // newDrone.Battery =
+                        //newDrone.Location =
+                    }
+                }
 
-        
+                else //אם הרחפן לא מבצע משלוח
+                {
+                    newDrone.Status = (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length);
+                    if (newDrone.Status == Enums.DroneStatuses.Maintenance)
+                    {
+                        //newDrone.Location =
+                        newDrone.Battery = rand.Next(0, 20);
+                    }
+                    else if (newDrone.Status == Enums.DroneStatuses.Available)
+                    {
+                        // newDrone.Battery =
+                        //newDrone.Location =
+                    }
+                }
+                drones.Add(newDrone);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public void AddBaseStation(int id,string name, double longitude, double latitude,int chargingStations)
         {
@@ -85,7 +123,7 @@ namespace IBL
             dal.InsertParcel(parcel);
         }
 
-        public void UpdateDrone(int id,string model)
+        public void UpdateDroneModel(int id,string model)
         {
             DroneForList tempDroneForList = drones.Find(item=> item.Id == id);
             drones.Remove(tempDroneForList);

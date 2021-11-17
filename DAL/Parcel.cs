@@ -23,6 +23,7 @@ namespace IDAL
             public DateTime PickedUp { get; set; }
             public DateTime Delivered { get; set; }
 
+
             /// <summary>
             /// String of details for parsel
             /// </summary>

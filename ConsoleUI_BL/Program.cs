@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
 
         enum MenuOptions { Exit, Add, Update, Show_One, Show_List }
         enum EntityOptions { Exit, BaseStation, Drone, Customer, Parcel }
-        enum UpdateOptions { Drone, BaseStation, Pickedup, Delivery, Recharge, Release }
+        enum UpdateOptions { Exit, Assignment, Pickedup, Delivery, Recharge, Release }
         enum ListOptions { Exit, BaseStations, Drones, Customers, Parcels, UnAssignmentParcels, AvailableChargingStations }
         private static void ShowMenu()
         {
@@ -112,7 +112,7 @@ namespace ConsoleUI_BL
             switch (entityOption)
             {
                 case EntityOptions.BaseStation:
-                    BaseStation baseStation = bl.GetBaseStation(requestedId);
+                    BaseStation baseStation = bl.bGetBaseStation(requestedId);
                     Console.WriteLine(baseStation);
                     ShowList(baseStation.DronesInCharging);
                     break;
@@ -133,18 +133,18 @@ namespace ConsoleUI_BL
 
         private static void MenuUpdateOptions()
         {
-            Console.WriteLine("Update option:\n 1-drone,\n 2-base station,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
+            Console.WriteLine("Update option:\n 1-model of drone,\n 2-Pickedup,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
             UpdateOptions updateOptions;
             updateOptions = (UpdateOptions)int.Parse(Console.ReadLine());
             int parcelId, droneId, stationlId;
            
             switch (updateOptions)
             {
-                case UpdateOptions.Drone:
+                case UpdateOptions.Assignment:
                     Console.WriteLine("Enter IDs for drone and model:");
                     droneId = int.Parse(Console.ReadLine());
                     string model = (Console.ReadLine());
-                    bl.UpdateDrone(droneId, model);
+                    bl.UpdateDroneModel(droneId, model);
                     break;
                 case UpdateOptions.BaseStation:
                     Console.WriteLine("Enter number of station and name and/or sum of Charging positions and sum with loaded skimmers:");

@@ -23,12 +23,13 @@ namespace IDAL
         Drone GetDrone(int idxDrone);
         Customer GetCustomer(int idxCustomer);
         Parcel GetParcel(int idxParcel);
-        IEnumerable<BaseStation> GetStations();
+        IEnumerable<BaseStation> GetAvaBaseStations();
+        IEnumerable<BaseStation> GetBaseStations();
         IEnumerable<Customer> GetCustomers();
         IEnumerable<Drone> GetDrones();
         IEnumerable<Parcel> GetParcels();
-        IEnumerable<Parcel> UnassignedPackages();
-        IEnumerable<BaseStation> GetAvaStations();
+        IEnumerable<Parcel> UnassignedParcels();
+        double[] DronePowerConsumptionRequest();
         void DeleteDrone(int id);
         double[] DronePowerConsumptionRequest();
         int IncreastNumberIndea();
