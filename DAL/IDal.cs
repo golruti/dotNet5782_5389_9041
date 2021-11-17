@@ -31,5 +31,6 @@ namespace IDAL
         IEnumerable<BaseStation> GetAvaStations();
         void DeleteDrone(int id);
         double[] DronePowerConsumptionRequest();
+        int IncreastNumberIndea();
     }
 }

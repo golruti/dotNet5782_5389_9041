@@ -136,8 +136,8 @@ namespace ConsoleUI_BL
             Console.WriteLine("Update option:\n 1-drone,\n 2-base station,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
             UpdateOptions updateOptions;
             updateOptions = (UpdateOptions)int.Parse(Console.ReadLine());
-            int parcelId;
-            int droneId;
+            int parcelId, droneId, stationlId;
+           
             switch (updateOptions)
             {
                 case UpdateOptions.Drone:
@@ -147,9 +147,11 @@ namespace ConsoleUI_BL
                     bl.UpdateDrone(droneId, model);
                     break;
                 case UpdateOptions.BaseStation:
-                    Console.WriteLine("Enter number of station:");
-                    parcelId = int.Parse(Console.ReadLine());
-                    bl.PickedupParcel(parcelId);
+                    Console.WriteLine("Enter number of station and name and/or sum of Charging positions and sum with loaded skimmers:");
+                    stationlId = int.Parse(Console.ReadLine());
+                    string name= (Console.ReadLine());
+
+                    bl.UpdathBaseStation(parcelId,);
                     break;
                 case UpdateOptions.Delivery:
 

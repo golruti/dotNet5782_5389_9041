@@ -93,5 +93,10 @@ namespace DalObject
             }
         }
 
+        static int Index=0;
+        int IncreastNumberIndea()
+        {
+            return ++Index;
+        }
     }
 }

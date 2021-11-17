@@ -11,15 +11,8 @@ namespace IDAL
     {
         public struct Parcel
         {
-            private global::IBL.BO.CustomerDelivery sender;
-            private global::IBL.BO.CustomerDelivery receiver;
-            private object p;
-            private DateTime now;
-            private int v1;
-            private int v2;
-            private int v3;
 
-            //public int Id { get; set; }
+            public int Id { get; set; }
             public int SenderId { get; set; }
             public int TargetId { get; set; }
             public WeightCategories Weight { get; set; }
@@ -29,10 +22,6 @@ namespace IDAL
             public DateTime Scheduled { get; set; }
             public DateTime PickedUp { get; set; }
             public DateTime Delivered { get; set; }
-            //public double TargetLongitude { get; set; }
-            //public double TargetLattitude { get; set; }
-            //public double SenderLongitude { get; set; }
-            //public double SenderLattitude { get; set; }
 
             /// <summary>
             /// String of details for parsel
@@ -53,7 +42,7 @@ namespace IDAL
             {
                 return new Parcel()
                 {
-                    //Id = this.Id,
+                    Id = this.Id,
                     SenderId = this.SenderId,
                     TargetId = this.TargetId,
                     Weight = this.Weight,
@@ -65,9 +54,9 @@ namespace IDAL
                 };
             }
 
-            public Parcel(/*int id,*/int senderId,int targetId, WeightCategories weight, Priorities priority, int droneld, DateTime requested, DateTime scheduled, DateTime pickedUp ,DateTime delivered)
+            public Parcel(int id, int senderId,int targetId, WeightCategories weight, Priorities priority, int droneld, DateTime requested, DateTime scheduled, DateTime pickedUp ,DateTime delivered)
             {
-                //Id = id;
+                Id = id;
                 SenderId = senderId;
                 TargetId = targetId;
                 Weight = weight;
@@ -79,18 +68,7 @@ namespace IDAL
                 Delivered = delivered;
             }
 
-            public Parcel(global::IBL.BO.CustomerDelivery sender, global::IBL.BO.CustomerDelivery receiver, WeightCategories weight, Priorities priority, object p, DateTime now, int v1, int v2, int v3) : this()
-            {
-                this.sender = sender;
-                this.receiver = receiver;
-                Weight = weight;
-                Priority = priority;
-                this.p = p;
-                this.now = now;
-                this.v1 = v1;
-                this.v2 = v2;
-                this.v3 = v3;
-            }
+
         }
     }
 }
