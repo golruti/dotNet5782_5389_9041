@@ -105,7 +105,11 @@ namespace DalObject
         {
             return new List<Parcel>(DataSource.parcels.Where(parcel => parcel.Droneld == 0).ToList());
         }
-
+        static int Index = 0;
+        int IncreastNumberIndea()
+        {
+            return ++Index;
+        }
 
     }
 }
