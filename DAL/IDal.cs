@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDAl
+namespace IDAL
 {
     public interface IDal
     {
-        void InsertStation(Station station);
+        void InsertStation(BaseStation station);
         void InsertDrone(Drone drone);
         void InsertCustomer(Customer customer);
         void InsertParcel(Parcel parcel);
@@ -19,17 +19,17 @@ namespace IDAl
         void UpdateParcelDelivered(int idxParcel);
         bool TryAddDroneCarge(int droneId);
         bool TryRemoveDroneCarge(int droneId);
-        Station GetStation(int idxStation);
+        BaseStation GetStation(int idxStation);
         Drone GetDrone(int idxDrone);
         Customer GetCustomer(int idxCustomer);
         Parcel GetParcel(int idxParcel);
-        IEnumerable<Station> GetStations();
+        IEnumerable<BaseStation> GetAvaBaseStations();
+        IEnumerable<BaseStation> GetBaseStations();
         IEnumerable<Customer> GetCustomers();
         IEnumerable<Drone> GetDrones();
         IEnumerable<Parcel> GetParcels();
-        IEnumerable<Parcel> UnassignedPackages();
-        IEnumerable<Station> GetAvaStations();
-
+        IEnumerable<Parcel> UnassignedParcels();
         double[] DronePowerConsumptionRequest();
+        void DeleteDrone(int id);
     }
 }

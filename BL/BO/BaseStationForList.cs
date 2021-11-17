@@ -26,6 +26,11 @@ namespace IBL.BO
             UsedChargingPorts = usedChargingPorts;
 
         }
+
+        public BaseStationForList()
+        {
+
+        }
     }
 }
 

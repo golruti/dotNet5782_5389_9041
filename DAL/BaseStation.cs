@@ -4,7 +4,7 @@ namespace IDAL
 {
     namespace DO
     {
-        public struct Station
+        public struct BaseStation
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -26,9 +26,9 @@ namespace IDAL
             /// The functions create a new instancenew of base-station and copy a deep copy
             /// </summary>
             /// <returns>station</returns>
-            public Station Clone()
+            public BaseStation Clone()
             {
-                return new Station()
+                return new BaseStation()
                 {
                     Id = this.Id,
                     Name = this.Name,
@@ -38,7 +38,7 @@ namespace IDAL
                 };
             }
 
-            public Station(int id, string name,double longitude,double lattitude,int chargeSlote)
+            public BaseStation(int id, string name,double longitude,double lattitude,int chargeSlote)
             {
                 Id = id;
                 Name = name;

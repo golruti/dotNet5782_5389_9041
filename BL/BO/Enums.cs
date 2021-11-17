@@ -6,33 +6,28 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-        public class Enums
+    public class Enums
+    {
+        public enum WeightCategories
         {
-            public enum WeightCategories
-            {
-                Light, Medium, Heavy
-            }
-
-            public enum Priorities
-            {
-                Regular, Emergency, Fast
+            Light, Medium, Heavy
         }
 
-            public enum DroneStatuses
-            {
-                Available, Delivery, Maintenance,
-            }
-            public enum ParselStatus
-            {
-                Created, associated, collected, provided
-            }
+        public enum Priorities
+        {
+            Regular, Emergency, Fast
+        }
 
-            public enum ParcelStatuses
-            {
-                Defined,
-                Associated,
-                Collected,
-                Provided
-            }
+        public enum DroneStatuses
+        {
+            Available, Delivery, Maintenance,
+        }
+        public enum ParcelStatuses
+        {
+            Created,
+            Associated,
+            Collected,
+            Provided
         }
     }
+}

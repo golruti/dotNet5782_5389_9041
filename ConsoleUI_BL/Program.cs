@@ -112,7 +112,7 @@ namespace ConsoleUI_BL
             switch (entityOption)
             {
                 case EntityOptions.BaseStation:
-                    BaseStation baseStation = bl.GetBaseStation(requestedId);
+                    BaseStation baseStation = bl.bGetBaseStation(requestedId);
                     Console.WriteLine(baseStation);
                     ShowList(baseStation.DronesInCharging);
                     break;
@@ -133,7 +133,7 @@ namespace ConsoleUI_BL
 
         private static void MenuUpdateOptions()
         {
-            Console.WriteLine("Update option:\n 1-Assignment,\n 2-Pickedup,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
+            Console.WriteLine("Update option:\n 1-model of drone,\n 2-Pickedup,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
             UpdateOptions updateOptions;
             updateOptions = (UpdateOptions)int.Parse(Console.ReadLine());
             int parcelId;
@@ -141,10 +141,10 @@ namespace ConsoleUI_BL
             switch (updateOptions)
             {
                 case UpdateOptions.Assignment:
-                    Console.WriteLine("Enter IDs for parcel and drone:");
-                    parcelId = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Enter IDs for drone and model:");
                     droneId = int.Parse(Console.ReadLine());
-                    bl.AssignmentParcelToDrone(parcelId, droneId);
+                    string model = (Console.ReadLine());
+                    bl.UpdateDroneModel(droneId, model);
                     break;
                 case UpdateOptions.Pickedup:
                     Console.WriteLine("Enter parcel Id:");
@@ -175,37 +175,37 @@ namespace ConsoleUI_BL
             EntityOptions entityOption;
             Console.WriteLine("Adding option:\n 1-Base Station,\n 2-Drone,\n 3-Customer,\n 4-Parcel");
             entityOption = (EntityOptions)int.Parse(Console.ReadLine());
+            int id,  longitude, latitude;
             switch (entityOption)
             {
                 case EntityOptions.BaseStation:
                     Console.WriteLine("Enter Id add Name and Location and Number of charging positions:");
-                    int idBaseStation, availableChargingStationsBaseStation, longitudeBaseStation, latitudeBaseStation;
-                    int.TryParse(Console.ReadLine(), out idBaseStation);
+                    int  availableChargingStationsBaseStation;
+                    int.TryParse(Console.ReadLine(), out id);
                     string nameBaseStation = Console.ReadLine();
-                    int.TryParse(Console.ReadLine(), out longitudeBaseStation);
-                    int.TryParse(Console.ReadLine(), out latitudeBaseStation);
+                    int.TryParse(Console.ReadLine(), out longitude);
+                    int.TryParse(Console.ReadLine(), out latitude);
                     int.TryParse(Console.ReadLine(), out availableChargingStationsBaseStation);
-                    bl.AddBaseStation(idBaseStation, nameBaseStation, longitudeBaseStation, latitudeBaseStation, availableChargingStationsBaseStation);
+                    bl.AddBaseStation(id, nameBaseStation, longitude, latitude, availableChargingStationsBaseStation);
                     break;
                 case EntityOptions.Drone:
                     Console.WriteLine("Enter Id add model and Location and max weight drone (for light press 1 for Medium press 2 for Heavy press 3 ):");
-                    int idDrone, longitudeDrone, latitudeDrone, maxWeightDrone;
-                    int.TryParse(Console.ReadLine(), out idDrone);
+                    int maxWeightDrone;
+                    int.TryParse(Console.ReadLine(), out id);
                     String modelDrone = Console.ReadLine();
-                    int.TryParse(Console.ReadLine(), out longitudeDrone);
-                    int.TryParse(Console.ReadLine(), out latitudeDrone);
+                    int.TryParse(Console.ReadLine(), out longitude);
+                    int.TryParse(Console.ReadLine(), out latitude);
                     int.TryParse(Console.ReadLine(), out maxWeightDrone);
-                    bl.AddDrone(idDrone, modelDrone, maxWeightDrone, longitudeDrone, latitudeDrone);
+                    bl.AddDrone(id, modelDrone, maxWeightDrone, longitude, latitude);
                     break;
                 case EntityOptions.Customer:
                     Console.WriteLine("Enter Id add Name and Phone and Location:");
-                    int idCustomer, longitudeCustomer, latitudeCustomer;
-                    int.TryParse(Console.ReadLine(), out idCustomer);
+                    int.TryParse(Console.ReadLine(), out id);
                     string nameCustomer = Console.ReadLine();
                     string phoneCustomer = Console.ReadLine();
-                    int.TryParse(Console.ReadLine(), out longitudeCustomer);
-                    int.TryParse(Console.ReadLine(), out latitudeCustomer);
-                    bl.AddCustomer(idCustomer, nameCustomer, phoneCustomer, longitudeCustomer, latitudeCustomer);
+                    int.TryParse(Console.ReadLine(), out longitude);
+                    int.TryParse(Console.ReadLine(), out latitude);
+                    bl.AddCustomer(id, nameCustomer, phoneCustomer, longitude, latitude);
                     break;
                 case EntityOptions.Parcel:
                     Console.WriteLine("Enter Idof the sender and of the reciver and the weight of the Parcel(for light press 1 for Medium press 2 for Heavy press 3 ) and the priority(for Regular  press 1 for Emergency press 2 for Fast press 3) :");

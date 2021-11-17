@@ -31,5 +31,10 @@ namespace IBL.BO
             Location = new Location(longitude, latitude);
 
         }
+
+        public DroneForList()
+        {
+
+        }
     }
 }
