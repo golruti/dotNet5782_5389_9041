@@ -132,16 +132,19 @@ namespace IBL
             dal.DeleteDrone(id);
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDroneForList.Id, tempDroneForList.Model, (IDAL.DO.Enum.WeightCategories)tempDroneForList.MaxWeight);
             dal.InsertDrone(drone);
-
-
         }
 
-        public void UpdathBaseStation(int id, string name, int chargeSlote)
+        public void UpdateBaseStation(int id, string name, int chargeSlote)
         {
             IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
             dal.DeleteBaseStation(id);
             IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id,name, tempBaseStation.Longitude, tempBaseStation.Lattitude, chargeSlote);
             dal.InsertStation(station);
+        }
+
+        public void UpdateCustomer()
+        {
+
         }
         public void UpdateParcelScheduled(int idxParcel)
         {

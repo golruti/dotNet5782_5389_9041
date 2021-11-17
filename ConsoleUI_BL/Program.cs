@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
 
         enum MenuOptions { Exit, Add, Update, Show_One, Show_List }
         enum EntityOptions { Exit, BaseStation, Drone, Customer, Parcel }
-        enum UpdateOptions { Exit, Assignment, Pickedup, Delivery, Recharge, Release }
+        enum UpdateOptions { Exit,Drone, BaseStation,Customer, Parcel, Release }
         enum ListOptions { Exit, BaseStations, Drones, Customers, Parcels, UnAssignmentParcels, AvailableChargingStations }
         private static void ShowMenu()
         {
@@ -136,15 +136,15 @@ namespace ConsoleUI_BL
             Console.WriteLine("Update option:\n 1-model of drone,\n 2-Pickedup,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
             UpdateOptions updateOptions;
             updateOptions = (UpdateOptions)int.Parse(Console.ReadLine());
-            int parcelId, droneId, stationlId;
+            int parcelId, droneId, stationlId, customerId;
            
             switch (updateOptions)
             {
-                case UpdateOptions.Assignment:
+                case UpdateOptions.Drone:
                     Console.WriteLine("Enter IDs for drone and model:");
                     droneId = int.Parse(Console.ReadLine());
                     string model = (Console.ReadLine());
-                    bl.UpdateDroneModel(droneId, model);
+                    bl.UpdateDrone(droneId, model);
                     break;
                 case UpdateOptions.BaseStation:
                     Console.WriteLine("Enter number of station and name and/or sum of Charging positions and sum with loaded skimmers:");
@@ -153,9 +153,11 @@ namespace ConsoleUI_BL
                     int chargeSlote = int.Parse(Console.ReadLine());
 
 
-                    bl.UpdathBaseStation(stationlId,name,chargeSlote);
+                    bl.UpdateBaseStation(stationlId,name,chargeSlote);
                     break;
-                case UpdateOptions.Delivery:
+                case UpdateOptions.Customer:
+                    Console.WriteLine("Enter ID and name and/or phone:");
+                    customerId = int.Parse(Console.ReadLine());
 
                     break;
                 case UpdateOptions.Recharge:

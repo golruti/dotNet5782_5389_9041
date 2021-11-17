@@ -34,6 +34,7 @@ namespace IBL
         public List<IDAL.DO.BaseStation> GetAvaStations();
         void AddDrone(int idDrone, string modelDrone, int maxWeightDrone, int longitudeDrone, int latitudeDrone);
         void AddCustomer(int idCustomer, string nameCustomer, string phoneCustomer, int longitudeCustomer, int latitudeCustomer);
-       
+        void UpdateDrone(int droneId, string model);
+        void UpdateBaseStation(int stationlId, string name, int chargeSlote);
     }
 }
