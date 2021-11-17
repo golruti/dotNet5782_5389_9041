@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDAl
+namespace IDAL
 {
     public interface IDal
     {
@@ -29,7 +29,7 @@ namespace IDAl
         IEnumerable<Parcel> GetParcels();
         IEnumerable<Parcel> UnassignedPackages();
         IEnumerable<BaseStation> GetAvaStations();
-
+        void DeleteDrone(int id);
         double[] DronePowerConsumptionRequest();
     }
 }

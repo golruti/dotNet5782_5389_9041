@@ -5,7 +5,7 @@ using System.Linq;
 using DalObject;
 using IBL.BO;
 using IDAL.DO;
-using IDAl;
+using IDAL;
 using static IBL.BO.Enums;
 using Drone = IBL.BO.Drone;
 using Customer = IBL.BO.Customer;
@@ -21,6 +21,8 @@ namespace IBL
 
         public BL()
         {
+
+
             dal = new DalObject.DalObject();
             drones = new List<DroneForList>();
 
@@ -79,11 +81,11 @@ namespace IBL
         public void AddParcel(int idSender, int idReceiver, int weight, int priority)
         {
             Parcel tempParcel = new Parcel(idSender, idReceiver, (Enums.WeightCategories)weight, (Enums.Priorities)priority);
-            IDAl.DO.Parcel parcel = new IDAL.DO.Parcel(tempParcel.SenderId, tempParcel.ReceiverId, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
+            IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(tempParcel.SenderId, tempParcel.ReceiverId, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
             dal.InsertParcel(parcel);
         }
 
-        public void UpdateDroneModel(int id,string model)
+        public void UpdateDrone(int id,string model)
         {
             DroneForList tempDroneForList = drones.Find(item=> item.Id == id);
             drones.Remove(tempDroneForList);
