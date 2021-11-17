@@ -27,6 +27,15 @@ namespace IDAL
                     "\nLongitude: " + Longitude + "\nLattitude: " + Lattitude + "\n");
             }
 
+            public Customer(int id,string name,string phone,double longitude,double lattitude)
+            {
+                Id = id;
+                Name = name;
+                Phone = phone;
+                Longitude = longitude;
+                Lattitude = lattitude;
+            }
+
             /// <summary>
             /// The functions create a new instance of customer and copy a deep copy
             /// </summary>

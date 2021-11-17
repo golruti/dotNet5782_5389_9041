@@ -12,6 +12,9 @@ namespace IDAL
     {
         public struct Drone
         {
+            private global::IBL.BO.Enums.DroneStatuses maxWeight;
+            private global::IBL.BO.Enums.DroneStatuses maxWeight1;
+
             public int Id { get; set; }
             public string Model { get; set; }
             public WeightCategories MaxWeight { get; set; }
@@ -38,6 +41,27 @@ namespace IDAL
                     Model = this.Model,
                     MaxWeight = this.MaxWeight,
                 };
+            }
+
+            public Drone(int id,string model,WeightCategories maxWeight)
+            {
+                Id = id;
+                Model = model;
+                MaxWeight = maxWeight;
+            }
+
+            public Drone(int id, string model, global::IBL.BO.Enums.DroneStatuses maxWeight) : this()
+            {
+                Id = id;
+                Model = model;
+                this.maxWeight = maxWeight;
+            }
+
+            public Drone(int id, string model, global::IBL.BO.Enums.DroneStatuses maxWeight1) : this()
+            {
+                Id = id;
+                Model = model;
+                this.maxWeight1 = maxWeight1;
             }
         }
     }

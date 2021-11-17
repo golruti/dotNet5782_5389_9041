@@ -37,6 +37,15 @@ namespace IDAL
                     ChargeSlote = this.ChargeSlote
                 };
             }
+
+            public Station(int id, string name,double longitude,double lattitude,int chargeSlote)
+            {
+                Id = id;
+                Name = name;
+                Longitude = longitude;
+                Lattitude = lattitude;
+                ChargeSlote = chargeSlote;
+            }
         }
     }
 }

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    public class Enums
-    {
-        public enum WeightCategories
+        public class Enums
         {
-            Light, Heavy, Medium
-        }
+            public enum WeightCategories
+            {
+                Light, Medium, Heavy
+            }
 
-        public enum Priorities
-        {
-            Regular, Fast, Emergency
+            public enum Priorities
+            {
+                Regular, Emergency, Fast
         }
 
         public enum DroneStatuses
