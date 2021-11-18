@@ -36,5 +36,8 @@ namespace IBL
         void AddCustomer(int idCustomer, string nameCustomer, string phoneCustomer, int longitudeCustomer, int latitudeCustomer);
         void UpdateDrone(int droneId, string model);
         void UpdateBaseStation(int stationlId, string name, int chargeSlote);
+        void UpdateCustomer(int customerId, string name, string phone);
+        void SendDroneToRecharge(int droneId);
+        void UpdateDroneLocation(int id)
     }
 }

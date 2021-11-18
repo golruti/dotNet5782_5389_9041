@@ -45,5 +45,11 @@ namespace DalObject
             return DataSource.customers.Select(customer => customer.Clone()).ToList();
         }
 
+
+        public void DeleteCustomer(int id)
+        {
+            List<Customer> tempCusromers = (List<Customer>)GetCustomers();
+            tempCusromers.RemoveAll(item => item.Id == id);
+        }
     }
 }

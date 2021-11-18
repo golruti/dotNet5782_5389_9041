@@ -34,5 +34,6 @@ namespace IDAL
         
         int IncreastNumberIndea();
         void DeleteBaseStation(int id);
+        void DeleteCustomer(int id);
     }
 }

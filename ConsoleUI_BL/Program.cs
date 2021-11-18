@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
 
         enum MenuOptions { Exit, Add, Update, Show_One, Show_List }
         enum EntityOptions { Exit, BaseStation, Drone, Customer, Parcel }
-        enum UpdateOptions { Exit,Drone, BaseStation,Customer, Parcel, Release }
+        enum UpdateOptions { Exit,Drone, BaseStation,Customer, Recharge, Release }
         enum ListOptions { Exit, BaseStations, Drones, Customers, Parcels, UnAssignmentParcels, AvailableChargingStations }
         private static void ShowMenu()
         {
@@ -137,7 +137,7 @@ namespace ConsoleUI_BL
             UpdateOptions updateOptions;
             updateOptions = (UpdateOptions)int.Parse(Console.ReadLine());
             int parcelId, droneId, stationlId, customerId;
-           
+            string name;
             switch (updateOptions)
             {
                 case UpdateOptions.Drone:
@@ -146,26 +146,29 @@ namespace ConsoleUI_BL
                     string model = (Console.ReadLine());
                     bl.UpdateDrone(droneId, model);
                     break;
+
                 case UpdateOptions.BaseStation:
                     Console.WriteLine("Enter number of station and name and/or sum of Charging positions and sum with loaded skimmers:");
                     stationlId = int.Parse(Console.ReadLine());
-                    string name= (Console.ReadLine());
+                    name= (Console.ReadLine());
                     int chargeSlote = int.Parse(Console.ReadLine());
-
-
                     bl.UpdateBaseStation(stationlId,name,chargeSlote);
                     break;
+
                 case UpdateOptions.Customer:
                     Console.WriteLine("Enter ID and name and/or phone:");
                     customerId = int.Parse(Console.ReadLine());
+                    name = (Console.ReadLine());
+                    string phone = (Console.ReadLine());
+                    bl.UpdateCustomer(customerId, name, phone);
+                    break;
 
-                    break;
                 case UpdateOptions.Recharge:
-                    Console.WriteLine("Enter IDs for drone and base station:");
+                    Console.WriteLine("Enter IDs for drone:");
                     droneId = int.Parse(Console.ReadLine());
-                    var baseStationId = int.Parse(Console.ReadLine());
-                    bl.SendDroneToRecharge(droneId, baseStationId);
+                    bl.SendDroneToRecharge(droneId);
                     break;
+
                 case UpdateOptions.Release:
                     Console.WriteLine("Enter ID for drone:");
                     droneId = int.Parse(Console.ReadLine());

@@ -54,5 +54,22 @@ namespace IBL
             }
             return BaseStationsForList;
         }
+
+        public void AddBaseStation(int id, string name, double longitude, double latitude, int chargingStations)
+        {
+            BO.BaseStation tempBaseStation = new BO.BaseStation(id, name, longitude, latitude, chargingStations);
+
+            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, chargingStations);
+            dal.InsertStation(station);
+
+        }
+
+        public void UpdateBaseStation(int id, string name, int chargeSlote)
+        {
+            IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
+            dal.DeleteBaseStation(id);
+            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Lattitude, chargeSlote);
+            dal.InsertStation(station);
+        }
     }
 }
