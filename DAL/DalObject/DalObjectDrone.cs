@@ -47,19 +47,52 @@ namespace DalObject
         //--------------------------------------------------------------------------------------------
         //-----------------------------------------------------------------------------------------
 
-        
-        public void UpdateDroneStatus(int IdParcel)
+
+
+        /// <summary>
+        /// Sending a drone for charging at a base station By changing the drone mode and adding a record of a drone battery charging entity
+        /// </summary>
+        /// <param name="droneId">Id of the drone</param>
+        /// <returns>Returns if the base station is available to receive the glider</returns>
+        /// 
+        //	שליחת רחפן לטעינה בתחנת-בסיס
+        public void TryAddDroneCarge(int droneId)
         {
-            //עדכון מצב הרחפן למשלוח ..צריך להעביר לבל 
-            for (int j = 0; j < DataSource.drones.Count(); ++j)
-            {
-                if (DataSource.drones[j].Id == IdParcel)
-                {
-                    Drone d = DataSource.drones[j];
-                    //d.Status = IDAL.DO.Enum.DroneStatuses.Delivery;
-                    DataSource.drones[j] = d;
-                }
-            }
+
+            //לבדוק אם באמת קיים רחפן עם איידי כזה
+            //ואם לא צריך לשלוח חריגה
+            var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
+            if (drone.Equals(default(Drone)))
+                throw new Exception();
+
+            //	יש לוודא שתחנת הבסיס פנויה לקבל את הרחפן לטעינה
+            var station = DataSource.stations.FirstOrDefault(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id));
+            if (station.Equals(default(BaseStation)))
+                throw new Exception();
+
+            // הוספת רשומה של ישות טעינת סוללת רחפן
+            DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
+            DataSource.droneCharges.Add(droneCharge);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Release drone from charging at base station
+        /// </summary>
+        /// <param name="droneId">Id of the drone</param>
+        /// <returns>Returns the mother drone released from charging</returns>
+        /// //שחרור רחפן מטעינה בתחנת-בסיס
+        public void TryRemoveDroneCarge(int droneId)
+        {
+            //אם לא מצא את הרחפן שרצו לשחרר
+            var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
+            if (drone.Equals(default(Drone)))
+                throw new Exception();
+
+            DataSource.droneCharges.Remove(GetDroneCharge(droneId));
         }
 
 

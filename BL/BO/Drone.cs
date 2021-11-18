@@ -26,7 +26,6 @@ namespace IBL.BO
         public override string ToString()
         {
             return $"Drone #{Id}: model={Model}, {Status}, {MaxWeight}, location = {Location}, battery={(int)(Battery * 100)} ";
-
         }
 
         public Drone(int id, string model,WeightCategories maxWeight,DroneStatuses status,int battery,double longitude, double latitude)
@@ -36,7 +35,6 @@ namespace IBL.BO
             MaxWeight = maxWeight;
             Status = DroneStatuses.Maintenance;
             Location = new Location(longitude, latitude);
-
         }
 
         public Drone(int id, string model, DroneStatuses maxWeight, DroneStatuses maintenance, double longitude, double latitude, double latitude1)
