@@ -64,8 +64,6 @@ namespace DalObject
                     Parcel p = DataSource.parcels[i];
                     p.PickedUp = DateTime.Now;
                     DataSource.parcels[i] = p;
-                    //קריאה לפונקציה המעדכנת את סטטוס הרחפן
-                    UpdateDroneStatus(DataSource.parcels[i].Droneld);
                 }
             }
         }
@@ -86,8 +84,6 @@ namespace DalObject
                     Parcel p = DataSource.parcels[i];
                     p.Delivered = DateTime.Now;
                     DataSource.parcels[i] = p;
-                    UpdateDroneStatus(DataSource.parcels[i].Droneld);
-
                     break;
                 }
             }
