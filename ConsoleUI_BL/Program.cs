@@ -9,7 +9,7 @@ namespace ConsoleUI_BL
     class Program
     {
         private static IBL.IBL bl;
-        
+        private static Random rand = new Random();
 
         static void Main(string[] args)
         {
@@ -224,11 +224,12 @@ namespace ConsoleUI_BL
                     {
                         String model = Console.ReadLine();
                         bl.GetStation(stationId);
-                        bl.AddDrone(new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.next(20, 41), bl.GetStation(stationId).Longitude, bl.GetStation(stationId).Lattitude));
+                        
+                        bl.AddDrone(new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetStation(stationId).Longitude, bl.GetStation(stationId).Latitude));
                     }
                     else
                     {
-
+                        
                     }
                     break;
                 case EntityOptions.Customer:
