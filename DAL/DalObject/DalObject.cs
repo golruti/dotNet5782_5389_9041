@@ -26,9 +26,9 @@ namespace DalObject
         }
 
 
-        public T GetById<T>(List<T> lst, int id) 
+        public T GetById<T>(IEnumerable<T> lst, int id) 
         {
-            return lst.Find(item => (int)item.GetType().GetProperty("id").GetValue(item, null) == id);
+            return lst.ToList().Find(item => (int)item.GetType().GetProperty("id").GetValue(item, null) == id);
         }
 
 

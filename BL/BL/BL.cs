@@ -67,7 +67,7 @@ namespace IBL
                     if (newDrone.Status == Enums.DroneStatuses.Maintenance)
                     {
                         int randNumber = rand.Next(dal.GetBaseStations().Count());
-                        var randomBaseStation = dal.GetBaseStations<IDAL.DO.BaseStation>((List<IDAL.DO.BaseStation>)dal.GetBaseStations(), randNumber);
+                        var randomBaseStation = dal.GetById<IDAL.DO.BaseStation>((List<IDAL.DO.BaseStation>)dal.GetCustomerProvided(), randNumber);
                         newDrone.Location = new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
 
                         newDrone.Battery = rand.Next(0, 20);
@@ -75,6 +75,10 @@ namespace IBL
                     else if (newDrone.Status == Enums.DroneStatuses.Available)
                     {
                         // newDrone.Battery =
+
+                        int randNumber = rand.Next(dal.GetBaseStations().Count());
+                        var randomBaseStation = dal.GetById<IDAL.DO.BaseStation>((List<IDAL.DO.BaseStation>)dal.GetBaseStations(), randNumber);
+                        newDrone.Location = new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
                         //newDrone.Location =
                     }
                 }
@@ -130,6 +134,16 @@ namespace IBL
             var Coord2 = new GeoCoordinate(Latitude2, Longitude2);
             return Coord1.GetDistanceTo(Coord2);
         }
+
+
+        public IEnumerable<CustomerForList> GetCustomerProvided()
+        {
+
+        }
+
+
+
+
 
         public void UpdateParcelScheduled(int idxParcel)
         {
