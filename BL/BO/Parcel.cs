@@ -23,6 +23,8 @@ namespace IBL.BO
         public DateTime Scheduled { get; set; }
         public DateTime PickedUp { get; set; }
         public DateTime Delivered { get; set; }
+        public int IdSender { get; }
+        public int IdReceiver { get; }
 
         /// <summary>
         /// String of details for parsel
@@ -46,8 +48,8 @@ namespace IBL.BO
 
         public Parcel(int idSender, int idReceiver, WeightCategories weight, Priorities priority)
         {
-            SenderId = idSender;
-            ReceiverId = idReceiver;
+            IdSender = idSender;
+            IdReceiver = idReceiver;
             Weight = weight;
             Priority = priority;
         }

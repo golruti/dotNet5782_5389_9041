@@ -58,12 +58,12 @@ namespace IBL
 
         //--------------------------------------------הוספת תחנת בסיס-------------------------------------------------------------------------------------------
 
-        public void AddBaseStation(int id, string name, double longitude, double latitude, int chargingStations)
+        public void AddBaseStation(BaseStation tempBaseStation)
         {
-            BO.BaseStation tempBaseStation = new BO.BaseStation(id, name, longitude, latitude, chargingStations);
+            
 
-            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, chargingStations);
-            dal.InsertStation(station);
+            IDAL.DO.BaseStation baseStation = new IDAL.DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, chargingStations);
+            dal.InsertStation(baseStation);
         }
 
 
