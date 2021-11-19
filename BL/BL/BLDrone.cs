@@ -18,7 +18,8 @@ namespace IBL
             {
                 ParcelForList newParcel = new ParcelForList();
                 //חבילה שלא סופקה והרחפן שויך
-                if (parcel.Delivered.Equals(default(DateTime)) && parcel.Droneld == droneId)
+                if (parcel.Droneld == droneId &&
+                    !(parcel.Requested.Equals(default(DateTime))) && parcel.Delivered.Equals(default(DateTime)))
                 {
                     return true;
                 }

@@ -31,9 +31,12 @@ namespace IDAL
         IEnumerable<Parcel> UnassignedParcels();
         double[] DronePowerConsumptionRequest();
         void DeleteDrone(int id);
-        
+        T GetById<T>(List<T> lst, int id);
         int IncreastNumberIndea();
         void DeleteBaseStation(int id);
         void DeleteCustomer(int id);
+        Customer GetById<T>(IEnumerable<Customer> enumerable, int id);
+        global::IBL.BO.Location GetById<T>(IEnumerable<T> enumerable, int v);
+        global::IBL.BO.Location GetBaseStations<T>(Func<IEnumerable<T>> getBaseStations, int randNumber);
     }
 }

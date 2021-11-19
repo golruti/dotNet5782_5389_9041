@@ -42,7 +42,7 @@ namespace IBL.BO
             Sender = sender;
             Receiver = receiver;
             Weight = weight;
-            Priority = priority;
+            Priority = priority; 
             DroneParcel = droneParcel;
         }
 
