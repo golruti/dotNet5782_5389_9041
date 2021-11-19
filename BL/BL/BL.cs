@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Device.Location;
+using System.Linq;
 using IBL.BO;
 using static IBL.BO.Enums;
 
@@ -19,6 +21,9 @@ namespace IBL
             dal = new DalObject.DalObject();
             drones = new List<DroneForList>();
             initializeDrones();
+
+
+
         }
 
 
@@ -33,18 +38,26 @@ namespace IBL
                 newDrone.DeliveryId = 0;
                 newDrone.Battery = 1;
 
-                if (IsDroneMakesDelivery(newDrone.Id))  //אם הרחפן מבצע משלוח
+                if (IsDroneMakesDelivery(newDrone.Id))  //אם הרחפן מבצע משלוח, הרחפן שויך והחבילה לא סופקה
                 {
                     newDrone.Status = BO.Enums.DroneStatuses.Delivery;
                     if (findParcelState(newDrone.Id) == parcelState.associatedNotCollected)
                     {
+                        //עדכון מיקום רחפן לתחנה הקרובה ביותר לשולח
+                        IDAL.DO.Customer senderCustomer = FindSenderCustomerByDroneId(newDrone.Id);
+                        IDAL.DO.BaseStation soonStation = soonBaseStation(senderCustomer.Longitude, senderCustomer.Latitude);
+                        newDrone.Location = new Location(soonStation.Longitude, soonStation.Latitude);
+
                         //newDrone.Battery =
-                        //newDrone.Location =
                     }
                     else if (findParcelState(newDrone.Id) == parcelState.collectedNotDelivered)
                     {
+                        //עדכון מיקום רחפן למיקום השולח
+
+                        IDAL.DO.Customer senderCustomer = FindSenderCustomerByDroneId(newDrone.Id);
+                        newDrone.Location =new Location(senderCustomer.Longitude, senderCustomer.Latitude);
+
                         // newDrone.Battery =
-                        //newDrone.Location =
                     }
                 }
 
@@ -53,7 +66,10 @@ namespace IBL
                     newDrone.Status = (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length);
                     if (newDrone.Status == Enums.DroneStatuses.Maintenance)
                     {
-                        //newDrone.Location =
+                        int randNumber = rand.Next(dal.GetBaseStations().Count());
+                        var randomBaseStation = dal.GetBaseStations<IDAL.DO.BaseStation>((List<IDAL.DO.BaseStation>)dal.GetBaseStations(), randNumber);
+                        newDrone.Location = new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
+
                         newDrone.Battery = rand.Next(0, 20);
                     }
                     else if (newDrone.Status == Enums.DroneStatuses.Available)
@@ -62,11 +78,58 @@ namespace IBL
                         //newDrone.Location =
                     }
                 }
+
                 drones.Add(newDrone);
             }
         }
 
 
+
+        private IDAL.DO.Customer FindSenderCustomerByDroneId(int DroneId)
+        {
+            IDAL.DO.Customer customer = new IDAL.DO.Customer();
+            foreach (var parcel in dal.GetParcels())
+            {
+                if (parcel.Droneld == DroneId)
+                {
+                    customer = dal.GetById<IDAL.DO.BaseStation>((List<IDAL.DO.Customer>)dal.GetCustomers(), parcel.SenderId);
+                }
+            }
+
+            if (customer.Equals(default(IDAL.DO.Customer)))
+            {
+                throw new Exception();
+            }
+            return customer;
+        }
+
+
+        private IDAL.DO.BaseStation soonBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
+        {
+            var minDistance = double.MaxValue;
+            var soonBaseStation = default(IDAL.DO.BaseStation);
+            foreach (var BaseStation in dal.GetBaseStations())
+            {
+                if (Distance(LongitudeSenderCustomer, LatitudeSenderCustomer, BaseStation.Latitude, BaseStation.Longitude) < minDistance)
+                {
+                    minDistance = Distance(LongitudeSenderCustomer, LatitudeSenderCustomer, BaseStation.Latitude, BaseStation.Longitude);
+                    soonBaseStation = BaseStation;
+                }
+            }
+            if (soonBaseStation.Equals(default(IDAL.DO.BaseStation)))
+            {
+                throw new Exception();
+            }
+            return soonBaseStation;
+        }
+
+
+        private double Distance(double Latitude1, double Latitude2, double Longitude1, double Longitude2)
+        {
+            var Coord1 = new GeoCoordinate(Latitude1, Longitude2);
+            var Coord2 = new GeoCoordinate(Latitude2, Longitude2);
+            return Coord1.GetDistanceTo(Coord2);
+        }
 
         public void UpdateParcelScheduled(int idxParcel)
         {

@@ -26,7 +26,7 @@ namespace DalObject
         }
 
 
-        T GetById<T>(List<T> lst, int id) where T : new()
+        public T GetById<T>(List<T> lst, int id) 
         {
             return lst.Find(item => (int)item.GetType().GetProperty("id").GetValue(item, null) == id);
         }
