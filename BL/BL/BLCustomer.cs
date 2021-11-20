@@ -44,9 +44,30 @@ namespace IBL
         {
             IDAL.DO.Customer tempCustomer = dal.GetCustomer(id);
             dal.DeleteCustomer(id);
-            IDAL.DO.Customer customer = new IDAL.DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Lattitude);
+            IDAL.DO.Customer customer = new IDAL.DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
             dal.InsertCustomer(customer);
         }
 
+
+
+
+        //-------------------------לשימוש הקונסטרקטור
+        private IDAL.DO.Customer FindSenderCustomerByDroneId(int DroneId)
+        {
+            IDAL.DO.Customer customer = new IDAL.DO.Customer();
+            foreach (var parcel in dal.GetParcels())
+            {
+                if (parcel.Droneld == DroneId)
+                {
+                    customer = dal.GetById<IDAL.DO.BaseStation>((List<IDAL.DO.Customer>)dal.GetCustomers(), parcel.SenderId);
+                }
+            }
+
+            if (customer.Equals(default(IDAL.DO.Customer)))
+            {
+                throw new Exception();
+            }
+            return customer;
+        }
     }
 }

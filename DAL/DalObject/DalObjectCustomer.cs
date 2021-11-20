@@ -46,10 +46,33 @@ namespace DalObject
         }
 
 
+
+
+
         public void DeleteCustomer(int id)
         {
             List<Customer> tempCusromers = (List<Customer>)GetCustomers();
             tempCusromers.RemoveAll(item => item.Id == id);
         }
+
+        //לשימוש הקונסטרקטוב בBL
+        public IEnumerable<Customer> GetCustomersProvided()
+        {
+            List<Customer> customerProvided = new List<Customer>();
+            foreach (var customer in GetCustomers())
+            {
+                foreach (var parcel in GetParcelsProvided())
+                {
+                    if (customer.Id ==parcel.TargetId)
+                    {
+                        customerProvided.Add(customer);
+                    }
+                }         
+            }
+            return customerProvided;
+        }
+
+
+
     }
 }

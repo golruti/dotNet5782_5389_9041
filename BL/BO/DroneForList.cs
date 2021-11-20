@@ -15,7 +15,7 @@ namespace IBL.BO
         public double Battery { get; set; }
         public DroneStatuses Status { get; set; }
         public Location Location { get; set; }
-        public int DeliveryId { get; set; } = 0;
+        public int ParcelDeliveredId { get; set; } = 0;
 
         public override string ToString()
         {

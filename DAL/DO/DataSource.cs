@@ -20,10 +20,10 @@ namespace DalObject
 
         internal class Config
         {
-           static public double vacant;
-           static public double CarriesLightWeigh;
-           static public double CarriesMediumWeigh;
-           static public double CarriesHeavyWeight;
+           static public double vacant = 10;
+           static public double CarriesLightWeigh =20;
+           static public double CarriesMediumWeigh=50;
+           static public double CarriesHeavyWeight=60;
            static public double ChargingRatel;
 
         }
@@ -41,7 +41,7 @@ namespace DalObject
                 tempStation.Id = i;
                 tempStation.Name = $"station {i}";
                 tempStation.ChargeSlote = Rand.Next() + 1;
-                tempStation.Lattitude = Rand.Next(181) + Rand.NextDouble();
+                tempStation.Latitude = Rand.Next(181) + Rand.NextDouble();
                 tempStation.Longitude = Rand.Next(91) + Rand.NextDouble();
                 stations.Add(tempStation);
                
@@ -54,7 +54,7 @@ namespace DalObject
                 tempCustomer.Id =i;
                 tempCustomer.Name = $"customer {i}";
                 tempCustomer.Phone = $"05{Rand.Next(10000000, 100000000)}";
-                tempCustomer.Lattitude = Rand.Next(181) + Rand.NextDouble();
+                tempCustomer.Latitude = Rand.Next(181) + Rand.NextDouble();
                 tempCustomer.Longitude = Rand.Next(91) + Rand.NextDouble();
 
                 customers.Add(tempCustomer);

@@ -122,5 +122,19 @@ namespace IBL
             IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(dal.IncreastNumberIndea(), tempParcel.SenderId, tempParcel.ReceiverId, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
             dal.InsertParcel(parcel);
         }
+
+        //  -------------------------------------לשימוש הקונסטרקטור
+        private int findParceDeliveredlId(int droneId)
+        {
+            foreach (var parcel in dal.GetParcels())
+            {
+                if (parcel.Droneld == droneId)
+                {
+                    return parcel.Id;
+                }
+            }
+            return 0;
+        }
+
     }
 }

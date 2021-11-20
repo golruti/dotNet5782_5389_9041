@@ -107,5 +107,20 @@ namespace DalObject
             return ++Index;
         }
 
+
+        //חבילות שסופקו-קונסטרקטור BL
+        public IEnumerable<Parcel> GetParcelsProvided()
+        {
+            List<Parcel> parcelProvided = new List<Parcel>();
+            foreach (var parcel in GetParcels())
+            {
+                if (!(parcel.Delivered.Equals(default(DateTime))))
+                {
+                    parcelProvided.Add(parcel);
+                }
+            }
+            return parcelProvided;
+        }
+
     }
 }
