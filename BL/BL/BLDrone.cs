@@ -33,9 +33,9 @@ namespace IBL
             return drones;
         }
 
-        public void AddDrone(int id, string model, int maxWeight, double longitude, double latitude)
+        public void AddDrone(Drone tempDrone)
         {
-            Drone tempDrone = new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), longitude, latitude);
+            
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDrone.Id, tempDrone.Model, (IDAL.DO.Enum.WeightCategories)tempDrone.MaxWeight);
             dal.InsertDrone(drone);
         }

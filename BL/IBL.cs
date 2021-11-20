@@ -13,10 +13,10 @@ namespace IBL
 {
     public interface IBL
     {
-        public void AddBaseStation(int id, string name, double longitude, double latitude, int availableChargingStations);
-        public void AddDrone(int id, string model, int maxWeight, double longitude, double latitude);
-        public void AddCustomer(int id, string name, string phone, double longitude, double latitude);
-        public void AddParcel(int idSender, int idReceiver, int weight, int priority);
+        public void AddBaseStation(BO.BaseStation tempBaseStation);
+        public void AddDrone(Drone tempDrone);
+        public void AddParcel(Parcel tempParcel);
+        void AddCustomer(Customer tempCustomer);
         public void UpdateParcelScheduled(int idxParcel);
         public void UpdateParcelPickedUp(int idxParcel);
         public void UpdateParcelDelivered(int idxParcel);
@@ -32,12 +32,10 @@ namespace IBL
         public List<Parcel> GetParcels();
         public List<Parcel> UnassignedPackages();
         public List<IDAL.DO.BaseStation> GetAvaStations();
-        void AddDrone(int idDrone, string modelDrone, int maxWeightDrone, int longitudeDrone, int latitudeDrone);
-        void AddCustomer(int idCustomer, string nameCustomer, string phoneCustomer, int longitudeCustomer, int latitudeCustomer);
         void UpdateDrone(int droneId, string model);
         void UpdateBaseStation(int stationlId, string name, int chargeSlote);
         void UpdateCustomer(int customerId, string name, string phone);
         void SendDroneToRecharge(int droneId);
-        void UpdateDroneLocation(int id)
+        void UpdateDroneLocation(int id);
     }
 }

@@ -37,14 +37,7 @@ namespace IBL.BO
             Location = new Location(longitude, latitude);
         }
 
-        public Drone(int id, string model, DroneStatuses maxWeight, DroneStatuses maintenance, double longitude, double latitude, double latitude1)
-        {
-            Id = id;
-            Model = model;
-            this.maxWeight = maxWeight;
-            this.longitude = longitude;
-            this.latitude = latitude;
-        }
+
     }
 }
 
