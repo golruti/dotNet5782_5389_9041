@@ -64,7 +64,7 @@ namespace IBL
         {
             
 
-            IDAL.DO.BaseStation baseStation = new IDAL.DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, chargingStations);
+            IDAL.DO.BaseStation baseStation = new IDAL.DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, tempBaseStation.AvailableChargingPorts);
             dal.InsertStation(baseStation);
         }
 
@@ -72,8 +72,8 @@ namespace IBL
         public void UpdateBaseStation(int id, string name, int chargeSlote)
         {
             IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
-            dal.DeleteBaseStation(id);
-            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Lattitude, chargeSlote);
+            //dal.DeleteBaseStation(id);
+            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
             dal.InsertStation(station);
         }
     }

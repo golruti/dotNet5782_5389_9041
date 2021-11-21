@@ -33,7 +33,7 @@ namespace IBL
 
         //--------------------------------------------הצגת רשימת חבילות לרשימה--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        public IEnumerable<ParcelForList> ParcelForList()
+        public IEnumerable<ParcelForList> GetParcelForList()
         {
             List<ParcelForList> ParcelsForList = new List<ParcelForList>();
             foreach (var parcel in dal.GetParcels())
@@ -119,8 +119,8 @@ namespace IBL
         public void AddParcel(Parcel tempParcel)
         {
             
-            IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(dal.IncreastNumberIndea(), tempParcel.SenderId, tempParcel.ReceiverId, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
-            dal.InsertParcel(parcel);
+            //IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(dal.IncreastNumberIndea(), tempParcel.SenderId, tempParcel.ReceiverId, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
+            //dal.InsertParcel(parcel);
         }
 
         //  -------------------------------------לשימוש הקונסטרקטור
