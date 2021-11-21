@@ -7,7 +7,7 @@ using IBL.BO;
 
 namespace IBL
 {
-    partial class BL
+    partial class BL:IBL
     {
 
         //לשימוש הקונסטרקטור

@@ -55,5 +55,9 @@ namespace DalObject
                          .Where(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id))
                          .ToList();
         }
+
+
+        
+
     }
 }

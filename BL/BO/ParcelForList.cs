@@ -7,7 +7,7 @@ using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
-    class ParcelForList
+    public class ParcelForList
     {
         public int Id { get; set; }
         public string SendCustomer { get; set; }
