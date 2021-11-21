@@ -11,17 +11,24 @@ namespace IBL
     {
 
         //---------------------------------------------הצגת רשימת תחנות בסיס לרשימה ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        
 
-        private int numOfUsedChargingPorts(int idBaseStation)
+        public IEnumerable<BaseStationForList> GetBaseStationForList()
         {
-            int countUsedChargingPorts = 0;
-            foreach (var BaseStation in dal.GetAvaBaseStations())
+            List<BaseStationForList> BaseStationsForList = new List<BaseStationForList>();
+            foreach (var baseStation in dal.GetBaseStations())
             {
-                ++countUsedChargingPorts;
+                BaseStationsForList.Add(new BaseStationForList()
+                {
+                    Id = baseStation.Id,
+                    Name = baseStation.Name,
+                    AvailableChargingPorts = numOfUsedChargingPorts(baseStation.Id),
+                    UsedChargingPorts = (baseStation.ChargeSlote) - numOfUsedChargingPorts(baseStation.Id)
+                });
             }
-            return countUsedChargingPorts;
+            return BaseStationsForList;
         }
+
+
 
         //--------------------------------------------תחנות בסיס עם עמדות טעינה פתוחות-------------------------------------------------------------------------------------------
         public IEnumerable<BaseStationForList> GetAvaBaseStationForList()
@@ -40,6 +47,16 @@ namespace IBL
             return BaseStationsForList;
         }
 
+
+        private int numOfUsedChargingPorts(int idBaseStation)
+        {
+            int countUsedChargingPorts = 0;
+            foreach (var BaseStation in dal.GetAvaBaseStations())
+            {
+                ++countUsedChargingPorts;
+            }
+            return countUsedChargingPorts;
+        }
 
         //--------------------------------------------הוספת תחנת בסיס-------------------------------------------------------------------------------------------
 

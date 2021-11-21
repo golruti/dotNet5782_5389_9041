@@ -130,7 +130,7 @@ namespace IBL
         //    }
 
 
-
+        public BaseStation get
 
 
 
@@ -176,14 +176,6 @@ namespace IBL
             var Coord2 = new GeoCoordinate(Latitude2, Longitude2);
             return Coord1.GetDistanceTo(Coord2);
         }
-
-
-        //public IEnumerable<CustomerForList> GetCustomerProvided()
-        //{
-
-        //}
-
-
 
 
 
@@ -311,5 +303,3 @@ namespace IBL
     //        }
     //    }
     //}
-}
-}
