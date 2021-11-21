@@ -7,26 +7,11 @@ using IBL.BO;
 
 namespace IBL
 {
-    partial class BL
+     partial class BL
     {
 
         //---------------------------------------------הצגת רשימת תחנות בסיס לרשימה ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        public IEnumerable<BaseStationForList> GetBaseStationForList()
-        {
-            List<BaseStationForList> BaseStationsForList = new List<BaseStationForList>();
-            foreach (var baseStation in dal.GetBaseStations())
-            {
-                BaseStationsForList.Add(new BaseStationForList()
-                {
-                    Id = baseStation.Id,
-                    Name = baseStation.Name,
-                    AvailableChargingPorts = numOfUsedChargingPorts(baseStation.Id),
-                    UsedChargingPorts = (baseStation.ChargeSlote) - numOfUsedChargingPorts(baseStation.Id)
-                });
-            }
-            return BaseStationsForList;
-        }
-
+        
 
         private int numOfUsedChargingPorts(int idBaseStation)
         {

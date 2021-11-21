@@ -40,6 +40,7 @@ namespace IBL
             dal.InsertDrone(drone);
         }
 
+
         public void UpdateDrone(int id, string model)
         {
             DroneForList tempDroneForList = drones.Find(item => item.Id == id);

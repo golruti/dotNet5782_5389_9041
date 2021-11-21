@@ -57,11 +57,10 @@ namespace ConsoleUI_BL
             switch (listOptions)
             {
                 case ListOptions.BaseStations:
-                    //foreach (var item in bl.GetBaseStations())
-                    //{
-                    //    Console.WriteLine(item);
-                    //}
-                    ShowList(bl.GetBaseStations());
+                    foreach (var item in bl.())
+                    {
+                        Console.WriteLine(item);
+                    }
                     break;
                 case ListOptions.Drones:
                     foreach (var item in bl.GetDrones())
