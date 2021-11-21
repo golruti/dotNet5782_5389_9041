@@ -38,12 +38,12 @@ namespace IDAL
                 };
             }
 
-            public BaseStation(int id, string name,double longitude,double latitude,int chargeSlote)
+            public BaseStation(int id, string name,double longitude,double lattitude,int chargeSlote)
             {
                 Id = id;
                 Name = name;
                 Longitude = longitude;
-                Latitude = latitude;
+                Latitude = lattitude;
                 ChargeSlote = chargeSlote;
             }
         }

@@ -59,7 +59,7 @@ namespace IBL
             {
                 if (parcel.Droneld == DroneId)
                 {
-                    customer = dal.GetById<IDAL.DO.BaseStation>((List<IDAL.DO.Customer>)dal.GetCustomers(), parcel.SenderId);
+                    customer = dal.GetById<IDAL.DO.Customer>(dal.GetCustomers(), parcel.SenderId);
                 }
             }
 
