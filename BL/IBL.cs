@@ -41,6 +41,8 @@ namespace IBL
         public void AddParcel(Parcel tempParcel);
         private int FindParceDeliveredlId(int droneId);
 
+        void SendDroneToRecharge(int droneId);
+        object GetStation(int stationId);
     }
 }
 

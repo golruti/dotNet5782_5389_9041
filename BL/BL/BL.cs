@@ -130,10 +130,7 @@ namespace IBL
         //    }
 
 
-        public BaseStation GetBaseStation(int id)
-        {
-
-        }
+       
 
 
 

@@ -19,7 +19,7 @@ namespace IDAL
             public override string ToString()
             {
                 return ("\nid: " + Id + "\nname: " + Name + "\nLongitude: " + Longitude +
-                    "\nLattitude: " + Lattitude + "\nChargeSlote: " + ChargeSlote + "\n");
+                    "\nLattitude: " + Latitude + "\nChargeSlote: " + ChargeSlote + "\n");
             }
 
             /// <summary>
@@ -33,17 +33,17 @@ namespace IDAL
                     Id = this.Id,
                     Name = this.Name,
                     Longitude = this.Longitude,
-                    Lattitude = this.Lattitude,
+                    Latitude = this.Latitude,
                     ChargeSlote = this.ChargeSlote
                 };
             }
 
-            public BaseStation(int id, string name,double longitude,double lattitude,int chargeSlote)
+            public BaseStation(int id, string name,double longitude,double latitude,int chargeSlote)
             {
                 Id = id;
                 Name = name;
                 Longitude = longitude;
-                Lattitude = lattitude;
+                Latitude = latitude;
                 ChargeSlote = chargeSlote;
             }
         }
