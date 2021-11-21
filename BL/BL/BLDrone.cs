@@ -33,14 +33,17 @@ namespace IBL
             return drones;
         }
 
+        //-----------add
         public void AddDrone(Drone tempDrone)
         {
-            
+
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDrone.Id, tempDrone.Model, (IDAL.DO.Enum.WeightCategories)tempDrone.MaxWeight);
             dal.InsertDrone(drone);
         }
+        //--------------------------------------------עידכון------------------------------------------------------------------------------------------
 
 
+        //-------------------------עידכון מודל
         public void UpdateDrone(int id, string model)
         {
             DroneForList tempDroneForList = drones.Find(item => item.Id == id);
@@ -51,6 +54,13 @@ namespace IBL
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDroneForList.Id, tempDroneForList.Model, (IDAL.DO.Enum.WeightCategories)tempDroneForList.MaxWeight);
             dal.InsertDrone(drone);
         }
+
+        //---------------------שליחת רחפן לטעינה
+        void SendDroneToRecharge(int droneId)
+        {
+
+        }
+
 
 
         //----------------------------------------------------------------------------------------לשימוש הקונסטרקטור
