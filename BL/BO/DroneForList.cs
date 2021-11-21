@@ -7,7 +7,7 @@ using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
-    public class DroneForList : ILocatable
+    class DroneForList : ILocatable
     {
         public int Id { get; set; }
         public string Model { get; set; }

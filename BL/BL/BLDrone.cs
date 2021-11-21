@@ -8,7 +8,7 @@ using static IBL.BO.Enums;
 
 namespace IBL
 {
-    partial class BL:IBL
+    partial class BL
     {
         //פונקציה לשימוש הקונסטרקטור
         //בדיקה אם הרחפן מבצע משלוח

@@ -10,7 +10,6 @@ namespace IBL
     partial class BL : IBL
     {
 
-
         private IDAL.IDal dal;
         private List<DroneForList> drones;
         private static Random rand = new Random();
@@ -131,6 +130,20 @@ namespace IBL
         //    }
 
 
+        public BaseStation GetBaseStation(int id)
+        {
+
+        }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -160,13 +173,12 @@ namespace IBL
         }
 
 
-
-
-
-
-
-
-        
+        private double Distance(double Latitude1, double Latitude2, double Longitude1, double Longitude2)
+        {
+            var Coord1 = new GeoCoordinate(Latitude1, Longitude2);
+            var Coord2 = new GeoCoordinate(Latitude2, Longitude2);
+            return Coord1.GetDistanceTo(Coord2);
+        }
 
 
 

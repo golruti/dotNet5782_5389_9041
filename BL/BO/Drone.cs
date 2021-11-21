@@ -36,10 +36,6 @@ namespace IBL.BO
             Status = DroneStatuses.Maintenance;
             Location = new Location(longitude, latitude);
         }
-        public Drone()
-        {
-
-        }
 
 
     }
