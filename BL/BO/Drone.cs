@@ -37,7 +37,15 @@ namespace IBL.BO
             Location = new Location(longitude, latitude);
         }
 
-
+        public Drone(int id, string model, DroneStatuses status, double battery, double longitude, double latitude)
+        {
+            Id = id;
+            Model = model;
+            Status = status;
+            Battery = battery;
+            this.longitude = longitude;
+            this.latitude = latitude;
+        }
     }
 }
 

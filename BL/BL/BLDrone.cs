@@ -40,6 +40,12 @@ namespace IBL
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDrone.Id, tempDrone.Model, (IDAL.DO.Enum.WeightCategories)tempDrone.MaxWeight);
             dal.InsertDrone(drone);
         }
+
+        public void AddDroneForList(Drone drone)
+        {
+            DroneForList droneForList(drone.Id,drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Longitude, drone.Latitude);
+            drones.Add(droneForList);
+        }
         //--------------------------------------------עידכון------------------------------------------------------------------------------------------
 
 
@@ -56,11 +62,34 @@ namespace IBL
         }
 
         //---------------------שליחת רחפן לטעינה
-        void SendDroneToRecharge(int droneId)
+        public void SendDroneToRecharge(int droneId)
+        {
+            DroneForList tempDroneForList =getDroneForList(droneId);
+            Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
+            if((int)tempDrone.Status==0)
+            {
+                int baseStationId;
+                double distance = double.MaxValue;
+                foreach (var item in dal.GetBaseStations())
+                {
+                    double tempDistance = Distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
+                    if(tempDistance<distance && SeveralAvailablechargingStations(item.Id)>0)
+                    {
+                        baseStationId = item.Id;
+                        distance = tempDistance;
+                    }
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        double BatteryCalculation(double distance)
         {
 
         }
-
 
 
         //----------------------------------------------------------------------------------------לשימוש הקונסטרקטור

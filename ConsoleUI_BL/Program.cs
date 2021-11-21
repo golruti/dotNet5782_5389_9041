@@ -222,10 +222,10 @@ namespace ConsoleUI_BL
                     if (int.TryParse(Console.ReadLine(), out id) && int.TryParse(Console.ReadLine(), out stationId) && Enum.TryParse(Console.ReadLine(), out maxWeight) )
                     {
                         String model = Console.ReadLine();
-                        DroneForList(int id, string model, WeightCategories maxWeight, int battery, DroneStatuses status, double longitude, double latitude)
+                        Drone tempDrone=new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetStation(stationId).Longitude, bl.GetStation(stationId).Latitude));
+                        bl.AddDroneForList(tempDrone);
 
-
-                        bl.AddDrone(new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetStation(stationId).Longitude, bl.GetStation(stationId).Latitude));
+                        bl.AddDrone(tempDrone);
                     }
                     else
                     {

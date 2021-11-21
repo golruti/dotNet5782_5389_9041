@@ -9,6 +9,7 @@ using Customer = IBL.BO.Customer;
 using Drone = IBL.BO.Drone;
 using Parcel = IBL.BO.Parcel;
 using BaseStation = IBL.BO.BaseStation;
+using static IBL.BO.Enums;
 
 namespace IBL
 {
@@ -43,6 +44,11 @@ namespace IBL
 
         void SendDroneToRecharge(int droneId);
         object GetStation(int stationId);
+
+        public void AddDroneForList(int id, string model, WeightCategories maxWeight, int battery, DroneStatuses status, double longitude, double latitude);
+        void AddDroneForList(Drone tempDrone);
+        int SeveralAvailablechargingStations(int id);
+        double BatteryCalculation(double distance);
     }
 }
 

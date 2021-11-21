@@ -82,5 +82,21 @@ namespace IBL
             BaseStation tempBaseStation(baseStation.Id,baseStation.Name, baseStation.Longitude, baseStation.latitude, baseStation.ChargeSlote);
             return tempBaseStation;
         }
+
+        //כמה עמדות טעינה פנויות
+        public int SeveralAvailablechargingStations(int id)
+        {
+            BaseStation baseStation = GetBaseStation(id);
+            int sum = 0;
+            foreach (var item in drones)
+            {
+                if ((int)item.Status == 2 && item.Location.Latitude == baseStation.Location.Latitude && item.Location.Longitude == baseStation.Location.Longitude)
+                {
+                    ++sum;
+                }
+            }
+
+            return sum;
+        }
     }
 }
