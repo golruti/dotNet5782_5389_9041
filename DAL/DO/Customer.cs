@@ -24,7 +24,7 @@ namespace IDAL
             public override string ToString()
             {
                 return ("\nId: " + Id + "\nName: " + Name + "\nPhone: " + Phone +
-                    "\nLongitude: " + Longitude + "\nLattitude: " + Lattitude + "\n");
+                    "\nLongitude: " + Longitude + "\nLattitude: " + Latitude + "\n");
             }
 
             public Customer(int id,string name,string phone,double longitude,double lattitude)
@@ -33,7 +33,7 @@ namespace IDAL
                 Name = name;
                 Phone = phone;
                 Longitude = longitude;
-                Lattitude = lattitude;
+                Latitude = lattitude;
             }
 
             /// <summary>
@@ -48,7 +48,7 @@ namespace IDAL
                     Name = this.Name,
                     Phone = this.Phone,
                     Longitude = this.Longitude,
-                    Lattitude = this.Lattitude
+                    Latitude = this.Latitude
                 };
             }
         }

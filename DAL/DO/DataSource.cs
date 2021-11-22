@@ -91,7 +91,7 @@ namespace DalObject
                 tempParcel.Scheduled = DateTime.Now.AddDays(2);
                 tempParcel.PickedUp = DateTime.Now.AddDays(30);
                 tempParcel.Delivered = DateTime.Now.AddDays(32);
-
+                parcels.Add(tempParcel);
             }
         }
     }

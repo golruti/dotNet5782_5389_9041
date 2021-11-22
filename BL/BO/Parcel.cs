@@ -9,8 +9,6 @@ namespace IBL.BO
 {
     public class Parcel
     {
-        
-
         public int Id { get; set; }
         public int SenderId { get; set; }
         public int ReceiverId { get; set; }
@@ -52,6 +50,11 @@ namespace IBL.BO
             IdReceiver = idReceiver;
             Weight = weight;
             Priority = priority;
+        }
+
+        public Parcel()
+        {
+
         }
     }
 }

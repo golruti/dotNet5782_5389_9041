@@ -32,6 +32,10 @@ namespace IBL.BO
             ShippedParcels = new List<CustomerDelivery>();
 
         }
+        public Customer()
+        {
+
+        }
     }
 }
 

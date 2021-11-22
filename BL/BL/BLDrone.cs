@@ -35,7 +35,7 @@ namespace IBL
 
         public void AddDrone(Drone tempDrone)
         {
-            
+
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDrone.Id, tempDrone.Model, (IDAL.DO.Enum.WeightCategories)tempDrone.MaxWeight);
             dal.InsertDrone(drone);
         }
@@ -74,21 +74,22 @@ namespace IBL
                     return new Location(senderCustomer2.Longitude, senderCustomer2.Latitude);
                 }
             }
-            else //אם הרחפן לא מבצע משלוח
-            {
-                if (drone.Status == Enums.DroneStatuses.Maintenance)
-                {
+            //else //אם הרחפן לא מבצע משלוח
+            //{
+            //    if (drone.Status == Enums.DroneStatuses.Maintenance)
+            //    {
                     //מגריל מיקום מבין התחנות הקיימות
                     //??לבדוק אם זה דווקא תחנות פנוית או ההיפך....
                     int randNumber1 = rand.Next(dal.GetBaseStations().Count());
                     var randomBaseStation = (dal.GetBaseStations().ToList())[randNumber1];
                     return new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
-                }
-            }
-            //אם הרחפן פנוי ולא שויך עי שום חבילה
-            int randNumber = rand.Next(dal.GetCustomersProvided().Count());
-            var randomCustomerProvided = (dal.GetCustomersProvided().ToList())[randNumber];
-            return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
+            //    }
+            //}
+
+            ////אם הרחפן פנוי ולא שויך עי שום חבילה
+            //int randNumber = rand.Next(dal.GetCustomersProvided().Count());    
+            //var randomCustomerProvided = (dal.GetCustomersProvided().ToList())[randNumber];
+            //return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
         }
 
 
@@ -107,6 +108,22 @@ namespace IBL
         private DroneForList getDroneForList(int droneId)
         {
             return drones.First(drone => drone.Id == droneId);
+        }
+
+        private List<DroneInCharging> findDronesInCharing(int id)
+        {
+            List<int> list = dal.GetDronechargingInStation(id);
+            List<DroneInCharging> droneInChargings = new List<DroneInCharging>();
+            DroneForList droneToList;
+            foreach (var idDrone in list)
+            {
+                droneToList = drones.FirstOrDefault(item => (item.Id == idDrone));
+                if (!droneToList.Equals(default(DroneForList)))
+                {
+                    droneInChargings.Add(new DroneInCharging() { Id = idDrone, Battery = droneToList.Battery });
+                }
+            }
+            return droneInChargings;
         }
     }
 }

@@ -7,7 +7,7 @@ using IBL.BO;
 
 namespace IBL
 {
-     partial class BL
+    partial class BL
     {
 
         //---------------------------------------------הצגת רשימת תחנות בסיס לרשימה ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,9 +62,9 @@ namespace IBL
 
         public void AddBaseStation(BaseStation tempBaseStation)
         {
-            
 
-            IDAL.DO.BaseStation baseStation = new IDAL.DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, chargingStations);
+
+            IDAL.DO.BaseStation baseStation = new IDAL.DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, tempBaseStation.AvailableChargingPorts);
             dal.InsertStation(baseStation);
         }
 
@@ -72,9 +72,23 @@ namespace IBL
         public void UpdateBaseStation(int id, string name, int chargeSlote)
         {
             IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
-            dal.DeleteBaseStation(id);
-            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Lattitude, chargeSlote);
+            //dal.DeleteBaseStation(id);
+            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
             dal.InsertStation(station);
+        }
+
+
+        public BaseStation GetBLBaseStation(int baseStationId)
+        {
+            BaseStation newBaseStation = new BaseStation();
+            IDAL.DO.BaseStation dataBaseStation = dal.GetStation(baseStationId);
+            newBaseStation.Id = dataBaseStation.Id;
+            newBaseStation.Name = dataBaseStation.Name;
+            newBaseStation.Location.Latitude = dataBaseStation.Longitude;
+            newBaseStation.Location.Longitude = dataBaseStation.Longitude;
+            newBaseStation.AvailableChargingPorts = dataBaseStation.ChargeSlote - dal.CountFullChargeSlots(dataBaseStation.Id);
+            newBaseStation.DronesInCharging = findDronesInCharing(dataBaseStation.Id);
+            return newBaseStation;
         }
     }
 }

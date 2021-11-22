@@ -15,7 +15,8 @@ namespace IBL
         public IEnumerable<CustomerForList> GetCustomerForList()
         {
             List<CustomerForList> CustomerForList = new List<CustomerForList>();
-            List<IDAL.DO.Parcel> parcels = (List<IDAL.DO.Parcel>)dal.GetParcels();
+
+
             foreach (var customer in dal.GetCustomers())
             {
                 CustomerForList.Add(new CustomerForList()
@@ -33,9 +34,25 @@ namespace IBL
             return CustomerForList;
         }
 
+
+        public Customer GetBLCustomer(int customerId)
+        {
+            Customer newCustomer = new Customer();
+            IDAL.DO.Customer dataCustomer = dal.GetCustomer(customerId);
+            newCustomer.Id = dataCustomer.Id;
+            newCustomer.Name = dataCustomer.Name;
+            newCustomer.Phone = dataCustomer.Phone;
+            newCustomer.Location.Latitude = dataCustomer.Latitude;
+            newCustomer.Location.Longitude = dataCustomer.Longitude;
+            newCustomer.ReceivedParcels=?
+            newCustomer.ShippedParcels =?
+            return newCustomer;
+        }
+
+
         public void AddCustomer(Customer tempCustomer)
         {
-            
+
             IDAL.DO.Customer customer = new IDAL.DO.Customer(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
             dal.InsertCustomer(customer);
         }
@@ -59,7 +76,7 @@ namespace IBL
             {
                 if (parcel.Droneld == DroneId)
                 {
-                    customer = dal.GetById<IDAL.DO.BaseStation>((List<IDAL.DO.Customer>)dal.GetCustomers(), parcel.SenderId);
+                    customer = dal.GetById<IDAL.DO.Customer>(dal.GetCustomers(), parcel.SenderId);
                 }
             }
 

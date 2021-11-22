@@ -7,7 +7,7 @@ using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
-    class ParcelForList
+    public class ParcelForList
     {
         public int Id { get; set; }
         public string SendCustomer { get; set; }
@@ -15,6 +15,13 @@ namespace IBL.BO
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
         public ParcelStatuses Status { get; set; }
+
+
+        public override string ToString()
+        {
+            return $"Parcel #{Id}:, Send Customer={SendCustomer},Receive Customer={ReceiveCustomer}, Weight{Weight}, " +
+                $"Priority{Priority}, Status{Status}";
+        }
 
     }
 }

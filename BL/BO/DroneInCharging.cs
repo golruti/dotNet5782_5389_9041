@@ -15,6 +15,11 @@ namespace IBL.BO
             Id = id;
             Battery = battery;
         }
+
+        public DroneInCharging()
+        {
+
+        }
     }
 
     

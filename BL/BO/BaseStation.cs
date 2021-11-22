@@ -23,6 +23,10 @@ namespace IBL.BO
             AvailableChargingPorts = availableChargingStations;
             DronesInCharging = new List<DroneInCharging>();
         }
+        public BaseStation()
+        {
+
+        }
     }
 }
 
