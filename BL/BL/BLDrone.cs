@@ -43,8 +43,8 @@ namespace IBL
 
         public void AddDroneForList(Drone drone)
         {
-            DroneForList droneForList(drone.Id,drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Longitude, drone.Latitude);
-            drones.Add(droneForList);
+            //DroneForList droneForList(drone.Id,drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Longitude, drone.Latitude);
+            //drones.Add(droneForList);
         }
         //--------------------------------------------עידכון------------------------------------------------------------------------------------------
 
@@ -73,7 +73,7 @@ namespace IBL
                 foreach (var item in dal.GetBaseStations())
                 {
                     double tempDistance = Distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
-                    if(tempDistance<distance && SeveralAvailablechargingStations(item.Id)>0)
+                    if(tempDistance<distance/* && SeveralAvailablechargingStations(item.Id)>0*/)
                     {
                         baseStationId = item.Id;
                         distance = tempDistance;
@@ -86,10 +86,10 @@ namespace IBL
             }
         }
 
-        double BatteryCalculation(double distance)
-        {
+        //double BatteryCalculation(double distance)
+        //{
 
-        }
+        //}
 
 
         //----------------------------------------------------------------------------------------לשימוש הקונסטרקטור

@@ -76,27 +76,27 @@ namespace IBL
             IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
             dal.InsertStation(station);
         }
-        public BaseStation GetBaseStation(int id)
-        {
-            IDAL.DO.BaseStation baseStation = dal.GetStation(id);
-            BaseStation tempBaseStation(baseStation.Id,baseStation.Name, baseStation.Longitude, baseStation.latitude, baseStation.ChargeSlote);
-            return tempBaseStation;
-        }
+        //public BaseStation GetBaseStation(int id)
+        //{
+        //    IDAL.DO.BaseStation baseStation = dal.GetStation(id);
+        //    BaseStation tempBaseStation(baseStation.Id, baseStation.Name, baseStation.Longitude, baseStation.latitude, baseStation.ChargeSlote);
+        //    return tempBaseStation;
+        //}
 
         //כמה עמדות טעינה פנויות
-        public int SeveralAvailablechargingStations(int id)
-        {
-            BaseStation baseStation = GetBaseStation(id);
-            int sum = 0;
-            foreach (var item in drones)
-            {
-                if ((int)item.Status == 2 && item.Location.Latitude == baseStation.Location.Latitude && item.Location.Longitude == baseStation.Location.Longitude)
-                {
-                    ++sum;
-                }
-            }
+        //public int SeveralAvailablechargingStations(int id)
+        //{
+        //    BaseStation baseStation = GetBaseStation(id);
+        //    int sum = 0;
+        //    foreach (var item in drones)
+        //    {
+        //        if ((int)item.Status == 2 && item.Location.Latitude == baseStation.Location.Latitude && item.Location.Longitude == baseStation.Location.Longitude)
+        //        {
+        //            ++sum;
+        //        }
+        //    }
 
-            return sum;
-        }
+        //    return sum;
+        //}
     }
 }
