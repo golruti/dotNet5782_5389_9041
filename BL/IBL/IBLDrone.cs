@@ -15,6 +15,6 @@ namespace IBL
     public partial interface IBL
     {
         public IEnumerable<DroneForList> GetDroneForList();
-        public void UpdateDrone(int id, string model);
+        public void UpdateDroneModel(int id, string model);
     }
 }

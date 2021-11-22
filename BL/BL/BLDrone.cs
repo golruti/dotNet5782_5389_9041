@@ -50,7 +50,7 @@ namespace IBL
 
 
         //-------------------------עידכון מודל
-        public void UpdateDrone(int id, string model)
+        public void UpdateDroneModel(int id, string model)
         {
             DroneForList tempDroneForList = drones.Find(item => item.Id == id);
             drones.Remove(tempDroneForList);
@@ -61,15 +61,30 @@ namespace IBL
             dal.InsertDrone(drone);
         }
 
+        public void UpdateDroneStatus(int id, DroneStatuses status, double battery, double longitude, double latitude)
+        {
+            DroneForList tempDroneForList = drones.Find(item => item.Id == id);
+            drones.Remove(tempDroneForList);
+            tempDroneForList.Status = status;
+            tempDroneForList.Battery = battery;
+            tempDroneForList.Location.Longitude = longitude;
+            tempDroneForList.Location.Latitude = latitude;
+            drones.Add(tempDroneForList);
+            dal.DeleteDrone(id);
+        }
+
+
+
         //---------------------שליחת רחפן לטעינה
         public void SendDroneToRecharge(int droneId)
         {
             DroneForList tempDroneForList =getDroneForList(droneId);
-            Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
-            if((int)tempDrone.Status==0)
+            Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model,tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
+            int baseStationId;
+            double distance = double.MaxValue;
+            if ((int)tempDrone.Status==0)
             {
-                int baseStationId;
-                double distance = double.MaxValue;
+               
                 foreach (var item in dal.GetBaseStations())
                 {
                     double tempDistance = Distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
@@ -78,6 +93,18 @@ namespace IBL
                         baseStationId = item.Id;
                         distance = tempDistance;
                     }
+                    else
+                    {
+
+                    }
+                }
+                if(BatteryCalculation(distance)<tempDrone.Battery)
+                {
+                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance,tempDrone.Battery- BatteryCalculation(distance), GetBaseStation(baseStationId).Location.Latitude, GetBaseStation(baseStationId).Location.Latitude);
+                }
+                else
+                {
+
                 }
             }
             else
@@ -88,7 +115,7 @@ namespace IBL
 
         double BatteryCalculation(double distance)
         {
-
+            return distance *0.15;
         }
 
 
