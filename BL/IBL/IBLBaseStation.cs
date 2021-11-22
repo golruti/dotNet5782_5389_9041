@@ -18,5 +18,7 @@ namespace IBL
         public IEnumerable<BaseStationForList> GetAvaBaseStationForList();
         public void AddBaseStation(BaseStation tempBaseStation);
         public void UpdateBaseStation(int id, string name, int chargeSlote);
+
+        public static BaseStationForList GetBaseStationFromList(int id);
     }
 }

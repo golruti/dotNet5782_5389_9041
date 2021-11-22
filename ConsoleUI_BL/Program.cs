@@ -181,9 +181,10 @@ namespace ConsoleUI_BL
                     break;
 
                 case UpdateOptions.Release:
-                    Console.WriteLine("Enter ID for drone:");
+                    Console.WriteLine("Enter ID for drone and the time the drone was loaded:");
                     droneId = int.Parse(Console.ReadLine());
-                    bl.ReleaseDroneFromRecharge(droneId);
+                    double time = int.Parse(Console.ReadLine());
+                    bl.ReleaseDroneFromRecharge(droneId,time);
                     break;
                 case UpdateOptions.Exit:
                     break;

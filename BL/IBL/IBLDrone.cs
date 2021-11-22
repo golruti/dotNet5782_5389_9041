@@ -16,5 +16,6 @@ namespace IBL
     {
         public IEnumerable<DroneForList> GetDroneForList();
         public void UpdateDroneModel(int id, string model);
+        public void ReleaseDroneFromRecharge(int droneId, double time)
     }
 }
