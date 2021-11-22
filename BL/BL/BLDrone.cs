@@ -33,6 +33,7 @@ namespace IBL
             return drones;
         }
 
+        //-----------add
         public void AddDrone(Drone tempDrone)
         {
 
@@ -40,7 +41,15 @@ namespace IBL
             dal.InsertDrone(drone);
         }
 
+        public void AddDroneForList(Drone drone)
+        {
+            //DroneForList droneForList(drone.Id,drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Longitude, drone.Latitude);
+            //drones.Add(droneForList);
+        }
+        //--------------------------------------------עידכון------------------------------------------------------------------------------------------
 
+
+        //-------------------------עידכון מודל
         public void UpdateDrone(int id, string model)
         {
             DroneForList tempDroneForList = drones.Find(item => item.Id == id);
@@ -51,6 +60,48 @@ namespace IBL
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDroneForList.Id, tempDroneForList.Model, (IDAL.DO.Enum.WeightCategories)tempDroneForList.MaxWeight);
             dal.InsertDrone(drone);
         }
+
+        //---------------------שליחת רחפן לטעינה
+        public void SendDroneToRecharge(int droneId)
+        {
+            DroneForList tempDroneForList =getDroneForList(droneId);
+            Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model,tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
+            int baseStationId=0;
+            double distance = double.MaxValue;
+            if ((int)tempDrone.Status==0)
+            {
+               
+                foreach (var item in GetAvaBaseStationForList())
+                {
+                    double tempDistance = Distance(tempDrone.Location.Latitude, GetBaseStation(item.Id).Location.Latitude, tempDrone.Location.Longitude, GetBaseStation(item.Id).Location.Longitude);
+                    if(tempDistance<distance)
+                    {
+                        baseStationId = item.Id;
+                        distance = tempDistance;
+                    }
+                }
+                if(BatteryCalculation(distance)<tempDrone.Battery)
+                {
+                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance,tempDrone.Battery- BatteryCalculation(distance), GetBaseStation(baseStationId).Location.Latitude, GetBaseStation(baseStationId).Location.Latitude);
+                    
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        public void ReleaseDroneFromRecharge(int droneId,double time)
+        {
+
+        }
+
+        //}
 
 
         //----------------------------------------------------------------------------------------לשימוש הקונסטרקטור
