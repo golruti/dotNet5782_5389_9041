@@ -92,14 +92,20 @@ namespace IBL
             return tempBaseStation;
         }
 
-  
-        
+        //כמה עמדות טעינה פנויות
+        //public int SeveralAvailablechargingStations(int id)
+        //{
+        //    BaseStation baseStation = GetBaseStation(id);
+        //    int sum = 0;
+        //    foreach (var item in drones)
+        //    {
+        //        if ((int)item.Status == 2 && item.Location.Latitude == baseStation.Location.Latitude && item.Location.Longitude == baseStation.Location.Longitude)
+        //        {
+        //            ++sum;
+        //        }
+        //    }
 
-        public void ReductionOfAvailableChargingStations(int id)
-        {
-            BaseStation baseStation = GetBaseStation(id);
-            BaseStationForList baseStationForList = new BaseStationForList(id, baseStation.Name, baseStation.AvailableChargingPorts, baseStation.DronesInCharging.Count());
-            
-        }
+        //    return sum;
+        //}
     }
 }

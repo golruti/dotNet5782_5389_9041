@@ -43,14 +43,14 @@ namespace IBL
 
         public void AddDroneForList(Drone drone)
         {
-            DroneForList droneForList(drone.Id,drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Longitude, drone.Latitude);
-            drones.Add(droneForList);
+            //DroneForList droneForList(drone.Id,drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Longitude, drone.Latitude);
+            //drones.Add(droneForList);
         }
         //--------------------------------------------עידכון------------------------------------------------------------------------------------------
 
 
         //-------------------------עידכון מודל
-        public void UpdateDroneModel(int id, string model)
+        public void UpdateDrone(int id, string model)
         {
             DroneForList tempDroneForList = drones.Find(item => item.Id == id);
             drones.Remove(tempDroneForList);
@@ -60,20 +60,6 @@ namespace IBL
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDroneForList.Id, tempDroneForList.Model, (IDAL.DO.Enum.WeightCategories)tempDroneForList.MaxWeight);
             dal.InsertDrone(drone);
         }
-
-        public void UpdateDroneStatus(int id, DroneStatuses status, double battery, double longitude, double latitude)
-        {
-            DroneForList tempDroneForList = drones.Find(item => item.Id == id);
-            drones.Remove(tempDroneForList);
-            tempDroneForList.Status = status;
-            tempDroneForList.Battery = battery;
-            tempDroneForList.Location.Longitude = longitude;
-            tempDroneForList.Location.Latitude = latitude;
-            drones.Add(tempDroneForList);
-            dal.DeleteDrone(id);
-        }
-
-
 
         //---------------------שליחת רחפן לטעינה
         public void SendDroneToRecharge(int droneId)
@@ -92,10 +78,6 @@ namespace IBL
                     {
                         baseStationId = item.Id;
                         distance = tempDistance;
-                    }
-                    else
-                    {
-
                     }
                 }
                 if(BatteryCalculation(distance)<tempDrone.Battery)
@@ -119,10 +101,7 @@ namespace IBL
 
         }
 
-        double BatteryCalculation(double distance)
-        {
-            return distance *0.15;
-        }
+        //}
 
 
         //----------------------------------------------------------------------------------------לשימוש הקונסטרקטור
