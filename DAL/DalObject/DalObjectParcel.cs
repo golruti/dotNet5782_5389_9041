@@ -36,10 +36,12 @@ namespace DalObject
         /// The function prepares a new array of all existing parcels
         /// </summary>
         /// <returns>array of parceles</returns>
+
         public IEnumerable<Parcel> GetParcels()
         {
             return DataSource.parcels.Select(parcel => parcel.Clone()).ToList();
         }
+
 
 
 

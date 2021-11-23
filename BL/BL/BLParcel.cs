@@ -43,8 +43,8 @@ namespace IBL
 
 
         //--------------------------------------------הצגת רשימת חבילות לרשימה--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        public IEnumerable<ParcelForList> GetParcelForList()
+  
+       public IEnumerable<ParcelForList> GetParcelForList()
         {
             List<ParcelForList> ParcelsForList = new List<ParcelForList>();
             foreach (var parcel in dal.GetParcels())

@@ -16,6 +16,13 @@ namespace IBL.BO
         public Priorities Priority { get; set; }
         public ParcelStatuses Status { get; set; }
 
+
+        public override string ToString()
+        {
+            return $"Parcel #{Id}:, Send Customer={SendCustomer},Receive Customer={ReceiveCustomer}, Weight{Weight}, " +
+                $"Priority{Priority}, Status{Status}";
+        }
+
     }
 }
 
