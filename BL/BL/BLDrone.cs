@@ -10,22 +10,42 @@ namespace IBL
 {
     partial class BL
     {
-        //פונקציה לשימוש הקונסטרקטור
-        //בדיקה אם הרחפן מבצע משלוח
-        private bool IsDroneMakesDelivery(int droneId)
+        //--------------------------------------------הוספת רחפן-------------------------------------------------------------------------------------------
+        public void AddDrone(Drone tempDrone)
         {
-            foreach (var parcel in dal.GetParcels())
-            {
-                //חבילה שלא סופקה והרחפן שויך
-                if (parcel.Droneld == droneId &&
-                    !(parcel.Requested.Equals(default(DateTime))) && parcel.Delivered.Equals(default(DateTime)))
-                {
-                    return true;
-                }
-            }
-            return false;
+            IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDrone.Id, tempDrone.Model, (IDAL.DO.Enum.WeightCategories)tempDrone.MaxWeight);
+            dal.InsertDrone(drone);
         }
 
+        public void AddDroneForList(Drone drone)
+        {
+            DroneForList droneForList(drone.Id, drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Longitude, drone.Latitude);
+            drones.Add(droneForList);
+        }
+
+
+        //---------------------------------------------הצגת רחפן לפי ID ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        public Drone GetBLDrone(int id)
+        {
+            return MapDrone(id);
+        }
+
+        private Drone MapDrone(int id)
+        {
+            DroneForList droneToList = drones.FirstOrDefault(item => item.Id == id);
+            if (droneToList == default)
+                throw new ArgumentNullException("Map drone -BL-:There is not drone with same id i data");
+            return new Drone()
+            {
+                Id = droneToList.Id,
+                Model = droneToList.Model,
+                MaxWeight = droneToList.MaxWeight,
+                Status = droneToList.Status,
+                Battery = droneToList.Battery,
+                Location = droneToList.Location,
+                Delivery = droneToList.ParcelDeliveredId != null ? CreateParcelInTransfer((int)droneToList.ParcelDeliveredId) : null
+            };
+        }
 
         //--------------------------------------------הצגת רשימת רחפנים לרשימה---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         public IEnumerable<DroneForList> GetDroneForList()
@@ -33,23 +53,14 @@ namespace IBL
             return drones;
         }
 
-        //-----------add
-        public void AddDrone(Drone tempDrone)
-        {
-
-            IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDrone.Id, tempDrone.Model, (IDAL.DO.Enum.WeightCategories)tempDrone.MaxWeight);
-            dal.InsertDrone(drone);
-        }
-
-        public void AddDroneForList(Drone drone)
-        {
-            //DroneForList droneForList(drone.Id,drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Longitude, drone.Latitude);
-            //drones.Add(droneForList);
-        }
-        //--------------------------------------------עידכון------------------------------------------------------------------------------------------
 
 
-        //-------------------------עידכון מודל
+
+
+        //--------------------------------------------עדכון------------------------------------------------------------------------------------------
+
+
+        //עידכון מודל
         public void UpdateDroneModel(int id, string model)
         {
             DroneForList tempDroneForList = drones.Find(item => item.Id == id);
@@ -75,20 +86,22 @@ namespace IBL
 
 
 
+
+
         //---------------------שליחת רחפן לטעינה
         public void SendDroneToRecharge(int droneId)
         {
-            DroneForList tempDroneForList =getDroneForList(droneId);
-            Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model,tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
+            DroneForList tempDroneForList = getDroneForList(droneId);
+            Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
             int baseStationId;
             double distance = double.MaxValue;
-            if ((int)tempDrone.Status==0)
+            if ((int)tempDrone.Status == 0)
             {
-               
+
                 foreach (var item in dal.GetBaseStations())
                 {
                     double tempDistance = Distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
-                    if(tempDistance<distance/* && SeveralAvailablechargingStations(item.Id)>0*/)
+                    if (tempDistance < distance/* && SeveralAvailablechargingStations(item.Id)>0*/)
                     {
                         baseStationId = item.Id;
                         distance = tempDistance;
@@ -98,9 +111,9 @@ namespace IBL
 
                     }
                 }
-                if(BatteryCalculation(distance)<tempDrone.Battery)
+                if (BatteryCalculation(distance) < tempDrone.Battery)
                 {
-                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance,tempDrone.Battery- BatteryCalculation(distance), GetBaseStation(baseStationId).Location.Latitude, GetBaseStation(baseStationId).Location.Latitude);
+                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - BatteryCalculation(distance), GetBaseStation(baseStationId).Location.Latitude, GetBaseStation(baseStationId).Location.Latitude);
                 }
                 else
                 {
@@ -113,10 +126,7 @@ namespace IBL
             }
         }
 
-        double BatteryCalculation(double distance)
-        {
 
-        }
 
 
         //----------------------------------------------------------------------------------------לשימוש הקונסטרקטור
@@ -157,6 +167,21 @@ namespace IBL
             return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
         }
 
+        //פונקציה לשימוש הקונסטרקטור
+        //בדיקה אם הרחפן מבצע משלוח
+        private bool IsDroneMakesDelivery(int droneId)
+        {
+            foreach (var parcel in dal.GetParcels())
+            {
+                //חבילה שלא סופקה והרחפן שויך
+                if (parcel.Droneld == droneId &&
+                    !(parcel.Requested.Equals(default(DateTime))) && parcel.Delivered.Equals(default(DateTime)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         private Enums.DroneStatuses findfDroneStatus(int droneId)
         {
