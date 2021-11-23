@@ -22,7 +22,7 @@ namespace IBL.BO
             return $"Customer #{Id}: {Name}, tel={Phone}, location={Location}";
         }
 
-        public Customer(int id,string name,string phone, double longitude, double latitude)
+        public Customer(int id, string name, string phone, double longitude, double latitude)
         {
             Id = id;
             Name = name;
@@ -30,7 +30,9 @@ namespace IBL.BO
             Location = new Location(longitude, latitude);
             ReceivedParcels = new List<CustomerDelivery>();
             ShippedParcels = new List<CustomerDelivery>();
-
+        }
+        public Customer()
+        {
         }
     }
 }

@@ -18,5 +18,7 @@ namespace IBL.BO
             Battery = battery;
             Location = new Location(longitude, latitude);
         }
+        public DroneInParcel()
+        { }
     }
 }

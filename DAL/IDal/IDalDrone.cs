@@ -15,7 +15,9 @@ namespace IDAL
         public IEnumerable<Drone> GetDrones();
         public void TryAddDroneCarge(int droneId);
         public void TryRemoveDroneCarge(int droneId);
-
+        public IEnumerable<DroneCharge> GetDronesCharges();
+        public List<int> GetDronechargingInStation(int baseStationId);
+        public int CountFullChargeSlots(int id);
         public void UpdateParcelScheduled(int idxParcel);
         public void DeleteDrone(int id);
 

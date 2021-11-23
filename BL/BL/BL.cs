@@ -59,6 +59,8 @@ namespace IBL
             }
 
         }
+
+
         //        private double findDroneBattery(DroneForList drone)
         //        {
 
@@ -150,24 +152,7 @@ namespace IBL
 
 
 
-        private IDAL.DO.BaseStation nearestBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
-        {
-            var minDistance = double.MaxValue;
-            var nearestBaseStation = default(IDAL.DO.BaseStation);
-            foreach (var BaseStation in dal.GetBaseStations())
-            {
-                if (Distance(LongitudeSenderCustomer, LatitudeSenderCustomer, BaseStation.Latitude, BaseStation.Longitude) < minDistance)
-                {
-                    minDistance = Distance(LongitudeSenderCustomer, LatitudeSenderCustomer, BaseStation.Latitude, BaseStation.Longitude);
-                    nearestBaseStation = BaseStation;
-                }
-            }
-            if (nearestBaseStation.Equals(default(IDAL.DO.BaseStation)))
-            {
-                throw new Exception();
-            }
-            return nearestBaseStation;
-        }
+        
 
 
 

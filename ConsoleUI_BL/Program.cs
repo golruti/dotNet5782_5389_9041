@@ -104,32 +104,32 @@ namespace ConsoleUI_BL
 
         private static void MenuShowOneOptions()
         {
-            //EntityOptions entityOption;
-            //Console.WriteLine("View item option:\n 1-Base Station,\n 2-Drone,\n 3-Customer,\n 4-Parcel\n, 0-Exit");
-            //entityOption = (EntityOptions)int.Parse(Console.ReadLine());
-            //Console.WriteLine($"Enter a requested {entityOption} id");
-            //int requestedId;
-            //int.TryParse(Console.ReadLine(), out requestedId);
-            //switch (entityOption)
-            //{
-            //    case EntityOptions.BaseStation:
-            //        BaseStation baseStation = bl.bGetBaseStation(requestedId);
-            //        Console.WriteLine(baseStation);
-            //        ShowList(baseStation.DronesInCharging);
-            //        break;
-            //    case EntityOptions.Drone:
-            //        Console.WriteLine(bl.GetDrone(requestedId));
-            //        break;
-            //    case EntityOptions.Customer:
-            //        Customer customer = bl.GetCustomer(requestedId);
-            //        Console.WriteLine(customer);
-            //        break;
-            //    case EntityOptions.Parcel:
-            //        Console.WriteLine(bl.GetParcel(requestedId));
-            //        break;
-            //    case EntityOptions.Exit:
-            //        break;
-            //}
+            EntityOptions entityOption;
+            Console.WriteLine("View item option:\n 1-Base Station,\n 2-Drone,\n 3-Customer,\n 4-Parcel\n, 0-Exit");
+            entityOption = (EntityOptions)int.Parse(Console.ReadLine());
+            Console.WriteLine($"Enter a requested {entityOption} id");
+            int requestedId;
+            int.TryParse(Console.ReadLine(), out requestedId);
+            switch (entityOption)
+            {
+                case EntityOptions.BaseStation:
+                    BaseStation baseStation = bl.GetBLBaseStation(requestedId);
+                    Console.WriteLine(baseStation);
+                    ShowList(baseStation.DronesInCharging);
+                    break;
+                case EntityOptions.Drone:
+                    Console.WriteLine(bl.GetBLDrone(requestedId));
+                    break;
+                case EntityOptions.Customer:
+                    Customer customer = bl.GetCustomer(requestedId);
+                    Console.WriteLine(customer);
+                    break;
+                case EntityOptions.Parcel:
+                    Console.WriteLine(bl.GetBLParcel(requestedId));
+                    break;
+                case EntityOptions.Exit:
+                    break;
+            }
         }
 
         private static void MenuUpdateOptions()

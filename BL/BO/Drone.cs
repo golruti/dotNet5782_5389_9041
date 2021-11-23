@@ -40,6 +40,7 @@ namespace IBL.BO
             this.longitude = longitude;
             this.latitude = latitude;
         }
+        public Drone() { }
     }
 }
 

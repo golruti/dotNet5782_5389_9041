@@ -14,8 +14,10 @@ namespace IBL
 {
     public partial interface IBL
     {
+        public void AddParcel(Parcel tempParcel);
+        public Parcel GetBLParcel(int parcelId);
+
         public IEnumerable<ParcelForList> GetParcelForList();
         public IEnumerable<ParcelForList> UnassignedParcelsForList();
-        public void AddParcel(Parcel tempParcel);
     }
 }

@@ -10,6 +10,42 @@ namespace IBL
     partial class BL
     {
 
+        //--------------------------------------------הוספת תחנת בסיס-------------------------------------------------------------------------------------------
+        public void AddCustomer(Customer tempCustomer)
+        {
+            IDAL.DO.Customer customer = new IDAL.DO.Customer(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
+            dal.InsertCustomer(customer);
+        }
+
+        //---------------------------------------------הצגת לקוח לפי ID ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        public Customer GetCustomer(int id)
+        {
+            return mapCustomer(dal.GetCustomer(id));
+        }
+
+
+        private Customer mapCustomer(IDAL.DO.Customer customer)
+        {
+            return new Customer()
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Location = new Location(customer.Latitude, customer.Longitude),
+                Phone = customer.Phone,
+                ReceivedParcels = findReceivedParcels(customer.Id),
+                ShippedParcels = findShippedParcels(customer.Id)
+            };
+        }
+
+        private List<CustomerDelivery> findReceivedParcels(int customerId)
+        {
+
+        }
+
+        private List<CustomerDelivery> findShippedParcels(int customerId)
+        {
+
+        }
 
         //--------------------------------------------הצגת רשימת לקוחות לרשימה--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         public IEnumerable<CustomerForList> GetCustomerForList()
@@ -33,12 +69,7 @@ namespace IBL
             return CustomerForList;
         }
 
-        public void AddCustomer(Customer tempCustomer)
-        {
-            
-            IDAL.DO.Customer customer = new IDAL.DO.Customer(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
-            dal.InsertCustomer(customer);
-        }
+
 
         public void UpdateCustomer(int id, string name, string phone)
         {
