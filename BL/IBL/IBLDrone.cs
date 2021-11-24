@@ -18,5 +18,8 @@ namespace IBL
         public IEnumerable<DroneForList> GetDroneForList();
         public void UpdateDroneModel(int id, string model);
         //void ReleaseDroneFromRecharge(int droneId);
+        void SendDroneToRecharge(int droneId);
+        void UpdateDrone(int droneId, string model);
+        void ReleaseDroneFromRecharge(int droneId, int time);
     }
 }

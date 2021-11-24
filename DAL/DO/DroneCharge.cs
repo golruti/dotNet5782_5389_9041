@@ -26,7 +26,10 @@ namespace IDAL
                     DroneId = this.DroneId,
                     StationId = this.StationId,
                 };
+
+                
             }
+          
         }
     }
 }

@@ -93,7 +93,7 @@ namespace IBL
         {
             DroneForList tempDroneForList = getDroneForList(droneId);
             Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
-            int baseStationId;
+            int baseStationId=0;
             double distance = double.MaxValue;
             if ((int)tempDrone.Status == 0)
             {
@@ -111,9 +111,10 @@ namespace IBL
 
                     }
                 }
-                if (BatteryCalculation(distance) < tempDrone.Battery)
+                if (BatteryCalculationOnTraveling(distance) < tempDrone.Battery)
                 {
-                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - BatteryCalculation(distance), GetBaseStation(baseStationId).Location.Latitude, GetBaseStation(baseStationId).Location.Latitude);
+                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - BatteryCalculationOnTraveling(distance), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
+                    dal.AddDroneCarge(droneId, baseStationId);
                 }
                 else
                 {
@@ -126,8 +127,47 @@ namespace IBL
             }
         }
 
+        //צריך לסדר....!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+        double BatteryCalculationOnTraveling(double distance)
+        {
+            return distance;
+        }
 
+        double BatteryCalculationInCharging(int time)
+        {
+            double battery = time * 0.05;
+            if (battery<100)
+            {
+                return battery;
+            }
+            return 100;
+        }
 
+        public void ReleaseDroneFromRecharge(int droneId,int time)
+        {
+            DroneInCharging droneInCharging = new DroneInCharging();// DroneInCharging(droneId, BatteryCalculationInCharging(time));
+            DroneForList drone = drones.Find(item => item.Id == droneId);
+            if (drone != null)
+            {
+                if (drone.Status == (DroneStatuses)2)
+                {
+                    drones.Remove(drone);
+                    droneInCharging.Battery = drone.Battery + BatteryCalculationInCharging(time);
+                    drone.Battery = droneInCharging.Battery;
+                    drone.Status = (DroneStatuses)0;
+                    drones.Add(drone);
+                    dal.UpdateRelease(droneId);
+                }
+                else
+                {
+                   
+                }
+            }
+            else
+            {
+                
+            }
+        }
 
         //----------------------------------------------------------------------------------------לשימוש הקונסטרקטור
 

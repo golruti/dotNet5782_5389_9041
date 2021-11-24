@@ -5,10 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
 
+
 namespace DalObject
 {
     public partial class DalObject
     {
+        public void AddDroneCharge(int droneId,int stationId)
+        {
+            DroneCharge droneCharge = new DroneCharge(droneId, stationId);
+            DataSource.droneCharges.Add(droneCharge);
+        }
 
         private DroneCharge GetDroneCharge(int droneId)
         {
@@ -47,6 +53,13 @@ namespace DalObject
                     ++count;
             }
             return count;
+        }
+
+        public void UpdateRelease(int id)
+        {
+            
+            DataSource.droneCharges.RemoveAll(item=>id == item.DroneId);
+
         }
     }
 }

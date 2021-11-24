@@ -134,60 +134,61 @@ namespace ConsoleUI_BL
 
         private static void MenuUpdateOptions()
         {
-            //Console.WriteLine("Update option:\n 1-model of drone,\n 2-Pickedup,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
-            //UpdateOptions updateOptions;
-            //updateOptions = (UpdateOptions)int.Parse(Console.ReadLine());
-            //int parcelId, droneId, stationlId, customerId;
-            //string name;
-            //switch (updateOptions)
-            //{
-            //    case UpdateOptions.Drone:
-            //        Console.WriteLine("Enter IDs for drone and model:");
-            //        droneId = int.Parse(Console.ReadLine());
-            //        string model = (Console.ReadLine());
-            //        bl.UpdateDrone(droneId, model);
-            //        break;
+            Console.WriteLine("Update option:\n 1-model of drone,\n 2-Pickedup,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
+            UpdateOptions updateOptions;
+            updateOptions = (UpdateOptions)int.Parse(Console.ReadLine());
+            int parcelId, droneId, stationlId, customerId;
+            string name;
+            switch (updateOptions)
+            {
+                case UpdateOptions.Drone:
+                    Console.WriteLine("Enter IDs for drone and model:");
+                    droneId = int.Parse(Console.ReadLine());
+                    string model = (Console.ReadLine());
+                    bl.UpdateDrone(droneId, model);
+                    break;
 
-            //    case UpdateOptions.BaseStation:
-            //        Console.WriteLine("Enter number of station and name and/or sum of Charging positions and sum with loaded skimmers:");
-            //        stationlId = int.Parse(Console.ReadLine());
-            //        name= (Console.ReadLine());
-            //        int chargeSlote = int.Parse(Console.ReadLine());
-            //        bl.UpdateBaseStation(stationlId,name,chargeSlote);
-            //        break;
+                case UpdateOptions.BaseStation:
+                    Console.WriteLine("Enter number of station and name and/or sum of Charging positions and sum with loaded skimmers:");
+                    stationlId = int.Parse(Console.ReadLine());
+                    name = (Console.ReadLine());
+                    int chargeSlote = int.Parse(Console.ReadLine());
+                    bl.UpdateBaseStation(stationlId, name, chargeSlote);
+                    break;
 
-            //    case UpdateOptions.Customer:
-            //        Console.WriteLine("Enter ID and name and/or phone:");
-            //        customerId = int.Parse(Console.ReadLine());
-            //        name = (Console.ReadLine());
-            //        string phone = (Console.ReadLine());
-            //        bool correctName = true;
-            //        do
-            //        {
-            //            Console.WriteLine("Enter phone");
-            //            phone = Console.ReadLine();
-            //            if (!(phone[0] == '+' || phone[0] == '*' || char.IsDigit(phone[0])))
-            //                foreach (char item in phone.Substring(1))
-            //                    if (!char.IsDigit(item))
-            //                        correctName = false;
-            //        } while (!correctName);
-            //        bl.UpdateCustomer(customerId, name, phone);
-            //        break;
+                case UpdateOptions.Customer:
+                    Console.WriteLine("Enter ID and name and/or phone:");
+                    customerId = int.Parse(Console.ReadLine());
+                    name = (Console.ReadLine());
+                    string phone = (Console.ReadLine());
+                    bool correctName = true;
+                    do
+                    {
+                        Console.WriteLine("Enter phone");
+                        phone = Console.ReadLine();
+                        if (!(phone[0] == '+' || phone[0] == '*' || char.IsDigit(phone[0])))
+                            foreach (char item in phone.Substring(1))
+                                if (!char.IsDigit(item))
+                                    correctName = false;
+                    } while (!correctName);
+                    bl.UpdateCustomer(customerId, name, phone);
+                    break;
 
-            //    case UpdateOptions.Recharge:
-            //        Console.WriteLine("Enter IDs for drone:");
-            //        droneId = int.Parse(Console.ReadLine());
-            //        bl.SendDroneToRecharge(droneId);
-            //        break;
+                case UpdateOptions.Recharge:
+                    Console.WriteLine("Enter IDs for drone:");
+                    droneId = int.Parse(Console.ReadLine());
+                    bl.SendDroneToRecharge(droneId);
+                    break;
 
-            //    case UpdateOptions.Release:
-            //        Console.WriteLine("Enter ID for drone:");
-            //        droneId = int.Parse(Console.ReadLine());
-            //        bl.ReleaseDroneFromRecharge(droneId);
-            //        break;
-            //    case UpdateOptions.Exit:
-            //        break;
-            //}
+                case UpdateOptions.Release:
+                    Console.WriteLine("Enter ID for drone and the time in charging:");
+                    droneId = int.Parse(Console.ReadLine());
+                    int time = int.Parse(Console.ReadLine());
+                    bl.ReleaseDroneFromRecharge(droneId,time);
+                    break;
+                case UpdateOptions.Exit:
+                    break;
+            }
         }
 
         private static void MenuAddOptions()
