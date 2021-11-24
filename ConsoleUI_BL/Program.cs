@@ -188,6 +188,9 @@ namespace ConsoleUI_BL
 
                     break;
                 case UpdateOptions.SCHEDULED:
+                    Console.WriteLine("nter ID for drone");
+                    droneId = int.Parse(Console.ReadLine());
+                    bl.UpdateScheduled(d);
                     break;
                 case UpdateOptions.EXIT:
                     break;
