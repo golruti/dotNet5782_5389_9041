@@ -143,6 +143,7 @@ namespace IBL
             return 100;
         }
 
+        //שחרור רחפן מטעינה
         public void ReleaseDroneFromRecharge(int droneId,int time)
         {
             DroneInCharging droneInCharging = new DroneInCharging();// DroneInCharging(droneId, BatteryCalculationInCharging(time));
