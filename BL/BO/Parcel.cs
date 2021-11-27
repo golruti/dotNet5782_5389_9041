@@ -30,9 +30,9 @@ namespace IBL.BO
         /// <returns>String of details for parsel</returns>
         public override string ToString()
         {
-            return ("\nid: " + Id + "\nSenderId: " + SenderId + "\nTargetId: " + ReceiverId +
-                "\nWeight: " + Weight + "\nRequested: " + Requested + "\nDroneld: " 
-                + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n");
+            return ("------\nid: " + Id + "\nSenderId: " + SenderId + "\nTargetId: " + ReceiverId +
+                "\nWeight: " + Weight + "\nPriority: " + Priority + "\nRequested: " + Requested + "\nDroneld: " 
+                + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n------\n");
         }
         public Parcel(int id, int sender,int receiver,WeightCategories weight,Priorities priority,DroneInParcel droneParcel)
         {
