@@ -32,12 +32,7 @@ namespace DalObject
         }
 
 
-    
-
-
-
-
-        public double[] DronePowerConsumptionRequest()
+        public double[] GetElectricityUse()
         {
             return (new double[5]{
                 DataSource.Config.vacant,
@@ -47,6 +42,5 @@ namespace DalObject
                     DataSource.Config.ChargingRatel
                   });
         }
-
     }
 }
