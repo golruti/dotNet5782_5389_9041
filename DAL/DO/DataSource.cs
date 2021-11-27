@@ -59,8 +59,8 @@ namespace DalObject
                 tempCustomer.Id =i;
                 tempCustomer.Name = $"customer {i}";
                 tempCustomer.Phone = $"05{Rand.Next(10000000, 100000000)}";
-                tempCustomer.Latitude = Rand.Next(181) + Rand.NextDouble();
-                tempCustomer.Longitude = Rand.Next(91) + Rand.NextDouble();
+                tempCustomer.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
+                tempCustomer.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
 
                 customers.Add(tempCustomer);
             }

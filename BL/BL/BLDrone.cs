@@ -43,7 +43,7 @@ namespace IBL
                 Status = droneToList.Status,
                 Battery = droneToList.Battery,
                 Location = droneToList.Location,
-                Delivery = droneToList.ParcelDeliveredId != null ? CreateParcelInTransfer((int)droneToList.ParcelDeliveredId) : null
+                Delivery = !droneToList.ParcelDeliveredId.Equals(default) ? CreateParcelInTransfer((int)droneToList.ParcelDeliveredId) : default
             };
         }
 
@@ -52,9 +52,6 @@ namespace IBL
         {
             return drones;
         }
-
-
-
 
 
         //--------------------------------------------עדכון------------------------------------------------------------------------------------------
