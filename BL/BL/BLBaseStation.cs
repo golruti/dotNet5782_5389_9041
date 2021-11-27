@@ -83,7 +83,9 @@ namespace IBL
         }
 
 
-
+        public void AddBaseStation(BaseStation tempBaseStation)
+        {
+            
 
         public void UpdateBaseStation(int id, string name, int chargeSlote)
         {
@@ -92,27 +94,15 @@ namespace IBL
             IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
             dal.InsertStation(station);
         }
-
-        //מציאת התחנה הקרובה ביותר
-        private IDAL.DO.BaseStation nearestBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
-        {
-            var minDistance = double.MaxValue;
-            var nearestBaseStation = default(IDAL.DO.BaseStation);
-            foreach (var BaseStation in dal.GetBaseStations())
-            {
-                if (Distance(LongitudeSenderCustomer, LatitudeSenderCustomer, BaseStation.Latitude, BaseStation.Longitude) < minDistance)
-                {
-                    minDistance = Distance(LongitudeSenderCustomer, LatitudeSenderCustomer, BaseStation.Latitude, BaseStation.Longitude);
-                    nearestBaseStation = BaseStation;
-                }
-            }
-            if (nearestBaseStation.Equals(default(IDAL.DO.BaseStation)))
-            {
-                throw new Exception();
-            }
-            return nearestBaseStation;
-        }
+        //public BaseStation GetBaseStation(int id)
+        //{
+        //    IDAL.DO.BaseStation baseStation = dal.GetStation(id);
+        //    BaseStation tempBaseStation(baseStation.Id, baseStation.Name, baseStation.Longitude, baseStation.latitude, baseStation.ChargeSlote);
+        //    return tempBaseStation;
+        //}
 
 
+        //    return sum;
+        //}
     }
 }
