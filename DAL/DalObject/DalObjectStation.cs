@@ -18,7 +18,7 @@ namespace DalObject
         {
             if (!(uniqueIDTaxCheck(DataSource.stations, station.Id)))
             {
-                throw new Exception("Adding a station - DAL");
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a station - DAL");
             }
             DataSource.stations.Add(station);
         }

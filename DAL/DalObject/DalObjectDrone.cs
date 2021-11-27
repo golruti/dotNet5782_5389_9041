@@ -19,7 +19,7 @@ namespace DalObject
         {
             if (!(uniqueIDTaxCheck(DataSource.drones, drone.Id)))
             {
-                throw new Exception("Adding a drone - DAL");
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone - DAL");
             }
             DataSource.drones.Add(drone);
         }

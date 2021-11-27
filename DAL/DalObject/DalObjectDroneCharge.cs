@@ -14,7 +14,7 @@ namespace DalObject
         {
             var droneCharge = DataSource.droneCharges.First(dc => dc.DroneId == droneId);
             if (droneCharge.GetType().Equals(default))
-                throw new Exception("Get drone -DAL-: There is no suitable customer in data");
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Get drone -DAL-: There is no suitable customer in data");
             return droneCharge;
         }
 

@@ -18,10 +18,11 @@ namespace DalObject
         public void InsertParcel(Parcel parcel)
         {
             if (!uniqueIDTaxCheck(DataSource.customers, parcel.SenderId))
-                throw new Exception("Add parcel -DAL-:Sender not exist");
+                throw new KeyNotFoundException("Add parcel -DAL-:Sender not exist");
             if (!uniqueIDTaxCheck(DataSource.customers, parcel.TargetId))
-                throw new Exception("Add parcel -DAL-:Target not exist");
-
+                throw new KeyNotFoundException("Add parcel -DAL-:Target not exist");
+            if (!(uniqueIDTaxCheck(DataSource.parcels, parcel.Id)))
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a parcel - DAL");
             DataSource.parcels.Add(parcel);
         }
 

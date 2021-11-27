@@ -20,7 +20,7 @@ namespace DalObject
         {
             if (! (uniqueIDTaxCheck(DataSource.customers, customer.Id)))
             {
-                throw new Exception("Adding a customer - DAL");
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a customer - DAL");
             }
             DataSource.customers.Add(customer);
         }
