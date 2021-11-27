@@ -37,7 +37,7 @@ namespace DalObject
         {
             Customer customer = DataSource.customers.First(customer => customer.Id == idCustomer);
             if (customer.GetType().Equals(default))
-                throw new Exception("Get customer -DAL-: There is no suitable customer in data");
+                throw new KeyNotFoundException("Get customer -DAL-: There is no suitable customer in data");
             return customer;
         }
 
@@ -84,6 +84,22 @@ namespace DalObject
         public Customer customerByDrone(int ParcelDeliveredId)
         {
             IDAL.DO.Customer customer =DataSource.customers.First(customer => customer.Id == ParcelDeliveredId);
+            return customer;
+        }
+
+
+        public Customer FindSenderCustomerByDroneId(int DroneId)
+        {
+            Customer customer = new IDAL.DO.Customer();
+            foreach (var parcel in GetParcels())
+            {
+                if (parcel.Droneld == DroneId)
+                {
+                    customer = GetCustomer(parcel.SenderId);
+                }
+            }
+            if (customer.Equals(default(Customer)))
+                throw new KeyNotFoundException("Get customer -DAL-: There is no suitable customer in data");
             return customer;
         }
     }

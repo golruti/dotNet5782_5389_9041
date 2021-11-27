@@ -10,12 +10,24 @@ namespace IBL
 {
     partial class BL
     {
-        //--------------------------------------------הוספת רחפן-------------------------------------------------------------------------------------------
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Add a drone to the list of drones
+        /// </summary>
+        /// <param name="tempDrone">The customer for Adding</param>
         public void AddDrone(Drone tempDrone)
         {
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDrone.Id, tempDrone.Model, (IDAL.DO.Enum.WeightCategories)tempDrone.MaxWeight);
-            dal.InsertDrone(drone);
+            try
+            {
+                dal.InsertDrone(drone);
+            }
+            catch (IDAL.DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+            }
         }
+
 
         //public void AddDroneForList(Drone drone)
         //{
@@ -24,12 +36,30 @@ namespace IBL
         //}
 
 
-        //---------------------------------------------הצגת רחפן לפי ID ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// etrieves the requested drone from the data and converts it to BL drone
+        /// </summary>
+        /// <param name="id">The requested drone</param>
+        /// <returns>A Bl drone to print</returns>
         public Drone GetBLDrone(int id)
         {
-            return MapDrone(id);
+            try
+            {
+                return MapDrone(id);
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+            }
+
         }
 
+        /// <summary>
+        /// Convert a DAL drone to BL drone
+        /// </summary>
+        /// <param name="id">The drone to convert</param>
+        /// <returns>The converted drone</returns>
         private Drone MapDrone(int id)
         {
             DroneForList droneToList = drones.FirstOrDefault(item => item.Id == id);
@@ -47,16 +77,20 @@ namespace IBL
             };
         }
 
-        //--------------------------------------------הצגת רשימת רחפנים לרשימה---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------Show list---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Retrieves the list of drones from BL
+        /// </summary>
+        /// <returns>A list of drones to print</returns
         public IEnumerable<DroneForList> GetDroneForList()
         {
             return drones;
         }
 
 
+
         //--------------------------------------------עדכון------------------------------------------------------------------------------------------
-
-
         //עידכון מודל
         public void UpdateDroneModel(int id, string model)
         {
@@ -167,51 +201,85 @@ namespace IBL
         //    }
         //}
 
-        //----------------------------------------------------------------------------------------לשימוש הקונסטרקטור
+        //--------------------------------------------Initialize the drone list--------------------------------------------
 
-
+        /// <summary>
+        /// The function initialize the location of the drone in the list saved in the BL as required
+        /// </summary>
+        /// <param name="drone">specific drone</param>
+        /// <returns>location of the drone </returns>
         private Location findDroneLocation(DroneForList drone)
         {
             if (IsDroneMakesDelivery(drone.Id))
             {
                 if (findParcelState(drone.Id) == parcelState.associatedNotCollected)
                 {
-                    //עדכון מיקום רחפן לתחנה הקרובה ביותר לשולח
-                    IDAL.DO.Customer senderCustomer2 = FindSenderCustomerByDroneId(drone.Id);
+                    IDAL.DO.Customer senderCustomer2 = new IDAL.DO.Customer();
+                    try
+                    {
+                        senderCustomer2 = dal.FindSenderCustomerByDroneId(drone.Id);
+                    }
+                    catch (ArgumentNullException ex)
+                    {
+                        throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+                    }
+
                     IDAL.DO.BaseStation soonStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
                     return new Location(soonStation.Longitude, soonStation.Latitude);
                 }
                 else if (findParcelState(drone.Id) == parcelState.collectedNotDelivered)
                 {
-                    //עדכון מיקום רחפן למיקום השולח
-                    IDAL.DO.Customer senderCustomer2 = FindSenderCustomerByDroneId(drone.Id);
-                    return new Location(senderCustomer2.Longitude, senderCustomer2.Latitude);
+                    IDAL.DO.Customer senderCustomer = new IDAL.DO.Customer();
+                    try
+                    {
+                        senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
+                    }
+                    catch (ArgumentNullException ex)
+                    {
+                        throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+                    }
+                    senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
+                    return new Location(senderCustomer.Longitude, senderCustomer.Latitude);
                 }
             }
-            else //אם הרחפן לא מבצע משלוח
+            else
             {
                 if (drone.Status == Enums.DroneStatuses.Maintenance)
                 {
-                    //מגריל מיקום מבין התחנות הקיימות
-                    //??לבדוק אם זה דווקא תחנות פנוית או ההיפך....
                     int randNumber1 = rand.Next(dal.GetBaseStations().Count());
                     var randomBaseStation = (dal.GetBaseStations().ToList())[randNumber1];
                     return new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
                 }
             }
-            //אם הרחפן פנוי ולא שויך עי שום חבילה
             int randNumber = rand.Next(dal.GetCustomersProvided().Count());
             var randomCustomerProvided = (dal.GetCustomersProvided().ToList())[randNumber];
             return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
         }
 
-        //פונקציה לשימוש הקונסטרקטור
-        //בדיקה אם הרחפן מבצע משלוח
+        /// <summary>
+        /// The function initialize the status of the drone in the list saved in the BL as required
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns>status of the drone</returns>
+        private Enums.DroneStatuses findfDroneStatus(int droneId)
+        {
+            if (IsDroneMakesDelivery(droneId))
+            {
+                return BO.Enums.DroneStatuses.Delivery;
+            }
+
+            return (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length);
+        }
+
+        /// <summary>
+        /// Boolean function that returns if the drone makes a delivery
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns>If the drone makes a delivery</returns>
         private bool IsDroneMakesDelivery(int droneId)
         {
             foreach (var parcel in dal.GetParcels())
             {
-                //חבילה שלא סופקה והרחפן שויך
                 if (parcel.Droneld == droneId &&
                     !(parcel.Requested.Equals(default(DateTime))) && parcel.Delivered.Equals(default(DateTime)))
                 {
@@ -221,29 +289,41 @@ namespace IBL
             return false;
         }
 
-        private Enums.DroneStatuses findfDroneStatus(int droneId)
-        {
 
-            if (IsDroneMakesDelivery(droneId))  //אם הרחפן מבצע משלוח, הרחפן שויך והחבילה לא סופקה
-            {
-                return BO.Enums.DroneStatuses.Delivery;
-            }
-
-            return (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length);
-        }
-
+        /// <summary>
+        /// The function initialize the battery of the drone in the list saved in the BL as required
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <returns>battery of the drone</returns>
         private double findDroneBattery(DroneForList drone)
         {
             if (IsDroneMakesDelivery(drone.Id))
             {
-                double minDroneTarget = minBattery(drone.Location,
-                    new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
-                     drone.Status, drone.MaxWeight);
-                double minTargetBaseStation = minBattery(
-                    new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
-                   new Location(nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Latitude,
-                   nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Longitude),
-                   Enums.DroneStatuses.Available, drone.MaxWeight);
+                double minDroneTarget;
+                double minTargetBaseStation;
+                try
+                {
+                    minDroneTarget = minBattery(drone.Location,
+                        new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
+                         drone.Status, drone.MaxWeight);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentNullException("Drone battery -BL-" + ex.Message);
+                }
+
+                try
+                {
+                    minTargetBaseStation = minBattery(
+                     new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
+                    new Location(nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Latitude,
+                    nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Longitude),
+                    Enums.DroneStatuses.Available, drone.MaxWeight);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentNullException("Drone battery -BL-" + ex.Message);
+                }
 
                 return rand.Next((int)(minDroneTarget + minTargetBaseStation), 101);
             }
@@ -252,19 +332,28 @@ namespace IBL
                 return rand.Next(0, 20);
             }
 
-            double minDroneBaseStation = minBattery(
+            double minDroneBaseStation;
+            try
+            {
+                minDroneBaseStation = minBattery(
                     new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
                    new Location(nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Latitude,
                    nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Longitude),
                    Enums.DroneStatuses.Available, drone.MaxWeight);
-            return rand.Next((int)(minDroneBaseStation), 101);
+                return rand.Next((int)(minDroneBaseStation), 101);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentNullException("Drone battery -BL-" + ex.Message);
+            }
         }
 
-        private DroneForList getDroneForList(int droneId)
-        {
-            return drones.First(drone => drone.Id == droneId);
-        }
-
+        /// <summary>
+        /// The function receives the location of a drone and returns the nearest base station to it
+        /// </summary>
+        /// <param name="LongitudeSenderCustomer">Location of the drone</param>
+        /// <param name="LatitudeSenderCustomer">Location of the drone</param>
+        /// <returns> The nearest base station</returns>
         private IDAL.DO.BaseStation nearestBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
         {
             var minDistance = double.MaxValue;
@@ -279,11 +368,17 @@ namespace IBL
             }
             if (nearestBaseStation.Equals(default(IDAL.DO.BaseStation)))
             {
-                throw new Exception();
+                throw new ArgumentNullException("Get nearst base station -BL-");
             }
             return nearestBaseStation.Clone();
         }
 
+
+        /// <summary>
+        /// The function returns a list of drones loaded at a particular base station
+        /// </summary>
+        /// <param name="id">The station ID</param>
+        /// <returns>The list of drones in charge</returns>
         private List<DroneInCharging> DronesInCharging(int id)
         {
             List<int> list = dal.GetDronechargingInStation(id);
