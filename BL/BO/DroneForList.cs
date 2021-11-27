@@ -7,7 +7,7 @@ using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
-    public class DroneForList : ILocatable
+    public class DroneForList 
     {
         public int Id { get; set; }
         public string Model { get; set; }
@@ -19,7 +19,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return $"Drone #{Id}: model={Model}, {Status}, {MaxWeight}, location = {Location}, battery={(int)(Battery * 100)} ";
+            return $"Drone #{Id}: model={Model}, {Status}, {MaxWeight}, location = {Location}, battery={(int)(Battery)} ";
         }
         public DroneForList(int id,string model,WeightCategories maxWeight,int battery,DroneStatuses status, double longitude, double latitude)
         {

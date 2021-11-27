@@ -12,6 +12,6 @@ namespace IDAL
         public void InsertDroneCharge(int droneId, int stationId);
         public DroneCharge GetDroneCharge(int droneId);
         public int CountFullChargeSlots(int id);
-
+        public List<int> GetDronechargingInStation(int baseStationId);
     }
 }

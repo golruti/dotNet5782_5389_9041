@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 namespace IBL.BO
 {
-    public class BaseStation : ILocatable
+    public class BaseStation 
     {
         public int Id { get; set; }
         public string Name { get; set; }

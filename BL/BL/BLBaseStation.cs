@@ -37,6 +37,7 @@ namespace IBL
             };
         }
 
+
         //---------------------------------------------הצגת רשימת תחנות בסיס לרשימה ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         public IEnumerable<BaseStationForList> GetBaseStationForList()
         {
@@ -83,17 +84,17 @@ namespace IBL
         }
 
 
-        public void AddBaseStation(BaseStation tempBaseStation)
-        {
+        //public void AddBaseStation(BaseStation tempBaseStation)
+        //{
             
 
-        public void UpdateBaseStation(int id, string name, int chargeSlote)
-        {
-            IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
-            dal.DeleteBaseStation(id);
-            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
-            dal.InsertStation(station);
-        }
+        //public void UpdateBaseStation(int id, string name, int chargeSlote)
+        //{
+        //    IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
+        //    dal.DeleteBaseStation(id);
+        //    IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
+        //    dal.InsertStation(station);
+        //}
         //public BaseStation GetBaseStation(int id)
         //{
         //    IDAL.DO.BaseStation baseStation = dal.GetStation(id);

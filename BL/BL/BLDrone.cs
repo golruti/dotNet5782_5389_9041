@@ -17,11 +17,11 @@ namespace IBL
             dal.InsertDrone(drone);
         }
 
-        public void AddDroneForList(Drone drone)
-        {
-            DroneForList droneForList(drone.Id, drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Longitude, drone.Latitude);
-            drones.Add(droneForList);
-        }
+        //public void AddDroneForList(Drone drone)
+        //{
+        //    DroneForList droneForList(drone.Id, drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Longitude, drone.Latitude);
+        //    drones.Add(droneForList);
+        //}
 
 
         //---------------------------------------------הצגת רחפן לפי ID ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,43 +89,43 @@ namespace IBL
 
 
         //---------------------שליחת רחפן לטעינה
-        public void SendDroneToRecharge(int droneId)
-        {
-            DroneForList tempDroneForList = getDroneForList(droneId);
-            Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
-            int baseStationId=0;
-            double distance = double.MaxValue;
-            if ((int)tempDrone.Status == 0)
-            {
+        //public void SendDroneToRecharge(int droneId)
+        //{
+        //    DroneForList tempDroneForList = getDroneForList(droneId);
+        //    Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
+        //    int baseStationId = 0;
+        //    double distance = double.MaxValue;
+        //    if ((int)tempDrone.Status == 0)
+        //    {
 
-                foreach (var item in dal.GetBaseStations())
-                {
-                    double tempDistance = Distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
-                    if (tempDistance < distance/* && SeveralAvailablechargingStations(item.Id)>0*/)
-                    {
-                        baseStationId = item.Id;
-                        distance = tempDistance;
-                    }
-                    else
-                    {
+        //        foreach (var item in dal.GetBaseStations())
+        //        {
+        //            double tempDistance = Distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
+        //            if (tempDistance < distance/* && SeveralAvailablechargingStations(item.Id)>0*/)
+        //            {
+        //                baseStationId = item.Id;
+        //                distance = tempDistance;
+        //            }
+        //            else
+        //            {
 
-                    }
-                }
-                if (BatteryCalculationOnTraveling(distance) < tempDrone.Battery)
-                {
-                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - BatteryCalculationOnTraveling(distance), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
-                    dal.AddDroneCarge(droneId, baseStationId);
-                }
-                else
-                {
+        //            }
+        //        }
+        //        if (BatteryCalculationOnTraveling(distance) < tempDrone.Battery)
+        //        {
+        //            UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - BatteryCalculationOnTraveling(distance), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
+        //            dal.AddDroneCarge(droneId, baseStationId);
+        //        }
+        //        else
+        //        {
 
-                }
-            }
-            else
-            {
+        //        }
+        //    }
+        //    else
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
         //צריך לסדר....!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         double BatteryCalculationOnTraveling(double distance)
@@ -136,39 +136,39 @@ namespace IBL
         double BatteryCalculationInCharging(int time)
         {
             double battery = time * 0.05;
-            if (battery<100)
+            if (battery < 100)
             {
                 return battery;
             }
             return 100;
         }
 
-        //שחרור רחפן מטעינה
-        public void ReleaseDroneFromRecharge(int droneId,int time)
-        {
-            DroneInCharging droneInCharging = new DroneInCharging();// DroneInCharging(droneId, BatteryCalculationInCharging(time));
-            DroneForList drone = drones.Find(item => item.Id == droneId);
-            if (drone != null)
-            {
-                if (drone.Status == (DroneStatuses)2)
-                {
-                    drones.Remove(drone);
-                    droneInCharging.Battery = drone.Battery + BatteryCalculationInCharging(time);
-                    drone.Battery = droneInCharging.Battery;
-                    drone.Status = (DroneStatuses)0;
-                    drones.Add(drone);
-                    dal.UpdateRelease(droneId);
-                }
-                else
-                {
-                   
-                }
-            }
-            else
-            {
-                
-            }
-        }
+        ////שחרור רחפן מטעינה
+        //public void ReleaseDroneFromRecharge(int droneId,int time)
+        //{
+        //    DroneInCharging droneInCharging = new DroneInCharging();// DroneInCharging(droneId, BatteryCalculationInCharging(time));
+        //    DroneForList drone = drones.Find(item => item.Id == droneId);
+        //    if (drone != null)
+        //    {
+        //        if (drone.Status == (DroneStatuses)2)
+        //        {
+        //            drones.Remove(drone);
+        //            droneInCharging.Battery = drone.Battery + BatteryCalculationInCharging(time);
+        //            drone.Battery = droneInCharging.Battery;
+        //            drone.Status = (DroneStatuses)0;
+        //            drones.Add(drone);
+        //            dal.UpdateRelease(droneId);
+        //        }
+        //        else
+        //        {
+
+        //        }
+        //    }
+        //    else
+        //    {
+
+        //    }
+        //}
 
         //----------------------------------------------------------------------------------------לשימוש הקונסטרקטור
 
@@ -235,10 +235,74 @@ namespace IBL
             return (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length);
         }
 
+        private double findDroneBattery(DroneForList drone)
+        {
+            if (IsDroneMakesDelivery(drone.Id))
+            {
+                double minDroneTarget = minBattery(drone.Location,
+                    new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
+                     drone.Status, drone.MaxWeight);
+                double minTargetBaseStation = minBattery(
+                    new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
+                   new Location(nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Latitude,
+                   nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Longitude),
+                   Enums.DroneStatuses.Available, drone.MaxWeight);
+
+                return rand.Next((int)(minDroneTarget + minTargetBaseStation), 101);
+            }
+            else if (drone.Status == Enums.DroneStatuses.Maintenance)
+            {
+                return rand.Next(0, 20);
+            }
+
+            double minDroneBaseStation = minBattery(
+                    new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
+                   new Location(nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Latitude,
+                   nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Longitude),
+                   Enums.DroneStatuses.Available, drone.MaxWeight);
+            return rand.Next((int)(minDroneBaseStation), 101);
+        }
 
         private DroneForList getDroneForList(int droneId)
         {
             return drones.First(drone => drone.Id == droneId);
+        }
+
+        private IDAL.DO.BaseStation nearestBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
+        {
+            var minDistance = double.MaxValue;
+            var nearestBaseStation = default(IDAL.DO.BaseStation);
+            foreach (var BaseStation in dal.GetBaseStations())
+            {
+                if (Distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude) < minDistance)
+                {
+                    minDistance = Distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude);
+                    nearestBaseStation = BaseStation;
+                }
+            }
+            if (nearestBaseStation.Equals(default(IDAL.DO.BaseStation)))
+            {
+                throw new Exception();
+            }
+            return nearestBaseStation.Clone();
+        }
+
+        private List<DroneInCharging> DronesInCharging(int id)
+        {
+            List<int> list = dal.GetDronechargingInStation(id);
+            if (list.Count == 0)
+                return new();
+            List<DroneInCharging> droneInChargings = new();
+            DroneForList droneToList;
+            foreach (var idDrone in list)
+            {
+                droneToList = drones.FirstOrDefault(item => (item.Id == idDrone));
+                if (droneToList != default)
+                {
+                    droneInChargings.Add(new DroneInCharging() { Id = idDrone, Battery = droneToList.Battery });
+                }
+            }
+            return droneInChargings;
         }
     }
 }

@@ -35,12 +35,14 @@ namespace DalObject
         public double[] GetElectricityUse()
         {
             return (new double[5]{
-                DataSource.Config.vacant,
+                DataSource.Config.free,
                  DataSource.Config.CarriesLightWeigh,
                   DataSource.Config.CarriesMediumWeigh,
                    DataSource.Config.CarriesHeavyWeight,
-                    DataSource.Config.ChargingRatel
+                    DataSource.Config.ChargingRate
                   });
         }
+
+      
     }
 }

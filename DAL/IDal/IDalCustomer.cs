@@ -14,5 +14,6 @@ namespace IDAL
         public IEnumerable<Customer> GetCustomers();
         public void DeleteCustomer(int id);
         public IEnumerable<Customer> GetCustomersProvided();
+        public Customer customerByDrone(int ParcelDeliveredId);
     }
 }

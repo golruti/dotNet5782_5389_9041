@@ -20,11 +20,16 @@ namespace DalObject
 
         internal class Config
         {
-           static public double vacant = 10;
-           static public double CarriesLightWeigh =20;
-           static public double CarriesMediumWeigh=50;
-           static public double CarriesHeavyWeight=60;
-           static public double ChargingRatel;
+            //פנוי
+           static public double free = 0.001;
+            //נושא משקל קל
+           static public double CarriesLightWeigh =0.002;
+            //נושא משקל בינוני
+           static public double CarriesMediumWeigh=0.005;
+            //נושא משקל כבד
+           static public double CarriesHeavyWeight=0.006;
+            //קצב טעינה לשעה
+           static public double ChargingRate=20;
 
         }
 
@@ -41,8 +46,8 @@ namespace DalObject
                 tempStation.Id = i;
                 tempStation.Name = $"station {i}";
                 tempStation.ChargeSlote = Rand.Next() + 1;
-                tempStation.Latitude = Rand.Next(181) + Rand.NextDouble();
-                tempStation.Longitude = Rand.Next(91) + Rand.NextDouble();
+                tempStation.Latitude = Rand.Next(-89,89) + Rand.NextDouble();
+                tempStation.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 stations.Add(tempStation);
                
             }

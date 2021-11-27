@@ -80,6 +80,11 @@ namespace DalObject
         }
 
 
-
+        //מי הלקוח שצריך לקבל את החבילה
+        public Customer customerByDrone(int ParcelDeliveredId)
+        {
+            IDAL.DO.Customer customer =DataSource.customers.First(customer => customer.Id == ParcelDeliveredId);
+            return customer;
+        }
     }
 }
