@@ -34,10 +34,7 @@ namespace IBL.BO
         public Customer()
         {
         }
-        public Customer()
-        {
-
-        }
+       
     }
 }
 

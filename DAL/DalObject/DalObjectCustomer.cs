@@ -18,6 +18,10 @@ namespace DalObject
         /// <param name="customer">struct of customer</param>
         public void InsertCustomer(Customer customer)
         {
+            if (! (uniqueIDTaxCheck(DataSource.customers, customer.Id)))
+            {
+                throw new Exception("Adding a customer - DAL");
+            }
             DataSource.customers.Add(customer);
         }
 
@@ -31,7 +35,10 @@ namespace DalObject
         /// <returns>customer</returns>
         public Customer GetCustomer(int idCustomer)
         {
-            return DataSource.customers.First(customer => customer.Id == idCustomer);
+            Customer customer = DataSource.customers.First(customer => customer.Id == idCustomer);
+            if (customer.GetType().Equals(default))
+                throw new Exception("Get customer -DAL-: There is no suitable customer in data");
+            return customer;
         }
 
 

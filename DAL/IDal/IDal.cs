@@ -10,5 +10,6 @@ namespace IDAL
     public partial interface IDal
     {
         public T GetById<T>(IEnumerable<T> lst, int id);
+        public bool uniqueIDTaxCheck<T>(List<T> lst, int id);
     }
 }

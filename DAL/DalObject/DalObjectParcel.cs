@@ -17,6 +17,11 @@ namespace DalObject
         /// <param name="parcel">struct of parcel</param>
         public void InsertParcel(Parcel parcel)
         {
+            if (!uniqueIDTaxCheck(DataSource.customers, parcel.SenderId))
+                throw new Exception("Add parcel -DAL-:Sender not exist");
+            if (!uniqueIDTaxCheck(DataSource.customers, parcel.TargetId))
+                throw new Exception("Add parcel -DAL-:Target not exist");
+
             DataSource.parcels.Add(parcel);
         }
 
@@ -29,7 +34,10 @@ namespace DalObject
         /// <returns>parcel</returns>
         public Parcel GetParcel(int idParcel)
         {
-            return DataSource.parcels.First(parcel => parcel.Id == idParcel);
+            Parcel parcel = DataSource.parcels.First(parcel => parcel.Id == idParcel);
+            if (parcel.GetType().Equals(default))
+                throw new Exception("Get parcel -DAL-: There is no suitable customer in data");
+            return parcel;
         }
 
         /// <summary>
