@@ -10,6 +10,11 @@ namespace DalObject
     public partial class DalObject
     {
 
+        public void InsertDroneCharge(int droneId, int stationId)
+        {
+            DataSource.droneCharges.Add(new DroneCharge() { DroneId = droneId, StationId = stationId });
+        }
+
         public DroneCharge GetDroneCharge(int droneId)
         {
             var droneCharge = DataSource.droneCharges.First(dc => dc.DroneId == droneId);

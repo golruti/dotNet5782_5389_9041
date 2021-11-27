@@ -47,5 +47,6 @@ namespace DalObject
                     DataSource.Config.ChargingRatel
                   });
         }
+
     }
 }

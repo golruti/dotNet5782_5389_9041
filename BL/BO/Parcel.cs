@@ -44,13 +44,6 @@ namespace IBL.BO
             DroneParcel = droneParcel;
         }
 
-        public Parcel(int idSender, int idReceiver, WeightCategories weight, Priorities priority)
-        {
-            IdSender = idSender;
-            IdReceiver = idReceiver;
-            Weight = weight;
-            Priority = priority;
-        }
         public Parcel()
         { }
     }
