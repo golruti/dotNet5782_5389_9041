@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,10 @@ namespace DalObject
         /// <param name="station">struct of station</param>
         public void InsertStation(BaseStation station)
         {
+            if (!(uniqueIDTaxCheck(DataSource.stations, station.Id)))
+            {
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a station - DAL");
+            }
             DataSource.stations.Add(station);
         }
 
@@ -27,7 +32,10 @@ namespace DalObject
         /// <returns>base station</returns>
         public BaseStation GetStation(int idStation)
         {
-            return DataSource.stations.First(station => station.Id == idStation);
+            BaseStation station = DataSource.stations.First(station => station.Id == idStation);
+            if (station.GetType().Equals(default))
+                throw new Exception("Get station -DAL-: There is no suitable customer in data");
+            return station;
         }
 
 

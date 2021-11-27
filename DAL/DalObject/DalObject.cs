@@ -1,4 +1,5 @@
-﻿using IDAL.DO;
+﻿using IDAL;
+using IDAL.DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,14 @@ namespace DalObject
             DataSource.Initialize();
         }
 
-
-        bool uniqueIDTaxCheck<T>(List<T> lst, int id)
+        public bool uniqueIDTaxCheck<T>(List<T> lst, int id)
         {
             foreach (var item in lst)
             {
                 if ((int)item.GetType().GetProperty("id").GetValue(item, null) == id) 
-                    return false;
+                    return true;
             }
-            return true;
+            return false;
         }
 
 
@@ -32,20 +32,17 @@ namespace DalObject
         }
 
 
-    
-
-
-
-
-        public double[] DronePowerConsumptionRequest()
+        public double[] GetElectricityUse()
         {
             return (new double[5]{
-                DataSource.Config.vacant,
+                DataSource.Config.free,
                  DataSource.Config.CarriesLightWeigh,
                   DataSource.Config.CarriesMediumWeigh,
                    DataSource.Config.CarriesHeavyWeight,
-                    DataSource.Config.ChargingRatel
+                    DataSource.Config.ChargingRate
                   });
         }
+
+      
     }
 }

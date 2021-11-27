@@ -17,6 +17,10 @@ namespace DalObject
         /// <param name="drone">struct of drone</param>
         public void InsertDrone(Drone drone)
         {
+            if (!(uniqueIDTaxCheck(DataSource.drones, drone.Id)))
+            {
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone - DAL");
+            }
             DataSource.drones.Add(drone);
         }
 
@@ -29,7 +33,10 @@ namespace DalObject
         /// <returns>drone</returns>
         public Drone GetDrone(int idDrone)
         {
-            return DataSource.drones.First(drone => drone.Id == idDrone);
+            Drone drone = DataSource.drones.First(drone => drone.Id == idDrone);
+            if (drone.GetType().Equals(default))
+                throw new Exception("Get drone -DAL-: There is no suitable customer in data");
+            return drone;
         }
 
 

@@ -9,9 +9,6 @@ namespace IBL
 {
     partial class BL
     {
-        private ParcelToCustomer ParcelToParcelAtCustomer(Parcel parcel, string type)
-        {
 
-        }
     }
 }

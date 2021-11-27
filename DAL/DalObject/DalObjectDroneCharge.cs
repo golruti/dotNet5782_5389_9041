@@ -10,19 +10,17 @@ namespace DalObject
 {
     public partial class DalObject
     {
-        public void AddDroneCharge(int droneId,int stationId)
+        public void InsertDroneCharge(int droneId,int stationId)
         {
             DroneCharge droneCharge = new DroneCharge(droneId, stationId);
             DataSource.droneCharges.Add(droneCharge);
         }
 
-        private DroneCharge GetDroneCharge(int droneId)
+        public DroneCharge GetDroneCharge(int droneId)
         {
-            var droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId);
-            if (droneCharge.Equals(default(DroneCharge)))
-            {
-                throw new Exception();
-            }
+            var droneCharge = DataSource.droneCharges.First(dc => dc.DroneId == droneId);
+            if (droneCharge.GetType().Equals(default))
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Get drone -DAL-: There is no suitable customer in data");
             return droneCharge;
         }
 

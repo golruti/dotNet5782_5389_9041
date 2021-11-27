@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 namespace IBL.BO
 {
-    public class BaseStation : ILocatable
+    public class BaseStation 
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -12,7 +12,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return $"Station #{Id}: {Name}, charge slots={AvailableChargingPorts}, location={Location}";
+            return $"------\nStation{Id} : {Name}\ncharge slots={AvailableChargingPorts}\nlocation={Location}\n------\n";
         }
 
         public BaseStation( int id, string name, double longitude, double latitude, int availableChargingStations)

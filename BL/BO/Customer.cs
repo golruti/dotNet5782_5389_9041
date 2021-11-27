@@ -8,7 +8,7 @@ using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
-    public class Customer : ILocatable
+    public class Customer 
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -19,7 +19,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return $"Customer #{Id}: {Name}, tel={Phone}, location={Location}";
+            return $"------\nCustomer #{Id}: {Name}\ntel={Phone}/nlocation={Location}/n------/n";
         }
 
         public Customer(int id, string name, string phone, double longitude, double latitude)
@@ -34,10 +34,7 @@ namespace IBL.BO
         public Customer()
         {
         }
-        public Customer()
-        {
-
-        }
+       
     }
 }
 

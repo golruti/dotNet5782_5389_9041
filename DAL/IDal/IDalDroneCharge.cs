@@ -9,12 +9,9 @@ namespace IDAL
 {
     public partial interface IDal
     {
+        public void InsertDroneCharge(int droneId, int stationId);
         public DroneCharge GetDroneCharge(int droneId);
-        public IEnumerable<DroneCharge> GetDronesCharge();
         public int CountFullChargeSlots(int id);
-        public List<int> GetDronechargingInStation(int id);
-        void AddDroneCharge(int droneId, int stationId);
-        public void UpdateRelease(int id);
-      
+        public List<int> GetDronechargingInStation(int baseStationId);
     }
 }
