@@ -10,7 +10,7 @@ namespace IBL.BO
     {
         public int Id { get; set; }
         public double Battery { get; set; }
-        public DroneInCharging(int id, int battery)
+        public DroneInCharging(int id, double battery)
         {
             Id = id;
             Battery = battery;

@@ -13,5 +13,6 @@ namespace IDAL
         public BaseStation GetStation(int idStation);
         public IEnumerable<BaseStation> GetBaseStations();
         public IEnumerable<BaseStation> GetAvaBaseStations();
+        void AddDroneCarge(int droneId, int baseStationId);
     }
 }
