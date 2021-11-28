@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using IBL;
 using IBL.BO;
 using static IBL.BO.Enums;
+using System.ComponentModel;
+
 
 namespace ConsoleUI_BL
 {
@@ -29,22 +31,53 @@ namespace ConsoleUI_BL
                 Console.WriteLine("Welcome!");
                 Console.WriteLine("option:\n 1-Add,\n 2-Update,\n 3-Show item,\n 4-Show list,\n 0-Exit");
                 menuOption = (MenuOptions)int.Parse(Console.ReadLine());
-                switch (menuOption)
+                try
                 {
-                    case MenuOptions.ADD:
-                        MenuAddOptions();
-                        break;
-                    case MenuOptions.UPDATE:
-                        MenuUpdateOptions();
-                        break;
-                    case MenuOptions.SHOWONE:
-                        MenuShowOneOptions();
-                        break;
-                    case MenuOptions.SHOWLIST:
-                        MenuShowListOptions();
-                        break;
-                    case MenuOptions.EXIT:
-                        break;
+                    switch (menuOption)
+                    {
+                        case MenuOptions.ADD:
+                            MenuAddOptions();
+                            break;
+                        case MenuOptions.UPDATE:
+                            MenuUpdateOptions();
+                            break;
+                        case MenuOptions.SHOWONE:
+                            MenuShowOneOptions();
+                            break;
+                        case MenuOptions.SHOWLIST:
+                            MenuShowListOptions();
+                            break;
+                        case MenuOptions.EXIT:
+                            break;
+                    }
+                }
+
+                catch (KeyNotFoundException ex)
+                {
+                    Console.WriteLine(ex.Message == string.Empty ? ex : ex.Message);
+                }
+                catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+                {
+                    Console.WriteLine(ex);
+                }
+                catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+                {
+                    Console.WriteLine(ex);
+                }
+                catch (ArgumentNullException ex)
+                {
+
+                    Console.WriteLine(ex.Message == string.Empty ? ex : ex.Message);
+                }
+                catch (InvalidEnumArgumentException ex)
+                {
+
+                    Console.WriteLine(ex.Message == string.Empty ? ex : ex.Message);
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message == string.Empty ? ex : ex.Message);
                 }
             } while (menuOption != MenuOptions.EXIT);
         }
@@ -121,8 +154,8 @@ namespace ConsoleUI_BL
                     Console.WriteLine(bl.GetBLDrone(requestedId));
                     break;
                 case EntityOptions.CUSTOMER:
-                    Customer customer = bl.GetCustomer(requestedId);
-                    Console.WriteLine(customer);
+                    //Customer customer = bl.GetCustomer(requestedId);
+                    //Console.WriteLine(customer);
                     break;
                 case EntityOptions.PARCEL:
                     Console.WriteLine(bl.GetBLParcel(requestedId));
@@ -134,57 +167,57 @@ namespace ConsoleUI_BL
 
         private static void MenuUpdateOptions()
         {
-            Console.WriteLine("Update option:\n 1-model of drone,\n 2-Pickedup,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
-            UpdateOptions updateOptions;
-            updateOptions = (UpdateOptions)int.Parse(Console.ReadLine());
-            int parcelId, droneId, stationlId, customerId;
-            string name;
-            switch (updateOptions)
-            {
-                case UpdateOptions.DRONE:
-                    Console.WriteLine("Enter IDs for drone and model:");
-                    droneId = int.Parse(Console.ReadLine());
-                    string model = (Console.ReadLine());
-                    bl.UpdateDrone(droneId, model);
-                    break;
+            //Console.WriteLine("Update option:\n 1-model of drone,\n 2-Pickedup,\n 3-Delivery,\n 4-Recharge,\n 5-Release,\n 0-Exit");
+            //UpdateOptions updateOptions;
+            //updateOptions = (UpdateOptions)int.Parse(Console.ReadLine());
+            //int parcelId, droneId, stationlId, customerId;
+            //string name;
+            //switch (updateOptions)
+            //{
+            //    case UpdateOptions.DRONE:
+            //        Console.WriteLine("Enter IDs for drone and model:");
+            //        droneId = int.Parse(Console.ReadLine());
+            //        string model = (Console.ReadLine());
+            //        bl.UpdateDrone(droneId, model);
+            //        break;
 
-                case UpdateOptions.BASESTATION:
-                    Console.WriteLine("Enter number of station and name and/or sum of Charging positions and sum with loaded skimmers:");
-                    stationlId = int.Parse(Console.ReadLine());
-                    name = (Console.ReadLine());
-                    int chargeSlote = int.Parse(Console.ReadLine());
-                    bl.UpdateBaseStation(stationlId, name, chargeSlote);
-                    break;
+            //    case UpdateOptions.BASESTATION:
+            //        Console.WriteLine("Enter number of station and name and/or sum of Charging positions and sum with loaded skimmers:");
+            //        stationlId = int.Parse(Console.ReadLine());
+            //        name = (Console.ReadLine());
+            //        int chargeSlote = int.Parse(Console.ReadLine());
+            //        bl.UpdateBaseStation(stationlId, name, chargeSlote);
+            //        break;
 
-                case UpdateOptions.CUSTOMER:
-                    Console.WriteLine("Enter ID and name and/or phone:");
-                    customerId = int.Parse(Console.ReadLine());
-                    name = (Console.ReadLine());
-                    string phone = (Console.ReadLine());
-                    bool correctName = true;
-                    do
-                    {
-                        Console.WriteLine("Enter phone");
-                        phone = Console.ReadLine();
-                        if (!(phone[0] == '+' || phone[0] == '*' || char.IsDigit(phone[0])))
-                            foreach (char item in phone.Substring(1))
-                                if (!char.IsDigit(item))
-                                    correctName = false;
-                    } while (!correctName);
-                    bl.UpdateCustomer(customerId, name, phone);
-                    break;
+            //    case UpdateOptions.CUSTOMER:
+            //        Console.WriteLine("Enter ID and name and/or phone:");
+            //        customerId = int.Parse(Console.ReadLine());
+            //        name = (Console.ReadLine());
+            //        string phone = (Console.ReadLine());
+            //        bool correctName = true;
+            //        do
+            //        {
+            //            Console.WriteLine("Enter phone");
+            //            phone = Console.ReadLine();
+            //            if (!(phone[0] == '+' || phone[0] == '*' || char.IsDigit(phone[0])))
+            //                foreach (char item in phone.Substring(1))
+            //                    if (!char.IsDigit(item))
+            //                        correctName = false;
+            //        } while (!correctName);
+            //        bl.UpdateCustomer(customerId, name, phone);
+            //        break;
 
-                case UpdateOptions.RECHARGE:
-                    Console.WriteLine("Enter IDs for drone:");
-                    droneId = int.Parse(Console.ReadLine());
-                    bl.SendDroneToRecharge(droneId);
-                    break;
+            //    case UpdateOptions.RECHARGE:
+            //        Console.WriteLine("Enter IDs for drone:");
+            //        droneId = int.Parse(Console.ReadLine());
+            //        bl.SendDroneToRecharge(droneId);
+            //        break;
 
-                case UpdateOptions.REKEASE:
-                    Console.WriteLine("Enter ID for drone and the time in charging:");
-                    droneId = int.Parse(Console.ReadLine());
-                    int time = int.Parse(Console.ReadLine());
-                    bl.ReleaseDroneFromRecharge(droneId,time);
+            //    case UpdateOptions.REKEASE:
+            //        Console.WriteLine("Enter ID for drone and the time in charging:");
+            //        droneId = int.Parse(Console.ReadLine());
+            //        int time = int.Parse(Console.ReadLine());
+            //        bl.ReleaseDroneFromRecharge(droneId,time);
 
                     break;
                 case UpdateOptions.SCHEDULED:
@@ -205,8 +238,8 @@ namespace ConsoleUI_BL
             int id;
             double longitude, latitude;
             string name;
-            switch (entityOption)
-            {
+                switch (entityOption)
+                {
                 case EntityOptions.BASESTATION:
                     Console.WriteLine("Enter Id and Location and Number of charging positions add Name :");
                     int chargingStations;

@@ -45,19 +45,10 @@ namespace DalObject
         /// The function prepares a new array of all existing parcels
         /// </summary>
         /// <returns>array of parceles</returns>
-
         public IEnumerable<Parcel> GetParcels()
         {
             return DataSource.parcels.Select(parcel => parcel.Clone()).ToList();
         }
-
-
-
-
-
-
-        //-----------------------------------------------------------------------------------------
-        //-----------------------------------------------------------------------------------------
 
 
         /// <summary>
@@ -71,7 +62,6 @@ namespace DalObject
             {
                 if (DataSource.parcels[i].Id == idParcel)
                 {
-                    //עדכון זמן איסוף
                     Parcel p = DataSource.parcels[i];
                     p.PickedUp = DateTime.Now;
                     DataSource.parcels[i] = p;
@@ -84,14 +74,12 @@ namespace DalObject
         /// Delivery of a parcel to the destination
         /// </summary>
         /// <param name="idxParcel">Id of the parcel</param>
-        /// //אספקת חבילה ליעד
         public void UpdateParcelDelivered(int idParcel)
         {
             for (int i = 0; i < DataSource.parcels.Count; ++i)
             {
                 if (DataSource.parcels[i].Id == idParcel)
                 {
-                    //עדכון זמן אספקת חבילה
                     Parcel p = DataSource.parcels[i];
                     p.Delivered = DateTime.Now;
                     DataSource.parcels[i] = p;
@@ -106,20 +94,21 @@ namespace DalObject
         /// Displays a list of packages that have not yet been assigned to the glider
         /// </summary>
         /// <returns>array of parcels that have not yet been assigned to the glider</returns>
-        /// 
-        //	הצגת רשימת חבילות שעוד לא שויכו לרחפן
         public IEnumerable<Parcel> UnassignedParcels()
         {
             return new List<Parcel>(DataSource.parcels.Where(parcel => parcel.Droneld == 0).ToList());
         }
+
         static int Index = 0;
         int IncreastNumberIndea()
         {
             return ++Index;
         }
 
-
-        //חבילות שסופקו-קונסטרקטור BL
+        /// <summary>
+        /// The function returns the list of parcels provided to customers
+        /// </summary>
+        /// <returns>The list of parcels provided </returns>
         public IEnumerable<Parcel> GetParcelsProvided()
         {
             List<Parcel> parcelProvided = new List<Parcel>();

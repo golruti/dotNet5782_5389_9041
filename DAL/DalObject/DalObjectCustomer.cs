@@ -37,11 +37,9 @@ namespace DalObject
         {
             Customer customer = DataSource.customers.First(customer => customer.Id == idCustomer);
             if (customer.GetType().Equals(default))
-                throw new Exception("Get customer -DAL-: There is no suitable customer in data");
+                throw new KeyNotFoundException("Get customer -DAL-: There is no suitable customer in data");
             return customer;
         }
-
-
 
         /// <summary>
         /// The function prepares a new array of all existing customers
@@ -53,16 +51,22 @@ namespace DalObject
         }
 
 
-
-
-
+        /// <summary>
+        /// The function deletes a specific customer
+        /// </summary>
+        /// <param name="id">customer ID</param>
         public void DeleteCustomer(int id)
         {
-            List<Customer> tempCusromers = (List<Customer>)GetCustomers();
-            tempCusromers.RemoveAll(item => item.Id == id);
+            var customer = DataSource.customers.FirstOrDefault(c => c.Id == id);
+            if (customer.Equals(default(Drone)))
+                throw new Exception("Delete customer -DAL-: There is no suitable customer in data");
+            DataSource.customers.Remove(customer);
         }
 
-        //לשימוש הקונסטרקטוב בBL
+        /// <summary>
+        /// The function returns the list of customers who have been provided with parcels
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Customer> GetCustomersProvided()
         {
             List<Customer> customerProvided = new List<Customer>();
@@ -79,11 +83,37 @@ namespace DalObject
             return customerProvided;
         }
 
-
-        //מי הלקוח שצריך לקבל את החבילה
+        /// <summary>
+        /// The function finds the customer to whom the parcel in the drone should arrive
+        /// </summary>
+        /// <param name="ParcelDeliveredId"> customer ID</param>
+        /// <returns>the customer to whom the parcel</returns>
         public Customer customerByDrone(int ParcelDeliveredId)
         {
-            IDAL.DO.Customer customer =DataSource.customers.First(customer => customer.Id == ParcelDeliveredId);
+            var customer = DataSource.customers.FirstOrDefault(customer => customer.Id == ParcelDeliveredId);
+            if (customer.Equals(default(Drone)))
+                throw new Exception("Get customer -DAL-: There is no suitable customer in data");
+
+            return customer;
+        }
+
+        /// <summary>
+        /// The function finds the customer from whom the package that is in the drone came
+        /// </summary>
+        /// <param name="DroneId">drone ID</param>
+        /// <returns>customer from whom the package </returns>
+        public Customer FindSenderCustomerByDroneId(int DroneId)
+        {
+            Customer customer = new IDAL.DO.Customer();
+            foreach (var parcel in GetParcels())
+            {
+                if (parcel.Droneld == DroneId)
+                {
+                    customer = GetCustomer(parcel.SenderId);
+                }
+            }
+            if (customer.Equals(default(Customer)))
+                throw new KeyNotFoundException("Get customer -DAL-: There is no suitable customer in data");
             return customer;
         }
     }

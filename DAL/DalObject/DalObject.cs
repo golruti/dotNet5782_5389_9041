@@ -10,28 +10,35 @@ namespace DalObject
 {
     public partial class DalObject : IDAL.IDal
     {
+        /// <summary>
+        /// constructor
+        /// </summary>
         public DalObject()
         {
             DataSource.Initialize();
         }
 
-        public bool uniqueIDTaxCheck<T>(List<T> lst, int id)
+        /// <summary>
+        /// The function checks if the ID is unique
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="lst"></param>
+        /// <param name="id"></param>
+        /// <returns>if the ID is unique</returns>
+        public bool uniqueIDTaxCheck<T>(IEnumerable<T> lst, int id)
         {
-            foreach (var item in lst)
-            {
-                if ((int)item.GetType().GetProperty("id").GetValue(item, null) == id) 
-                    return true;
-            }
-            return false;
+            if (lst.Count() <= 0)
+                return true;
+
+            T temp = lst.FirstOrDefault(item => (int)item.GetType().GetProperty("Id")?.GetValue(item) == id);
+            return (temp.Equals(default(T)));
         }
 
 
-        public T GetById<T>(IEnumerable<T> lst, int id) 
-        {
-            return lst.ToList().Find(item => (int)item.GetType().GetProperty("id").GetValue(item, null) == id);
-        }
-
-
+        /// <summary>
+        /// Takes from the DataSource the electricity use data of the drone
+        /// </summary>
+        /// <returns>A array of electricity use</returns>
         public double[] GetElectricityUse()
         {
             return (new double[5]{
@@ -43,6 +50,6 @@ namespace DalObject
                   });
         }
 
-      
+
     }
 }

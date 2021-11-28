@@ -9,23 +9,27 @@ namespace IBL
 {
     partial class BL : IBL
     {
-        ////רשימת רחפנים הנמצאים בטעינה בתחנה מסוימת
-        //private List<DroneInCharging> DronesInCharging(int id)
-        //{
-        //    List<int> list = dal.GetDronechargingInStation(id);
-        //    if (list.Count == 0)
-        //        return new();
-        //    List<DroneInCharging> droneInChargings = new();
-        //    DroneForList droneToList;
-        //    foreach (var idDrone in list)
-        //    {
-        //        droneToList = drones.FirstOrDefault(item => (item.Id == idDrone));
-        //        if (droneToList != default)
-        //        {
-        //            droneInChargings.Add(new DroneInCharging() { Id = idDrone, Battery = droneToList.Battery });
-        //        }
-        //    }
-        //    return droneInChargings;
-        //}
+        /// <summary>
+        /// The function returns a list of drones loaded at a particular base station
+        /// </summary>
+        /// <param name="id">The station ID</param>
+        /// <returns>The list of drones in charge</returns>
+        private List<DroneInCharging> DronesInCharging(int id)
+        {
+            List<int> list = dal.GetDronechargingInStation(id);
+            if (list.Count == 0)
+                return new();
+            List<DroneInCharging> droneInChargings = new();
+            DroneForList droneToList;
+            foreach (var idDrone in list)
+            {
+                droneToList = drones.FirstOrDefault(item => (item.Id == idDrone));
+                if (droneToList != default)
+                {
+                    droneInChargings.Add(new DroneInCharging() { Id = idDrone, Battery = droneToList.Battery });
+                }
+            }
+            return droneInChargings;
+        }
     }
 }

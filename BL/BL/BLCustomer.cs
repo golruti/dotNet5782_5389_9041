@@ -10,20 +10,47 @@ namespace IBL
     partial class BL
     {
 
-        //--------------------------------------------הוספת תחנת בסיס-------------------------------------------------------------------------------------------
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Add a customer to the list of customers
+        /// </summary>
+        /// <param name="tempCustomer">The customer for Adding</param>
         public void AddCustomer(Customer tempCustomer)
         {
             IDAL.DO.Customer customer = new IDAL.DO.Customer(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
-            dal.InsertCustomer(customer);
+            try
+            {
+                dal.InsertCustomer(customer);
+            }
+            catch (IDAL.DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+            }
         }
 
-        //---------------------------------------------הצגת לקוח לפי ID ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Retrieves the requested customer from the data and converts it to BL customer
+        /// </summary>
+        /// <param name="id">The requested customer</param>
+        /// <returns>A Bl customer to print</returns>
         public Customer GetCustomer(int id)
         {
-            return mapCustomer(dal.GetCustomer(id));
+            try
+            {
+                return mapCustomer(dal.GetCustomer(id));
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+            }
         }
 
-
+        /// <summary>
+        /// Convert a DAL customer to BL customer
+        /// </summary>
+        /// <param name="customer">The customer to convert</param>
+        /// <returns>The converted customer</returns>
         private Customer mapCustomer(IDAL.DO.Customer customer)
         {
             return new Customer()
@@ -32,22 +59,26 @@ namespace IBL
                 Name = customer.Name,
                 Location = new Location(customer.Latitude, customer.Longitude),
                 Phone = customer.Phone,
-                //ReceivedParcels = findReceivedParcels(customer.Id),
-                //ShippedParcels = findShippedParcels(customer.Id)
+                ReceivedParcels = findReceivedParcels(customer.Id),
+                ShippedParcels = findShippedParcels(customer.Id)
             };
         }
 
-        //private List<CustomerDelivery> findReceivedParcels(int customerId)
-        //{
+        private List<CustomerDelivery> findReceivedParcels(int customerId)
+        {
 
-        //}
+        }
 
-        //private List<CustomerDelivery> findShippedParcels(int customerId)
-        //{
+        private List<CustomerDelivery> findShippedParcels(int customerId)
+        {
 
-        //}
+        }
 
-        //--------------------------------------------הצגת רשימת לקוחות לרשימה--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function returns the customer list from DAL to the CustomerForList list
+        /// </summary>
+        /// <returns>The list of CustomerForList customers</returns>
         public IEnumerable<CustomerForList> GetCustomerForList()
         {
             List<CustomerForList> CustomerForList = new List<CustomerForList>();

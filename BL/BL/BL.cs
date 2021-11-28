@@ -9,13 +9,14 @@ namespace IBL
 {
     partial class BL : IBL
     {
-
         private IDAL.IDal dal;
         private List<DroneForList> drones;
         private static Random rand = new Random();
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
 
-
+        /// <summary>
+        /// constructor
+        /// </summary>
         public BL()
         {
             dal = new DalObject.DalObject();
@@ -29,11 +30,11 @@ namespace IBL
             double chargingRate = arr[4];
         }
 
-
-
+        /// <summary>
+        /// The function initializes the list of drones stored in BL
+        /// </summary>
         private void initializeDrones()
         {
-
             foreach (var drone in dal.GetDrones())
             {
                 drones.Add(new DroneForList
@@ -63,16 +64,20 @@ namespace IBL
             {
                 drone.Battery = findDroneBattery(drone);
             }
-
-
         }
-   
 
+        /// <summary>
+        /// The function calculates the minimum charge the glider needs to get 
+        /// from the place of origin to the destination
+        /// </summary>
+        /// <param name="exit">location of exit</param>
+        /// <param name="target">location of target</param>
+        /// <param name="status"></param>
+        /// <param name="weight"></param>
+        /// <returns></returns>
         private double minBattery(Location exit, Location target, Enums.DroneStatuses status, Enums.WeightCategories weight)
         {
-            double distance = Distance(exit.Latitude, target.Latitude, exit.Longitude, target.Longitude)/1000;
-
-
+            double distance = Distance(exit.Latitude, target.Latitude, exit.Longitude, target.Longitude) / 1000;
             if (status == Enums.DroneStatuses.Available)
             {
                 return distance * (dal.GetElectricityUse()[0]);
@@ -92,26 +97,8 @@ namespace IBL
                     return distance * (dal.GetElectricityUse()[3]);
                 }
             }
-            throw new Exception("הרחפן בתחזוקה");
+            throw new Exception("It is not possible to calculate the drone distance in maintenance");
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
-
-
-
     }
 }
 

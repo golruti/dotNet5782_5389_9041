@@ -9,6 +9,11 @@ namespace IBL
 {
     partial class BL
     {
+        /// <summary>
+        /// Convert a drone To List to Drone With Parcel
+        /// </summary>
+        /// <param name="drone">The drone to convert</param>
+        /// <returns>The converter drone</returns>
         private DroneInParcel mapDroneWithParcel(DroneForList drone)
         {
             return new DroneInParcel()
