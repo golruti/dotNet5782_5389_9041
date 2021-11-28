@@ -162,20 +162,21 @@ namespace IBL
                     }
                     else
                     {
-
+                        throw new ArgumentNullException("not find the parcel -BL-");
                     }
                     
                 }
                 else
                 {
-
+                    throw new ArgumentNullException("the drone not in delivery");
                 }
             }
             else
             {
-
+                throw new ArgumentNullException("not find the drone -BL-");
             }
         }
+
 
         public void PackageDelivery(int id)
         {
@@ -392,7 +393,7 @@ namespace IBL
                 }
                 else
                 {
-
+                    throw new ArgumentNullException("not exist -BL-" );
                 }
 
             }

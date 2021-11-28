@@ -107,13 +107,13 @@ namespace IBL
         }
 
 
-        //public void UpdateBaseStation(int id, string name, int chargeSlote)
-        //{
-        //    IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
-        //    dal.DeleteBaseStation(id);
-        //    IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
-        //    dal.InsertStation(station);
-        //}
+        public void UpdateBaseStation(int id, string name, int chargeSlote)
+        {
+            IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
+            dal.DeleteBaseStation(id);
+            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
+            dal.InsertStation(station);
+        }
 
     }
 }
