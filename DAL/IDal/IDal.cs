@@ -11,6 +11,5 @@ namespace IDAL
     {
         public bool uniqueIDTaxCheck<T>(IEnumerable<T> lst, int id);
         public double[] GetElectricityUse();
-        public double[] RequestElectricity();
     }
 }

@@ -123,23 +123,6 @@ namespace IBL
             return null;
         }
 
-        //-------------------------לשימוש הקונסטרקטור
-        private IDAL.DO.Customer FindSenderCustomerByDroneId(int DroneId)
-        {
-            IDAL.DO.Customer customer = new IDAL.DO.Customer();
-            foreach (var parcel in dal.GetParcels())
-            {
-                if (parcel.Droneld == DroneId)
-                {
-                    customer = dal.GetById<IDAL.DO.Customer>(dal.GetCustomers(), parcel.SenderId);
-                }
-            }
-
-            if (customer.Equals(default(IDAL.DO.Customer)))
-            {
-                throw new Exception();
-            }
-            return customer;
-        }
+        
     }
 }

@@ -32,7 +32,7 @@ namespace IBL
 
         public void AddDroneForList(Drone drone)
         {
-            DroneForList droneForList= new DroneForList(drone.Id, drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Location.Longitude, drone.Location.Latitude);
+            DroneForList droneForList = new DroneForList(drone.Id, drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Location.Longitude, drone.Location.Latitude);
             drones.Add(droneForList);
         }
 
@@ -79,7 +79,6 @@ namespace IBL
         }
 
         //--------------------------------------------Show list---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
         /// <summary>
         /// Retrieves the list of drones from BL
         /// </summary>
@@ -114,7 +113,7 @@ namespace IBL
             tempDroneForList.Location.Latitude = latitude;
             drones.Add(tempDroneForList);
             dal.DeleteDrone(id);
-           
+
         }
 
 
@@ -199,7 +198,7 @@ namespace IBL
                 {
                     UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - BatteryCalculationOnTraveling(distance), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
                     dal.AddDroneCarge(droneId, baseStationId);
-                    
+
                 }
                 else
                 {
@@ -270,19 +269,19 @@ namespace IBL
             if (drone != null && drone.Status == DroneStatuses.Available)
             {
                 int parcelId = 0;
-                bool exist=false;
+                bool exist = false;
 
                 Enums.Priorities priority = Enums.Priorities.Regular;
                 Enums.WeightCategories weight = Enums.WeightCategories.Light;
-                double distance=double.MaxValue;
-                
+                double distance = double.MaxValue;
+
                 foreach (IDAL.DO.Parcel item in dal.GetParcels())
                 {
                     //do!!!!!!!!!!!!!!
                     double maxDistance = 3;
-                    if (minBattery(drone.Location,GetCustomer(item.SenderId).Location,drone.Status,drone.MaxWeight)< drone.Battery && (WeightCategories)item.Weight <= drone.MaxWeight)
+                    if (minBattery(drone.Location, GetCustomer(item.SenderId).Location, drone.Status, drone.MaxWeight) < drone.Battery && (WeightCategories)item.Weight <= drone.MaxWeight)
                     {
-                        
+
 
                         //לבדוק אם אפשר לצרף לשורה אחת!!!
                         if ((Enums.Priorities)item.Priority > priority)
@@ -293,7 +292,7 @@ namespace IBL
                         }
                         else
                         {
-                            if ((Enums.WeightCategories)item.Weight > weight &&(Enums.Priorities)item.Priority == priority)
+                            if ((Enums.WeightCategories)item.Weight > weight && (Enums.Priorities)item.Priority == priority)
                             {
                                 parcelId = item.Id;
                                 weight = (Enums.WeightCategories)item.Weight;
@@ -322,7 +321,7 @@ namespace IBL
                         }
                     }
                 }
-                if (exist==true)
+                if (exist == true)
                 {
 
 
@@ -343,9 +342,9 @@ namespace IBL
             }
         }
 
-       
 
-        
+
+
 
         //--------------------------------------------Initialize the drone list--------------------------------------------
 
@@ -517,6 +516,6 @@ namespace IBL
                 throw new ArgumentNullException("Get nearst base station -BL-");
             }
             return nearestBaseStation.Clone();
-        }    
+        }
     }
 }

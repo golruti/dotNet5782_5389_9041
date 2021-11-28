@@ -55,9 +55,5 @@ namespace DalObject
             throw new NotImplementedException();
         }
 
-        public double[] RequestElectricity()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
