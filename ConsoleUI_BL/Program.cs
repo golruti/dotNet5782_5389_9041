@@ -179,7 +179,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Enter IDs for drone and model:");
                     droneId = int.Parse(Console.ReadLine());
                     string model = (Console.ReadLine());
-                    bl.UpdateDrone(droneId, model);
+                    //bl.UpdateDrone(droneId, model);
                     break;
 
                 case UpdateOptions.BASESTATION:
@@ -187,7 +187,7 @@ namespace ConsoleUI_BL
                     stationlId = int.Parse(Console.ReadLine());
                     name = (Console.ReadLine());
                     int chargeSlote = int.Parse(Console.ReadLine());
-                    bl.UpdateBaseStation(stationlId, name, chargeSlote);
+                    //bl.UpdateBaseStation(stationlId, name, chargeSlote);
                     break;
 
                 case UpdateOptions.CUSTOMER:
@@ -278,7 +278,7 @@ namespace ConsoleUI_BL
                     if (int.TryParse(Console.ReadLine(), out id) && int.TryParse(Console.ReadLine(), out stationId) && Enum.TryParse(Console.ReadLine(), out maxWeight))
                     {
                         String model = Console.ReadLine();
-                        bl.GetStation(stationId);
+                        //bl.GetStation(stationId);
 
                         bl.AddDrone(new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetBLBaseStation(stationId).Location.Longitude, bl.GetBLBaseStation(stationId).Location.Latitude));
                     }

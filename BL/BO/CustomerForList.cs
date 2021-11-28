@@ -19,9 +19,9 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return $"Customer #{Id}: {Name}, Phone{Phone}, Num Parcel Sent Delivered={NumParcelSentDelivered}, " +
-                $"Num Parcel SentN ot Delivered{NumParcelSentNotDelivered}, Num Parcel Received{NumParcelReceived}, " +
-                $" NumP arcel Way To Customer{NumParcelWayToCustomer}";
+            return $"Customer #{Id}: {Name}, Phone{Phone}, Num Parcel Sent Delivered = {NumParcelSentDelivered}, " +
+                $"Num Parcel SentN ot Delivered = {NumParcelSentNotDelivered}, Num Parcel Received = {NumParcelReceived}, " +
+                $" NumP arcel Way To Customer = {NumParcelWayToCustomer}";
         }
 
         public CustomerForList(int id,string name,string phone,int parcelSentDelivered, int parcelSentNotDelivered, int recievedParcel, int parcelOnWayToCustomer)

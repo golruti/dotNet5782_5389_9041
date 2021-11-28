@@ -15,7 +15,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return $"Station #{Id}: {Name}, Available Charging Ports={AvailableChargingPorts}, Used Charging Ports={UsedChargingPorts}";
+            return $"Station #{Id}: {Name}, Available Charging Ports = {AvailableChargingPorts}, Used Charging Ports = {UsedChargingPorts}";
         }
 
         public BaseStationForList(int id, string name, int availableChargingPorts, int usedChargingPorts)

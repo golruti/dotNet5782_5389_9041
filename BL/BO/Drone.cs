@@ -25,7 +25,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return $"------\nDrone {Id} : {Model}\n{Status}\n{MaxWeight}\nlocation = {Location}/nbattery = {(int)(Battery)}%\n------\n ";
+            return $"------\nDrone {Id} : {Model}\n{Status}\n{MaxWeight}\nlocation = {Location.Latitude},{Location.Latitude}/nbattery = {(int)(Battery)}%\n------\n ";
         }
 
        

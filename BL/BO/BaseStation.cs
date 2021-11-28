@@ -12,7 +12,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return $"------\nStation{Id} : {Name}\ncharge slots={AvailableChargingPorts}\nlocation={Location}\n------\n";
+            return $"------\nStation{Id} : {Name}\ncharge slots={AvailableChargingPorts}\nlocation={Location.Latitude},{Location.Latitude}\n------\n";
         }
 
         public BaseStation( int id, string name, double longitude, double latitude, int availableChargingStations)

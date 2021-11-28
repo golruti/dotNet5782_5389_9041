@@ -19,7 +19,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return $"------\nCustomer #{Id}: {Name}\ntel={Phone}/nlocation={Location}/n------/n";
+            return $"------\nCustomer #{Id}: {Name}\ntel={Phone}\nlocation={Location.Latitude},{Location.Latitude}\n------\n";
         }
 
         public Customer(int id, string name, string phone, double longitude, double latitude)
