@@ -66,7 +66,7 @@ namespace IBL
 
         private List<CustomerDelivery> findReceivedParcels(int customerId)
         {
-
+            
         }
 
         private List<CustomerDelivery> findShippedParcels(int customerId)

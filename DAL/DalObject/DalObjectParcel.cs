@@ -50,6 +50,13 @@ namespace DalObject
             return DataSource.parcels.Select(parcel => parcel.Clone()).ToList();
         }
 
+        public void DeleteParcel(int id)
+        {
+            var parcel = DataSource.parcels.FirstOrDefault(d => d.Id == id);
+            if (parcel.Equals(default(Parcel)))
+                throw new Exception("Delete parcel -DAL-: There is no suitable customer in data");
+            DataSource.parcels.Remove(parcel);
+        }
 
         /// <summary>
         /// Package assembly by drone

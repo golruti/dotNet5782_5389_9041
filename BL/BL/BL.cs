@@ -99,6 +99,26 @@ namespace IBL
             }
             throw new Exception("It is not possible to calculate the drone distance in maintenance");
         }
+
+        public void AssignPackageToSkimmer(object d)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateBaseStation(int stationlId, string name, int chargeSlote)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateDrone(int droneId, string model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetStation(int stationId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

@@ -15,7 +15,7 @@ namespace IBL.BO
 
         public enum Priorities
         {
-            Regular, Emergency, Fast
+            Regular, Fast,Emergency
         }
 
         public enum DroneStatuses

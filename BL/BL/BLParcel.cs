@@ -20,6 +20,15 @@ namespace IBL
             //dal.InsertParcel(parcel);
         }
 
+        public void UpdateParcelAffiliation(int parcelId,int droneId,DateTime dateTime)
+        {
+            IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
+            dal.DeleteParcel(parcelId);
+            parcel.Droneld = droneId;
+            parcel.Scheduled = dateTime;
+            dal.InsertParcel(parcel);
+        }
+       
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -149,6 +158,8 @@ namespace IBL
             return (dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId)).Name;
         }
 
+
+        //למה קוראים לזה עם לקוח וזה מחזיר חבילה??????????????????????????????????????????
         private BO.Enums.ParcelStatuses getStatusCustomer(IDAL.DO.Parcel parcel)
         {
             //החבילה נוצרה
