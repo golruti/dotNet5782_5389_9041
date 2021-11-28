@@ -59,8 +59,8 @@ namespace IBL
             return new Parcel()
             {
                 Id = parcel.Id,
-                SenderId = parcel.SenderId,
-                ReceiverId = parcel.SenderId,
+                CustomerReceives = MapCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
+                CustomerSender = MapCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
                 Weight = (Enums.WeightCategories)parcel.Weight,
                 Priority = (Enums.Priorities)parcel.Priority,
                 Scheduled = parcel.Scheduled,
@@ -248,6 +248,19 @@ namespace IBL
                 Distance = Distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
                 Sender = new CustomerDelivery(sender.Id, sender.Name),
                 Target = new CustomerDelivery(target.Id, target.Name)
+            };
+        }
+        /// <summary>
+        /// Convert a DAL customer to BL Customer In Parcel
+        /// </summary>
+        /// <param name="parcel">The customer to convert</param>
+        /// <returns>The converted customer</returns>
+        private CustomerDelivery MapCustomerInParcel(IDAL.DO.Customer customer)
+        {
+            return new CustomerDelivery()
+            {
+                Id = customer.Id,
+                Name = customer.Name
             };
         }
 

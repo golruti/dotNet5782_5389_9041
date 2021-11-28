@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
+using static IBL.BO.Enums;
 
 namespace IBL
 {
@@ -59,20 +60,71 @@ namespace IBL
                 Name = customer.Name,
                 Location = new Location(customer.Latitude, customer.Longitude),
                 Phone = customer.Phone,
-                ReceivedParcels = findReceivedParcels(customer.Id),
-                ShippedParcels = findShippedParcels(customer.Id)
+                FromCustomer = findFromCustomer(),
+                ToCustomer = findToCustomer()
             };
         }
 
-        private List<CustomerDelivery> findReceivedParcels(int customerId)
+        private List<ParcelToCustomer> findFromCustomer()
         {
-            
+            return getAllParcels().Select(parcel => ParcelToParcelAtCustomer(parcel, "sender")).ToList();
         }
 
-        private List<CustomerDelivery> findShippedParcels(int customerId)
+        private List<ParcelToCustomer> findToCustomer()
         {
-
+            return getAllParcels().Select(parcel => ParcelToParcelAtCustomer(parcel, "Recive")).ToList();
         }
+
+        private ParcelToCustomer ParcelToParcelAtCustomer(Parcel parcel, string type)
+        {
+            ParcelToCustomer newParcel = new ParcelToCustomer
+            {
+                Id = parcel.Id,
+                Weight = parcel.Weight,
+                Priority = parcel.Priority
+            //    Status = parcel.Scheduled == default ? ParcelStatuses.DEFINED : parcel.CollectionTime == default ? PackageModes.ASSOCIATED : parcel.DeliveryTime == default ? PackageModes.COLLECTED : PackageModes.PROVIDED
+            };
+
+
+            if (type == "sender")
+            {
+                newParcel.Customer = new CustomerDelivery()
+                {
+                    Id = parcel.CustomerReceives.Id,
+                    Name = parcel.CustomerReceives.Name
+                };
+            }
+            else
+            {
+                newParcel.Customer = new CustomerDelivery()
+                {
+                    Id = parcel.CustomerSender.Id,
+                    Name = parcel.CustomerSender.Name
+                };
+            }
+
+            return newParcel;
+        }
+
+
+        private IEnumerable<Parcel> getAllParcels()
+        {
+            return dal.GetParcels().Select(Parcel => GetParcel(Parcel.Id));
+        }
+
+        public Parcel GetParcel(int id)
+        {
+            try
+            {
+                return mapParcel(dal.GetParcel(id));
+            }
+            catch (KeyNotFoundException ex)
+            {
+
+                throw new KeyNotFoundException(ex.Message);
+            }
+        }
+
 
         //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>

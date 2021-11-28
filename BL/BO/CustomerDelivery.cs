@@ -18,6 +18,10 @@ namespace IBL.BO
             Id = id;
             Name = name;
         }
+        public CustomerDelivery()
+        {
+
+        }
     }
 
     

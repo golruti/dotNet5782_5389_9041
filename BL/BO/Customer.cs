@@ -14,8 +14,8 @@ namespace IBL.BO
         public string Name { get; set; }
         public string Phone { get; set; }
         public Location Location { get; set; }
-        public IEnumerable<CustomerDelivery> ReceivedParcels { get; set; }
-        public IEnumerable<CustomerDelivery> ShippedParcels { get; set; }
+        public IEnumerable<ParcelToCustomer> FromCustomer { get; set; }
+        public IEnumerable<ParcelToCustomer> ToCustomer { get; set; }
 
         public override string ToString()
         {
@@ -28,8 +28,8 @@ namespace IBL.BO
             Name = name;
             Phone = phone;
             Location = new Location(longitude, latitude);
-            ReceivedParcels = new List<CustomerDelivery>();
-            ShippedParcels = new List<CustomerDelivery>();
+            FromCustomer = new List<ParcelToCustomer>();
+            ToCustomer = new List<ParcelToCustomer>();
         }
         public Customer()
         {
