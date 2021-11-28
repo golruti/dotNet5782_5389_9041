@@ -101,6 +101,13 @@ namespace IBL
             return ParcelsForList;
         }
 
+        public ParcelForList GetParcelFormList(int id)
+        {
+            List<ParcelForList> parcelsForList = (List<ParcelForList>)GetParcelForList();
+            ParcelForList parcelForList = parcelsForList.Find(item => item.Id == id);
+            return parcelForList;
+        }
+
         /// <summary>
         /// The function returns the list of parcels that have not yet been associated with the drone
         /// </summary>
