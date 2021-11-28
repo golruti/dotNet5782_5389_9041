@@ -20,7 +20,7 @@ namespace IBL
             //dal.InsertParcel(parcel);
         }
 
-        public void UpdateParcelAffiliation(int parcelId,int droneId,DateTime dateTime)
+        public void UpdateParcelAffiliation(int parcelId, int droneId, DateTime dateTime)
         {
             IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
             dal.DeleteParcel(parcelId);
@@ -28,7 +28,7 @@ namespace IBL
             parcel.Scheduled = dateTime;
             dal.InsertParcel(parcel);
         }
-       
+
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -71,7 +71,6 @@ namespace IBL
             };
         }
 
-
         //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// he function returns the parcel list from DAL to the ParcelForList list
@@ -82,15 +81,22 @@ namespace IBL
             List<ParcelForList> ParcelsForList = new List<ParcelForList>();
             foreach (var parcel in dal.GetParcels())
             {
-                ParcelsForList.Add(new ParcelForList()
+                try
                 {
-                    Id = parcel.Id,
-                    Weight = (Enums.WeightCategories)parcel.Weight,
-                    Priority = (Enums.Priorities)parcel.Priority,
-                    SendCustomer = getSendCustomerName(parcel),
-                    ReceiveCustomer = getReceiveCustomer(parcel),
-                    Status = getStatusCustomer(parcel)
-                });
+                    ParcelsForList.Add(new ParcelForList()
+                    {
+                        Id = parcel.Id,
+                        Weight = (Enums.WeightCategories)parcel.Weight,
+                        Priority = (Enums.Priorities)parcel.Priority,
+                        SendCustomer = getSendCustomerName(parcel),
+                        ReceiveCustomer = getReceiveCustomer(parcel),
+                        Status = getParcelStatus(parcel)
+                    });
+                }
+                catch (ArgumentNullException ex)
+                {
+                    throw new ArgumentNullException("Add Parcel for list -BL-" + ex.Message);
+                }
             }
             return ParcelsForList;
         }
@@ -104,34 +110,42 @@ namespace IBL
             List<ParcelForList> ParcelsForList = new List<ParcelForList>();
             foreach (var parcel in dal.UnassignedParcels())
             {
-                ParcelsForList.Add(new ParcelForList()
+                try
                 {
-                    Id = parcel.Id,
-                    Weight = (Enums.WeightCategories)parcel.Weight,
-                    Priority = (Enums.Priorities)parcel.Priority,
-                    SendCustomer = getSendCustomerName(parcel),
-                    ReceiveCustomer = getReceiveCustomer(parcel),
-                    Status = getStatusCustomer(parcel)
-                });
+                    ParcelsForList.Add(new ParcelForList()
+                    {
+                        Id = parcel.Id,
+                        Weight = (Enums.WeightCategories)parcel.Weight,
+                        Priority = (Enums.Priorities)parcel.Priority,
+                        SendCustomer = getSendCustomerName(parcel),
+                        ReceiveCustomer = getReceiveCustomer(parcel),
+                        Status = getParcelStatus(parcel)
+                    });
+                }
+                catch (ArgumentNullException ex)
+                {
+                    throw new ArgumentNullException("Add Parcel for list -BL-" + ex.Message);
+                }
             }
             return ParcelsForList;
         }
 
-        //לשימוש הקונסטרקטור
+        /// <summary>
+        /// The function returns the parcel status of a particular drone
+        /// </summary>
+        /// <param name="DroneId"></param>
+        /// <returns>The parcel status</returns>
         private parcelState findParcelState(int DroneId)
         {
             foreach (var parcel in dal.GetParcels())
             {
-                //החבילה שויכה ולא נאספה
                 if (!(parcel.Scheduled.Equals(default(DateTime))) && parcel.PickedUp.Equals(default(DateTime)))
                 {
                     return parcelState.associatedNotCollected;
                 }
-                //החבילה נאספה אך לא סופקה 
                 if (!parcel.PickedUp.Equals(default(DateTime)) && parcel.Delivered.Equals(default(DateTime)))
                 {
                     return parcelState.collectedNotDelivered;
-
                 }
             }
             return parcelState.DroneNotAssociated;
@@ -139,45 +153,54 @@ namespace IBL
 
 
 
-
+        /// <summary>
+        /// The function returns the name of the customer who sent the parcel
+        /// </summary>
+        /// <param name="parcel"></param>
+        /// <returns>The name of the sending customer</returns>
         private string getSendCustomerName(IDAL.DO.Parcel parcel)
         {
-            if ((dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.SenderId)).Name.Equals(default(string)))
+            if ((dal.GetCustomers().First(customer => customer.Id == parcel.SenderId)).Name.Equals(default(string)))
             {
-                throw new Exception();
+                throw new ArgumentNullException("Get sender customer  -BL-");
             }
-            return (dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.SenderId)).Name;
+            return (dal.GetCustomers().First(customer => customer.Id == parcel.SenderId)).Name;
         }
 
+        /// <summary>
+        /// The function returns the name of the customer who should receive the package
+        /// </summary>
+        /// <param name="parcel"></param>
+        /// <returns>The name of the receiving customer</returns>
         private string getReceiveCustomer(IDAL.DO.Parcel parcel)
         {
             if ((dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId)).Name.Equals(default(string)))
             {
-                throw new Exception();
+                throw new ArgumentNullException("Get recieve customer  -BL-");
             }
             return (dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId)).Name;
         }
 
 
-        //למה קוראים לזה עם לקוח וזה מחזיר חבילה??????????????????????????????????????????
-        private BO.Enums.ParcelStatuses getStatusCustomer(IDAL.DO.Parcel parcel)
+        /// <summary>
+        /// The function returns the status of the parcel-
+        /// </summary>
+        /// <param name="parcel"></param>
+        /// <returns>The parcel status</returns>
+        private BO.Enums.ParcelStatuses getParcelStatus(IDAL.DO.Parcel parcel)
         {
-            //החבילה נוצרה
             if (!(parcel.Requested.Equals(default(DateTime))))
             {
                 return Enums.ParcelStatuses.Created;
             }
-            //החבילה שויכה
             else if (parcel.Scheduled.Equals(default(DateTime)) && parcel.PickedUp.Equals(default(DateTime)) && parcel.Delivered.Equals(default(DateTime)))
             {
                 return Enums.ParcelStatuses.Associated;
             }
-            //החבילה נאספה
             else if (!(parcel.PickedUp.Equals(default(DateTime))) && parcel.Delivered.Equals(default(DateTime)))
             {
                 return Enums.ParcelStatuses.Collected;
             }
-            //החבילה סופקה
             else
             {
                 return Enums.ParcelStatuses.Provided;
@@ -185,6 +208,11 @@ namespace IBL
         }
 
 
+        /// <summary>
+        /// The function initializes the ID of the parcel that is in the drone - if any
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns>the ID of the parcel</returns>
         private int findParceDeliveredlId(int droneId)
         {
             foreach (var parcel in dal.GetParcels())
@@ -194,11 +222,16 @@ namespace IBL
                     return parcel.Id;
                 }
             }
-            return 0;
+            return default(int);
         }
 
 
 
+        /// <summary>
+        /// Convert a DAL parcel to Parcel In Transfer
+        /// </summary>
+        /// <param name="id">The requested parcel to convert</param>
+        /// <returns>The converted parcel</returns>
         private ParcelByTransfer CreateParcelInTransfer(int id)
         {
             IDAL.DO.Parcel parcel = dal.GetParcel(id);
