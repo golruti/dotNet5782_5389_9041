@@ -271,5 +271,32 @@ namespace IBL
             };
         }
 
+        /// <summary>
+        /// Retrieves the list of parcels from the data and converts it to BL parcel 
+        /// </summaryparfcel
+        /// <returns>A list of parcels to print</returns>
+        private IEnumerable<Parcel> getAllParcels()
+        {
+            return dal.GetParcels().Select(Parcel => GetParcel(Parcel.Id));
+        }
+
+        /// <summary>
+        /// Retrieves the requested parcel from the data and converts it to BL parcel
+        /// </summary>
+        /// <param name="id">The requested parcel id</param>
+        /// <returns>A Bl parcel to print</returns>
+        public Parcel GetParcel(int id)
+        {
+            try
+            {
+                return mapParcel(dal.GetParcel(id));
+            }
+            catch (KeyNotFoundException ex)
+            {
+
+                throw new KeyNotFoundException(ex.Message);
+            }
+        }
+
     }
 }

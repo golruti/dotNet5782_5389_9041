@@ -35,7 +35,7 @@ namespace IBL
         /// </summary>
         /// <param name="id">The requested customer</param>
         /// <returns>A Bl customer to print</returns>
-        public Customer GetCustomer(int id)
+        public Customer GetBLCustomer(int id)
         {
             try
             {
@@ -65,16 +65,13 @@ namespace IBL
             };
         }
 
-        private List<ParcelToCustomer> findFromCustomer()
-        {
-            return getAllParcels().Select(parcel => ParcelToParcelAtCustomer(parcel, "sender")).ToList();
-        }
 
-        private List<ParcelToCustomer> findToCustomer()
-        {
-            return getAllParcels().Select(parcel => ParcelToParcelAtCustomer(parcel, "Recive")).ToList();
-        }
-
+        /// <summary>
+        /// Convert a BL parcel to Parcel At Customer
+        /// </summary>
+        /// <param name="parcel">The parcel to convert</param>
+        /// <param name="type">The type of the customer</param>
+        /// <returns>The converted parcel</returns>
         private ParcelToCustomer ParcelToParcelAtCustomer(Parcel parcel, string type)
         {
             ParcelToCustomer newParcel = new ParcelToCustomer
@@ -107,23 +104,7 @@ namespace IBL
         }
 
 
-        private IEnumerable<Parcel> getAllParcels()
-        {
-            return dal.GetParcels().Select(Parcel => GetParcel(Parcel.Id));
-        }
-
-        public Parcel GetParcel(int id)
-        {
-            try
-            {
-                return mapParcel(dal.GetParcel(id));
-            }
-            catch (KeyNotFoundException ex)
-            {
-
-                throw new KeyNotFoundException(ex.Message);
-            }
-        }
+        
 
 
         //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
