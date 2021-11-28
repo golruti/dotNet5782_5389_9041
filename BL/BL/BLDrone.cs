@@ -341,7 +341,7 @@ namespace IBL
                 foreach (IDAL.DO.Parcel item in dal.GetParcels())
                 {
                     
-                    if (minBattery(drone.Location, GetCustomer(item.SenderId).Location, drone.Status, drone.MaxWeight) < drone.Battery && (WeightCategories)item.Weight <= drone.MaxWeight)
+                    if (minBattery(drone.Location, GetBLCustomer(item.SenderId).Location, drone.Status, drone.MaxWeight) < drone.Battery && (WeightCategories)item.Weight <= drone.MaxWeight)
                     {
 
 
@@ -362,11 +362,11 @@ namespace IBL
                             }
                             else
                             {
-                                if (Distance(drone.Location.Latitude, GetCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetCustomer(item.SenderId).Location.Longitude) < distance && (Enums.WeightCategories)item.Weight == weight && (Enums.Priorities)item.Priority == priority)
+                                if (Distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude) < distance && (Enums.WeightCategories)item.Weight == weight && (Enums.Priorities)item.Priority == priority)
                                 {
                                     exist = true;
                                     parcelId = item.Id;
-                                    distance = Distance(drone.Location.Latitude, GetCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetCustomer(item.SenderId).Location.Longitude);
+                                    distance = Distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude);
                                 }
                                 else
                                 {
@@ -376,7 +376,7 @@ namespace IBL
                                         parcelId = item.Id;
                                         priority = (Enums.Priorities)item.Priority;
                                         weight = (Enums.WeightCategories)item.Weight;
-                                        distance = Distance(drone.Location.Latitude, GetCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetCustomer(item.SenderId).Location.Longitude);
+                                        distance = Distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude);
                                     }
                                 }
                             }
