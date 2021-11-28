@@ -118,13 +118,64 @@ namespace IBL
         }
 
 
+        public void PackageCollection(int id)
+        {
+            
+            if (drones.All(item => item.Id == id))
+            {
+                DroneForList droneForList = drones.Find(item => item.Id == id);
+                if (droneForList.Status == DroneStatuses.Delivery)
+                {
+                    int parcelId=-1;
+                    //IDAL.DO.Parcel parcel=dal.GetParcels().Find(item=>item.)
+                   foreach (var tempParcel in dal.GetParcels())
+                    {
+                        if (tempParcel.Droneld == id)
+                        {
+                            parcelId = tempParcel.Id;
+                        }
+                    }
+                    bool exist = false;
+                    if(GetParcelForList().All(item=>item.Status== ParcelStatuses.Associated))
+                    {
+                        IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
+                        IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
+                        double distance = Distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
+                        Location location = new Location(customer.Longitude, customer.Latitude);
+                        droneForList.Battery -= ((int)minBattery(droneForList.Location,customer.) + 1);
+                        droneForList.Location = sender.Location;
+                        drones.Add(droneForList);
+                        IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
+                        parcel.Id = parcelId;
+                        dal.UpdatePickedUp(parcel);
+                    }
+                    else
+                    {
 
+                    }
+                    
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        public void PackageDelivery(int id)
+        {
+
+        }
 
 
         //---------------------שליחת רחפן לטעינה
         public void SendDroneToRecharge(int droneId)
         {
-            DroneForList tempDroneForList = GetDroneForList(droneId);
+            DroneForList tempDroneForList = drones.Find(item => item.Id == droneId);
             Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
             int baseStationId = 0;
             double distance = double.MaxValue;
@@ -134,7 +185,7 @@ namespace IBL
                 foreach (var item in dal.GetBaseStations())
                 {
                     double tempDistance = Distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
-                    if (tempDistance < distance/* && SeveralAvailablechargingStations(item.Id)>0*/)
+                    if (tempDistance < distance)
                     {
                         baseStationId = item.Id;
                         distance = tempDistance;
@@ -184,7 +235,7 @@ namespace IBL
             DroneForList drone = drones.Find(item => item.Id == droneId);
             if (drone != null)
             {
-                if (drone.Status == (DroneStatuses)2)
+                if (drone.Status == DroneStatuses.Maintenance)
                 {
                     drones.Remove(drone);
                     droneInCharging.Battery = drone.Battery + BatteryCalculationInCharging(time);

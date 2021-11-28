@@ -28,7 +28,9 @@ namespace IBL
             parcel.Scheduled = dateTime;
             dal.InsertParcel(parcel);
         }
-       
+
+        
+
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -93,6 +95,13 @@ namespace IBL
                 });
             }
             return ParcelsForList;
+        }
+
+        public ParcelForList GetParcelFormList(int id)
+        {
+            List<ParcelForList> parcelsForList = (List<ParcelForList>)GetParcelForList();
+            ParcelForList parcelForList = parcelsForList.Find(item => item.Id == id);
+            return parcelForList;
         }
 
         /// <summary>
