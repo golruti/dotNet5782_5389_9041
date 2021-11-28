@@ -23,6 +23,18 @@ namespace IBL.BO
                 $"Priority{Priority}, Status{Status}";
         }
 
+        //ParcelForList(int id,string sendCustomer,string reciveCustomer,Priorities priority,ParcelStatuses statuses)
+        //{
+        //    Id = id;
+        //    SendCustomer = sendCustomer;
+        //    ReceiveCustomer = reciveCustomer;
+        //    Priority = priority;
+        //    Status = statuses;
+        //}
+        //ParcelForList()
+        //{
+
+        //}
     }
 }
 

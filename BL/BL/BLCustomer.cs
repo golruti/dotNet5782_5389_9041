@@ -80,7 +80,17 @@ namespace IBL
         }
 
 
-
+        private Customer findCustomer(int id)
+        {
+            foreach (IDAL.DO.Customer item in dal.GetCustomers())
+            {
+                if (item.Id == id)
+                {
+                    return new Customer(item.Id,item.Name,item.Phone,item.Longitude,item.Latitude);
+                }
+            }
+            return null;
+        }
 
         //-------------------------לשימוש הקונסטרקטור
         private IDAL.DO.Customer FindSenderCustomerByDroneId(int DroneId)

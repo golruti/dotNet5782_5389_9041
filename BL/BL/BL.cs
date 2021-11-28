@@ -21,6 +21,12 @@ namespace IBL
             dal = new DalObject.DalObject();
             drones = new List<DroneForList>();
             initializeDrones();
+            double[] arr = dal.GetElectricityUse();
+            double available = arr[0];
+            double lightWeight = arr[1];
+            double mediumWeight = arr[2];
+            double heavyWeight = arr[3];
+            double chargingRate = arr[4];
         }
 
 

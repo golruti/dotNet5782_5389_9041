@@ -15,6 +15,14 @@ namespace IBL
     public partial interface IBL
     {
         void UpdateCustomer(int customerId, string name, string phone);
+        Customer GetCustomer(int requestedId);
+        void AssignPackageToSkimmer(object d);
+        void ReleaseDroneFromRecharge(int droneId, int time);
+        void SendDroneToRecharge(int droneId);
+        void UpdateBaseStation(int stationlId, string name, int chargeSlote);
+        void UpdateDrone(int droneId, string model);
+        void GetStation(int stationId);
+        void AddDrone(Drone drone);
         //void SendDroneToRecharge(int droneId);
     }
 }

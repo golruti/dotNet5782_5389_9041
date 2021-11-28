@@ -21,7 +21,7 @@ namespace IBL.BO
         {
             return $"Drone #{Id}: model={Model}, {Status}, {MaxWeight}, location = {Location}, battery={(int)(Battery)} ";
         }
-        public DroneForList(int id,string model,WeightCategories maxWeight,int battery,DroneStatuses status, double longitude, double latitude)
+        public DroneForList(int id,string model,WeightCategories maxWeight,double battery,DroneStatuses status, double longitude, double latitude)
         {
             Id = id;
             Model = model;

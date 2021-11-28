@@ -17,5 +17,6 @@ namespace IBL
         public Drone GetBLDrone(int id);
         public IEnumerable<DroneForList> GetDroneForList();
         public void UpdateDroneModel(int id, string model);
+
     }
 }
