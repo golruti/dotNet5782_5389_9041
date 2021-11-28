@@ -59,5 +59,15 @@ namespace DalObject
                          .Where(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id))
                          .ToList();
         }
+
+        /// <summary>
+        /// delete base station from list
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteBaseStation(int id)
+        {
+            
+            DataSource.stations.Remove(GetStation(id));
+        }
     }
 }

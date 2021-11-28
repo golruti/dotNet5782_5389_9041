@@ -106,14 +106,19 @@ namespace IBL
             return BaseStationsForList;
         }
 
-
-        //public void UpdateBaseStation(int id, string name, int chargeSlote)
-        //{
-        //    IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
-        //    dal.DeleteBaseStation(id);
-        //    IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
-        //    dal.InsertStation(station);
-        //}
+        /// <summary>
+        /// update base station 
+        /// </summary>
+        /// <param name="id">id of the base station</param>
+        /// <param name="name">name of the base station</param>
+        /// <param name="chargeSlote">sum of charge slote</param>
+        public void UpdateBaseStation(int id, string name, int chargeSlote)
+        {
+            IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
+            dal.DeleteBaseStation(id);
+            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
+            dal.InsertStation(station);
+        }
 
     }
 }

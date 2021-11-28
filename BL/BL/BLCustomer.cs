@@ -132,16 +132,26 @@ namespace IBL
         }
 
 
-
+        /// <summary>
+        /// update customer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
         public void UpdateCustomer(int id, string name, string phone)
         {
+
             IDAL.DO.Customer tempCustomer = dal.GetCustomer(id);
             dal.DeleteCustomer(id);
             IDAL.DO.Customer customer = new IDAL.DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
             dal.InsertCustomer(customer);
         }
 
-
+        /// <summary>
+        /// find customer from his id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>if it found</returns>
         private Customer findCustomer(int id)
         {
             foreach (IDAL.DO.Customer item in dal.GetCustomers())

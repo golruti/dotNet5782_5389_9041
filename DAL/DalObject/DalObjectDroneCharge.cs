@@ -122,7 +122,10 @@ namespace DalObject
         }
 
 
-
+        /// <summary>
+        /// update release
+        /// </summary>
+        /// <param name="id"></param>
         public void UpdateRelease(int id)
         {          
             DataSource.droneCharges.RemoveAll(item=>id == item.DroneId);
