@@ -60,6 +60,10 @@ namespace DalObject
                          .ToList();
         }
 
+        /// <summary>
+        /// delete base station from list
+        /// </summary>
+        /// <param name="id"></param>
         public void DeleteBaseStation(int id)
         {
             

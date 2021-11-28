@@ -30,6 +30,10 @@ namespace IBL
             }
         }
 
+        /// <summary>
+        /// add drone to the list in the BL
+        /// </summary>
+        /// <param name="drone">the drone to add</param>
         public void AddDroneForList(Drone drone)
         {
             DroneForList droneForList = new DroneForList(drone.Id, drone.Model, drone.MaxWeight, drone.Battery, drone.Status, drone.Location.Longitude, drone.Location.Latitude);
@@ -177,7 +181,10 @@ namespace IBL
             }
         }
 
-
+        /// <summary>
+        /// update the parcel status to package in delivery
+        /// </summary>
+        /// <param name="id"></param>
         public void PackageDelivery(int id)
         {
             DroneForList drone = new DroneForList();
@@ -207,7 +214,7 @@ namespace IBL
                         }
                         else
                         {
-
+                            throw new ArgumentNullException("not find the drone -BL-");
                         }
                     }
                 }
@@ -220,7 +227,7 @@ namespace IBL
             }
             else
             {
-
+                throw new ArgumentNullException("the drone not in delivery -BL-");
             }
         }
 
@@ -247,10 +254,7 @@ namespace IBL
                         distance = tempDistance;
                         location = new Location(item.Longitude, item.Latitude);
                     }
-                    else
-                    {
-
-                    }
+                    
                 }
                 if (minBattery(tempDrone.Location,location,tempDrone.Status,tempDrone.MaxWeight) < tempDrone.Battery)
                 {
@@ -260,12 +264,12 @@ namespace IBL
                 }
                 else
                 {
-
+                    throw new ArgumentNullException("the drone not have enough battery  -BL-");
                 }
             }
             else
             {
-
+                throw new ArgumentNullException("the drone not available -BL-");
             }
         }
 
@@ -306,12 +310,12 @@ namespace IBL
                 }
                 else
                 {
-
+                    throw new ArgumentNullException("the drone not maintenance -BL-");
                 }
             }
             else
             {
-
+                throw new ArgumentNullException("the drone not found -BL-");
             }
         }
 
@@ -393,13 +397,13 @@ namespace IBL
                 }
                 else
                 {
-                    throw new ArgumentNullException("not exist -BL-" );
+                    throw new ArgumentNullException("parcel not exist -BL-" );
                 }
 
             }
             else
             {
-
+                throw new ArgumentNullException("parcel not exist -BL-");
             }
         }
 

@@ -101,6 +101,11 @@ namespace IBL
             return ParcelsForList;
         }
 
+        /// <summary>
+        /// get parcel from BL
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ParcelForList GetParcelFormList(int id)
         {
             List<ParcelForList> parcelsForList = (List<ParcelForList>)GetParcelForList();

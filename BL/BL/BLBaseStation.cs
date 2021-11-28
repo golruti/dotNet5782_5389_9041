@@ -106,7 +106,12 @@ namespace IBL
             return BaseStationsForList;
         }
 
-
+        /// <summary>
+        /// update base station 
+        /// </summary>
+        /// <param name="id">id of the base station</param>
+        /// <param name="name">name of the base station</param>
+        /// <param name="chargeSlote">sum of charge slote</param>
         public void UpdateBaseStation(int id, string name, int chargeSlote)
         {
             IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
