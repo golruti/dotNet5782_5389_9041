@@ -91,8 +91,7 @@ namespace IBL
                     return distance * (dal.GetElectricityUse()[3]);
                 }
             }
-            //הרחפן בתחזוקה
-            throw new Exception("It is not possible to calculate the glider distance in maintenance");
+            throw new Exception("It is not possible to calculate the drone distance in maintenance");
         }
     }
 }

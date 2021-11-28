@@ -371,9 +371,6 @@ namespace IBL
                 throw new ArgumentNullException("Get nearst base station -BL-");
             }
             return nearestBaseStation.Clone();
-        }
-
-
-        
+        }    
     }
 }

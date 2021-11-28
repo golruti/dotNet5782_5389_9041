@@ -59,20 +59,20 @@ namespace IBL
                 Name = customer.Name,
                 Location = new Location(customer.Latitude, customer.Longitude),
                 Phone = customer.Phone,
-                //ReceivedParcels = findReceivedParcels(customer.Id),
-                //ShippedParcels = findShippedParcels(customer.Id)
+                ReceivedParcels = findReceivedParcels(customer.Id),
+                ShippedParcels = findShippedParcels(customer.Id)
             };
         }
 
-        //private List<CustomerDelivery> findReceivedParcels(int customerId)
-        //{
+        private List<CustomerDelivery> findReceivedParcels(int customerId)
+        {
 
-        //}
+        }
 
-        //private List<CustomerDelivery> findShippedParcels(int customerId)
-        //{
+        private List<CustomerDelivery> findShippedParcels(int customerId)
+        {
 
-        //}
+        }
 
         //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
