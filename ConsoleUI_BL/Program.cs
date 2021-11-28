@@ -21,7 +21,7 @@ namespace ConsoleUI_BL
 
         enum MenuOptions { EXIT, ADD, UPDATE, SHOWONE, SHOWLIST }
         enum EntityOptions { EXIT, BASESTATION, DRONE, CUSTOMER, PARCEL }
-        enum UpdateOptions { EXIT,DRONE, BASESTATION,CUSTOMER, RECHARGE, REKEASE, SCHEDULED, PICKED_UP, SUPPLY }
+        enum UpdateOptions { EXIT, DRONE, BASESTATION, CUSTOMER, RECHARGE, REKEASE, SCHEDULED, PICKED_UP, SUPPLY }
         enum ListOptions { Exit, BaseStations, Drones, Customers, Parcels, UnAssignmentParcels, AvailableChargingStations }
         private static void ShowMenu()
         {
@@ -179,7 +179,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Enter IDs for drone and model:");
                     droneId = int.Parse(Console.ReadLine());
                     string model = (Console.ReadLine());
-                    //bl.UpdateDrone(droneId, model);
+                    bl.UpdateDrone(droneId, model);
                     break;
 
                 case UpdateOptions.BASESTATION:
@@ -187,7 +187,7 @@ namespace ConsoleUI_BL
                     stationlId = int.Parse(Console.ReadLine());
                     name = (Console.ReadLine());
                     int chargeSlote = int.Parse(Console.ReadLine());
-                    //bl.UpdateBaseStation(stationlId, name, chargeSlote);
+                    bl.UpdateBaseStation(stationlId, name, chargeSlote);
                     break;
 
                 case UpdateOptions.CUSTOMER:
@@ -219,20 +219,20 @@ namespace ConsoleUI_BL
                     droneId = int.Parse(Console.ReadLine());
                     int time = int.Parse(Console.ReadLine());
                     bl.ReleaseDroneFromRecharge(droneId, time);
-
                     break;
+
                 case UpdateOptions.SCHEDULED:
                     Console.WriteLine("enter ID for drone");
                     droneId = int.Parse(Console.ReadLine());
                     bl.AssignPackageToSkimmer(droneId);
                     break;
+
                 case UpdateOptions.PICKED_UP:
-                     Console.WriteLine("enter ID for drone");
-                     droneId = int.Parse(Console.ReadLine());
+                    Console.WriteLine("enter ID for drone");
+                    droneId = int.Parse(Console.ReadLine());
                     droneId = int.Parse(Console.ReadLine());
                     bl.PackageCollection(droneId);
                     break;
-                    
 
                 case UpdateOptions.SUPPLY:
                     Console.WriteLine("enter ID for drone");
@@ -240,7 +240,7 @@ namespace ConsoleUI_BL
                     droneId = int.Parse(Console.ReadLine());
                     bl.PackageDelivery(droneId);
                     break;
-                    
+
                 case UpdateOptions.EXIT:
                     break;
             }
@@ -254,8 +254,8 @@ namespace ConsoleUI_BL
             int id;
             double longitude, latitude;
             string name;
-                switch (entityOption)
-                {
+            switch (entityOption)
+            {
                 case EntityOptions.BASESTATION:
                     Console.WriteLine("Enter Id and Location and Number of charging positions add Name :");
                     int chargingStations;
@@ -278,7 +278,7 @@ namespace ConsoleUI_BL
                     if (int.TryParse(Console.ReadLine(), out id) && int.TryParse(Console.ReadLine(), out stationId) && Enum.TryParse(Console.ReadLine(), out maxWeight))
                     {
                         String model = Console.ReadLine();
-                        //bl.GetStation(stationId);
+                        bl.GetStation(stationId);
 
                         bl.AddDrone(new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetBLBaseStation(stationId).Location.Longitude, bl.GetBLBaseStation(stationId).Location.Latitude));
                     }
@@ -292,7 +292,6 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Enter Id and Location add Name and Phone:");
                     if (int.TryParse(Console.ReadLine(), out id) && double.TryParse(Console.ReadLine(), out latitude) && double.TryParse(Console.ReadLine(), out longitude))
                     {
-
                         name = Console.ReadLine();
                         string phone;
                         bool correctName = true;
@@ -317,8 +316,8 @@ namespace ConsoleUI_BL
                     int idSender, idReceiver, weight, priority;
                     if (int.TryParse(Console.ReadLine(), out idSender) && int.TryParse(Console.ReadLine(), out idReceiver) && Enum.TryParse(Console.ReadLine(), out weight) && Enum.TryParse(Console.ReadLine(), out priority))
                     {
-                        
-                        bl.AddParcel(new Parcel(idParcel++,idSender, idReceiver, (Enums.WeightCategories)weight, (Enums.Priorities)priority,new DroneInParcel()));
+
+                        bl.AddParcel(new Parcel(idParcel++, idSender, idReceiver, (Enums.WeightCategories)weight, (Enums.Priorities)priority, new DroneInParcel()));
                     }
                     break;
                 case EntityOptions.EXIT:
