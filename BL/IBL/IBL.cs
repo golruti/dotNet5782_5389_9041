@@ -19,6 +19,10 @@ namespace IBL
         void ReleaseDroneFromRecharge(int droneId, int time);
         void SendDroneToRecharge(int droneId);
         void AddDrone(Drone drone);
+        void AssignPackageToSkimmer(int droneId);
+        void GetStation(int stationId);
+        void UpdateDrone(int droneId, string model);
+        void UpdateBaseStation(int stationlId, string name, int chargeSlote);
     }
 }
 

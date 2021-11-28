@@ -12,7 +12,7 @@ namespace ConsoleUI_BL
     {
         private static IBL.IBL bl;
         private static Random rand = new Random();
-
+        static int idParcel = 0;
         static void Main(string[] args)
         {
             bl = new IBL.BL();
@@ -279,7 +279,7 @@ namespace ConsoleUI_BL
                         String model = Console.ReadLine();
                         bl.GetStation(stationId);
 
-                        bl.AddDrone(new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetStation(stationId).Longitude, bl.GetStation(stationId).Latitude));
+                        bl.AddDrone(new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetBLBaseStation(stationId).Location.Longitude, bl.GetBLBaseStation(stationId).Location.Latitude));
                     }
                     else
                     {
@@ -316,8 +316,8 @@ namespace ConsoleUI_BL
                     int idSender, idReceiver, weight, priority;
                     if (int.TryParse(Console.ReadLine(), out idSender) && int.TryParse(Console.ReadLine(), out idReceiver) && Enum.TryParse(Console.ReadLine(), out weight) && Enum.TryParse(Console.ReadLine(), out priority))
                     {
-
-                        bl.AddParcel(new Parcel(idSender, idReceiver, (Enums.WeightCategories)weight, (Enums.Priorities)priority));
+                        
+                        bl.AddParcel(new Parcel(idParcel++,idSender, idReceiver, (Enums.WeightCategories)weight, (Enums.Priorities)priority,new DroneInParcel()));
                     }
                     break;
                 case EntityOptions.EXIT:

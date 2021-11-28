@@ -129,5 +129,37 @@ namespace DalObject
             return parcelProvided;
         }
 
+        /// <summary>
+        /// the function update that the parcel picked up
+        /// </summary>
+        /// <param name="parcel">update parcel</param>
+        public void UpdatePickedUp(Parcel parcel)
+        {
+            Parcel tempParcel = DataSource.parcels.Find(item => parcel.Id == item.Id);
+            DataSource.parcels.Remove(parcel);
+            parcel.PickedUp = DateTime.Now;
+            DataSource.parcels.Add(parcel);
+        }
+
+        /// <summary>
+        /// ופגשאק Delivery of a package by skimmer
+        /// </summary>
+        /// <param name="parcel">the parcel to update</param>
+        public void UpdateSupply(Parcel parcel)
+        {
+            Parcel tempParcel = new Parcel();
+            try
+            {
+                tempParcel = GetParcel(parcel.Id);
+            }
+            catch
+            {
+                throw new Exception("Get parcel -DAL-: There is no suitable parcel in data");
+            }
+           
+            tempParcel.Delivered = parcel.Delivered;
+            DataSource.parcels.Add(tempParcel);
+        }
+
     }
 }

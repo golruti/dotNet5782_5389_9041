@@ -17,5 +17,7 @@ namespace IDAL
         public IEnumerable<Parcel> UnassignedParcels();
         public IEnumerable<Parcel> GetParcelsProvided();
         public void DeleteParcel(int id);
+        public void UpdatePickedUp(Parcel parcel);
+        public void UpdateSupply(Parcel parcel);
     }
 }

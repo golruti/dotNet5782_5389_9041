@@ -14,5 +14,6 @@ namespace IDAL
         public IEnumerable<BaseStation> GetBaseStations();
         public IEnumerable<BaseStation> GetAvaBaseStations();
         void AddDroneCarge(int droneId, int baseStationId);
+        void UpdateRelease(int droneId);
     }
 }
