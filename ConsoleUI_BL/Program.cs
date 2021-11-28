@@ -150,6 +150,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine(baseStation);
                     ShowList(baseStation.DronesInCharging);
                     break;
+
                 case EntityOptions.DRONE:
                     Console.WriteLine(bl.GetBLDrone(requestedId));
                     break;
