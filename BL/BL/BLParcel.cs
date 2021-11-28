@@ -9,20 +9,41 @@ namespace IBL
 {
     partial class BL
     {
-        //--------------------------------------------הוספת תחנת בסיס-------------------------------------------------------------------------------------------
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Add a parcel to the list of purcels
+        /// </summary>
+        /// <param name="tempParcel">The parcel for Adding</param>
         public void AddParcel(Parcel tempParcel)
         {
             //IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(dal.IncreastNumberIndea(), tempParcel.SenderId, tempParcel.ReceiverId, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
             //dal.InsertParcel(parcel);
         }
-        //---------------------------------------------חבילה לפי ID ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+        //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Retrieves the requested parcel from the data and converts it to BL parcel
+        /// </summary>
+        /// <param name="parcelId">The requested parcel</param>
+        /// <returns>A Bl parcel to print</returns>
         public Parcel GetBLParcel(int parcelId)
         {
-            return mapParcel(dal.GetParcel(parcelId));
+            try
+            {
+                return mapParcel(dal.GetParcel(parcelId));
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+            }
         }
 
-
-
+        /// <summary>
+        /// Convert a DAL parcel to BL parcel
+        /// </summary>
+        /// <param name="parcel">he parcel to convert</param>
+        /// <returns>The converted parcel</returns>
         private Parcel mapParcel(IDAL.DO.Parcel parcel)
         {
             var tmpDrone = drones.FirstOrDefault(drone => drone.Id == parcel.Droneld);
@@ -42,9 +63,12 @@ namespace IBL
         }
 
 
-        //--------------------------------------------הצגת רשימת חבילות לרשימה--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  
-       public IEnumerable<ParcelForList> GetParcelForList()
+        //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// he function returns the parcel list from DAL to the ParcelForList list
+        /// </summary>
+        /// <returns>The list of ParcelForList parcels</returns>
+        public IEnumerable<ParcelForList> GetParcelForList()
         {
             List<ParcelForList> ParcelsForList = new List<ParcelForList>();
             foreach (var parcel in dal.GetParcels())
@@ -62,7 +86,10 @@ namespace IBL
             return ParcelsForList;
         }
 
-        //--------------------------------------------רשימת חבילות שעוד לא שויכו לרחפן--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function returns the list of parcels that have not yet been associated with the drone
+        /// </summary>
+        /// <returns>List of parcels not yet associated with the drone</returns>
         public IEnumerable<ParcelForList> UnassignedParcelsForList()
         {
             List<ParcelForList> ParcelsForList = new List<ParcelForList>();
@@ -79,13 +106,6 @@ namespace IBL
                 });
             }
             return ParcelsForList;
-        }
-
-
-
-        private IEnumerable<Parcel> getAllParcels()
-        {
-            return dal.GetParcels().Select(Parcel => GetBLParcel(Parcel.Id));
         }
 
         //לשימוש הקונסטרקטור
@@ -181,7 +201,7 @@ namespace IBL
                 ParcelStatus = !parcel.PickedUp.Equals(default),
                 SenderLocation = new Location(sender.Longitude, sender.Latitude),
                 TargetLocation = new Location(target.Longitude, target.Latitude),
-                Distance = Distance( sender.Latitude, sender.Longitude, sender.Latitude,sender.Longitude),
+                Distance = Distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
                 Sender = new CustomerDelivery(sender.Id, sender.Name),
                 Target = new CustomerDelivery(target.Id, target.Name)
             };

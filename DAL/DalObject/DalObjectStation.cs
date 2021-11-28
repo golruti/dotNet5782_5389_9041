@@ -39,14 +39,12 @@ namespace DalObject
         }
 
 
-
         /// <summary>
         /// The function prepares a new array of all existing stations
         /// </summary>
         /// <returns>array of station</returns>
         public IEnumerable<BaseStation> GetBaseStations()
         {
-
             return DataSource.stations.Select(station => station.Clone()).ToList();
         }
 
@@ -55,8 +53,6 @@ namespace DalObject
         /// Display base stations with available charging stations
         /// </summary>
         /// <returns>array of stations</returns>
-        /// //●	הצגת  תחנות-בסיס עם עמדות טעינה פנויות
-        /// //לבדוק אם הפונקציה מתאימה לליסטים
         public IEnumerable<BaseStation> GetAvaBaseStations()
         {
             return DataSource.stations

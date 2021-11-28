@@ -16,7 +16,7 @@ namespace IDAL
         public void TryAddDroneCarge(int droneId);
         public void TryRemoveDroneCarge(int droneId);
         public void UpdateParcelScheduled(int idxParcel);
-        public void DeleteDrone(int id);
+        public void DeleteDrone(int droneId);
 
     }
 }

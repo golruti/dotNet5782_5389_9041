@@ -79,8 +79,8 @@ namespace IBL
                 {
                     Id = baseStation.Id,
                     Name = baseStation.Name,
-                    AvailableChargingPorts = (baseStation.ChargeSlote) - numOfUsedChargingPorts(baseStation.Id),
-                    UsedChargingPorts = numOfUsedChargingPorts(baseStation.Id)
+                    AvailableChargingPorts = (baseStation.ChargeSlote) - dal.CountFullChargeSlots(baseStation.Id),
+                    UsedChargingPorts = dal.CountFullChargeSlots(baseStation.Id)
                 });
             }
             return BaseStationsForList;
@@ -99,26 +99,11 @@ namespace IBL
                 {
                     Id = baseStation.Id,
                     Name = baseStation.Name,
-                    AvailableChargingPorts = (baseStation.ChargeSlote) - numOfUsedChargingPorts(baseStation.Id),
-                    UsedChargingPorts = numOfUsedChargingPorts(baseStation.Id)
+                    AvailableChargingPorts = (baseStation.ChargeSlote) - dal.CountFullChargeSlots(baseStation.Id),
+                    UsedChargingPorts = dal.CountFullChargeSlots(baseStation.Id)
                 });
             }
             return BaseStationsForList;
-        }
-
-        /// <summary>
-        /// The function returns the number of charging stations occupied at a particular base station
-        /// </summary>
-        /// <param name="idBaseStation"> Station ID</param>
-        /// <returns> The num of used charging ports</returns>
-        private int numOfUsedChargingPorts(int idBaseStation)
-        {
-            int countUsedChargingPorts = 0;
-            foreach (var BaseStation in dal.GetAvaBaseStations())
-            {
-                ++countUsedChargingPorts;
-            }
-            return countUsedChargingPorts;
         }
 
 

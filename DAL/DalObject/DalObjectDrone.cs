@@ -40,8 +40,6 @@ namespace DalObject
         }
 
 
-
-
         /// <summary>
         /// The function prepares a new array of all existing drones
         /// </summary>
@@ -51,55 +49,17 @@ namespace DalObject
             return DataSource.drones.Select(drone => drone.Clone()).ToList();
         }
 
-        //--------------------------------------------------------------------------------------------
-        //-----------------------------------------------------------------------------------------
-
-
 
         /// <summary>
-        /// Sending a drone for charging at a base station By changing the drone mode and adding a record of a drone battery charging entity
+        /// The function deletes a specific drone
         /// </summary>
-        /// <param name="droneId">Id of the drone</param>
-        /// <returns>Returns if the base station is available to receive the glider</returns>
-        /// 
-        //	שליחת רחפן לטעינה בתחנת-בסיס
-        public void TryAddDroneCarge(int droneId)
+        /// <param name="droneId">drone ID</param>
+        public void DeleteDrone(int droneId)
         {
-
-            //לבדוק אם באמת קיים רחפן עם איידי כזה
-            //ואם לא צריך לשלוח חריגה
             var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
             if (drone.Equals(default(Drone)))
-                throw new Exception();
-
-            //	יש לוודא שתחנת הבסיס פנויה לקבל את הרחפן לטעינה
-            var station = DataSource.stations.FirstOrDefault(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id));
-            if (station.Equals(default(BaseStation)))
-                throw new Exception();
-
-            // הוספת רשומה של ישות טעינת סוללת רחפן
-            DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
-            DataSource.droneCharges.Add(droneCharge);
-        }
-
-
-
-
-
-        /// <summary>
-        /// Release drone from charging at base station
-        /// </summary>
-        /// <param name="droneId">Id of the drone</param>
-        /// <returns>Returns the mother drone released from charging</returns>
-        /// //שחרור רחפן מטעינה בתחנת-בסיס
-        public void TryRemoveDroneCarge(int droneId)
-        {
-            //אם לא מצא את הרחפן שרצו לשחרר
-            var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
-            if (drone.Equals(default(Drone)))
-                throw new Exception();
-
-            DataSource.droneCharges.Remove(GetDroneCharge(droneId));
+                throw new Exception("Delete drone -DAL-: There is no suitable customer in data");
+            DataSource.drones.Remove(drone);
         }
 
 
@@ -122,12 +82,5 @@ namespace DalObject
             //    }
             //}
         }
-
-        public void DeleteDrone(int id)
-        {
-            List<Drone> tempDrones = (List<Drone>)GetDrones();
-            tempDrones.RemoveAll(item => item.Id == id);
-        }
-
     }
 }
