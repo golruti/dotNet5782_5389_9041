@@ -12,8 +12,8 @@ namespace IBL.BO
         
 
         public int Id { get; set; }
-        public int SenderId { get; set; }
-        public int ReceiverId { get; set; }
+        public CustomerDelivery CustomerSender { get; set; }
+        public CustomerDelivery CustomerReceives { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
         public DroneInParcel DroneParcel { get; set; }
@@ -30,15 +30,13 @@ namespace IBL.BO
         /// <returns>String of details for parsel</returns>
         public override string ToString()
         {
-            return ("------\nid: " + Id + "\nSenderId: " + SenderId + "\nTargetId: " + ReceiverId +
+            return ("------\nid: " + Id + 
                 "\nWeight: " + Weight + "\nPriority: " + Priority + "\nRequested: " + Requested + "\nDroneld: " 
                 + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n------\n");
         }
         public Parcel(int id, int sender,int receiver,WeightCategories weight,Priorities priority,DroneInParcel droneParcel)
         {
             Id = id;
-            SenderId = sender;
-            ReceiverId = receiver;
             Weight = weight;
             Priority = priority; 
             DroneParcel = droneParcel;

@@ -150,12 +150,13 @@ namespace ConsoleUI_BL
                     Console.WriteLine(baseStation);
                     ShowList(baseStation.DronesInCharging);
                     break;
+
                 case EntityOptions.DRONE:
                     Console.WriteLine(bl.GetBLDrone(requestedId));
                     break;
                 case EntityOptions.CUSTOMER:
-                    //Customer customer = bl.GetCustomer(requestedId);
-                    //Console.WriteLine(customer);
+                    Customer customer = bl.GetBLCustomer(requestedId);
+                    Console.WriteLine(customer);
                     break;
                 case EntityOptions.PARCEL:
                     Console.WriteLine(bl.GetBLParcel(requestedId));

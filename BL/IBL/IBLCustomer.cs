@@ -16,5 +16,6 @@ namespace IBL
     {
         public IEnumerable<CustomerForList> GetCustomerForList();
         public void AddCustomer(Customer tempCustomer);
+        public Customer GetBLCustomer(int id);
     }
 }

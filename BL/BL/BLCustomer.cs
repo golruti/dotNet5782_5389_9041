@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
+using static IBL.BO.Enums;
 
 namespace IBL
 {
@@ -34,7 +35,7 @@ namespace IBL
         /// </summary>
         /// <param name="id">The requested customer</param>
         /// <returns>A Bl customer to print</returns>
-        public Customer GetCustomer(int id)
+        public Customer GetBLCustomer(int id)
         {
             try
             {
@@ -63,7 +64,47 @@ namespace IBL
             };
         }
 
-       
+
+        /// <summary>
+        /// Convert a BL parcel to Parcel At Customer
+        /// </summary>
+        /// <param name="parcel">The parcel to convert</param>
+        /// <param name="type">The type of the customer</param>
+        /// <returns>The converted parcel</returns>
+        private ParcelToCustomer ParcelToParcelAtCustomer(Parcel parcel, string type)
+        {
+            ParcelToCustomer newParcel = new ParcelToCustomer
+            {
+                Id = parcel.Id,
+                Weight = parcel.Weight,
+                Priority = parcel.Priority
+            //    Status = parcel.Scheduled == default ? ParcelStatuses.DEFINED : parcel.CollectionTime == default ? PackageModes.ASSOCIATED : parcel.DeliveryTime == default ? PackageModes.COLLECTED : PackageModes.PROVIDED
+            };
+
+
+            if (type == "sender")
+            {
+                newParcel.Customer = new CustomerDelivery()
+                {
+                    Id = parcel.CustomerReceives.Id,
+                    Name = parcel.CustomerReceives.Name
+                };
+            }
+            else
+            {
+                newParcel.Customer = new CustomerDelivery()
+                {
+                    Id = parcel.CustomerSender.Id,
+                    Name = parcel.CustomerSender.Name
+                };
+            }
+
+            return newParcel;
+        }
+
+
+        
+
 
         //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>

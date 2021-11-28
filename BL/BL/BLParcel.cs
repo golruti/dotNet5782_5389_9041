@@ -59,8 +59,8 @@ namespace IBL
             return new Parcel()
             {
                 Id = parcel.Id,
-                SenderId = parcel.SenderId,
-                ReceiverId = parcel.SenderId,
+                CustomerReceives = MapCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
+                CustomerSender = MapCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
                 Weight = (Enums.WeightCategories)parcel.Weight,
                 Priority = (Enums.Priorities)parcel.Priority,
                 Scheduled = parcel.Scheduled,
@@ -256,6 +256,46 @@ namespace IBL
                 Sender = new CustomerDelivery(sender.Id, sender.Name),
                 Target = new CustomerDelivery(target.Id, target.Name)
             };
+        }
+        /// <summary>
+        /// Convert a DAL customer to BL Customer In Parcel
+        /// </summary>
+        /// <param name="parcel">The customer to convert</param>
+        /// <returns>The converted customer</returns>
+        private CustomerDelivery MapCustomerInParcel(IDAL.DO.Customer customer)
+        {
+            return new CustomerDelivery()
+            {
+                Id = customer.Id,
+                Name = customer.Name
+            };
+        }
+
+        /// <summary>
+        /// Retrieves the list of parcels from the data and converts it to BL parcel 
+        /// </summaryparfcel
+        /// <returns>A list of parcels to print</returns>
+        private IEnumerable<Parcel> getAllParcels()
+        {
+            return dal.GetParcels().Select(Parcel => GetParcel(Parcel.Id));
+        }
+
+        /// <summary>
+        /// Retrieves the requested parcel from the data and converts it to BL parcel
+        /// </summary>
+        /// <param name="id">The requested parcel id</param>
+        /// <returns>A Bl parcel to print</returns>
+        public Parcel GetParcel(int id)
+        {
+            try
+            {
+                return mapParcel(dal.GetParcel(id));
+            }
+            catch (KeyNotFoundException ex)
+            {
+
+                throw new KeyNotFoundException(ex.Message);
+            }
         }
 
     }
