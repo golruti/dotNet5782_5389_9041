@@ -139,11 +139,19 @@ namespace IBL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="phone"></param>
-        public void UpdateCustomer(int id, string name, string phone)
+        public void UpdateCustomer(int id, string name="-1", string phone="-1")
         {
 
             IDAL.DO.Customer tempCustomer = dal.GetCustomer(id);
             dal.DeleteCustomer(id);
+            if (name == "-1")
+            {
+                name = tempCustomer.Name;
+            }
+            if (phone == "-1")
+            {
+                phone = tempCustomer.Phone;
+            }
             IDAL.DO.Customer customer = new IDAL.DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
             dal.InsertCustomer(customer);
         }

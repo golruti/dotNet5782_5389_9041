@@ -112,10 +112,18 @@ namespace IBL
         /// <param name="id">id of the base station</param>
         /// <param name="name">name of the base station</param>
         /// <param name="chargeSlote">sum of charge slote</param>
-        public void UpdateBaseStation(int id, string name, int chargeSlote)
+        public void UpdateBaseStation(int id, string name="-1", int chargeSlote=-1)
         {
             IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
             dal.DeleteBaseStation(id);
+            if (name == "-1")
+            {
+                name = tempBaseStation.Name;
+            }
+            if (chargeSlote == -1)
+            {
+                chargeSlote = tempBaseStation.ChargeSlote;
+            }
             IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
             dal.InsertStation(station);
         }
