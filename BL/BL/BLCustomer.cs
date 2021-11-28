@@ -77,10 +77,9 @@ namespace IBL
             {
                 Id = parcel.Id,
                 Weight = parcel.Weight,
-                Priority = parcel.Priority
-            //    Status = parcel.Scheduled == default ? ParcelStatuses.DEFINED : parcel.CollectionTime == default ? PackageModes.ASSOCIATED : parcel.DeliveryTime == default ? PackageModes.COLLECTED : PackageModes.PROVIDED
+                Priority = parcel.Priority,
+                Status = parcel.Scheduled == default ? default: parcel.PickedUp == default ? ParcelStatuses.Associated : parcel.Scheduled == default ? ParcelStatuses.Collected : ParcelStatuses.Provided
             };
-
 
             if (type == "sender")
             {
