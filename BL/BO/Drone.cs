@@ -11,10 +11,7 @@ namespace IBL.BO
 {
     public class Drone 
     {
-        private DroneStatuses maxWeight;
-        private double longitude;
-        private double latitude;
-
+        
         public int Id { get; set; }
         public string Model { get; set; }
         public WeightCategories MaxWeight { get; set; }
@@ -37,8 +34,8 @@ namespace IBL.BO
             MaxWeight = maxWeight;
             Status = status;
             Battery = battery;
-            this.longitude = longitude;
-            this.latitude = latitude;
+            Location.Longitude = longitude;
+            Location.Latitude = latitude;
         }
 
     
