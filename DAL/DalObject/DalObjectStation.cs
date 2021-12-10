@@ -45,9 +45,13 @@ namespace DalObject
         /// <returns>array of station</returns>
         public IEnumerable<BaseStation> GetBaseStations()
         {
-            return DataSource.stations.Select(station => station.Clone()).ToList();
+            return DataSource.stations.Select(station => station.Clone());
         }
 
+        public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)
+        {
+            return DataSource.stations.Where(station => predicate(station)).ToList();
+        }
 
         /// <summary>
         /// Display base stations with available charging stations

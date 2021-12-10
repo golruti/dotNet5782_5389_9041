@@ -9,6 +9,7 @@ namespace IBL
 {
     partial class BL
     {
+
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
         /// Add a station to the list of base stations
@@ -93,7 +94,7 @@ namespace IBL
         public IEnumerable<BaseStationForList> GetAvaBaseStationForList()
         {
             List<BaseStationForList> BaseStationsForList = new List<BaseStationForList>();
-            foreach (var baseStation in dal.GetAvaBaseStations())
+            foreach (var baseStation in dal.GetBaseStations((s) => s.ChargeSlote > dal.GetDronechargingInStation(s.Id).Count))
             {
                 BaseStationsForList.Add(new BaseStationForList()
                 {
@@ -106,13 +107,14 @@ namespace IBL
             return BaseStationsForList;
         }
 
+        //---------------------------------------------Update ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// update base station 
         /// </summary>
         /// <param name="id">id of the base station</param>
         /// <param name="name">name of the base station</param>
         /// <param name="chargeSlote">sum of charge slote</param>
-        public void UpdateBaseStation(int id, string name="-1", int chargeSlote=-1)
+        public void UpdateBaseStation(int id, string name = "-1", int chargeSlote = -1)
         {
             IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
             dal.DeleteBaseStation(id);
