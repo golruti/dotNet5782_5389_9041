@@ -9,7 +9,6 @@ namespace IBL
 {
     partial class BL
     {
-
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
         /// Add a station to the list of base stations
@@ -86,7 +85,10 @@ namespace IBL
             }
             return BaseStationsForList;
         }
-
+        //public IEnumerable<BaseStationForList> GetBaseStationForList(Predicate<BaseStationForList> predicate)
+        //{          
+        //    return GetBaseStationForList().Where(s=>predicate(s));
+        //}
         /// <summary>
         /// The function return the base stations with available charging stations 
         /// </summary>
@@ -94,7 +96,7 @@ namespace IBL
         public IEnumerable<BaseStationForList> GetAvaBaseStationForList()
         {
             List<BaseStationForList> BaseStationsForList = new List<BaseStationForList>();
-            foreach (var baseStation in dal.GetBaseStations((s) => s.ChargeSlote > dal.GetDronechargingInStation(s.Id).Count))
+            foreach (var baseStation in dal.GetBaseStations((s) => s.ChargeSlote > dal.GetDronesCharges(droneCharge => droneCharge.StationId == s.Id).Count()))
             {
                 BaseStationsForList.Add(new BaseStationForList()
                 {

@@ -120,7 +120,7 @@ namespace IBL
         public IEnumerable<ParcelForList> UnassignedParcelsForList()
         {
             List<ParcelForList> ParcelsForList = new List<ParcelForList>();
-            foreach (var parcel in dal.UnassignedParcels())
+            foreach (var parcel in dal.GetParcels(parcel => parcel.Droneld == 0))
             {
                 try
                 {
