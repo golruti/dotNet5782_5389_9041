@@ -12,7 +12,7 @@ namespace IDAL
         public void InsertCustomer(Customer customer);
         public Customer GetCustomer(int idCustomer);
         public IEnumerable<Customer> GetCustomers();
-        public IEnumerable<Customer> Getustomers(Predicate<Customer> predicate);
+        public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate);
         public void DeleteCustomer(int id);
         public Customer customerByDrone(int ParcelDeliveredId);
         public Customer FindSenderCustomerByDroneId(int DroneId);

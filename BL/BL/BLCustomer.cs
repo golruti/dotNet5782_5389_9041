@@ -29,7 +29,30 @@ namespace IBL
             }
         }
 
-        //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------Update----------------------------------------------------------------------------------------
+        /// <summary>
+        /// update customer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        public void UpdateCustomer(int id, string name = "-1", string phone = "-1")
+        {
+            IDAL.DO.Customer tempCustomer = dal.GetCustomer(id);
+            dal.DeleteCustomer(id);
+            if (name == "-1")
+            {
+                name = tempCustomer.Name;
+            }
+            if (phone == "-1")
+            {
+                phone = tempCustomer.Phone;
+            }
+            IDAL.DO.Customer customer = new IDAL.DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
+            dal.InsertCustomer(customer);
+        }
+
+        //---------------------------------------------Show item---------------------------------------------------------------------------------
         /// <summary>
         /// Retrieves the requested customer from the data and converts it to BL customer
         /// </summary>
@@ -60,7 +83,7 @@ namespace IBL
                 Name = customer.Name,
                 Location = new Location(customer.Latitude, customer.Longitude),
                 Phone = customer.Phone,
-                
+
             };
         }
 
@@ -78,7 +101,8 @@ namespace IBL
                 Id = parcel.Id,
                 Weight = parcel.Weight,
                 Priority = parcel.Priority,
-                Status = parcel.Scheduled == default ? default: parcel.PickedUp == default ? ParcelStatuses.Associated : parcel.Scheduled == default ? ParcelStatuses.Collected : ParcelStatuses.Provided
+                Status = parcel.Scheduled == default ? default : parcel.PickedUp == default ? ParcelStatuses.Associated : parcel.Scheduled == default ?
+                                                                                                                 ParcelStatuses.Collected : ParcelStatuses.Provided
             };
 
             if (type == "sender")
@@ -100,10 +124,6 @@ namespace IBL
 
             return newParcel;
         }
-
-
-        
-
 
         //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -131,47 +151,14 @@ namespace IBL
             return CustomerForList;
         }
 
-
         /// <summary>
-        /// update customer
+        /// The function receives a predicate and returns the list that maintains the predicate
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <param name="phone"></param>
-        public void UpdateCustomer(int id, string name="-1", string phone="-1")
+        /// <param name="predicate"></param>
+        /// <returns>List of CustomerForList that maintain the predicate</returns>
+        public IEnumerable<CustomerForList> GetCustomerForList(Predicate<CustomerForList> predicate)
         {
-
-            IDAL.DO.Customer tempCustomer = dal.GetCustomer(id);
-            dal.DeleteCustomer(id);
-            if (name == "-1")
-            {
-                name = tempCustomer.Name;
-            }
-            if (phone == "-1")
-            {
-                phone = tempCustomer.Phone;
-            }
-            IDAL.DO.Customer customer = new IDAL.DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
-            dal.InsertCustomer(customer);
+            return GetCustomerForList().Where(customer => predicate(customer));
         }
-
-        /// <summary>
-        /// find customer from his id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>if it found</returns>
-        private Customer findCustomer(int id)
-        {
-            foreach (IDAL.DO.Customer item in dal.GetCustomers())
-            {
-                if (item.Id == id)
-                {
-                    return new Customer(item.Id,item.Name,item.Phone,item.Longitude,item.Latitude);
-                }
-            }
-            return null;
-        }
-
-        
     }
 }
