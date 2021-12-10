@@ -14,8 +14,9 @@ namespace IBL
 {
     public partial interface IBL
     {
-        public IEnumerable<CustomerForList> GetCustomerForList();
         public void AddCustomer(Customer tempCustomer);
         public Customer GetBLCustomer(int id);
+        public IEnumerable<CustomerForList> GetCustomerForList();
+        public IEnumerable<CustomerForList> GetCustomerForList(Predicate<CustomerForList> predicate);
     }
 }

@@ -124,7 +124,7 @@ namespace ConsoleUI_BL
 
                     break;
                 case ListOptions.AvailableChargingStations:
-                    foreach (var item in bl.GetAvaBaseStationForList())
+                    foreach (var item in bl.GetBaseStationForList(s => s.AvailableChargingPorts > 0))
                     {
                         Console.WriteLine(item);
                     }

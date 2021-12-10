@@ -218,7 +218,7 @@ namespace IBL
                         }
                     }
                 }
-                Customer customer = findCustomer(parcel.TargetId);
+                Customer customer = GetBLCustomer(parcel.TargetId);
                 drones[index].Battery -= (minBattery(drone.Location,customer.Location,drone.Status,drone.MaxWeight) + 1);
                 drones[index].Location = customer.Location;
                 parcel.Delivered = DateTime.Now;
@@ -461,8 +461,8 @@ namespace IBL
                     return new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
                 }
             }
-            int randNumber = rand.Next(dal.GetCustomersProvided().Count());
-            var randomCustomerProvided = (dal.GetCustomersProvided().ToList())[randNumber];
+            int randNumber = rand.Next((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).Count()));
+            var randomCustomerProvided = ((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).ToList()))[randNumber];
             return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
         }
 

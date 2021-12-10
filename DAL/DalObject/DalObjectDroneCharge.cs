@@ -10,14 +10,14 @@ namespace DalObject
 {
     public partial class DalObject
     {
-        //------------------------------------------Add------------------------------------------
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
         /// Add a drone charge to the list of drones charge
         /// </summary>
         /// </summary>
         /// <param name="droneCharge">The drone charge for Adding</param>
         public void InsertDroneCharge(DroneCharge droneCharge)
-        {           
+        {
             if (!(uniqueIDTaxCheck(DataSource.droneCharges, droneCharge.DroneId)))
             {
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a Drone Charge - DAL");
@@ -25,6 +25,8 @@ namespace DalObject
             DataSource.droneCharges.Add(droneCharge);
         }
 
+
+        //--------------------------------------------Update-------------------------------------------------------------------------------------------
         // <summary>
         /// Sending a drone for charging at a base station By changing the drone mode and adding a record of a drone battery charging entity
         /// </summary>
@@ -50,31 +52,6 @@ namespace DalObject
             }
         }
 
-        //---------------------------------------------Return item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function returns a specific drone charge
-        /// </summary>
-        /// <param name="droneId">Drone ID</param>
-        /// <returns>The specific drone charge</returns>
-        public DroneCharge GetDroneCharge(int droneId)
-        {
-            var droneCharge = DataSource.droneCharges.First(dc => dc.DroneId == droneId);
-            if (droneCharge.GetType().Equals(default))
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Get drone -DAL-: There is no suitable customer in data");
-            return droneCharge;
-        }
-
-        //---------------------------------------------Return list----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function returns the drones charge list
-        /// </summary>
-        /// <returns>The drones charge list</returns>
-        public IEnumerable<DroneCharge> GetDronesCharges()
-        {
-            return DataSource.droneCharges.Select(drone => drone.Clone()).ToList();
-        }
-
-
         /// <summary>
         /// Release drone from charging at base station
         /// </summary>
@@ -88,23 +65,48 @@ namespace DalObject
             DataSource.droneCharges.Remove(GetDroneCharge(droneId));
         }
 
-
         /// <summary>
-        /// The function returns the list of indexes to skimmers that are charging at a particular station
+        /// update release
         /// </summary>
-        /// <param name="baseStationId"></param>
-        /// <returns>The Index list</returns>
-        public List<int> GetDronechargingInStation(int baseStationId)
+        /// <param name="id"></param>
+        public void UpdateRelease(int id)
         {
-            List<int> list = new List<int>();
-            foreach (var item in DataSource.droneCharges)
-            {
-                if (item.StationId == baseStationId)
-                    list.Add(item.DroneId);
-            }
-            return list;
+            DataSource.droneCharges.RemoveAll(item => id == item.DroneId);
+        }
+        //---------------------------------------------Show item-----------------------------------------------------------------------------------------
+        /// The function returns a specific drone charge
+        /// </summary>
+        /// <param name="droneId">Drone ID</param>
+        /// <returns>The specific drone charge</returns>
+        public DroneCharge GetDroneCharge(int droneId)
+        {
+            var droneCharge = DataSource.droneCharges.First(dc => dc.DroneId == droneId);
+            if (droneCharge.GetType().Equals(default))
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Get drone -DAL-: There is no suitable customer in data");
+            return droneCharge;
         }
 
+        //---------------------------------------------Show list--------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function returns the drones charge list
+        /// </summary>
+        /// <returns>The drones charge list</returns>
+        public IEnumerable<DroneCharge> GetDronesCharges()
+        {
+            return DataSource.droneCharges.Select(drone => drone.Clone()).ToList();
+        }
+
+        /// <summary>
+        /// The function receives a predicate and returns the list that maintains the predicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>List of DroneCharge that maintain the predicate</returns>
+        public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate)
+        {
+            return DataSource.droneCharges.Where(droneCharge => predicate(droneCharge)).ToList();
+        }
+
+        //---------------------------------------------Extensions functions---------------------------------------------------------------------------
         /// <summary>
         /// The function returns how many stations are occupied at a particular station
         /// </summary>
@@ -119,16 +121,6 @@ namespace DalObject
                     ++count;
             }
             return count;
-        }
-
-
-        /// <summary>
-        /// update release
-        /// </summary>
-        /// <param name="id"></param>
-        public void UpdateRelease(int id)
-        {          
-            DataSource.droneCharges.RemoveAll(item=>id == item.DroneId);
         }
     }
 }

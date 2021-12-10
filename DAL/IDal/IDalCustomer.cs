@@ -12,8 +12,8 @@ namespace IDAL
         public void InsertCustomer(Customer customer);
         public Customer GetCustomer(int idCustomer);
         public IEnumerable<Customer> GetCustomers();
+        public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate);
         public void DeleteCustomer(int id);
-        public IEnumerable<Customer> GetCustomersProvided();
         public Customer customerByDrone(int ParcelDeliveredId);
         public Customer FindSenderCustomerByDroneId(int DroneId);
     }

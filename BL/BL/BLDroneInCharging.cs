@@ -16,17 +16,17 @@ namespace IBL
         /// <returns>The list of drones in charge</returns>
         private List<DroneInCharging> DronesInCharging(int id)
         {
-            List<int> list = dal.GetDronechargingInStation(id);
+            List<IDAL.DO.DroneCharge> list = (List<IDAL.DO.DroneCharge>)dal.GetDronesCharges(droneCharge => droneCharge.StationId == id);
             if (list.Count == 0)
                 return new();
             List<DroneInCharging> droneInChargings = new();
             DroneForList droneToList;
-            foreach (var idDrone in list)
+            foreach (var drone in list)
             {
-                droneToList = drones.FirstOrDefault(item => (item.Id == idDrone));
+                droneToList = drones.FirstOrDefault(item => (item.Id == drone.DroneId));
                 if (droneToList != default)
                 {
-                    droneInChargings.Add(new DroneInCharging() { Id = idDrone, Battery = droneToList.Battery });
+                    droneInChargings.Add(new DroneInCharging() { Id = drone.DroneId, Battery = droneToList.Battery });
                 }
             }
             return droneInChargings;

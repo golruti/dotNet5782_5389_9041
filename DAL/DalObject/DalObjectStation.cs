@@ -9,7 +9,8 @@ namespace DalObject
 {
     public partial class DalObject
     {
-        //------------------------------------------Add------------------------------------------
+
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
         /// Add a base station to the array of stations
         /// </summary>
@@ -23,12 +24,17 @@ namespace DalObject
             DataSource.stations.Add(station);
         }
 
-
-        //------------------------------------------Display------------------------------------------
-        /// <summary>
-        /// Removes a station from an array of stations by id
+        //---------------------------------------------Update--------------------------------------------------------------------------------------------
+        /// delete base station from list
         /// </summary>
-        /// <param name="idxStation">struct of station</param>
+        /// <param name="id"></param>
+        public void DeleteBaseStation(int id)
+        {
+
+            DataSource.stations.Remove(GetStation(id));
+        }
+
+        //---------------------------------------------Show item----------------------------------------------------------------------------------------
         /// <returns>base station</returns>
         public BaseStation GetStation(int idStation)
         {
@@ -38,36 +44,19 @@ namespace DalObject
             return station;
         }
 
-
+        //---------------------------------------------Show list----------------------------------------------------------------------------------------
         /// <summary>
         /// The function prepares a new array of all existing stations
         /// </summary>
         /// <returns>array of station</returns>
         public IEnumerable<BaseStation> GetBaseStations()
         {
-            return DataSource.stations.Select(station => station.Clone()).ToList();
+            return DataSource.stations.Select(station => station.Clone());
         }
 
-
-        /// <summary>
-        /// Display base stations with available charging stations
-        /// </summary>
-        /// <returns>array of stations</returns>
-        public IEnumerable<BaseStation> GetAvaBaseStations()
+        public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)
         {
-            return DataSource.stations
-                         .Where(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id))
-                         .ToList();
-        }
-
-        /// <summary>
-        /// delete base station from list
-        /// </summary>
-        /// <param name="id"></param>
-        public void DeleteBaseStation(int id)
-        {
-            
-            DataSource.stations.Remove(GetStation(id));
+            return DataSource.stations.Where(station => predicate(station)).ToList();
         }
     }
 }
