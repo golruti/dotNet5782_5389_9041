@@ -22,19 +22,6 @@ namespace IBL.BO
             return $"Parcel #{Id}:, Send Customer={SendCustomer},Receive Customer={ReceiveCustomer}, Weight{Weight}, " +
                 $"Priority{Priority}, Status{Status}";
         }
-
-        //ParcelForList(int id,string sendCustomer,string reciveCustomer,Priorities priority,ParcelStatuses statuses)
-        //{
-        //    Id = id;
-        //    SendCustomer = sendCustomer;
-        //    ReceiveCustomer = reciveCustomer;
-        //    Priority = priority;
-        //    Status = statuses;
-        //}
-        //ParcelForList()
-        //{
-
-        //}
     }
 }
 

@@ -117,7 +117,7 @@ namespace ConsoleUI_BL
 
                     break;
                 case ListOptions.UnAssignmentParcels:
-                    foreach (var item in bl.UnassignedParcelsForList())
+                    foreach (var item in bl.GetParcelForList(parcel => parcel.Status == Enums.ParcelStatuses.Created))
                     {
                         Console.WriteLine(item);
                     }

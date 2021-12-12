@@ -87,7 +87,6 @@ namespace IBL
             };
         }
 
-
         /// <summary>
         /// Convert a BL parcel to Parcel At Customer
         /// </summary>
@@ -121,7 +120,6 @@ namespace IBL
                     Name = parcel.CustomerSender.Name
                 };
             }
-
             return newParcel;
         }
 

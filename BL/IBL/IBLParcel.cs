@@ -16,10 +16,7 @@ namespace IBL
     {
         public void AddParcel(Parcel tempParcel);
         public Parcel GetBLParcel(int parcelId);
-
         public IEnumerable<ParcelForList> GetParcelForList();
-        public IEnumerable<ParcelForList> UnassignedParcelsForList();
-
-        
+        public IEnumerable<ParcelForList> GetParcelForList(Predicate<ParcelForList> predicate);
     }
 }

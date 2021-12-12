@@ -40,7 +40,6 @@ namespace IBL
             drones.Add(droneForList);
         }
 
-
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// etrieves the requested drone from the data and converts it to BL drone
@@ -274,21 +273,6 @@ namespace IBL
         }
 
         /// <summary>
-        /// calculate the battary of the drone after charge
-        /// </summary>
-        /// <param name="time">how much time the drone was in charge</param>
-        /// <returns>sum of battary after charge</returns>
-        double BatteryCalculationInCharging(int time)
-        {
-            double battery = time * 0.05;
-            if (battery < 100)
-            {
-                return battery;
-            }
-            return 100;
-        }
-
-        /// <summary>
         /// Release skimmer from charging
         /// </summary>
         /// <param name="droneId">id of drone</param>
@@ -407,12 +391,7 @@ namespace IBL
             }
         }
 
-
-       
-
-
-        //--------------------------------------------Initialize the drone list--------------------------------------------
-
+        //--------------------------------------------Initialize the drone list--------------------------------------------------------
         /// <summary>
         /// The function initialize the location of the drone in the list saved in the BL as required
         /// </summary>
@@ -581,6 +560,21 @@ namespace IBL
                 throw new ArgumentNullException("Get nearst base station -BL-");
             }
             return nearestBaseStation.Clone();
+        }
+
+        /// <summary>
+        /// calculate the battary of the drone after charge
+        /// </summary>
+        /// <param name="time">how much time the drone was in charge</param>
+        /// <returns>sum of battary after charge</returns>
+        double BatteryCalculationInCharging(int time)
+        {
+            double battery = time * 0.05;
+            if (battery < 100)
+            {
+                return battery;
+            }
+            return 100;
         }
     }
 }

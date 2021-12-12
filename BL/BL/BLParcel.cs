@@ -29,7 +29,6 @@ namespace IBL
             dal.InsertParcel(parcel);
         }
 
-
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// Retrieves the requested parcel from the data and converts it to BL parcel
@@ -71,7 +70,45 @@ namespace IBL
             };
         }
 
-        //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Convert a DAL parcel to Parcel In Transfer
+        /// </summary>
+        /// <param name="id">The requested parcel to convert</param>
+        /// <returns>The converted parcel</returns>
+        private ParcelByTransfer CreateParcelInTransfer(int id)
+        {
+            IDAL.DO.Parcel parcel = dal.GetParcel(id);
+            IDAL.DO.Customer sender = dal.GetCustomer(parcel.SenderId);
+            IDAL.DO.Customer target = dal.GetCustomer(parcel.TargetId);
+            return new ParcelByTransfer
+            {
+                Id = id,
+                Weight = (Enums.WeightCategories)parcel.Weight,
+                Priority = (Enums.Priorities)parcel.Priority,
+                ParcelStatus = !parcel.PickedUp.Equals(default),
+                SenderLocation = new Location(sender.Longitude, sender.Latitude),
+                TargetLocation = new Location(target.Longitude, target.Latitude),
+                Distance = Distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
+                Sender = new CustomerDelivery(sender.Id, sender.Name),
+                Target = new CustomerDelivery(target.Id, target.Name)
+            };
+        }
+
+        /// <summary>
+        /// Convert a DAL customer to BL Customer In Parcel
+        /// </summary>
+        /// <param name="parcel">The customer to convert</param>
+        /// <returns>The converted customer</returns>
+        private CustomerDelivery MapCustomerInParcel(IDAL.DO.Customer customer)
+        {
+            return new CustomerDelivery()
+            {
+                Id = customer.Id,
+                Name = customer.Name
+            };
+        }
+
+        //--------------------------------------------Show list--------------------------------------------------------------------            
         /// <summary>
         /// he function returns the parcel list from DAL to the ParcelForList list
         /// </summary>
@@ -102,46 +139,35 @@ namespace IBL
         }
 
         /// <summary>
-        /// get parcel from BL
+        /// The function receives a predicate and returns the list that maintains the predicate
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ParcelForList GetParcelFormList(int id)
+        /// <param name="predicate"></param>
+        /// <returns>List of BaseStationForList that maintain the predicate</returns>
+        public IEnumerable<ParcelForList> GetParcelForList(Predicate<ParcelForList> predicate)
         {
-            List<ParcelForList> parcelsForList = (List<ParcelForList>)GetParcelForList();
-            ParcelForList parcelForList = parcelsForList.Find(item => item.Id == id);
-            return parcelForList;
+            return GetParcelForList().Where(parcel => predicate(parcel));
         }
 
         /// <summary>
-        /// The function returns the list of parcels that have not yet been associated with the drone
-        /// </summary>
-        /// <returns>List of parcels not yet associated with the drone</returns>
-        public IEnumerable<ParcelForList> UnassignedParcelsForList()
+        /// Retrieves the list of parcels from the data and converts it to BL parcel 
+        /// </summaryparfcel
+        /// <returns>A list of parcels to print</returns>
+        private IEnumerable<Parcel> getAllParcels()
         {
-            List<ParcelForList> ParcelsForList = new List<ParcelForList>();
-            foreach (var parcel in dal.GetParcels(parcel => parcel.Droneld == 0))
-            {
-                try
-                {
-                    ParcelsForList.Add(new ParcelForList()
-                    {
-                        Id = parcel.Id,
-                        Weight = (Enums.WeightCategories)parcel.Weight,
-                        Priority = (Enums.Priorities)parcel.Priority,
-                        SendCustomer = getSendCustomerName(parcel),
-                        ReceiveCustomer = getReceiveCustomer(parcel),
-                        Status = getParcelStatus(parcel)
-                    });
-                }
-                catch (ArgumentNullException ex)
-                {
-                    throw new ArgumentNullException("Add Parcel for list -BL-" + ex.Message);
-                }
-            }
-            return ParcelsForList;
+            return dal.GetParcels().Select(Parcel => GetBLParcel(Parcel.Id));
         }
 
+        /// <summary>
+        /// The function receives a predicate and returns the list that maintains the predicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>List of BaseStationForList that maintain the predicate</returns>
+        public IEnumerable<Parcel> getAllParcels(Predicate<Parcel> predicate)
+        {
+            return getAllParcels().Where(parcel => predicate(parcel));
+        }
+
+        //--------------------------------------------Initialize the parcel list--------------------------------------------------------
         /// <summary>
         /// The function returns the parcel status of a particular drone
         /// </summary>
@@ -162,8 +188,6 @@ namespace IBL
             }
             return parcelState.DroneNotAssociated;
         }
-
-
 
         /// <summary>
         /// The function returns the name of the customer who sent the parcel
@@ -193,7 +217,6 @@ namespace IBL
             return (dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId)).Name;
         }
 
-
         /// <summary>
         /// The function returns the status of the parcel-
         /// </summary>
@@ -219,7 +242,6 @@ namespace IBL
             }
         }
 
-
         /// <summary>
         /// The function initializes the ID of the parcel that is in the drone - if any
         /// </summary>
@@ -236,72 +258,5 @@ namespace IBL
             }
             return default(int);
         }
-
-
-
-        /// <summary>
-        /// Convert a DAL parcel to Parcel In Transfer
-        /// </summary>
-        /// <param name="id">The requested parcel to convert</param>
-        /// <returns>The converted parcel</returns>
-        private ParcelByTransfer CreateParcelInTransfer(int id)
-        {
-            IDAL.DO.Parcel parcel = dal.GetParcel(id);
-            IDAL.DO.Customer sender = dal.GetCustomer(parcel.SenderId);
-            IDAL.DO.Customer target = dal.GetCustomer(parcel.TargetId);
-            return new ParcelByTransfer
-            {
-                Id = id,
-                Weight = (Enums.WeightCategories)parcel.Weight,
-                Priority = (Enums.Priorities)parcel.Priority,
-                ParcelStatus = !parcel.PickedUp.Equals(default),
-                SenderLocation = new Location(sender.Longitude, sender.Latitude),
-                TargetLocation = new Location(target.Longitude, target.Latitude),
-                Distance = Distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
-                Sender = new CustomerDelivery(sender.Id, sender.Name),
-                Target = new CustomerDelivery(target.Id, target.Name)
-            };
-        }
-        /// <summary>
-        /// Convert a DAL customer to BL Customer In Parcel
-        /// </summary>
-        /// <param name="parcel">The customer to convert</param>
-        /// <returns>The converted customer</returns>
-        private CustomerDelivery MapCustomerInParcel(IDAL.DO.Customer customer)
-        {
-            return new CustomerDelivery()
-            {
-                Id = customer.Id,
-                Name = customer.Name
-            };
-        }
-
-        /// <summary>
-        /// Retrieves the list of parcels from the data and converts it to BL parcel 
-        /// </summaryparfcel
-        /// <returns>A list of parcels to print</returns>
-        private IEnumerable<Parcel> getAllParcels()
-        {
-            return dal.GetParcels().Select(Parcel => GetParcel(Parcel.Id));
-        }
-
-        /// <summary>
-        /// Retrieves the requested parcel from the data and converts it to BL parcel
-        /// </summary>
-        /// <param name="id">The requested parcel id</param>
-        /// <returns>A Bl parcel to print</returns>
-        public Parcel GetParcel(int id)
-        {
-            try
-            {
-                return mapParcel(dal.GetParcel(id));
-            }
-            catch (KeyNotFoundException ex)
-            {
-
-                throw new KeyNotFoundException(ex.Message);
-            }
-        }
-
     }
 }
