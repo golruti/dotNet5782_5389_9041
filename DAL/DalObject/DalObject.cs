@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public partial class DalObject : IDAL.IDal
+    public sealed partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// constructor
         /// </summary>
-        public DalObject()
+        private DalObject()
         {
             DataSource.Initialize();
         }
