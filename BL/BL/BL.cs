@@ -19,7 +19,7 @@ namespace IBL
         /// </summary>
         public BL()
         {
-            dal = Singleton<DalObject>._instance;
+            dal = Singleton<DalObject.DalObject>.Instance;
             drones = new List<DroneForList>();
             initializeDrones();
             double[] arr = dal.GetElectricityUse();
