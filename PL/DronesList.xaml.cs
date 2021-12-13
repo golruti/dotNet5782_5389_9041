@@ -18,9 +18,9 @@ namespace PL
     /// <summary>
     /// Interaction logic for DroneList.xaml
     /// </summary>
-    public partial class DroneList : Page
+    public partial class DronesList
     {
-        public DroneList()
+        public DronesList(IBL.IBL bl)
         {
             InitializeComponent();
         }
