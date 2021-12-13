@@ -22,26 +22,26 @@ namespace PL
         /// <summary>
         /// Interaction logic for Main.xaml
         /// </summary>
-        public partial class Main : Page
+    public partial class Main : Page
+    {
+        private IBL.IBL bl = new IBL.BL();
+        public Main()
         {
-            private IBL.IBL bl = new IBL.BL();
-            public Main()
-            {
-                InitializeComponent();
-            }
-            private void ShowDroneList(object sender, RoutedEventArgs e)
-            {
+            InitializeComponent();
+        }
+        private void ShowDroneList(object sender, RoutedEventArgs e)
+        {
                 DronesList droneList = new DronesList();
-                droneList.NavigationService.Navigate(droneList);
-            }
+            droneList.NavigationService.Navigate(droneList);
+        }
 
-            private void ShowDrone(object sender, RoutedEventArgs e)
-            {
-
-                Drone drone = new Drone();
+        private void ShowDrone(object sender, RoutedEventArgs e)
+        {
+           
+            Drone drone = new Drone();
                 drone.NavigationService.Navigate(drone);
             
-            }
         }
+    }
     
 }
