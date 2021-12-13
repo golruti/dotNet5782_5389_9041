@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public sealed partial class DalObject : IDAL.IDal
+    public sealed partial class DalObject : Singleton.Singleton<DalObject>,IDAL.IDal
     {
         /// <summary>
         /// constructor
