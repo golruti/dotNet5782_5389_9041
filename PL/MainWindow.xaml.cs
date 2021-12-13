@@ -19,7 +19,7 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class MainWindow : Window
     {
         //private IBL.IBL bl = Singleton<IBL.BL>.Instance;
         private IBL.IBL bl = new IBL.BL();
