@@ -33,7 +33,6 @@ namespace PL
         {
             DronesList.ItemsSource = bl.GetDroneForList();
             //DroneList.
-            int x = 10;
         }
 
         private void ShowDrone(object sender, RoutedEventArgs e)
