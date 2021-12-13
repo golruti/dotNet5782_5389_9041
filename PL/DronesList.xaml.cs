@@ -23,7 +23,8 @@ namespace PL
     {
         IBL.IBL bl;
         public DronesList(IBL.IBL bl)
-        {           
+        {
+            
             InitializeComponent();
             this.bl = bl;
             DronesListView.DataContext = bl.GetDroneForList();
@@ -42,7 +43,7 @@ namespace PL
                 DronesListView.ItemsSource = bl.GetDroneForList(drone => drone.MaxWeight == weight);
             }
         }
-
+            
         private void k_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DroneStatuses.SelectedItem == null)

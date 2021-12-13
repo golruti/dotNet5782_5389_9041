@@ -18,11 +18,15 @@ namespace PL
     /// <summary>
     /// Interaction logic for Drone.xaml
     /// </summary>
-    public partial class Drone : Page
+    public partial class Drone : Window
     {
-        public Drone()
+        IBL.IBL bl;
+        public Drone(IBL.IBL bl)
         {
             InitializeComponent();
+            this.bl = bl;
+            //Drone.DataContext = bl.GetDrone();
         }
+        
     }
 }
