@@ -27,14 +27,13 @@ namespace PL
         }
         private void ShowDroneList(object sender, RoutedEventArgs e)
         {
-            DronesList.ItemsSource = bl.GetDroneForList();
             DroneList droneList = new DroneList();
             droneList.NavigationService.Navigate(droneList);
         }
 
         private void ShowDrone(object sender, RoutedEventArgs e)
         {
-            //DroneView.ItemsSource = bl.GetBLDrone();
+           
             Drone drone = new Drone();
             drone.Show();
         }
