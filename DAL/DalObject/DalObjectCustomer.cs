@@ -9,9 +9,7 @@ namespace DalObject
 {
     public partial class DalObject
     {
-
-        //------------------------------------------Add------------------------------------------
-
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
         /// Add a customer to the array of existing customers
         /// </summary>
@@ -25,9 +23,7 @@ namespace DalObject
             DataSource.customers.Add(customer);
         }
 
-
-        //------------------------------------------Display------------------------------------------
-
+        //--------------------------------------------Show item-------------------------------------------------------------------------------------------
         /// <summary>
         /// Removes a customer from an array of customers by id
         /// </summary>
@@ -41,6 +37,7 @@ namespace DalObject
             return customer;
         }
 
+        //--------------------------------------------Show list-------------------------------------------------------------------------------------------
         /// <summary>
         /// The function prepares a new array of all existing customers
         /// </summary>
@@ -50,7 +47,17 @@ namespace DalObject
             return DataSource.customers.Select(customer => customer.Clone()).ToList();
         }
 
+        /// <summary>
+        /// The function receives a predicate and returns the list that maintains the predicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>List of customers that maintain the predicate</returns>
+        public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate)
+        {
+            return DataSource.customers.Where(customer => predicate(customer)).ToList();
+        }
 
+        //--------------------------------------------Update-------------------------------------------------------------------------------------------
         /// <summary>
         /// The function deletes a specific customer
         /// </summary>
@@ -63,26 +70,7 @@ namespace DalObject
             DataSource.customers.Remove(customer);
         }
 
-        /// <summary>
-        /// The function returns the list of customers who have been provided with parcels
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Customer> GetCustomersProvided()
-        {
-            List<Customer> customerProvided = new List<Customer>();
-            foreach (var customer in GetCustomers())
-            {
-                foreach (var parcel in GetParcelsProvided())
-                {
-                    if (customer.Id ==parcel.TargetId)
-                    {
-                        customerProvided.Add(customer);
-                    }
-                }         
-            }
-            return customerProvided;
-        }
-
+        //---------------------------------------------Extensions functions---------------------------------------------------------------------------
         /// <summary>
         /// The function finds the customer to whom the parcel in the drone should arrive
         /// </summary>
@@ -93,9 +81,30 @@ namespace DalObject
             var customer = DataSource.customers.FirstOrDefault(customer => customer.Id == ParcelDeliveredId);
             if (customer.Equals(default(Drone)))
                 throw new Exception("Get customer -DAL-: There is no suitable customer in data");
-
             return customer;
         }
+
+
+        /// <summary>
+        /// The function returns the list of customers who have been provided with parcels
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Customer> GetCustomersProvided()
+        {
+            Predicate<Customer> predicate = (customer) => GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any();
+            return GetCustomers(predicate);
+            //List<Customer> customerProvided = new List<Customer>();
+            //foreach (var customer in GetCustomers())
+            //{
+            //    foreach (var parcel in GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId))
+            //    {
+            //            customerProvided.Add(customer);
+            //    }         
+            //}
+            //return customerProvided;
+        }
+
+
 
         /// <summary>
         /// The function finds the customer from whom the package that is in the drone came

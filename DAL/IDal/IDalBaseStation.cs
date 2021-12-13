@@ -12,7 +12,7 @@ namespace IDAL
         public void InsertStation(BaseStation station);
         public BaseStation GetStation(int idStation);
         public IEnumerable<BaseStation> GetBaseStations();
-        public IEnumerable<BaseStation> GetAvaBaseStations();
+        public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate);
         void AddDroneCarge(int droneId, int baseStationId);
         void UpdateRelease(int droneId);
         public void DeleteBaseStation(int id);

@@ -117,14 +117,14 @@ namespace ConsoleUI_BL
 
                     break;
                 case ListOptions.UnAssignmentParcels:
-                    foreach (var item in bl.UnassignedParcelsForList())
+                    foreach (var item in bl.GetParcelForList(parcel => parcel.Status == Enums.ParcelStatuses.Created))
                     {
                         Console.WriteLine(item);
                     }
 
                     break;
                 case ListOptions.AvailableChargingStations:
-                    foreach (var item in bl.GetAvaBaseStationForList())
+                    foreach (var item in bl.GetBaseStationForList(s => s.AvailableChargingPorts > 0))
                     {
                         Console.WriteLine(item);
                     }

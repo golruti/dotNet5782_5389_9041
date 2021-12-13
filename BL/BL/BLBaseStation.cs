@@ -27,6 +27,28 @@ namespace IBL
             }
         }
 
+        //---------------------------------------------Update ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// update base station 
+        /// </summary>
+        /// <param name="id">id of the base station</param>
+        /// <param name="name">name of the base station</param>
+        /// <param name="chargeSlote">sum of charge slote</param>
+        public void UpdateBaseStation(int id, string name = "-1", int chargeSlote = -1)
+        {
+            IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
+            dal.DeleteBaseStation(id);
+            if (name == "-1")
+            {
+                name = tempBaseStation.Name;
+            }
+            if (chargeSlote == -1)
+            {
+                chargeSlote = tempBaseStation.ChargeSlote;
+            }
+            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
+            dal.InsertStation(station);
+        }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -64,7 +86,6 @@ namespace IBL
             };
         }
 
-
         //---------------------------------------------Show list ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// The function returns the base station list from DAL to the BaseStationForList list
@@ -87,46 +108,13 @@ namespace IBL
         }
 
         /// <summary>
-        /// The function return the base stations with available charging stations 
+        /// The function receives a predicate and returns the list that maintains the predicate
         /// </summary>
-        /// <returns> List of Free base stations</returns>
-        public IEnumerable<BaseStationForList> GetAvaBaseStationForList()
+        /// <param name="predicate"></param>
+        /// <returns>List of BaseStationForList that maintain the predicate</returns>
+        public IEnumerable<BaseStationForList> GetBaseStationForList(Predicate<BaseStationForList> predicate)
         {
-            List<BaseStationForList> BaseStationsForList = new List<BaseStationForList>();
-            foreach (var baseStation in dal.GetAvaBaseStations())
-            {
-                BaseStationsForList.Add(new BaseStationForList()
-                {
-                    Id = baseStation.Id,
-                    Name = baseStation.Name,
-                    AvailableChargingPorts = (baseStation.ChargeSlote) - dal.CountFullChargeSlots(baseStation.Id),
-                    UsedChargingPorts = dal.CountFullChargeSlots(baseStation.Id)
-                });
-            }
-            return BaseStationsForList;
+            return GetBaseStationForList().Where(s => predicate(s));
         }
-
-        /// <summary>
-        /// update base station 
-        /// </summary>
-        /// <param name="id">id of the base station</param>
-        /// <param name="name">name of the base station</param>
-        /// <param name="chargeSlote">sum of charge slote</param>
-        public void UpdateBaseStation(int id, string name="-1", int chargeSlote=-1)
-        {
-            IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
-            dal.DeleteBaseStation(id);
-            if (name == "-1")
-            {
-                name = tempBaseStation.Name;
-            }
-            if (chargeSlote == -1)
-            {
-                chargeSlote = tempBaseStation.ChargeSlote;
-            }
-            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
-            dal.InsertStation(station);
-        }
-
     }
 }

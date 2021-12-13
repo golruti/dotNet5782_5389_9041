@@ -40,7 +40,6 @@ namespace IBL
             drones.Add(droneForList);
         }
 
-
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// etrieves the requested drone from the data and converts it to BL drone
@@ -218,7 +217,7 @@ namespace IBL
                         }
                     }
                 }
-                Customer customer = findCustomer(parcel.TargetId);
+                Customer customer = GetBLCustomer(parcel.TargetId);
                 drones[index].Battery -= (minBattery(drone.Location,customer.Location,drone.Status,drone.MaxWeight) + 1);
                 drones[index].Location = customer.Location;
                 parcel.Delivered = DateTime.Now;
@@ -271,21 +270,6 @@ namespace IBL
             {
                 throw new ArgumentNullException("the drone not available -BL-");
             }
-        }
-
-        /// <summary>
-        /// calculate the battary of the drone after charge
-        /// </summary>
-        /// <param name="time">how much time the drone was in charge</param>
-        /// <returns>sum of battary after charge</returns>
-        double BatteryCalculationInCharging(int time)
-        {
-            double battery = time * 0.05;
-            if (battery < 100)
-            {
-                return battery;
-            }
-            return 100;
         }
 
         /// <summary>
@@ -407,12 +391,7 @@ namespace IBL
             }
         }
 
-
-       
-
-
-        //--------------------------------------------Initialize the drone list--------------------------------------------
-
+        //--------------------------------------------Initialize the drone list--------------------------------------------------------
         /// <summary>
         /// The function initialize the location of the drone in the list saved in the BL as required
         /// </summary>
@@ -461,8 +440,8 @@ namespace IBL
                     return new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
                 }
             }
-            int randNumber = rand.Next(dal.GetCustomersProvided().Count());
-            var randomCustomerProvided = (dal.GetCustomersProvided().ToList())[randNumber];
+            int randNumber = rand.Next((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).Count()));
+            var randomCustomerProvided = ((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).ToList()))[randNumber];
             return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
         }
 
@@ -581,6 +560,21 @@ namespace IBL
                 throw new ArgumentNullException("Get nearst base station -BL-");
             }
             return nearestBaseStation.Clone();
+        }
+
+        /// <summary>
+        /// calculate the battary of the drone after charge
+        /// </summary>
+        /// <param name="time">how much time the drone was in charge</param>
+        /// <returns>sum of battary after charge</returns>
+        double BatteryCalculationInCharging(int time)
+        {
+            double battery = time * 0.05;
+            if (battery < 100)
+            {
+                return battery;
+            }
+            return 100;
         }
     }
 }

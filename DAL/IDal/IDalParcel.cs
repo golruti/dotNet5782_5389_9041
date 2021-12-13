@@ -12,10 +12,9 @@ namespace IDAL
         public void InsertParcel(Parcel parcel);
         public Parcel GetParcel(int idParcel);
         public IEnumerable<Parcel> GetParcels();
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate);
         public void UpdateParcelPickedUp(int idParcel);
         public void UpdateParcelDelivered(int idParcel);
-        public IEnumerable<Parcel> UnassignedParcels();
-        public IEnumerable<Parcel> GetParcelsProvided();
         public void DeleteParcel(int id);
         public void UpdatePickedUp(Parcel parcel);
         public void UpdateSupply(Parcel parcel);

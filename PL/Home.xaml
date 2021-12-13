@@ -1,0 +1,25 @@
+﻿<Page x:Class="PL.Home"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PL"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Home">
+    <Grid Name="links">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="400*"/>
+        </Grid.RowDefinitions>
+        <Button Content="show drone list" HorizontalAlignment="Left" Margin="31,10,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-1.813,-7.832" Height="49" Width="190" Click="ShowDroneLis"/> 
+        <!--<Grid.Row="0"-->
+    </Grid>
+
+
+    <!--<Hyperlink NavigateUri="DroneList.xaml" Grid.row="0">drone list</Hyperlink>
+        <Hyperlink NavigateUri="Drone.xaml" >drone</Hyperlink>-->
+
+
+
+</Page>

@@ -9,8 +9,7 @@ namespace DalObject
 {
     public partial class DalObject
     {
-
-        //------------------------------------------Add------------------------------------------
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
         /// Add a drone to the array of existing drones
         /// </summary>
@@ -24,8 +23,20 @@ namespace DalObject
             DataSource.drones.Add(drone);
         }
 
+        //--------------------------------------------Update-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function deletes a specific drone
+        /// </summary>
+        /// <param name="droneId">drone ID</param>
+        public void DeleteDrone(int droneId)
+        {
+            var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
+            if (drone.Equals(default(Drone)))
+                throw new Exception("Delete drone -DAL-: There is no suitable customer in data");
+            DataSource.drones.Remove(drone);
+        }
 
-        //------------------------------------------Display------------------------------------------
+        //--------------------------------------------Show item-------------------------------------------------------------------------------------------
         /// <summary>
         /// Removes a drone from an array of drones by id
         /// </summary>
@@ -39,7 +50,7 @@ namespace DalObject
             return drone;
         }
 
-
+        //--------------------------------------------Show list-------------------------------------------------------------------------------------------
         /// <summary>
         /// The function prepares a new array of all existing drones
         /// </summary>
@@ -49,38 +60,14 @@ namespace DalObject
             return DataSource.drones.Select(drone => drone.Clone()).ToList();
         }
 
-
         /// <summary>
-        /// The function deletes a specific drone
+        /// The function receives a predicate and returns the list that maintains the predicate
         /// </summary>
-        /// <param name="droneId">drone ID</param>
-        public void DeleteDrone(int droneId)
+        /// <param name="predicate"></param>
+        /// <returns>List of Drone that maintain the predicate</returns>
+        public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate)
         {
-            var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
-            if (drone.Equals(default(Drone)))
-                throw new Exception("Delete drone -DAL-: There is no suitable customer in data");
-            DataSource.drones.Remove(drone);
-        }
-
-
-        //שיוך חבילה לרחפן
-        /// Assigning a parcel to a drone
-        /// </summary>
-        /// //לבדוק אם גם המשקל נכון והרחפן יכול לקחת אותה 
-        /// <param name = "idxParcel" > Id of the parcel</param>
-        public void UpdateParcelScheduled(int idxParcel)
-        {
-            //for (int i = 0; i < DataSource.drones.Count(); ++i)
-            //{
-            //    if (DataSource.drones[i].Status == IDAL.DO.Enum.DroneStatuses.Available)
-            //    {
-            //        DataSource.parcels[idxParcel].Scheduled = new DateTime();
-            //        DataSource.parcels[idxParcel].Droneld = DataSource.drones[i].Id;
-            //        DataSource.drones[i].Status = IDAL.DO.Enum.DroneStatuses.Maintenance;
-            //        DataSource.drones[i].MaxWeight = DataSource.parcels[idxParcel].Weight;
-            //        break;
-            //    }
-            //}
+            return DataSource.drones.Where(drone => predicate(drone)).ToList();
         }
     }
 }

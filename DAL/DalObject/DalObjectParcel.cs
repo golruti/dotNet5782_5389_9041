@@ -9,8 +9,7 @@ namespace DalObject
 {
     public partial class DalObject
     {
-
-        //------------------------------------------Add------------------------------------------
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
         /// Receipt of parcel for shipment.
         /// </summary>
@@ -26,8 +25,7 @@ namespace DalObject
             DataSource.parcels.Add(parcel);
         }
 
-
-        //------------------------------------------Display------------------------------------------
+        //--------------------------------------------Show item-------------------------------------------------------------------------------------------
         /// <summary>
         /// Exits a parcel from an array of parcels by id
         /// </summary>
@@ -41,6 +39,7 @@ namespace DalObject
             return parcel;
         }
 
+        //--------------------------------------------Show list---------------------------------------------------------------------------------------
         /// <summary>
         /// The function prepares a new array of all existing parcels
         /// </summary>
@@ -50,6 +49,17 @@ namespace DalObject
             return DataSource.parcels.Select(parcel => parcel.Clone()).ToList();
         }
 
+        /// <summary>
+        /// The function receives a predicate and returns the list that maintains the predicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>List of Parsel that maintain the predicate</returns>
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
+        {
+            return DataSource.parcels.Where(drone => predicate(drone)).ToList();
+        }
+
+        //--------------------------------------------Update-------------------------------------------------------------------------------------------
         public void DeleteParcel(int id)
         {
             var parcel = DataSource.parcels.FirstOrDefault(d => d.Id == id);
@@ -60,7 +70,6 @@ namespace DalObject
 
         /// <summary>
         /// Package assembly by drone
-        ///   //אסיפת חבילה עי רחפן
         /// </summary>
         /// <param name="idParcel">Id of the parcel</param>
         public void UpdateParcelPickedUp(int idParcel)
@@ -75,7 +84,6 @@ namespace DalObject
                 }
             }
         }
-
 
         /// <summary>
         /// Delivery of a parcel to the destination
@@ -95,38 +103,10 @@ namespace DalObject
             }
         }
 
-
-
-        /// <summary>
-        /// Displays a list of packages that have not yet been assigned to the glider
-        /// </summary>
-        /// <returns>array of parcels that have not yet been assigned to the glider</returns>
-        public IEnumerable<Parcel> UnassignedParcels()
-        {
-            return new List<Parcel>(DataSource.parcels.Where(parcel => parcel.Droneld == 0).ToList());
-        }
-
         static int Index = 0;
         int IncreastNumberIndea()
         {
             return ++Index;
-        }
-
-        /// <summary>
-        /// The function returns the list of parcels provided to customers
-        /// </summary>
-        /// <returns>The list of parcels provided </returns>
-        public IEnumerable<Parcel> GetParcelsProvided()
-        {
-            List<Parcel> parcelProvided = new List<Parcel>();
-            foreach (var parcel in GetParcels())
-            {
-                if (!(parcel.Delivered.Equals(default(DateTime))))
-                {
-                    parcelProvided.Add(parcel);
-                }
-            }
-            return parcelProvided;
         }
 
         /// <summary>
@@ -142,7 +122,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// ופגשאק Delivery of a package by skimmer
+        /// update Delivery of a package by skimmer
         /// </summary>
         /// <param name="parcel">the parcel to update</param>
         public void UpdateSupply(Parcel parcel)
@@ -155,11 +135,9 @@ namespace DalObject
             catch
             {
                 throw new Exception("Get parcel -DAL-: There is no suitable parcel in data");
-            }
-           
+            }         
             tempParcel.Delivered = parcel.Delivered;
             DataSource.parcels.Add(tempParcel);
         }
-
     }
 }
