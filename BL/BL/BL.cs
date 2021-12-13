@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Device.Location;
 using System.Linq;
 using IBL.BO;
+using Singleton;
 using static IBL.BO.Enums;
 
 namespace IBL
 {
-    partial class BL : IBL
+    partial class BL : Singleton.Singleton<BL>, IBL
     {
         private IDAL.IDal dal;
         private List<DroneForList> drones;

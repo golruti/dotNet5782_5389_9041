@@ -18,11 +18,20 @@ namespace PL
     /// <summary>
     /// Interaction logic for DroneList.xaml
     /// </summary>
-    public partial class DroneList : Page
+    public partial class DroneList
     {
+        public IBL.IBL Bl { get; set; }
+        public DroneList(IBL.IBL bl)
+        {
+            Bl = bl;
+            InitializeComponent();
+            
+        }
         public DroneList()
         {
+           
             InitializeComponent();
+
         }
     }
 }

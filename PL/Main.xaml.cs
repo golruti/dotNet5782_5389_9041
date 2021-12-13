@@ -16,13 +16,26 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for Drone.xaml
+    /// Interaction logic for Main.xaml
     /// </summary>
-    public partial class Drone : Window
+    public partial class Main : Page
     {
-        public Drone()
+        private IBL.IBL bl = new IBL.BL();
+        public Main()
         {
             InitializeComponent();
+        }
+        private void ShowDroneList(object sender, RoutedEventArgs e)
+        {
+            DroneList droneList = new DroneList();
+            droneList.NavigationService.Navigate(droneList);
+        }
+
+        private void ShowDrone(object sender, RoutedEventArgs e)
+        {
+           
+            Drone drone = new Drone();
+            drone.Show();
         }
     }
 }
