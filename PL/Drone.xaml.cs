@@ -18,7 +18,7 @@ namespace PL
     /// <summary>
     /// Interaction logic for Drone.xaml
     /// </summary>
-    public partial class Drone : Page
+    public partial class Drone : Window
     {
         IBL.IBL bl;
         public Drone(IBL.IBL bl)

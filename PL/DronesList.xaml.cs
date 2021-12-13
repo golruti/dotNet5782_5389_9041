@@ -27,10 +27,10 @@ namespace PL
             InitializeComponent();
             this.bl = bl;
             DronesListView.DataContext = bl.GetDroneForList();
-
+            
             //DroneWeights.DataContext = Enum.GetValues(typeof(WeightCategories));
             //DroneStatuses.DataContext = Enum.GetValues(typeof(DroneStatus));
-
+            
         }
     }
 }
