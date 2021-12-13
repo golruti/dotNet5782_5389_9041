@@ -1,38 +1,11 @@
-﻿<Window x:Class="PL.MainWindow"
+﻿<NavigationWindow x:Class="PL.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="640" Width="800">
-    <Grid x:Name="MainGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="400*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0"  Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-            <ComboBox SelectedValue="" Grid.Column="1" Name="StatusSelector" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch">
-                <ComboBoxItem Content="Max Weight"></ComboBoxItem>
-                <ComboBoxItem>
-                    <ComboBox Name="StatusDrones"></ComboBox>
-                </ComboBoxItem>
-            </ComboBox>
-            <TextBox Name="TBD" Grid.Column="0"></TextBox>
-        </Grid>
-        <ListView x:Name="DronesList" Grid.Row="1">
-            <Grid Height="100" Width="100"/>
-        </ListView>
-        <!--<ItemView x:Name="DroneView" Grid.Row="1"></ItemView>-->
-        <Button Grid.Row="1" Background="PeachPuff" Content="drone"
-                Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDrone" Margin="86,193,614,143"/>
-        <Button Grid.Row="1" Background="Peru" Content="drones list"
-                Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDroneList" Margin="86,119,614,217"/>
-    </Grid>
-</Window>
+        Title="MainWindow" Height="640" Width="800"
+                  Source="Main.xaml">
+    
+</NavigationWindow>

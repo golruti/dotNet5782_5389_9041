@@ -18,10 +18,10 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : NavigationWindow
     {
         //// לשנות לפי סינגלטון
-        private IBL.IBL bl = new IBL.BL();
+        
 
         public MainWindow()
         {
@@ -29,16 +29,6 @@ namespace PL
             //StatusDrones.ItemsSource = Enum.GetValues(typeof(BL.Enum.DroneStatuses));
         }
 
-        private void ShowDroneList(object sender, RoutedEventArgs e)
-        {
-            DronesList.ItemsSource = bl.GetDroneForList();
-            //DroneList.
-        }
-
-        private void ShowDrone(object sender, RoutedEventArgs e)
-        {
-            //DroneView.ItemsSource = bl.GetBLDrone();
-            //new DroneList(bl).Show();
-        }
+        
     }
 }

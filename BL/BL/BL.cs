@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Device.Location;
 using System.Linq;
 using IBL.BO;
+using Singleton;
 using static IBL.BO.Enums;
 
 namespace IBL
 {
-    partial class BL : IBL
+    partial class BL :Singleton.Singleton<BL>, IBL
     {
         private IDAL.IDal dal;
         private List<DroneForList> drones;
@@ -20,7 +21,6 @@ namespace IBL
         public BL()
         {
             dal = Singleton<DalObject.DalObject>.Instance;
-            drones = new List<DroneForList>();
             initializeDrones();
             double[] arr = dal.GetElectricityUse();
             double available = arr[0];
