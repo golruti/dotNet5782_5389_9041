@@ -91,7 +91,15 @@ namespace IBL
             return drones;
         }
 
-
+        /// <summary>
+        /// The function receives a predicate and returns the list that maintains the predicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>List of DroneForList that maintain the predicate</returns>
+        public IEnumerable<DroneForList> GetDroneForList(Predicate<DroneForList> predicate)
+        {
+            return GetDroneForList().Where(s => predicate(s));
+        }
 
         //--------------------------------------------Update------------------------------------------------------------------------------------------
         /// <summary>
@@ -151,7 +159,6 @@ namespace IBL
                             parcelId = tempParcel.Id;
                         }
                     }
-                    bool exist = false;
                     if(GetParcelForList().All(item=>item.Status== ParcelStatuses.Associated))
                     {
                         IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
@@ -205,7 +212,7 @@ namespace IBL
                 {
                     if (item.Id == drone.ParcelDeliveredId)
                     {
-                        if (item.PickedUp != default(DateTime) && item.Delivered == default(DateTime))
+                        if (item.PickedUp != null && item.Delivered == default(DateTime))
                         {
 
 
@@ -470,7 +477,7 @@ namespace IBL
             foreach (var parcel in dal.GetParcels())
             {
                 if (parcel.Droneld == droneId &&
-                    !(parcel.Requested.Equals(default(DateTime))) && parcel.Delivered.Equals(default(DateTime)))
+                    !(parcel.Requested.Equals(null)) && parcel.Delivered.Equals(default(DateTime)))
                 {
                     return true;
                 }

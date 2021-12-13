@@ -16,6 +16,7 @@ namespace IBL
     {
         public Drone GetBLDrone(int id);
         public IEnumerable<DroneForList> GetDroneForList();
+        public IEnumerable<DroneForList> GetDroneForList(Predicate<DroneForList> predicate);
         public void UpdateDroneModel(int id, string model);
         public void PackageCollection(int Id);
         public void PackageDelivery(int id);

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL
+namespace WpfApp1
 {
     /// <summary>
-    /// Interaction logic for DroneList.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class DroneList : Page
+    public partial class MainWindow : Window
     {
-        public DroneList()
+        public MainWindow()
         {
             InitializeComponent();
         }
