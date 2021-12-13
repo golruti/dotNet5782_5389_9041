@@ -177,11 +177,11 @@ namespace IBL
         {
             foreach (var parcel in dal.GetParcels())
             {
-                if (!(parcel.Scheduled.Equals(default(DateTime))) && parcel.PickedUp.Equals(default(DateTime)))
+                if (!(parcel.Scheduled.Equals(null)) && parcel.PickedUp.Equals(null))
                 {
                     return parcelState.associatedNotCollected;
                 }
-                if (!parcel.PickedUp.Equals(default(DateTime)) && parcel.Delivered.Equals(default(DateTime)))
+                if (!parcel.PickedUp.Equals(null) && parcel.Delivered.Equals(null))
                 {
                     return parcelState.collectedNotDelivered;
                 }
@@ -224,15 +224,15 @@ namespace IBL
         /// <returns>The parcel status</returns>
         private BO.Enums.ParcelStatuses getParcelStatus(IDAL.DO.Parcel parcel)
         {
-            if (!(parcel.Requested.Equals(default(DateTime))))
+            if (!(parcel.Requested.Equals(null)))
             {
                 return Enums.ParcelStatuses.Created;
             }
-            else if (parcel.Scheduled.Equals(default(DateTime)) && parcel.PickedUp.Equals(default(DateTime)) && parcel.Delivered.Equals(default(DateTime)))
+            else if (parcel.Scheduled.Equals(null) && parcel.PickedUp.Equals(null) && parcel.Delivered.Equals(null))
             {
                 return Enums.ParcelStatuses.Associated;
             }
-            else if (!(parcel.PickedUp.Equals(default(DateTime))) && parcel.Delivered.Equals(default(DateTime)))
+            else if (!(parcel.PickedUp.Equals(null)) && parcel.Delivered.Equals(null))
             {
                 return Enums.ParcelStatuses.Collected;
             }

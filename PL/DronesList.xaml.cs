@@ -12,22 +12,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Singleton;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for DroneList.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class DronesList:Page
     {
-       
-        public MainWindow()
+        public IBL.IBL Bl { get; set; }
+        public DronesList(IBL.IBL bl)
         {
+            Bl = bl;
             InitializeComponent();
-            //StatusDrones.ItemsSource = Enum.GetValues(typeof(BL.Enum.DroneStatuses));
+            DronesListView.ItemsSource = bl.GetDroneForList();
         }
-
-       
+        public DronesList()
+        {
+            
+            InitializeComponent();
+            
+        }
     }
 }
