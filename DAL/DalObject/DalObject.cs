@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Singleton;
 namespace DalObject
 {
     public sealed partial class DalObject : Singleton.Singleton<DalObject>,IDAL.IDal

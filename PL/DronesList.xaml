@@ -26,10 +26,16 @@
             <ComboBox Grid.Column="2" x:Name="DroneStatuses" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch"/>
             <ComboBox Grid.Column="3" Name="StatusSelector4" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch"/>
 
+            <!--<ComboBoxItem Content="Max Weight"></ComboBoxItem>
+                <ComboBoxItem>
+                    <ComboBox Name="StatusDrones"></ComboBox>
+                </ComboBoxItem>
+            </ComboBox>-->
+
         </Grid>
         <ListView  x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1">
             <ListView.View>
-                
+            
             </ListView.View>
         </ListView>
 

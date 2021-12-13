@@ -23,13 +23,14 @@ namespace PL
     {
         IBL.IBL bl;
         public DronesList(IBL.IBL bl)
-        {           
+        {
+            
             InitializeComponent();
             this.bl = bl;
             DronesListView.DataContext = bl.GetDroneForList();
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
             //DroneStatuses.DataContext = Enum.GetValues(typeof(Enums.DroneStatuses));
-
+            
         }
     }
 }
