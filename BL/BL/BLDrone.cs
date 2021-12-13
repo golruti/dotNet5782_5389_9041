@@ -151,6 +151,7 @@ namespace IBL
                             parcelId = tempParcel.Id;
                         }
                     }
+
                     if(GetParcelForList().All(item=>item.Status== ParcelStatuses.Associated))
                     {
                         IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
