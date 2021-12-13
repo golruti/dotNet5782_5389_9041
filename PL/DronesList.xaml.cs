@@ -20,9 +20,12 @@ namespace PL
     /// </summary>
     public partial class DronesList
     {
+        public IBL.IBL Bl { get; set; }
         public DronesList(IBL.IBL bl)
         {
+            Bl = bl;
             InitializeComponent();
+            Drone
         }
     }
 }

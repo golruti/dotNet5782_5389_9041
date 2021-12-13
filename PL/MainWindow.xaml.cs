@@ -21,7 +21,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private IBL.IBL bl = Singleton<IBL.BL>.Instance;
+        // IBL.IBL bl = Singleton<IBL.BL>.Instance;
         private IBL.IBL bl = new IBL.BL();
 
         public MainWindow()
