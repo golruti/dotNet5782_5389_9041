@@ -17,7 +17,7 @@ namespace IBL
         void UpdateCustomer(int customerId, string name, string phone);
         void ReleaseDroneFromRecharge(int droneId, int time);
         void SendDroneToRecharge(int droneId);
-        void AddDrone(Drone drone);
+        void AddDrone(int id, int stationId, Enums.WeightCategories maxWeight, string model);
         void AssignPackageToSkimmer(int droneId);
     }
 }

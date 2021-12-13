@@ -15,8 +15,9 @@ namespace IBL
         /// Add a drone to the list of drones
         /// </summary>
         /// <param name="tempDrone">The customer for Adding</param>
-        public void AddDrone(Drone tempDrone)
+        public void AddDrone(int id,int stationId, Enums.WeightCategories maxWeight,string model)
         {
+            Drone tempDrone = new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), GetBLBaseStation(stationId).Location.Longitude, GetBLBaseStation(stationId).Location.Latitude);
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDrone.Id, tempDrone.Model, (IDAL.DO.Enum.WeightCategories)tempDrone.MaxWeight);
             try
             {
