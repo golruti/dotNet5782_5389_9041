@@ -11,7 +11,7 @@ namespace IBL
     partial class BL : Singleton.Singleton<BL>, IBL
     {
         private IDAL.IDal dal;
-        private List<DroneForList> drones;
+        private List<DroneForList> drones =new List<DroneForList>();
         private static Random rand = new Random();
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
 
@@ -35,6 +35,7 @@ namespace IBL
         /// </summary>
         private void initializeDrones()
         {
+            drones.Add(new DroneForList());
             foreach (var drone in dal.GetDrones())
             {
                 drones.Add(new DroneForList

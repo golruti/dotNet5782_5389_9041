@@ -19,15 +19,19 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+    
     public partial class MainWindow : Window
     {
-        //private IBL.IBL bl = Singleton<IBL.BL>.Instance;
+
         private IBL.IBL bl = new IBL.BL();
+        //private IBL.IBL bl = Singleton<IBL.BL>.Instance;
+        //
 
         public MainWindow()
         {
             InitializeComponent();
-            //StatusDrones.ItemsSource = Enum.GetValues(typeof(BL.Enum.DroneStatuses));
+
         }
 
         private void ShowDroneListWindow(object sender, RoutedEventArgs e)
