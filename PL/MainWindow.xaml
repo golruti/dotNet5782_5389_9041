@@ -5,32 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="640" >
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="400*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0"  Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-            <ComboBox SelectedValue="" Grid.Column="1" Name="StatusSelector" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch">
-                <ComboBoxItem Content="Max Weight"></ComboBoxItem>
-                <ComboBoxItem>
-                    <ComboBox Name="StatusDrones"></ComboBox>
-                </ComboBoxItem>
-            </ComboBox>
-            <TextBox Name="TBD" Grid.Column="0"></TextBox>
-        </Grid>
-        <ListView x:Name="DronesList" Grid.Row="1"></ListView>
-        <!--<ItemView x:Name="DroneView" Grid.Row="1"></ItemView>-->
-        <Button Grid.Row="1" Background="PeachPuff" Content="drone"
-                Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDrone" Margin="86,193,614,143"/>
-        <Button Grid.Row="1" Background="Peru" Content="drones list"
-                Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDroneList" Margin="86,119,614,217"/>
+        <StackPanel Orientation="Horizontal" >
+        <Button Background="PeachPuff" Content="drone"
+                Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDrone" Margin="42,9"/>
+        <Button Background="Peru" Content="drones list"
+                Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDroneListWindow" Margin="42,9"/>
+        </StackPanel>
     </Grid>
 </Window>
