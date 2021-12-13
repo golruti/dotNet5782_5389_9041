@@ -280,7 +280,7 @@ namespace ConsoleUI_BL
                         String model = Console.ReadLine();
                         bl.GetBLBaseStation(stationId);
 
-                        bl.AddDrone(new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetBLBaseStation(stationId).Location.Longitude, bl.GetBLBaseStation(stationId).Location.Latitude));
+                        bl.AddDrone(id,stationId, (Enums.WeightCategories)maxWeight, model);
                     }
                     else
                     {
