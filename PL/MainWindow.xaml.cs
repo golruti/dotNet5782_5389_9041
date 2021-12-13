@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Singleton;
 
 namespace PL
 {
@@ -20,7 +21,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        //// לשנות לפי סינגלטון
+        //private IBL.IBL bl = Singleton<IBL.BL>.Instance;
         private IBL.IBL bl = new IBL.BL();
 
         public MainWindow()
@@ -29,16 +30,15 @@ namespace PL
             //StatusDrones.ItemsSource = Enum.GetValues(typeof(BL.Enum.DroneStatuses));
         }
 
-        private void ShowDroneList(object sender, RoutedEventArgs e)
+        private void ShowDroneListWindow(object sender, RoutedEventArgs e)
         {
-            DronesList.ItemsSource = bl.GetDroneForList();
-            DroneList.
+            new DronesList(bl).Show();
         }
 
-        //private void ShowDrone(object sender, RoutedEventArgs e)
-        //{
-        //    DroneView.ItemsSource = bl.GetBLDrone();
-        //    new DroneList(bl).Show();
-        //}
+        private void ShowDrone(object sender, RoutedEventArgs e)
+        {
+            
+            new Drone(bl).Show();
+        }
     }
 }

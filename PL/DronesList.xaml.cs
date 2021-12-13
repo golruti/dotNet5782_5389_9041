@@ -16,17 +16,21 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for Drone.xaml
+    /// Interaction logic for DroneList.xaml
     /// </summary>
-    public partial class Drone : Page
+    public partial class DronesList
     {
         IBL.IBL bl;
-        public Drone(IBL.IBL bl)
+        public DronesList(IBL.IBL bl)
         {
+            
             InitializeComponent();
             this.bl = bl;
-            //Drone.DataContext = bl.GetDrone();
+            DronesListView.DataContext = bl.GetDroneForList();
+
+            //DroneWeights.DataContext = Enum.GetValues(typeof(WeightCategories));
+            //DroneStatuses.DataContext = Enum.GetValues(typeof(DroneStatus));
+
         }
-        
     }
 }
