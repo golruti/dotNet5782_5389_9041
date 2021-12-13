@@ -18,22 +18,27 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class MainWindow : Window
     {
+        //// לשנות לפי סינגלטון
+        private IBL.IBL bl = new IBL.BL();
+
         public MainWindow()
         {
             InitializeComponent();
-        }
-        private void ShowDroneList(object sender, RoutedEventArgs e)
-        {
-            //DroneList droneList = new DroneList();
-            //droneList.();
+            //StatusDrones.ItemsSource = Enum.GetValues(typeof(BL.Enum.DroneStatuses));
         }
 
-        private void ShowDrone(object sender, RoutedEventArgs e)
+        private void ShowDroneList(object sender, RoutedEventArgs e)
         {
-            //Drone drone = new Drone();
-            //drone.Show();
+            DronesList.ItemsSource = bl.GetDroneForList();
+            DroneList.
         }
+
+        //private void ShowDrone(object sender, RoutedEventArgs e)
+        //{
+        //    DroneView.ItemsSource = bl.GetBLDrone();
+        //    new DroneList(bl).Show();
+        //}
     }
 }

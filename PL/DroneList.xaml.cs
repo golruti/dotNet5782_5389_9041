@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for droneList.xaml
+    /// Interaction logic for DroneList.xaml
     /// </summary>
     public partial class DroneList : Page
     {
