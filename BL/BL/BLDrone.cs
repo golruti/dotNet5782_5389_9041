@@ -205,7 +205,7 @@ namespace IBL
                 {
                     if (item.Id == drone.ParcelDeliveredId)
                     {
-                        if (item.PickedUp != default(DateTime) && item.Delivered == default(DateTime))
+                        if (item.PickedUp != null && item.Delivered == default(DateTime))
                         {
 
 
@@ -470,7 +470,7 @@ namespace IBL
             foreach (var parcel in dal.GetParcels())
             {
                 if (parcel.Droneld == droneId &&
-                    !(parcel.Requested.Equals(default(DateTime))) && parcel.Delivered.Equals(default(DateTime)))
+                    !(parcel.Requested.Equals(null)) && parcel.Delivered.Equals(default(DateTime)))
                 {
                     return true;
                 }

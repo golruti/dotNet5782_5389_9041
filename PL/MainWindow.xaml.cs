@@ -32,13 +32,14 @@ namespace PL
         private void ShowDroneList(object sender, RoutedEventArgs e)
         {
             DronesList.ItemsSource = bl.GetDroneForList();
-            DroneList.
+            //DroneList.
+            int x = 10;
         }
 
-        //private void ShowDrone(object sender, RoutedEventArgs e)
-        //{
-        //    DroneView.ItemsSource = bl.GetBLDrone();
-        //    new DroneList(bl).Show();
-        //}
+        private void ShowDrone(object sender, RoutedEventArgs e)
+        {
+            //DroneView.ItemsSource = bl.GetBLDrone();
+            //new DroneList(bl).Show();
+        }
     }
 }
