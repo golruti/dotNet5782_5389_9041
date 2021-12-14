@@ -25,7 +25,7 @@
             <ComboBox Grid.Column="1" x:Name="DroneWeights" ItemsSource="{Binding}" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" SelectionChanged="DroneWeights_SelectionChanged"/>
             <Label Grid.Column="2" Content="Drone status:"/>
             <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding}" SelectionChanged="k_SelectionChanged" />
-            <Button  Content="add drone"  HorizontalAlignment="Left"  Margin="107,24,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Grid.Column="2"/>
+            <Button  Content="add drone"  HorizontalAlignment="Left"  Margin="107,24,0,0" Click="ShowDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Grid.Column="2"/>
         </Grid>
 
         <ListView x:Name="DronesListView" Grid.Row="1" ItemsSource="{Binding}">

@@ -56,5 +56,10 @@ namespace PL
                 DronesListView.ItemsSource = bl.GetDroneForList(drone => drone.Status == status);
             }
         }
+
+        private void ShowDroneWindow(object sender, RoutedEventArgs e)
+        {
+            new AddDrone(bl).Show();
+        }
     }
 }

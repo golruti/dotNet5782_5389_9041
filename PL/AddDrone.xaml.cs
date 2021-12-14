@@ -24,21 +24,13 @@ namespace PL
         public AddDrone(IBL.IBL bl)
         {
             InitializeComponent();
-            this.bl = bl;
-            
-
+            this.bl = bl;          
         }
 
-       private void AddTheDrone()
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             bl.AddDrone(int.Parse(Id.Text), int.Parse(StationsId.Text), (IBL.BO.Enums.WeightCategories)DroneWeights.SelectedItem, Model.Text);
-
         }
 
-        //private void DroneWeights_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-
-        //}
     }
 }
