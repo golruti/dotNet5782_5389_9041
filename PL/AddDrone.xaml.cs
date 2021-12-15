@@ -17,7 +17,7 @@ namespace PL
     /// <summary>
     /// Interaction logic for AddDrone.xaml
     /// </summary>
-    public partial class AddDrone : Window
+    public partial class AddDrone
     {
        
         IBL.IBL bl;
