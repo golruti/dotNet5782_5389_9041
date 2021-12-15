@@ -7,13 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="640" >
     <Grid x:Name="MainGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="5*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="69*"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Orientation="Horizontal" x:Name="button" Grid.Column="0">
             <Button Background="Peru" Content="drones list"
-                Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDroneListWindow" Margin="42,9"/>
+                Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDroneListWindow" Margin="100,9"/>
         </StackPanel>
+
+        <TabControl x:Name="tub_control" Grid.Column="0" Grid.ColumnSpan="4"  Visibility="Collapsed" >
+
+        </TabControl>
     </Grid>
 </Window>

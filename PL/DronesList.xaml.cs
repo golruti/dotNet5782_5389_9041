@@ -57,9 +57,12 @@ namespace PL
             }
         }
 
-        private void ShowDroneWindow(object sender, RoutedEventArgs e)
+        private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
         {
-            new AddDrone(bl).Show();
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new AddDrone(bl);
+            tabItem.Header = "Drone List";
+            tub_control.Items.Add(tabItem);
         }
     }
 }

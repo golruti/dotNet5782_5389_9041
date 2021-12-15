@@ -20,7 +20,7 @@ namespace PL
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    
+
     public partial class MainWindow : Window
     {
 
@@ -36,7 +36,12 @@ namespace PL
 
         private void ShowDroneListWindow(object sender, RoutedEventArgs e)
         {
-            new DronesList(bl).Show();
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new DronesList(bl);
+            button.Visibility = Visibility.Collapsed;
+            tabItem.Header = "Drone List";
+            tub_control.Visibility = Visibility.Visible;
+            tub_control.Items.Add(tabItem);
         }
 
         private void ShowDrone(object sender, RoutedEventArgs e)
