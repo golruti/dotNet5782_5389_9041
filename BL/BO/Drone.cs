@@ -34,8 +34,7 @@ namespace IBL.BO
             MaxWeight = maxWeight;
             Status = status;
             Battery = battery;
-            Location.Longitude = longitude;
-            Location.Latitude = latitude;
+            Location = new Location(longitude, latitude);
         }
 
     

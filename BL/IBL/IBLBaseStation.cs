@@ -19,5 +19,6 @@ namespace IBL
         public IEnumerable<BaseStationForList> GetBaseStationForList();
         public IEnumerable<BaseStationForList> GetBaseStationForList(Predicate<BaseStationForList> predicate);
         public void UpdateBaseStation(int id, string name, int chargeSlote);
+        public List<int> GetBaseStationForListsId();
     }
 }
