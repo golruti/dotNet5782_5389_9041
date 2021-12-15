@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AddDrone" Height="450" Width="800">
     <Grid>
-        
+
         <Grid Grid.Row="0"  Name="UpGrid" Height="auto" Width="auto" HorizontalAlignment="Stretch">
 
             <Grid.RowDefinitions>
@@ -20,12 +20,12 @@
             <TextBox x:Name="Id" Grid.Row="0" />
             <TextBox x:Name="StationsId" Grid.Row="1"/>
             <TextBox x:Name="Model" Grid.Row="2"/>
-            <ComboBox Grid.Column="3" x:Name="DroneWeights" ItemsSource="{Binding}" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" SelectionChanged="DroneWeights_SelectionChanged"/>
-                
-        
-            <Button Background="Peru" Content="finish" Height="50" Width="100"  Margin="667,358,33,26" Click="Button_Click"/>
+            <ComboBox x:Name="DroneWeights" ItemsSource="{Binding}" SelectionChanged="DroneWeights_SelectionChanged" Margin="0,86,0,0" Grid.RowSpan="2" Grid.Row="2"/>
         </Grid>
-      
+
+        <Button Background="Peru" Content="finish" Height="50" Width="100"  Margin="667,358,33,26" Click="Button_Click"/>
+
+
 
     </Grid>
 </Window>
