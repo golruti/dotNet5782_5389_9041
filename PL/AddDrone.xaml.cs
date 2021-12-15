@@ -58,10 +58,7 @@ namespace PL
             catch 
             {
                 MessageBox.Show("The skimmer was not add");
-            }
-            
-
-
+            }         
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)

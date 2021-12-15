@@ -18,6 +18,9 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -28,8 +31,21 @@
 
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Model: "/>
             <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Model}"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="MaxWeight: "/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=MaxWeight}"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Status: "/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Status}"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Battery: "/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Battery}"/>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Location: "/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Location}"/>
+            
         </Grid>
-        <StackPanel x:Name="ButtonsGroup" Grid.Row="1">
+        <StackPanel x:Name="ButtonsGroup" Grid.Row="7">
             
         </StackPanel>
         <Button x:Name="Update" Content="Update" Visibility="Collapsed"/>

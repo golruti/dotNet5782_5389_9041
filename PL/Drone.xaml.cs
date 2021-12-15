@@ -22,14 +22,14 @@ namespace PL
     public partial class Drone 
     {
         private IBL.IBL bl;
-        private DroneForList droneForList;
+        private IBL.BO.Drone droneForList;
 
         public Drone(DroneForList droneForList, IBL.IBL bl)
         {
             InitializeComponent();
 
             this.bl = bl;
-            this.droneForList = droneForList;
+            this.droneForList =bl.GetBLDrone( droneForList.Id);
             this.DataContext = droneForList;
 
             if (droneForList.Status == Enums.DroneStatuses.Available)
@@ -64,6 +64,7 @@ namespace PL
             }
         }
 
+
         private void ParcelDelivery_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
@@ -81,7 +82,8 @@ namespace PL
 
         private void SendingDroneForCharging_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+
+            bl.SendDroneToRecharge(droneForList.Id);
         }
     }
 }

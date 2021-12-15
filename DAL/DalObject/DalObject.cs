@@ -50,10 +50,6 @@ namespace DalObject
                   });
         }
 
-        public void AddDroneCarge(int droneId, int baseStationId)
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }

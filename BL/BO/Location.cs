@@ -16,5 +16,10 @@ namespace IBL.BO
             this.Longitude = longitude;
             this.Latitude = latitude;
         }
+
+         public override string ToString()
+        {
+            return $"{Longitude} , {Latitude}";
+        }
     }
 }

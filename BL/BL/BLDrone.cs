@@ -260,13 +260,14 @@ namespace IBL
                         baseStationId = item.Id;
                         distance = tempDistance;
                         location = new Location(item.Longitude, item.Latitude);
+
                     }
                     
                 }
                 if (minBattery(tempDrone.Location,location,tempDrone.Status,tempDrone.MaxWeight) < tempDrone.Battery)
                 {
                     UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
-                    dal.AddDroneCarge(droneId, baseStationId);
+                    dal.TryAddDroneCarge(droneId);
 
                 }
                 else
