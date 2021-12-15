@@ -69,14 +69,16 @@ namespace PL
         private void Close_Page(object sender, RoutedEventArgs e)
         {
             object tmp = sender;
-            while (tmp.GetType() != typeof(TabItem))
+            TabItem tabItem = null;
+            while (tmp.GetType() != typeof(TabControl))
             {
+                if (tmp.GetType() == typeof(TabItem))
+                    tabItem = (tmp as TabItem);
                 tmp = ((FrameworkElement)tmp).Parent;
             }
-            TabItem tabItem = (TabItem)tmp;
+            if(tmp is TabControl tabControl)
+                tabControl.Items.Remove(tabItem);
             
-            (tmp as MainWindow).tub_control.Items.Remove(tabItem);
-
 
         }
 
