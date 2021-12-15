@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,8 @@ namespace PL
         public AddDrone(IBL.IBL bl)
         {
             InitializeComponent();
-            this.bl = bl;          
+            this.bl = bl;
+            DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
