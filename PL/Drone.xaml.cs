@@ -24,19 +24,64 @@ namespace PL
         private IBL.IBL bl;
         private DroneForList droneForList;
 
-        public Drone(IBL.IBL bl)
+        public Drone(DroneForList droneForList, IBL.IBL bl)
         {
             InitializeComponent();
+
             this.bl = bl;
-            //Drone.DataContext = bl.GetDrone();
+            this.droneForList = droneForList;
+            this.DataContext = droneForList;
+
+            if (droneForList.Status == Enums.DroneStatuses.Available)
+            {
+                Button sendingDroneForChargingBtn = new Button();
+                sendingDroneForChargingBtn.Content = "Sending a drone for charging";
+                sendingDroneForChargingBtn.Click += SendingDroneForCharging_Click;
+                ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
+            }
+            else if (droneForList.Status == Enums.DroneStatuses.Maintenance)
+            {
+                Button ReleaseDroneFromCharging = new Button();
+                ReleaseDroneFromCharging.Content = "Release drone from charging";
+                ReleaseDroneFromCharging.Click += ReleaseDroneFromCharging_Click;
+                ButtonsGroup.Children.Add(ReleaseDroneFromCharging);
+            }
+
+            if (bl.GetParcelStatusByDrone(droneForList.Id) == Enums.ParcelStatuses.Associated)
+            {
+                Button ParcelCollection = new Button();
+                ParcelCollection.Content = "Parcel collection";
+                ParcelCollection.Click += ParcelCollection_Click;
+                ButtonsGroup.Children.Add(ParcelCollection);
+            }
+
+            else if (bl.GetParcelStatusByDrone(droneForList.Id) == Enums.ParcelStatuses.Collected)
+            {
+                Button ParcelDelivery = new Button();
+                ParcelDelivery.Content = "Parcel delivery";
+                ParcelDelivery.Click += ParcelDelivery_Click;
+                ButtonsGroup.Children.Add(ParcelDelivery);
+            }
         }
 
-        public Drone(DroneForList droneForList)
+        private void ParcelDelivery_Click(object sender, RoutedEventArgs e)
         {
-            this.droneForList = droneForList;
+            throw new NotImplementedException();
+        }
 
+        private void ParcelCollection_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
+        private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
+        private void SendingDroneForCharging_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

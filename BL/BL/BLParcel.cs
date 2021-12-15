@@ -48,6 +48,31 @@ namespace IBL
         }
 
         /// <summary>
+        /// The function returns the status of the package according to the skimmer to which it is associated
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
+        public Enums.ParcelStatuses GetParcelStatusByDrone(int droneId)
+        {
+            Parcel parcel = mapParcel(dal.GetParcelByDrone(droneId));
+
+            if (parcel == default(Parcel))
+            {
+                return Enums.ParcelStatuses.Created;
+            }
+            if (parcel.Scheduled != null)
+            {
+                return Enums.ParcelStatuses.Associated;
+            }
+            else if (parcel.Delivered != null)
+            {
+                return Enums.ParcelStatuses.Provided;
+            }
+            return Enums.ParcelStatuses.Collected;
+        }
+
+
+        /// <summary>
         /// Convert a DAL parcel to BL parcel
         /// </summary>
         /// <param name="parcel">he parcel to convert</param>

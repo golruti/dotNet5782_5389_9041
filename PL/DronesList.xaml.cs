@@ -23,7 +23,7 @@ namespace PL
     {
         IBL.IBL bl;
         public DronesList(IBL.IBL bl)
-        {           
+        {
             InitializeComponent();
             this.bl = bl;
             DronesListView.DataContext = bl.GetDroneForList();
@@ -43,7 +43,7 @@ namespace PL
                 DronesListView.ItemsSource = bl.GetDroneForList(drone => drone.MaxWeight == weight);
             }
         }
-            
+
         private void k_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DroneStatuses.SelectedItem == null)
@@ -56,7 +56,7 @@ namespace PL
                 DronesListView.ItemsSource = bl.GetDroneForList(drone => drone.Status == status);
             }
         }
-     
+
         private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
         {
             var tmp = sender;
@@ -80,9 +80,12 @@ namespace PL
             }
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone((e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneForList);
+            tabItem.Content = new Drone((e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneForList, this.bl);
             tabItem.Header = "Update drone";
+            tabItem.Visibility = Visibility.Visible;
             (tmp as MainWindow).tub_control.Items.Add(tabItem);
+            //(tmp as MainWindow).AddTab(tabItem);
+
         }
     }
 }

@@ -29,12 +29,8 @@ namespace IBL.BO
             Battery = battery;
             Status = status;
             Location = new Location(longitude, latitude);
-
         }
 
-        public DroneForList()
-        {
-
-        }
+        public DroneForList() { }
     }
 }

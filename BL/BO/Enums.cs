@@ -20,7 +20,7 @@ namespace IBL.BO
 
         public enum DroneStatuses
         {
-            Available, Delivery, Maintenance,
+            Available, Maintenance, Delivery
         }
         public enum ParcelStatuses
         {

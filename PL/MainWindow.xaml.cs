@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,16 +21,16 @@ namespace PL
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window/*, INotifyPropertyChanged*/
     {
+        private IBL.IBL bl;
+        private TabItem selectedTab;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private IBL.IBL bl = new IBL.BL();
-        //private IBL.IBL bl = Singleton<IBL.BL>.Instance;
-        //
 
         public MainWindow()
         {
+            bl = Singleton<IBL.BL>.Instance;
             InitializeComponent();
 
         }
@@ -42,6 +43,7 @@ namespace PL
             tabItem.Header = "Drone List";
             tub_control.Visibility = Visibility.Visible;
             tub_control.Items.Add(tabItem);
+            //SelectedTab = tabItem;
         }
 
         private void ShowDrone(object sender, RoutedEventArgs e)
@@ -49,5 +51,21 @@ namespace PL
             //DroneView.ItemsSource = bl.GetBLDrone();
             //new DroneList(bl).Show();
         }
+
+        //public TabItem SelectedTab
+        //{
+        //    get => selectedTab;
+        //    set
+        //    {
+        //        selectedTab = value;
+        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedTab)));
+        //    }
+        //}
+
+        //internal void AddTab(TabItem tabItem)
+        //{
+        //    tub_control.Items.Add(tabItem);
+        //    SelectedTab = tabItem;
+        //}
     }
 }

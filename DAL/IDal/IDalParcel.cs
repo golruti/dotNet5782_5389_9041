@@ -11,6 +11,7 @@ namespace IDAL
     {
         public void InsertParcel(Parcel parcel);
         public Parcel GetParcel(int idParcel);
+        public Parcel GetParcelByDrone(int droneId);
         public IEnumerable<Parcel> GetParcels();
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate);
         public void UpdateParcelPickedUp(int idParcel);
