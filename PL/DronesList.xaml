@@ -29,7 +29,7 @@
             <Button  Content="add drone"  HorizontalAlignment="Left"  Margin="107,24,0,0" Click="ShowAddDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Grid.Column="2"/>
         </Grid>
 
-        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="3">
+        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="3" MouseDoubleClick="DronesListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

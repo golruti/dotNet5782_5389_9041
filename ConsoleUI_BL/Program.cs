@@ -4,7 +4,7 @@ using IBL;
 using IBL.BO;
 using static IBL.BO.Enums;
 using System.ComponentModel;
-
+using Singleton;
 
 namespace ConsoleUI_BL
 {
@@ -15,7 +15,7 @@ namespace ConsoleUI_BL
         static int idParcel = 0;
         static void Main(string[] args)
         {
-            bl = new IBL.BL();
+            bl = Singleton<IBL.BL>.Instance;
             ShowMenu();
         }
 

@@ -18,5 +18,6 @@ namespace IBL
         public Parcel GetBLParcel(int parcelId);
         public IEnumerable<ParcelForList> GetParcelForList();
         public IEnumerable<ParcelForList> GetParcelForList(Predicate<ParcelForList> predicate);
+        public Enums.ParcelStatuses GetParcelStatusByDrone(int droneId);
     }
 }

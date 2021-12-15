@@ -39,6 +39,17 @@ namespace DalObject
             return parcel;
         }
 
+        //צריך בדיקת תקינות!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /// <summary>
+        /// The function returns a package according to the glider to which it is associated
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
+        public Parcel GetParcelByDrone(int droneId)
+        {
+           return DataSource.parcels.FirstOrDefault(parcel => parcel.Droneld == droneId);
+        }
+
         //--------------------------------------------Show list---------------------------------------------------------------------------------------
         /// <summary>
         /// The function prepares a new array of all existing parcels

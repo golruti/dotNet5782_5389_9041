@@ -8,7 +8,7 @@ using static IBL.BO.Enums;
 
 namespace IBL
 {
-    partial class BL : Singleton.Singleton<BL>, IBL
+    sealed partial class BL : Singleton.Singleton<BL>, IBL
     {
         private IDAL.IDal dal;
         private List<DroneForList> drones =new List<DroneForList>();
@@ -18,7 +18,7 @@ namespace IBL
         /// <summary>
         /// constructor
         /// </summary>
-        public BL()
+        private BL()
         {
             dal = Singleton<DalObject.DalObject>.Instance;
             initializeDrones();

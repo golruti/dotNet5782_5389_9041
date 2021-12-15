@@ -17,7 +17,8 @@
                 Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDroneListWindow" Margin="100,9"/>
         </StackPanel>
 
-        <TabControl x:Name="tub_control" Grid.Column="0" Grid.ColumnSpan="4"  Visibility="Collapsed" >
+        <TabControl x:Name="tub_control" Grid.Column="0" Grid.ColumnSpan="4"  Visibility="Collapsed" 
+                   >
 
         </TabControl>
     </Grid>
