@@ -27,6 +27,8 @@ namespace PL
         {
             InitializeComponent();
             this.bl = bl;
+
+            StationsId.DataContext = bl.GetBaseStationForListsId();
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
         }
 
@@ -55,10 +57,13 @@ namespace PL
                 }
 
             }
-            catch 
+            catch (Exception ex)
             {
-                MessageBox.Show("The skimmer was not add");
-            }         
+                MessageBox.Show($"The skimmer was not add, {ex.Message}");
+            }
+            
+
+
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)

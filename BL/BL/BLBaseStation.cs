@@ -27,6 +27,8 @@ namespace IBL
             }
         }
 
+
+
         //---------------------------------------------Update ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// update base station 
@@ -115,6 +117,16 @@ namespace IBL
         public IEnumerable<BaseStationForList> GetBaseStationForList(Predicate<BaseStationForList> predicate)
         {
             return GetBaseStationForList().Where(s => predicate(s));
+        }
+
+        public List<int> GetBaseStationForListsId()
+        {
+            List<int> baseStationsId=new();
+            foreach( var item in GetBaseStationForList())
+            {
+                baseStationsId.Add(item.Id);
+            }
+            return baseStationsId;
         }
     }
 }
