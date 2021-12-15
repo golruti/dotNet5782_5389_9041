@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,15 +19,24 @@ namespace PL
     /// <summary>
     /// Interaction logic for Drone.xaml
     /// </summary>
-    public partial class Drone : Window
+    public partial class Drone 
     {
-        IBL.IBL bl;
+        private IBL.IBL bl;
+        private DroneForList droneForList;
+
         public Drone(IBL.IBL bl)
         {
             InitializeComponent();
             this.bl = bl;
             //Drone.DataContext = bl.GetDrone();
         }
-        
+
+        public Drone(DroneForList droneForList)
+        {
+            this.droneForList = droneForList;
+
+
+
+        }
     }
 }
