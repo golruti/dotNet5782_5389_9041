@@ -37,6 +37,7 @@ namespace PL
                 Button sendingDroneForChargingBtn = new Button();
                 sendingDroneForChargingBtn.Content = "Sending a drone for charging";
                 sendingDroneForChargingBtn.Click += SendingDroneForCharging_Click;
+                sendingDroneForChargingBtn.IsEnabled = true;
                 ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
             }
             else if (droneForList.Status == Enums.DroneStatuses.Maintenance)
@@ -82,8 +83,8 @@ namespace PL
 
         private void SendingDroneForCharging_Click(object sender, RoutedEventArgs e)
         {
-
             bl.SendDroneToRecharge(droneForList.Id);
+            (sender as Button).IsEnabled = false;
         }
     }
 }

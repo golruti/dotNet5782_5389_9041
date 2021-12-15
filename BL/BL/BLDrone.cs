@@ -136,8 +136,6 @@ namespace IBL
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
             drones.Add(tempDroneForList);
-            dal.DeleteDrone(id);
-
         }
 
         /// <summary>
