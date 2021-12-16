@@ -135,6 +135,7 @@ namespace IBL
             tempDroneForList.Battery = battery;
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
+            tempDroneForList.Time = DateTime.Now;
             drones.Add(tempDroneForList);
         }
 
@@ -267,6 +268,7 @@ namespace IBL
                 {
                     UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
                     dal.TryAddDroneCarge(droneId);
+                   
 
                 }
                 else
@@ -285,7 +287,7 @@ namespace IBL
         /// </summary>
         /// <param name="droneId">id of drone</param>
         /// <param name="time">the time the drone was in charge</param>
-        public void ReleaseDroneFromRecharge(int droneId, int time)
+        public void ReleaseDroneFromRecharge(int droneId)
         {
             DroneInCharging droneInCharging = new DroneInCharging();
             DroneForList drone = drones.First(item => item.Id == droneId);
@@ -293,12 +295,16 @@ namespace IBL
             {
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
+                    
+                    TimeSpan time = (TimeSpan)(DateTime.Now - drone.Time);
                     drones.Remove(drone);
-                    droneInCharging.Battery = drone.Battery + BatteryCalculationInCharging(time);
+                    
+                    droneInCharging.Battery = drone.Battery + BatteryCalculationInCharging(time.Hours);
                     drone.Battery = droneInCharging.Battery;
                     drone.Status = (DroneStatuses)0;
                     drones.Add(drone);
                     dal.UpdateRelease(droneId);
+                    
                 }
                 else
                 {

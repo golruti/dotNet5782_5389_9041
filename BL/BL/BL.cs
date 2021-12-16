@@ -6,10 +6,13 @@ using IBL.BO;
 using Singleton;
 using static IBL.BO.Enums;
 
+
 namespace IBL
 {
+    
     sealed partial class BL : Singleton.Singleton<BL>, IBL
     {
+        
         private IDAL.IDal dal;
         //private List<DroneForList> drones =new List<DroneForList>();
         private ObservableCollection <DroneForList> drones =new ObservableCollection<DroneForList>();

@@ -16,6 +16,8 @@ namespace IBL.BO
         public DroneStatuses Status { get; set; }
         public Location Location { get; set; }
         public int ParcelDeliveredId { get; set; } = 0;
+        public DateTime? Time { get; set; }
+
 
         public override string ToString()
         {
@@ -29,6 +31,7 @@ namespace IBL.BO
             Battery = battery;
             Status = status;
             Location = new Location(longitude, latitude);
+            
         }
 
         public DroneForList() { }
