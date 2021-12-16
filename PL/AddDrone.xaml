@@ -37,7 +37,7 @@
             <ComboBox x:Name="DroneWeights" Background="White" ItemsSource="{Binding}" Grid.Row="6" Grid.Column="1"  />
         </Grid>
 
-        <Button  Content="finish"  Margin="438,301,139,80" Click="Button_Click" Height="20" Width="60" Background="DarkCyan"/>
+        <Button  Content="finish"  Margin="438,301,139,80" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan"/>
         <Button Background="DarkCyan" Content="concel"  Margin="373,301,204,80" Click="Close_Page"  Height="20" Width="60"/>
 
 

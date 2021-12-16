@@ -32,7 +32,7 @@ namespace PL
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Finish_Click(object sender, RoutedEventArgs e)
         {
             try
             {
