@@ -11,16 +11,17 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
 
-            <RowDefinition Height="500*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="67*"/>
 
         </Grid.RowDefinitions>
-        <Grid   Name="UpGrid" Height="auto" Width="auto" Grid.Row="1" Margin="100,39,100,376" Grid.RowSpan="2">
+        <Grid   Name="UpGrid"  Grid.Row="0" Margin="150,10,150,10" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
 
-                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions >
 
             <Label Grid.Column="0" Content="   Drone weight:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="White"/>
@@ -30,14 +31,14 @@
 
         </Grid>
 
-        <ListView x:Name="DronesListView" ItemsSource="{Binding}" MouseDoubleClick="DronesListView_MouseDoubleClick"  Margin="0,104,0,0">
+        <ListView x:Name="DronesListView" ItemsSource="{Binding}" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="close" HorizontalAlignment="Left" Margin="700,383,0,0" VerticalAlignment="Top"   Height="41" Width="72" Background="DarkCyan"/>
-        <Button  Content="add drone"  HorizontalAlignment="Left"   Click="ShowAddDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="611,383,0,0"  Height="41" Width="72" Background="DarkCyan"/>
+        <Button Content="close" HorizontalAlignment="Left" Margin="718,350,0,0" VerticalAlignment="Top"   Height="42" Width="72" Background="DarkCyan" Grid.Row="1"/>
+        <Button  Content="add drone"  HorizontalAlignment="Left"   Click="ShowAddDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="641,350,0,0"  Height="42" Width="72" Background="DarkCyan" Grid.Row="1"/>
     </Grid>
 </UserControl>
