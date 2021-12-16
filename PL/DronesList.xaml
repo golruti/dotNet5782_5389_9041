@@ -23,14 +23,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Label Grid.Column="0" Content="Drone weight:"/>
+            <Label Grid.Column="0" Content="Drone weight:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="White"/>
             <ComboBox Grid.Column="1" x:Name="DroneWeights" ItemsSource="{Binding}" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" SelectionChanged="DroneWeights_SelectionChanged"/>
-            <Label Grid.Column="2" Content="Drone status:"/>
+            <Label Grid.Column="2" Content="Drone status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="White"/>
             <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding}" SelectionChanged="k_SelectionChanged" />
-            <Button  Content="add drone"  HorizontalAlignment="Left"  Margin="107,24,0,0" Click="ShowAddDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Grid.Column="2"/>
+
         </Grid>
 
-        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="3" MouseDoubleClick="DronesListView_MouseDoubleClick">
+        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="3" MouseDoubleClick="DronesListView_MouseDoubleClick" SelectionChanged="DronesListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -38,6 +38,6 @@
             </ListView.View>
         </ListView>
         <Button Content="close" HorizontalAlignment="Left" Margin="664,292,0,0" Grid.Row="2" VerticalAlignment="Top" Height="57" Width="89" Click="Close_Page"/>
-
+        <Button  Content="add drone"  HorizontalAlignment="Left"   Click="ShowAddDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="512,292,0,0" Grid.Row="2" Height="57" Width="102"/>
     </Grid>
 </UserControl>

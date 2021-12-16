@@ -12,37 +12,41 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0"  Height="150" Width="500">
+        <Grid Grid.Row="0" Width="500" Margin="200,50,200,225" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="10"/>
                 <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="10"/>
                 <RowDefinition Height="Auto" MinHeight="25"/>
-                <RowDefinition Height="Auto" MinHeight="20"/>
+                <RowDefinition Height="Auto" MinHeight="10"/>
                 <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="10"/>
                 <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="10"/>
                 <RowDefinition Height="Auto" MinHeight="25"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" MinWidth="107"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Id: " Margin="0,0,0,16" Grid.RowSpan="2"/>
-            <TextBlock Grid.Row="0" Text="{Binding Path=Id}" Grid.ColumnSpan="2" Margin="66,0,0,16" Grid.RowSpan="2"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBlock Grid.Row="0" Text="{Binding Path=Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Model: " Margin="0,0,0,4"/>
-            <TextBlock Grid.Row="1" Text="{Binding Path=Model}" Grid.ColumnSpan="2" Margin="66,0,0,4"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Model: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Model}" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="MaxWeight: " Margin="0,0,0,16" Grid.RowSpan="2"/>
-            <TextBlock Grid.Row="2" Text="{Binding Path=MaxWeight}" Grid.ColumnSpan="2" Margin="66,0,0,16" Grid.RowSpan="2"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="MaxWeight: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=MaxWeight}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="Status: " Margin="0,0,0,10"/>
-            <TextBlock Grid.Row="3" Text="{Binding Path=Status}" Grid.ColumnSpan="2" Margin="66,0,0,10"/>
+            <Label Grid.Row="6" Grid.Column="0" Content="Status: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Path=Status}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Battery: " Margin="0,5,0,16" Grid.RowSpan="2"/>
-            <TextBlock Grid.Row="4" Text="{Binding Path=Battery}" Grid.ColumnSpan="2" Margin="66,5,0,16" Grid.RowSpan="2"/>
+            <Label Grid.Row="8" Grid.Column="0" Content="Battery: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding Path=Battery}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Location: " Margin="0,1,0,0"/>
-            <TextBlock Grid.Row="5" Text="{Binding Path=Location}" Grid.ColumnSpan="2" Margin="66,1,0,0"/>
+            <Label Grid.Row="10" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBlock Grid.Row="10" Grid.Column="1" Text="{Binding Path=Location}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
         </Grid>
         <StackPanel x:Name="ButtonsGroup" Grid.Row="7">

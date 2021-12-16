@@ -10,32 +10,35 @@
     <Grid Background="White">
 
 
-        <Grid Grid.Row="0"  Name="UpGrid" Width="auto" Margin="176,84,176,188"   >
+        <Grid Grid.Row="0"  Name="UpGrid" Width="auto" Margin="176,50,176,150"   >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="59*"/>
+                <ColumnDefinition Width="30*"/>
                 <ColumnDefinition Width="141*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
+                <RowDefinition Height="5*" />
                 <RowDefinition Height="10*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
 
             </Grid.RowDefinitions>
-            <Label Grid.Column="0"  Grid.Row="0" Content="drone id:"  Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" Background="Gray" FontSize="20" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <TextBox x:Name="Id" Grid.Row="0" Grid.Column="1"  Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" PreviewTextInput="textID_PreviewTextInput"/>
+            <Label Grid.Column="0"  Grid.Row="0" Content="   drone id:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBox x:Name="Id" Grid.Row="0"  Background="LightGray" PreviewTextInput="textID_PreviewTextInput" Grid.ColumnSpan="2" Margin="129,0,0,18" Grid.RowSpan="2"/>
 
-            <Label Grid.Column="0"  Grid.Row="1" Content="station id:" BorderThickness="2" BorderBrush="Black" Background="Gray" FontSize="20" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <ComboBox x:Name="StationsId"  Grid.Column="1" ItemsSource="{Binding}" Grid.Row="1" BorderThickness="2" BorderBrush="Black" />
-            <Label Grid.Column="0"  Grid.Row="2" Content="drone model:" Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" Background="Gray" FontSize="20" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <TextBox x:Name="Model" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" PreviewTextInput="textModel_PreviewTextInput"/>
-            <Label Grid.Column="0"  Grid.Row="3" Content="drone weight:" BorderThickness="2" BorderBrush="Black" Background="Gray" FontSize="20" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <ComboBox x:Name="DroneWeights" Background="White" ItemsSource="{Binding}" Grid.Row="3" Grid.Column="1" BorderThickness="2" BorderBrush="Black" />
+            <Label Grid.Column="0"  Grid.Row="2" Content="  station id:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" HorizontalAlignment="Right" Width="129"/>
+            <ComboBox x:Name="StationsId"  Grid.Column="1" ItemsSource="{Binding}" Grid.Row="2"  />
+            <Label Grid.Column="0"  Grid.Row="4" Content="drone model:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBox x:Name="Model" Grid.Row="4" Background="LightGray" PreviewTextInput="textModel_PreviewTextInput" Grid.ColumnSpan="2" Margin="129,1,0,0"/>
+            <Label Grid.Column="0"  Grid.Row="6" Content="drone weight:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <ComboBox x:Name="DroneWeights" Background="White" ItemsSource="{Binding}" Grid.Row="6" Grid.Column="1"  />
         </Grid>
 
-        <Button Background="DarkCyan" Content="finish"  Margin="422,238,176,143" Click="Button_Click" Height="20" Width="40"/>
-        <Button Background="DarkCyan" Content="concel"  Margin="359,238,233,142" Click="Close_Page"  Height="20" Width="40"/>
+        <Button Background="DarkCyan" Content="finish"  Margin="396,271,176,110" Click="Button_Click" Height="20"/>
+        <Button Background="DarkCyan" Content="concel"  Margin="353,271,217,110" Click="Close_Page"  Height="20"/>
 
 
 
