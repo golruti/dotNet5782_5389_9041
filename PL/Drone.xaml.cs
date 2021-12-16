@@ -215,7 +215,24 @@ namespace PL
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                bl.UpdateDroneModel(droneForList.Id, update_model.Text);
+                (sender as Button).IsEnabled = false;
+                if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    Close_Page(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+            }
+            catch
+            {
+                MessageBox.Show($"The drone could not be shipped, ");
+            }
         }
+
     }
 }

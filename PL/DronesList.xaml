@@ -37,7 +37,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="close" HorizontalAlignment="Left" Margin="700,383,0,0" VerticalAlignment="Top"   Height="41" Width="72" Background="DarkCyan"/>
+        <Button Content="close" HorizontalAlignment="Left" Margin="700,383,0,0" VerticalAlignment="Top"   Height="41" Width="72" Background="DarkCyan" Click="Close_Page"/>
         <Button  Content="add drone"  HorizontalAlignment="Left"   Click="ShowAddDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="611,383,0,0"  Height="41" Width="72" Background="DarkCyan"/>
     </Grid>
 </UserControl>
