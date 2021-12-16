@@ -34,7 +34,7 @@
         </Grid>
 
         <Button Background="Gray" Content="finish" Height="50" Width="100"  Margin="667,358,33,26" Click="Button_Click"/>
-        <Button Background="Gray" Content="concel" Height="50" Width="100"  Margin="535,358,165,26" Click="Close_Page"/>
+        <Button Background="Gray" Content="cencel" Height="50" Width="100"  Margin="535,358,165,26" Click="Close_Page"/>
 
 
 

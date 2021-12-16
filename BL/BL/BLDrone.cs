@@ -145,7 +145,7 @@ namespace IBL
         public void PackageCollection(int id)
         {
             
-            if (drones.All(item => item.Id == id))
+            if (drones.FirstOrDefault(item => item.Id == id) !=default(DroneForList))
             {
                 DroneForList droneForList = drones.Find(item => item.Id == id);
                 if (droneForList.Status == DroneStatuses.Delivery)
@@ -156,7 +156,9 @@ namespace IBL
                         if (tempParcel.Droneld == id)
                         {
                             parcelId = tempParcel.Id;
+                            break;
                         }
+                        
                     }
                     if(GetParcelForList().All(item=>item.Status== ParcelStatuses.Associated))
                     {
@@ -205,7 +207,6 @@ namespace IBL
             }
             if (drone.ParcelDeliveredId != 0)
             {
-
                 IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
                 foreach (IDAL.DO.Parcel item in dal.GetParcels())
                 {
@@ -314,7 +315,7 @@ namespace IBL
         /// Assign a package to a skimmer
         /// </summary>
         /// <param name="id">id of drone</param>
-        public void AssignPackageToSkimmer(int id)
+        public void AssignParcelToDrone(int id)
         {
             Drone drone = new Drone();
             foreach (DroneForList item in drones)
@@ -335,13 +336,9 @@ namespace IBL
                 double distance = double.MaxValue;
 
                 foreach (IDAL.DO.Parcel item in dal.GetParcels())
-                {
-                    
+                {                   
                     if (minBattery(drone.Location, GetBLCustomer(item.SenderId).Location, drone.Status, drone.MaxWeight) < drone.Battery && (WeightCategories)item.Weight <= drone.MaxWeight)
-                    {
-
-
-                        
+                    {                      
                         if ((Enums.Priorities)item.Priority > priority)
                         {
                             parcelId = item.Id;

@@ -224,7 +224,7 @@ namespace ConsoleUI_BL
                 case UpdateOptions.SCHEDULED:
                     Console.WriteLine("enter ID for drone");
                     droneId = int.Parse(Console.ReadLine());
-                    bl.AssignPackageToSkimmer(droneId);
+                    bl.AssignParcelToDrone(droneId);
                     break;
 
                 case UpdateOptions.PICKED_UP:

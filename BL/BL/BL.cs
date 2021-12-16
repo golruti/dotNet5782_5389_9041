@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Device.Location;
+
 using System.Linq;
 using IBL.BO;
 using Singleton;
@@ -35,7 +35,6 @@ namespace IBL
         /// </summary>
         private void initializeDrones()
         {
-            drones.Add(new DroneForList());
             foreach (var drone in dal.GetDrones())
             {
                 drones.Add(new DroneForList

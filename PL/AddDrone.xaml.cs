@@ -21,7 +21,7 @@ namespace PL
     /// </summary>
     public partial class AddDrone
     {
-       
+
         IBL.IBL bl;
         public AddDrone(IBL.IBL bl)
         {
@@ -34,17 +34,13 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            
             try
             {
-                
                 BaseStation baseStation = bl.GetBLBaseStation(int.Parse(StationsId.Text));
             }
             catch
             {
                 throw new ArgumentNullException("station dond exist");
-                
             }
 
             try
@@ -55,15 +51,11 @@ namespace PL
                 {
                     Close_Page(sender, e);
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"The skimmer was not add, {ex.Message}");
             }
-            
-
-
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
@@ -76,10 +68,8 @@ namespace PL
                     tabItem = (tmp as TabItem);
                 tmp = ((FrameworkElement)tmp).Parent;
             }
-            if(tmp is TabControl tabControl)
+            if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            
-
         }
 
         private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -92,7 +82,7 @@ namespace PL
         {
             Regex regex = new Regex("[^a-zA-Z0-9]+");
             e.Handled = regex.IsMatch(e.Text);
-        }   
+        }
 
     }
 }

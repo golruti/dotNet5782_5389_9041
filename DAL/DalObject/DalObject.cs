@@ -49,7 +49,5 @@ namespace DalObject
                     DataSource.Config.ChargingRate
                   });
         }
-
-
     }
 }

@@ -11,6 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
 
         </Grid.RowDefinitions>
@@ -36,6 +37,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Content="close" HorizontalAlignment="Left" Margin="664,292,0,0" Grid.Row="2" VerticalAlignment="Top" Height="57" Width="89" Click="Close_Page"/>
 
     </Grid>
 </UserControl>

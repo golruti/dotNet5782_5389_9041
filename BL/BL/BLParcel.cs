@@ -56,19 +56,13 @@ namespace IBL
         {
             Parcel parcel = mapParcel(dal.GetParcelByDrone(droneId));
 
-            if (parcel == default(Parcel))
-            {
-                return Enums.ParcelStatuses.Created;
-            }
-            if (parcel.Scheduled != null)
-            {
-                return Enums.ParcelStatuses.Associated;
-            }
-            else if (parcel.Delivered != null)
-            {
+            if (parcel.Delivered != null)
                 return Enums.ParcelStatuses.Provided;
-            }
-            return Enums.ParcelStatuses.Collected;
+            if (parcel.PickedUp != null)
+                return Enums.ParcelStatuses.Collected;
+            if (parcel.Scheduled != null)
+                return Enums.ParcelStatuses.Associated;
+            return Enums.ParcelStatuses.Created;
         }
 
 

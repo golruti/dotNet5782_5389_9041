@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +20,7 @@ namespace PL
     /// <summary>
     /// Interaction logic for Drone.xaml
     /// </summary>
-    public partial class Drone 
+    public partial class Drone
     {
         private IBL.IBL bl;
         private IBL.BO.Drone droneForList;
@@ -29,7 +30,7 @@ namespace PL
             InitializeComponent();
 
             this.bl = bl;
-            this.droneForList =bl.GetBLDrone( droneForList.Id);
+            this.droneForList = bl.GetBLDrone(droneForList.Id);
             this.DataContext = droneForList;
 
             if (droneForList.Status == Enums.DroneStatuses.Available)
@@ -39,6 +40,12 @@ namespace PL
                 sendingDroneForChargingBtn.Click += SendingDroneForCharging_Click;
                 sendingDroneForChargingBtn.IsEnabled = true;
                 ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
+
+                Button SendingDroneForDelivery = new Button();
+                SendingDroneForDelivery.Content = "Sending a drone for delivery";
+                SendingDroneForDelivery.Click += SendingDroneForCharging_Click;
+                SendingDroneForDelivery.IsEnabled = true;
+                ButtonsGroup.Children.Add(SendingDroneForDelivery);
             }
             else if (droneForList.Status == Enums.DroneStatuses.Maintenance)
             {
@@ -66,25 +73,147 @@ namespace PL
         }
 
 
+
+        //שחרורו רחפן מטעינה
+        private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
+        {
+            label_time.Visibility = Visibility.Visible;
+            textBox_time.Visibility = Visibility.Visible;
+            button_time.Visibility = Visibility.Visible;
+        }
+
+        //שחרור רחפן מטעינה
+        private void Button_ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.ReleaseDroneFromRecharge(droneForList.Id, int.Parse(textBox_time.Text));
+                (sender as Button).IsEnabled = false;
+                if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    Close_Page(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
+            }
+            catch
+            {
+                MessageBox.Show($"The glider was unable to free itself from loading, ");
+            }
+        }
+
+        //שליחת רחפן לטעינה
+        private void SendingDroneForCharging_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.SendDroneToRecharge(droneForList.Id);
+                (sender as Button).IsEnabled = false;
+                if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    Close_Page(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
+            }
+            catch
+            {
+                MessageBox.Show($"The drone could not be sent for loading, ");
+            }
+        }
+
+
+        //שליחת הרחפן למשלוח
+        private void SendingDroneForDelivery(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.AssignParcelToDrone(droneForList.Id);
+                (sender as Button).IsEnabled = false;
+                if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    Close_Page(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+            }
+            catch
+            {
+                MessageBox.Show($"The drone could not be shipped, ");
+            }            
+        }
+
+
+        //איסוף חבילה עי רחפן
+        private void ParcelCollection_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.PackageCollection(droneForList.Id);
+                (sender as Button).IsEnabled = false;
+                if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    Close_Page(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+            }
+            catch
+            {
+                MessageBox.Show($"The drone could not be shipped, ");
+            }
+        }
+
+
+
+        //-----------------------------------------------
+
         private void ParcelDelivery_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }
 
-        private void ParcelCollection_Click(object sender, RoutedEventArgs e)
+        //-----------------------------------------------
+
+
+
+
+
+
+
+
+
+        private void Close_Page(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            object tmp = sender;
+            TabItem tabItem = null;
+            while (tmp.GetType() != typeof(TabControl))
+            {
+                if (tmp.GetType() == typeof(TabItem))
+                    tabItem = (tmp as TabItem);
+                tmp = ((FrameworkElement)tmp).Parent;
+            }
+            if (tmp is TabControl tabControl)
+                tabControl.Items.Remove(tabItem);
         }
 
-        private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
+        private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            throw new NotImplementedException();
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void SendingDroneForCharging_Click(object sender, RoutedEventArgs e)
+        private void Update_Click(object sender, RoutedEventArgs e)
         {
-            bl.SendDroneToRecharge(droneForList.Id);
-            (sender as Button).IsEnabled = false;
+
         }
     }
 }
