@@ -52,6 +52,7 @@ namespace PL
                 Button ReleaseDroneFromCharging = new Button();
                 ReleaseDroneFromCharging.Content = "Release drone from charging";
                 ReleaseDroneFromCharging.Click += ReleaseDroneFromCharging_Click;
+                ReleaseDroneFromCharging.IsEnabled = true;
                 ButtonsGroup.Children.Add(ReleaseDroneFromCharging);
             }
 
@@ -60,6 +61,7 @@ namespace PL
                 Button ParcelCollection = new Button();
                 ParcelCollection.Content = "Parcel collection";
                 ParcelCollection.Click += ParcelCollection_Click;
+                ParcelCollection.IsEnabled = true;
                 ButtonsGroup.Children.Add(ParcelCollection);
             }
 

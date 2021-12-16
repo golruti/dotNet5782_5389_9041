@@ -31,7 +31,7 @@ namespace DalObject
                 return true;
 
             T temp = lst.FirstOrDefault(item => (int)item.GetType().GetProperty("Id")?.GetValue(item) == id);
-            return (temp.Equals(default(T)));
+            return temp.Equals(default(T));
         }
 
 

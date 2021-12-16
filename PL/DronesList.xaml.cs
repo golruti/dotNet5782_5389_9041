@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using IBL.BO;
 
 namespace PL
@@ -26,7 +27,7 @@ namespace PL
         {
             InitializeComponent();
             this.bl = bl;
-            DronesListView.DataContext = bl.GetDroneForList();
+            DronesListView.DataContext = bl.GetDroneForList() as ObservableCollection<DroneForList>;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
             DroneStatuses.DataContext = Enum.GetValues(typeof(Enums.DroneStatuses));
         }

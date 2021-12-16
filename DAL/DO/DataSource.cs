@@ -87,6 +87,7 @@ namespace DalObject
                 {
                     tempParcel.TargetId = Rand.Next(customers.Count());
                 }
+                
                 tempParcel.Weight = (WeightCategories)(Rand.Next(0, 3));
                 tempParcel.Priority = (Priorities)(Rand.Next(0, 3));
                 tempParcel.Droneld = i;

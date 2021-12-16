@@ -110,7 +110,7 @@ namespace IBL
         /// <param name="model">the new model</param>
         public void UpdateDroneModel(int id, string model)
         {
-            DroneForList tempDroneForList = drones.Find(item => item.Id == id);
+            DroneForList tempDroneForList = drones.First(item => item.Id == id);
             drones.Remove(tempDroneForList);
             tempDroneForList.Model = model;
             drones.Add(tempDroneForList);
@@ -129,7 +129,7 @@ namespace IBL
         /// <param name="latitude"></param>
         public void UpdateDroneStatus(int id, DroneStatuses status, double battery, double longitude, double latitude)
         {
-            DroneForList tempDroneForList = drones.Find(item => item.Id == id);
+            DroneForList tempDroneForList = drones.First(item => item.Id == id);
             drones.Remove(tempDroneForList);
             tempDroneForList.Status = status;
             tempDroneForList.Battery = battery;
@@ -147,7 +147,7 @@ namespace IBL
             
             if (drones.FirstOrDefault(item => item.Id == id) !=default(DroneForList))
             {
-                DroneForList droneForList = drones.Find(item => item.Id == id);
+                DroneForList droneForList = drones.First(item => item.Id == id);
                 if (droneForList.Status == DroneStatuses.Delivery)
                 {
                     int parcelId=-1;
@@ -243,7 +243,7 @@ namespace IBL
         /// <param name="droneId">id of drone</param>
         public void SendDroneToRecharge(int droneId)
         {
-            DroneForList tempDroneForList = drones.Find(item => item.Id == droneId);
+            DroneForList tempDroneForList = drones.First(item => item.Id == droneId);
             Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
             int baseStationId =-1;
             Location location = new Location(-1, -1);
@@ -288,7 +288,7 @@ namespace IBL
         public void ReleaseDroneFromRecharge(int droneId, int time)
         {
             DroneInCharging droneInCharging = new DroneInCharging();
-            DroneForList drone = drones.Find(item => item.Id == droneId);
+            DroneForList drone = drones.First(item => item.Id == droneId);
             if (drone != null)
             {
                 if (drone.Status == DroneStatuses.Maintenance)
@@ -325,7 +325,7 @@ namespace IBL
                     drone = new Drone(id, item.Model, item.MaxWeight, item.Status, item.Battery, item.Location.Longitude, item.Location.Latitude);
                 }
             }
-            DroneForList droneForList = drones.Find(item => item.Id == id);
+            DroneForList droneForList = drones.First(item => item.Id == id);
             if (drone != null && drone.Status == DroneStatuses.Available)
             {
                 int parcelId = 0;

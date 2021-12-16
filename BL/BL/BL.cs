@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Collections.ObjectModel;
 using System.Linq;
 using IBL.BO;
 using Singleton;
@@ -11,7 +11,8 @@ namespace IBL
     sealed partial class BL : Singleton.Singleton<BL>, IBL
     {
         private IDAL.IDal dal;
-        private List<DroneForList> drones =new List<DroneForList>();
+        //private List<DroneForList> drones =new List<DroneForList>();
+        private ObservableCollection <DroneForList> drones =new ObservableCollection<DroneForList>();
         private static Random rand = new Random();
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
 
