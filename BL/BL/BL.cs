@@ -52,6 +52,8 @@ namespace IBL
             foreach (var drone in drones)
             {
                 drone.Status = findfDroneStatus(drone.Id);
+                if (drone.Status == DroneStatuses.Maintenance)
+                    drone.Time = DateTime.Now;
             }
 
             foreach (var drone in drones)
