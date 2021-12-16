@@ -31,7 +31,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <TextBlock Grid.Row="0" Text="{Binding Path=Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
             <Label Grid.Row="2" Grid.Column="0" Content="Model: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
             <TextBox x:Name="update_model" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Model}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
@@ -53,12 +53,11 @@
         <StackPanel x:Name="ButtonsGroup" Grid.Row="7">
 
         </StackPanel>
-        <Button x:Name="finish" Content="Finish" Visibility="Collapsed"/>
-
+        <Button x:Name="finish" Content="Finish" Visibility="Collapsed" Background="DarkCyan" Height="41" Width="72"/>
         <Label x:Name="label_time" Content="drone time:" BorderBrush="Black" Margin="341,213,358,113" Grid.Row="1" RenderTransformOrigin="0.079,3.231" Visibility="Collapsed"/>
-        <TextBox x:Name="textBox_time" PreviewTextInput="textID_PreviewTextInput" Margin="413,203,212,103" Grid.Row="1" Visibility="Collapsed"/>
-        <Button x:Name="button_time" Content="OK" Margin="593,198,88,103" Grid.Row="1" Click="Button_ReleaseDroneFromCharging_Click" Visibility="Collapsed"/>
-        <Button  Content="Update Model" Click="Update_Click" Background="DarkCyan" Margin="450,259,266,170" Grid.Row="1"/>
+        <TextBox x:Name="textBox_time" PreviewTextInput="textID_PreviewTextInput" Margin="119,203,160,103" Grid.Row="1" Visibility="Collapsed" Height="41" Width="72"/>
+        <Button x:Name="button_time" Content="OK" Height="41" Width="72" Background="DarkCyan" Margin="593,198,88,103" Grid.Row="1" Click="Button_ReleaseDroneFromCharging_Click" Visibility="Collapsed"/>
+        <Button  Content="Update Model" Click="Update_Click" Background="DarkCyan" Height="41" Width="72" Margin="597,386,130,23" Grid.Row="1"/>
         <Button Content="close" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Top"   Height="41" Width="72" Background="DarkCyan" Margin="697,386,0,0" Click="Close_Page"/>
     </Grid>
 
