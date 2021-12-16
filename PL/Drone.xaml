@@ -7,42 +7,42 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0"  Height="150" Width="500">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="20"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Id: "/>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Id: " Margin="0,0,0,16" Grid.RowSpan="2"/>
+            <TextBlock Grid.Row="0" Text="{Binding Path=Id}" Grid.ColumnSpan="2" Margin="66,0,0,16" Grid.RowSpan="2"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Model: "/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Model}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Model: " Margin="0,0,0,4"/>
+            <TextBlock Grid.Row="1" Text="{Binding Path=Model}" Grid.ColumnSpan="2" Margin="66,0,0,4"/>
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="MaxWeight: "/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=MaxWeight}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="MaxWeight: " Margin="0,0,0,16" Grid.RowSpan="2"/>
+            <TextBlock Grid.Row="2" Text="{Binding Path=MaxWeight}" Grid.ColumnSpan="2" Margin="66,0,0,16" Grid.RowSpan="2"/>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="Status: "/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Status}"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Status: " Margin="0,0,0,10"/>
+            <TextBlock Grid.Row="3" Text="{Binding Path=Status}" Grid.ColumnSpan="2" Margin="66,0,0,10"/>
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Battery: "/>
-            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Battery}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Battery: " Margin="0,5,0,16" Grid.RowSpan="2"/>
+            <TextBlock Grid.Row="4" Text="{Binding Path=Battery}" Grid.ColumnSpan="2" Margin="66,5,0,16" Grid.RowSpan="2"/>
 
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Location: "/>
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Location}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Location: " Margin="0,1,0,0"/>
+            <TextBlock Grid.Row="5" Text="{Binding Path=Location}" Grid.ColumnSpan="2" Margin="66,1,0,0"/>
 
         </Grid>
         <StackPanel x:Name="ButtonsGroup" Grid.Row="7">

@@ -3,38 +3,39 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
 >
     <Grid Background="White">
 
 
-        <Grid Grid.Row="0"  Name="UpGrid" Width="auto" Margin="0,0,0,163"  >
+        <Grid Grid.Row="0"  Name="UpGrid" Width="auto" Margin="176,84,176,188"   >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="59*"/>
                 <ColumnDefinition Width="141*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="30*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
 
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" Background="GreenYellow" Grid.Row="0" Content="drone id:"  Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black"/>
+            <Label Grid.Column="0"  Grid.Row="0" Content="drone id:"  Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" Background="Gray" FontSize="20" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
             <TextBox x:Name="Id" Grid.Row="0" Grid.Column="1"  Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" PreviewTextInput="textID_PreviewTextInput"/>
 
-            <Label Grid.Column="0" Background="GreenYellow" Grid.Row="1" Content="station id:" BorderThickness="2" BorderBrush="Black"/>
+            <Label Grid.Column="0"  Grid.Row="1" Content="station id:" BorderThickness="2" BorderBrush="Black" Background="Gray" FontSize="20" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
             <ComboBox x:Name="StationsId"  Grid.Column="1" ItemsSource="{Binding}" Grid.Row="1" BorderThickness="2" BorderBrush="Black" />
-            <Label Grid.Column="0" Background="GreenYellow" Grid.Row="2" Content="drone model:" Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black"/>
+            <Label Grid.Column="0"  Grid.Row="2" Content="drone model:" Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" Background="Gray" FontSize="20" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
             <TextBox x:Name="Model" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" PreviewTextInput="textModel_PreviewTextInput"/>
-            <Label Grid.Column="0" Background="GreenYellow" Grid.Row="3" Content="drone weight:" BorderThickness="2" BorderBrush="Black"/>
+            <Label Grid.Column="0"  Grid.Row="3" Content="drone weight:" BorderThickness="2" BorderBrush="Black" Background="Gray" FontSize="20" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
             <ComboBox x:Name="DroneWeights" Background="White" ItemsSource="{Binding}" Grid.Row="3" Grid.Column="1" BorderThickness="2" BorderBrush="Black" />
         </Grid>
 
-        <Button Background="Gray" Content="finish" Height="50" Width="100"  Margin="667,358,33,26" Click="Button_Click"/>
-        <Button Background="Gray" Content="cencel" Height="50" Width="100"  Margin="535,358,165,26" Click="Close_Page"/>
+        <Button Background="DarkCyan" Content="finish"  Margin="422,238,176,143" Click="Button_Click" Height="20" Width="40"/>
+        <Button Background="DarkCyan" Content="concel"  Margin="359,238,233,142" Click="Close_Page"  Height="20" Width="40"/>
 
 
 
