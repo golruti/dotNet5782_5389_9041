@@ -97,9 +97,23 @@ namespace PL
         //שחרורו רחפן מטעינה
         private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
         {
-            label_time.Visibility = Visibility.Visible;
-            textBox_time.Visibility = Visibility.Visible;
-            button_time.Visibility = Visibility.Visible;
+            try
+            {
+                bl.ReleaseDroneFromRecharge(droneForList.Id);
+                (sender as Button).IsEnabled = false;
+                if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    Close_Page(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
+            }
+            catch
+            {
+                MessageBox.Show($"The glider was unable to free itself from loading, ");
+            }
         }
 
         //שחרור רחפן מטעינה
@@ -107,7 +121,7 @@ namespace PL
         {
             try
             {
-                bl.ReleaseDroneFromRecharge(droneForList.Id, int.Parse(textBox_time.Text));
+                bl.ReleaseDroneFromRecharge(droneForList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
