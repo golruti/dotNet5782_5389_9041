@@ -35,8 +35,8 @@
 
             <Label Grid.Row="2" Grid.Column="0" Content="Model: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
             <TextBox x:Name="update_model" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Model}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
-            <Button  Content="Update Model" Click="Update_Click"/>
-            
+
+
             <Label Grid.Row="4" Grid.Column="0" Content="MaxWeight: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
             <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=MaxWeight}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
@@ -58,7 +58,7 @@
         <Label x:Name="label_time" Content="drone time:" BorderBrush="Black" Margin="341,213,358,113" Grid.Row="1" RenderTransformOrigin="0.079,3.231" Visibility="Collapsed"/>
         <TextBox x:Name="textBox_time" PreviewTextInput="textID_PreviewTextInput" Margin="413,203,212,103" Grid.Row="1" Visibility="Collapsed"/>
         <Button x:Name="button_time" Content="OK" Margin="593,198,88,103" Grid.Row="1" Click="Button_ReleaseDroneFromCharging_Click" Visibility="Collapsed"/>
-
+        <Button  Content="Update Model" Click="Update_Click" Background="DarkCyan" Margin="450,259,266,170" Grid.Row="1"/>
         <Button Content="close" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Top"   Height="41" Width="72" Background="DarkCyan" Margin="697,386,0,0" Click="Close_Page"/>
     </Grid>
 
