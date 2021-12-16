@@ -27,7 +27,7 @@
             <Label Grid.Column="0" Content="   Drone weight:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="White"/>
             <ComboBox Grid.Column="1" x:Name="DroneWeights" ItemsSource="{Binding}" SelectionChanged="DroneWeights_SelectionChanged"/>
             <Label Grid.Column="2" Content="   Drone status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="White"/>
-            <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding}" SelectionChanged="k_SelectionChanged" />
+            <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding}" SelectionChanged="DroneDtatuses_SelectionChanged" />
 
         </Grid>
 

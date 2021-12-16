@@ -45,7 +45,7 @@ namespace PL
             }
         }
 
-        private void k_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void DroneDtatuses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DroneStatuses.SelectedItem == null)
             {
