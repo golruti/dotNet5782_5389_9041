@@ -103,5 +103,7 @@ namespace PL
                 tabControl.Items.Remove(tabItem);
 
         }
+
+        
     }
 }

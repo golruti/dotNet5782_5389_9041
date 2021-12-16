@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         
         <StackPanel Orientation="Horizontal" x:Name="button" Grid.Column="0">
-            <Button Background="Peru" Content="drones list"
+            <Button Background="DarkCyan" Content="drones list"
                 Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDroneListWindow" Margin="100,9"/>
         </StackPanel>
 
