@@ -41,7 +41,14 @@ namespace PL
 
         private void RefreshDroneList()
         {
-            if (DroneWeights.SelectedItem != null )
+            if (DroneStatuses.SelectedItem != null && DroneWeights.SelectedItem != null)
+            {
+                Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
+                Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
+                droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(drone => drone.Status == status && drone.MaxWeight == weight));
+                DronesListView.DataContext = droneForLists;
+            }
+            else if (DroneWeights.SelectedItem != null)
             {
                 Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
                 droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(drone => drone.MaxWeight == weight));
@@ -53,6 +60,7 @@ namespace PL
                 droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(drone => drone.Status == status));
                 DronesListView.DataContext = droneForLists;
             }
+            
             else
             {
                 droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList());
@@ -68,8 +76,16 @@ namespace PL
             }
             else
             {
-                Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-                DronesListView.DataContext = bl.GetDroneForList(drone => drone.MaxWeight == weight);
+                if (DroneStatuses.SelectedItem != null)
+                {
+                    Enums.WeightCategories tempWeight = (Enums.WeightCategories)DroneWeights.SelectedItem;
+                    Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
+                    DronesListView.DataContext = bl.GetDroneForList(drone => drone.Status == status && drone.MaxWeight == tempWeight);
+                }
+                else { 
+                    Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
+                    DronesListView.DataContext = bl.GetDroneForList(drone => drone.MaxWeight == weight);
+                }
             }
         }
 
@@ -81,9 +97,20 @@ namespace PL
             }
             else
             {
-                Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-                DronesListView.ItemsSource = bl.GetDroneForList(drone => drone.Status == status);
+                if(DroneWeights.SelectedItem != null)
+                {
+                    Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
+                    Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
+                    
+                    DronesListView.DataContext = bl.GetDroneForList(drone => drone.MaxWeight == weight && drone.Status == status);
+                }
+                else
+                {
+                    Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
+                    DronesListView.ItemsSource = bl.GetDroneForList(drone => drone.Status == status);
+                }
             }
+            
         }
 
         private void ShowAddDroneWindow(object sender, RoutedEventArgs e)

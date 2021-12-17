@@ -42,7 +42,7 @@ namespace PL
                 sendingDroneForChargingBtn.Content = "Sending a drone for charging";
                 sendingDroneForChargingBtn.Click += SendingDroneForCharging_Click;
                 sendingDroneForChargingBtn.IsEnabled = true;
-                sendingDroneForChargingBtn.Background = Brushes.LightCyan;
+                sendingDroneForChargingBtn.Background = Brushes.DarkCyan;
                 sendingDroneForChargingBtn.Height = 41;
                 sendingDroneForChargingBtn.Width = 90;
                 ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
@@ -51,7 +51,7 @@ namespace PL
                 SendingDroneForDelivery.Content = "Sending a drone for delivery";
                 SendingDroneForDelivery.Click += SendingDroneForCharging_Click;
                 SendingDroneForDelivery.IsEnabled = true;
-                SendingDroneForDelivery.Background = Brushes.LightCyan;
+                SendingDroneForDelivery.Background = Brushes.DarkCyan;
                 SendingDroneForDelivery.Height = 41;
                 SendingDroneForDelivery.Width = 90;
                 ButtonsGroup.Children.Add(SendingDroneForDelivery);
@@ -62,7 +62,7 @@ namespace PL
                 ReleaseDroneFromCharging.Content = "Release drone from charging";
                 ReleaseDroneFromCharging.Click += ReleaseDroneFromCharging_Click;
                 ReleaseDroneFromCharging.IsEnabled = true;
-                ReleaseDroneFromCharging.Background = Brushes.LightCyan;
+                ReleaseDroneFromCharging.Background = Brushes.DarkCyan;
                 ReleaseDroneFromCharging.Height = 41;
                 ReleaseDroneFromCharging.Width = 90;
 
@@ -75,9 +75,10 @@ namespace PL
                 ParcelCollection.Content = "Parcel collection";
                 ParcelCollection.Click += ParcelCollection_Click;
                 ParcelCollection.IsEnabled = true;
-                ParcelCollection.Background = Brushes.LightCyan;
+                ParcelCollection.Background = Brushes.DarkCyan;
                 ParcelCollection.Height = 41;
                 ParcelCollection.Width = 90;
+                
 
                 ButtonsGroup.Children.Add(ParcelCollection);
             }
@@ -87,7 +88,7 @@ namespace PL
                 Button ParcelDelivery = new Button();
                 ParcelDelivery.Content = "Parcel delivery";
                 ParcelDelivery.Click += ParcelDelivery_Click;
-                ParcelDelivery.Background = Brushes.LightCyan;
+                ParcelDelivery.Background = Brushes.DarkCyan;
                 ParcelDelivery.Height = 41;
                 ParcelDelivery.Width = 90;
 
