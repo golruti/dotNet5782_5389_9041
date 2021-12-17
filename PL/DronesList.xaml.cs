@@ -23,25 +23,50 @@ namespace PL
     public partial class DronesList
     {
         IBL.IBL bl;
-        public DronesList(IBL.IBL bl)
+        Action<TabItem> addTab;
+        ObservableCollection<DroneForList> droneForLists;
+        public DronesList(IBL.IBL bl, Action<TabItem> addTab)
         {
             InitializeComponent();
             this.bl = bl;
-            DronesListView.DataContext = bl.GetDroneForList() as ObservableCollection<DroneForList>;
+            this.addTab = addTab;
+            droneForLists= new ObservableCollection<DroneForList>(bl.GetDroneForList());
+            DronesListView.DataContext = droneForLists;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
             DroneStatuses.DataContext = Enum.GetValues(typeof(Enums.DroneStatuses));
         }
 
+        private void RefreshDroneList()
+        {
+
+            if (DroneWeights.SelectedItem != null)
+            {
+                Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
+                droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(drone => drone.MaxWeight == weight));
+                DronesListView.DataContext = droneForLists;
+            }
+            else if (DroneStatuses.SelectedItem != null)
+            {
+                Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
+                droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(drone => drone.Status == status));
+                DronesListView.DataContext = droneForLists;
+            }
+            else
+            {
+                droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList());
+                DronesListView.DataContext = droneForLists;
+            }
+        }
         private void DroneWeights_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DroneWeights.SelectedItem == null)
             {
-                DronesListView.ItemsSource = bl.GetDroneForList();
+                DronesListView.DataContext = bl.GetDroneForList();
             }
             else
             {
                 Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-                DronesListView.ItemsSource = bl.GetDroneForList(drone => drone.MaxWeight == weight);
+                DronesListView.DataContext = bl.GetDroneForList(drone => drone.MaxWeight == weight);
             }
         }
 
@@ -60,32 +85,21 @@ namespace PL
 
         private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
         {
-            var tmp = sender;
-            while (tmp.GetType() != typeof(MainWindow))
-            {
-                tmp = (tmp as FrameworkElement).Parent;
-            }
-
             TabItem tabItem = new TabItem();
             tabItem.Content = new AddDrone(bl);
             tabItem.Header = "Add drone";
-            (tmp as MainWindow).tub_control.Items.Add(tabItem);
+            this.addTab(tabItem);
         }
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var tmp = sender;
-            while (tmp.GetType() != typeof(MainWindow))
-            {
-                tmp = (tmp as FrameworkElement).Parent;
-            }
+            var selectedDrone = (sender as ContentControl).DataContext as IBL.BO.DroneForList;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone((e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneForList, this.bl);
+            tabItem.Content = new Drone(selectedDrone, this.bl, RefreshDroneList);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
-            (tmp as MainWindow).tub_control.Items.Add(tabItem);
-            //(tmp as MainWindow).AddTab(tabItem);
+            this.addTab(tabItem);
 
         }
 
@@ -103,6 +117,9 @@ namespace PL
                 tabControl.Items.Remove(tabItem);
         }
 
+        private void ContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
 
+        }
     }
 }

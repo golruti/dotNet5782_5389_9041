@@ -24,12 +24,14 @@ namespace PL
     {
         private IBL.IBL bl;
         private IBL.BO.Drone droneForList;
+        Action refreshDroneList;
 
-        public Drone(DroneForList droneForList, IBL.IBL bl)
+        public Drone(DroneForList droneForList, IBL.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
 
             this.bl = bl;
+            this.refreshDroneList = refreshDroneList;
             this.droneForList = bl.GetBLDrone(droneForList.Id);
             this.DataContext = droneForList;
 
@@ -237,6 +239,8 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
+
+            this.refreshDroneList();
         }
 
         private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)

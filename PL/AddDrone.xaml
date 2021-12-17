@@ -12,18 +12,18 @@
 
         <Grid Grid.Row="0"  Name="UpGrid" Width="auto" Margin="176,50,176,150"   >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"/>
-                <ColumnDefinition Width="141*"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="5*" />
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="10*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="Auto"/>
 
             </Grid.RowDefinitions>
             <Label Grid.Column="0"  Grid.Row="0" Content="   drone id:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>

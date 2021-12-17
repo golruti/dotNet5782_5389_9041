@@ -38,11 +38,11 @@ namespace PL
         private void ShowDroneListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new DronesList(bl);
+            tabItem.Content = new DronesList(bl, AddTab);
             button.Visibility = Visibility.Collapsed;
             tabItem.Header = "Drone List";
             tub_control.Visibility = Visibility.Visible;
-            tub_control.Items.Add(tabItem);
+            AddTab(tabItem);
             //SelectedTab = tabItem;
         }
 
@@ -62,10 +62,10 @@ namespace PL
         //    }
         //}
 
-        //internal void AddTab(TabItem tabItem)
-        //{
-        //    tub_control.Items.Add(tabItem);
-        //    SelectedTab = tabItem;
-        //}
+        internal void AddTab(TabItem tabItem)
+        {
+            tub_control.Items.Add(tabItem);
+           // SelectedTab = tabItem;
+        }
     }
 }

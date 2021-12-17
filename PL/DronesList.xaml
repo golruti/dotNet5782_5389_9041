@@ -31,12 +31,17 @@
 
         </Grid>
 
-        <ListView x:Name="DronesListView" ItemsSource="{Binding}" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="1">
-            <ListView.View>
+        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <ItemContainerTemplate>
+                    <ContentControl Content="{Binding }" MouseDoubleClick="DronesListView_MouseDoubleClick"></ContentControl>
+                </ItemContainerTemplate>
+            </ListView.ItemTemplate>
+            <!--<ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
-            </ListView.View>
+            </ListView.View>-->
         </ListView>
         <Grid Grid.Row="1">
             <Button Content="close" HorizontalAlignment="Left" Margin="703,339,0,0" VerticalAlignment="Top"   Height="41" Width="72" Background="DarkCyan" Click="Close_Page"/>

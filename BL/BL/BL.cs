@@ -15,7 +15,7 @@ namespace IBL
         
         private IDAL.IDal dal;
         //private List<DroneForList> drones =new List<DroneForList>();
-        private ObservableCollection <DroneForList> drones =new ObservableCollection<DroneForList>();
+        private List <DroneForList> drones =new List<DroneForList>();
         private static Random rand = new Random();
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
 
