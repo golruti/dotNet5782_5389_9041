@@ -218,7 +218,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Enter ID for drone and the time in charging:");
                     droneId = int.Parse(Console.ReadLine());
                     int time = int.Parse(Console.ReadLine());
-                    bl.ReleaseDroneFromRecharge(droneId, time);
+                    bl.ReleaseDroneFromRecharge(droneId);
                     break;
 
                 case UpdateOptions.SCHEDULED:

@@ -24,48 +24,32 @@ namespace PL
     public partial class MainWindow : Window/*, INotifyPropertyChanged*/
     {
         private IBL.IBL bl;
-        private TabItem selectedTab;
-        public event PropertyChangedEventHandler PropertyChanged;
-
 
         public MainWindow()
         {
             bl = Singleton<IBL.BL>.Instance;
             InitializeComponent();
-
         }
 
         private void ShowDroneListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new DronesList(bl, AddTab);
+            tabItem.Content = new DronesList(bl, AddTab, RemoveTab);
             button.Visibility = Visibility.Collapsed;
             tabItem.Header = "Drone List";
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);
-            //SelectedTab = tabItem;
-        }
 
-        private void ShowDrone(object sender, RoutedEventArgs e)
-        {
-            //DroneView.ItemsSource = bl.GetBLDrone();
-            //new DroneList(bl).Show();
         }
-
-        //public TabItem SelectedTab
-        //{
-        //    get => selectedTab;
-        //    set
-        //    {
-        //        selectedTab = value;
-        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedTab)));
-        //    }
-        //}
 
         internal void AddTab(TabItem tabItem)
         {
             tub_control.Items.Add(tabItem);
-           // SelectedTab = tabItem;
+        }
+
+        internal void RemoveTab(TabItem tabItem)
+        {
+            tub_control.Items.Remove(tabItem);
         }
     }
 }

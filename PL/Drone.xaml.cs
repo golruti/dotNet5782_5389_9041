@@ -25,6 +25,7 @@ namespace PL
         private IBL.IBL bl;
         private IBL.BO.Drone droneForList;
         Action refreshDroneList;
+        private string newModel;
 
         public Drone(DroneForList droneForList, IBL.IBL bl, Action refreshDroneList)
         {
@@ -93,7 +94,6 @@ namespace PL
                 ButtonsGroup.Children.Add(ParcelDelivery);
             }
         }
-
 
 
         //שחרורו רחפן מטעינה
@@ -219,14 +219,6 @@ namespace PL
 
         //-----------------------------------------------
 
-
-
-
-
-
-
-
-
         private void Close_Page(object sender, RoutedEventArgs e)
         {
             object tmp = sender;
@@ -270,5 +262,9 @@ namespace PL
             }
         }
 
+        private void update_model_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            newModel = (sender as TextBox).Text;
+        }
     }
 }

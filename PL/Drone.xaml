@@ -34,8 +34,7 @@
             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
             <Label Grid.Row="2" Grid.Column="0" Content="Model: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <TextBox x:Name="update_model" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Model}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
-
+            <TextBox x:Name="update_model" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Model, Mode=OneWay}" TextChanged="update_model_TextChanged" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
             <Label Grid.Row="4" Grid.Column="0" Content="MaxWeight: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
             <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=MaxWeight}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic Bold"/>

@@ -24,12 +24,15 @@ namespace PL
     {
         IBL.IBL bl;
         Action<TabItem> addTab;
+
+
         ObservableCollection<DroneForList> droneForLists;
-        public DronesList(IBL.IBL bl, Action<TabItem> addTab)
+        public DronesList(IBL.IBL bl, Action<TabItem> addTab, Action<TabItem> removeTab)
         {
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
+
             droneForLists= new ObservableCollection<DroneForList>(bl.GetDroneForList());
             DronesListView.DataContext = droneForLists;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
@@ -38,8 +41,7 @@ namespace PL
 
         private void RefreshDroneList()
         {
-
-            if (DroneWeights.SelectedItem != null)
+            if (DroneWeights.SelectedItem != null )
             {
                 Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
                 droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(drone => drone.MaxWeight == weight));
@@ -57,6 +59,7 @@ namespace PL
                 DronesListView.DataContext = droneForLists;
             }
         }
+
         private void DroneWeights_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DroneWeights.SelectedItem == null)
