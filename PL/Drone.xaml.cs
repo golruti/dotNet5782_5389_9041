@@ -48,8 +48,8 @@ namespace PL
                 ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
 
                 Button SendingDroneForDelivery = new Button();
-                SendingDroneForDelivery.Content = "Sending a drone for delivery";
-                SendingDroneForDelivery.Click += SendingDroneForCharging_Click;
+                SendingDroneForDelivery.Content = " delivery";
+                SendingDroneForDelivery.Click += SendingDroneForDelivery_Click;
                 SendingDroneForDelivery.IsEnabled = true;
                 SendingDroneForDelivery.Background = Brushes.DarkCyan;
                 SendingDroneForDelivery.Height = 41;
@@ -93,6 +93,28 @@ namespace PL
                 ParcelDelivery.Width = 90;
 
                 ButtonsGroup.Children.Add(ParcelDelivery);
+            }
+        }
+
+        //שליחת הרחפן למשלוח
+        private void SendingDroneForDelivery_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.AssignParcelToDrone(droneForList.Id);
+                (sender as Button).IsEnabled = false;
+                if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    Close_Page(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+            }
+            catch
+            {
+                MessageBox.Show($"The drone could not be shipped, ");
             }
         }
 
@@ -142,27 +164,7 @@ namespace PL
         }
 
 
-        //שליחת הרחפן למשלוח
-        private void SendingDroneForDelivery(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                bl.AssignParcelToDrone(droneForList.Id);
-                (sender as Button).IsEnabled = false;
-                if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
-                {
-                    Close_Page(sender, e);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
-            }
-            catch
-            {
-                MessageBox.Show($"The drone could not be shipped, ");
-            }            
-        }
+
 
 
         //איסוף חבילה עי רחפן

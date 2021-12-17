@@ -374,6 +374,7 @@ namespace IBL
                                         priority = (Enums.Priorities)item.Priority;
                                         weight = (Enums.WeightCategories)item.Weight;
                                         distance = Distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude);
+                                        break;
                                     }
                                 }
                             }
@@ -382,10 +383,9 @@ namespace IBL
                 }
                 if (exist == true)
                 {
-
-
                     UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery, drone.Location.Longitude, drone.Location.Latitude);
                     UpdateParcelAffiliation(parcelId, drone.Id, DateTime.Now);
+                    
                 }
                 else
                 {

@@ -29,6 +29,13 @@ namespace IBL
             dal.InsertParcel(parcel);
         }
 
+        //public int SenderId { get; set; }
+        //public int TargetId { get; set; }
+        //public int Droneld { get; set; }
+        //public WeightCategories Weight { get; set; }
+        //public Priorities Priority { get; set; }
+
+
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// Retrieves the requested parcel from the data and converts it to BL parcel
