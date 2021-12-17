@@ -121,5 +121,10 @@ namespace PL
         {
 
         }
+
+        private void ContentControl_StylusMove(object sender, StylusEventArgs e)
+        {
+
+        }
     }
 }
