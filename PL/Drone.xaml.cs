@@ -209,11 +209,13 @@ namespace PL
         }
 
 
-
+        //הפונקציה לא ממומשת
+        //צריך לממש פונקציה שמאתחלת את הזמנים
         //-----------------------------------------------
-
+        //אספקת חבילה
         private void ParcelDelivery_Click(object sender, RoutedEventArgs e)
         {
+            //bl.PackageDelivery()
             throw new NotImplementedException();
         }
 

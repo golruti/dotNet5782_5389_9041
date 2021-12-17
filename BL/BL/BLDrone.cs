@@ -215,8 +215,6 @@ namespace IBL
                     {
                         if (item.PickedUp != null && item.Delivered == default(DateTime))
                         {
-
-
                             parcel = item;
                         }
                         else

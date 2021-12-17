@@ -6,16 +6,33 @@
       xmlns:local="clr-namespace:PL"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="myButtonStyle"
+           TargetType="Button">
+            <Setter Property="FontSize"
+              Value="10" />
+            <Setter Property="FontFamily"
+              Value="Consolas" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Height"
+                    Value="41"/>
+            <Setter Property="Width"
+                    Value="72"/>
+            <Setter Property="Background"
+                    Value="DarkCyan"/>
+        </Style>
+    </UserControl.Resources>
 
-
-    <Grid Background="White">
+        <Grid Background="White">
         <Grid.RowDefinitions>
 
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="67*"/>
+            <RowDefinition Height="56*"/>
+            <RowDefinition Height="299*"/>
+            <RowDefinition Height="95*"/>
 
         </Grid.RowDefinitions>
-        <Grid   Name="UpGrid"  Grid.Row="0" Margin="150,10,150,10" >
+        <Grid   Name="UpGrid"  Grid.Row="0" Margin="150,10,150,10" Height="30" Width="600">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
@@ -31,10 +48,10 @@
 
         </Grid>
 
-        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1">
+        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
             <ListView.ItemTemplate>
                 <ItemContainerTemplate>
-                    <ContentControl Content="{Binding }" MouseDoubleClick="DronesListView_MouseDoubleClick"></ContentControl>
+                    <ContentControl Content="{Binding }" MouseDoubleClick="DronesListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>
                 </ItemContainerTemplate>
             </ListView.ItemTemplate>
             <!--<ListView.View>
@@ -43,9 +60,10 @@
                 </GridView>
             </ListView.View>-->
         </ListView>
-        <Grid Grid.Row="1">
-            <Button Content="close" HorizontalAlignment="Left" Margin="703,339,0,0" VerticalAlignment="Top"   Height="41" Width="72" Background="DarkCyan" Click="Close_Page"/>
-            <Button  Content="add drone"  HorizontalAlignment="Left"   Click="ShowAddDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="612,339,0,0"  Height="41" Width="72" Background="DarkCyan"/>
-        </Grid>
+
+        <Button Content="close"  HorizontalAlignment="Left" Margin="693,34,0,0" VerticalAlignment="Top"   Click="Close_Page" Grid.Row="2" RenderTransformOrigin="-0.019,0.436" Style="{StaticResource myButtonStyle}"/>
+        <Button  Content="add drone"  HorizontalAlignment="Left"   Click="ShowAddDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="595,34,0,0"   Grid.Row="2" Style="{StaticResource myButtonStyle}" />
+
+        
     </Grid>
 </UserControl>
