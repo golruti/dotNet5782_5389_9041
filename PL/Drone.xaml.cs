@@ -119,28 +119,6 @@ namespace PL
             }
         }
 
-        //שחרור רחפן מטעינה
-        private void Button_ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                bl.ReleaseDroneFromRecharge(droneForList.Id);
-                (sender as Button).IsEnabled = false;
-                if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
-                {
-                    Close_Page(sender, e);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
-            }
-            catch
-            {
-                MessageBox.Show($"The glider was unable to free itself from loading, ");
-            }
-        }
-
         //שליחת רחפן לטעינה
         private void SendingDroneForCharging_Click(object sender, RoutedEventArgs e)
         {
@@ -244,24 +222,25 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        //עדכון מודל
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 bl.UpdateDroneModel(droneForList.Id, update_model.Text);
                 (sender as Button).IsEnabled = false;
-                if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                if (MessageBox.Show("The drone model has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     Close_Page(sender, e);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+                MessageBox.Show($"The drone model could not be updated, {ex.Message}");
             }
             catch
             {
-                MessageBox.Show($"The drone could not be shipped, ");
+                MessageBox.Show($"The drone model could not be updated, ");
             }
         }
 

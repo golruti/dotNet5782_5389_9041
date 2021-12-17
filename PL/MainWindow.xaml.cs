@@ -51,5 +51,7 @@ namespace PL
         {
             tub_control.Items.Remove(tabItem);
         }
+
+        
     }
 }

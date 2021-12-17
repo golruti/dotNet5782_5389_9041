@@ -23,26 +23,19 @@ namespace PL
     {
 
         IBL.IBL bl;
-        public AddDrone(IBL.IBL bl)
+        private Action refreshDroneList;
+        public AddDrone(IBL.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
             this.bl = bl;
 
             StationsId.DataContext = bl.GetBaseStationForListsId();
+            this.refreshDroneList = refreshDroneList;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
         }
 
         private void Finish_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                BaseStation baseStation = bl.GetBLBaseStation(int.Parse(StationsId.Text));
-            }
-            catch
-            {
-                throw new ArgumentNullException("station dond exist");
-            }
-
             try
             {
                 bl.AddDrone(int.Parse(Id.Text), int.Parse(StationsId.Text), (IBL.BO.Enums.WeightCategories)DroneWeights.SelectedItem, Model.Text);
@@ -70,6 +63,7 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
+            this.refreshDroneList();
         }
 
         private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
