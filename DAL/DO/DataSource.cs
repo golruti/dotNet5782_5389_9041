@@ -31,7 +31,7 @@ namespace DalObject
             //קצב טעינה לשעה
            static public double ChargingRate=20;
 
-            static public double ChargingRate = 20;
+            
         }
 
         /// <summary>

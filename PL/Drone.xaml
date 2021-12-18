@@ -50,14 +50,12 @@
             <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding Path=Location}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,50" Grid.RowSpan="3"/>
 
         </Grid>
-        <StackPanel x:Name="ButtonsGroup" Grid.Row="1">
+        <StackPanel x:Name="ButtonsGroup" Grid.Row="1" Width="300">
 
         </StackPanel>
 
         <Button x:Name="finish" Content="Finish" Visibility="Collapsed" Background="DarkCyan" Height="31" Width="72" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
-        <!--<Label x:Name="label_time" Content="drone time:" BorderBrush="Black" Margin="341,213,358,113" Grid.Row="1" RenderTransformOrigin="0.079,3.231" Visibility="Collapsed"/>
-        <TextBox x:Name="textBox_time" PreviewTextInput="textID_PreviewTextInput" Margin="119,203,160,103" Grid.Row="1" Visibility="Collapsed" Height="41" Width="72"/>
-        <Button x:Name="button_time" Content="OK" Height="41" Width="72" Background="DarkCyan" Margin="593,198,88,103" Grid.Row="1" Click="Button_ReleaseDroneFromCharging_Click" Visibility="Collapsed"/>-->
+       
         <Button  Content="Update Model" Click="Update_Click" Background="DarkCyan" Height="31" Width="72" Margin="435,321,293,148" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
         <Button Content="close" HorizontalAlignment="Left" VerticalAlignment="Top"   Height="31" Width="72" Background="DarkCyan" Margin="526,321,0,0" Click="Close_Page" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
     </Grid>

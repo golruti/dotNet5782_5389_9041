@@ -7,14 +7,33 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="640" >
     <Grid x:Name="MainGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="35*"/>
-            <ColumnDefinition Width="69*"/>
-        </Grid.ColumnDefinitions>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
         <StackPanel Orientation="Horizontal" x:Name="button" Grid.Column="0">
-            <Button Background="DarkCyan" Content="drones list"
-                Height="50" Width="100" RenderTransformOrigin="0.581,3.352" Click="ShowDroneListWindow" Margin="100,9"/>
+            <Button Content="drones list" Click="ShowDroneListWindow" Width="1500" Height="50" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" FontSize="30" FontFamily="Consolas" FontWeight="Bold">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="DarkCyan"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Gray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
 
         <TabControl x:Name="tub_control" Grid.Column="0" Grid.ColumnSpan="4"  Visibility="Collapsed" >
