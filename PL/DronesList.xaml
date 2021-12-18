@@ -24,7 +24,7 @@
         </Style>
     </UserControl.Resources>
 
-        <Grid Background="White">
+    <Grid Background="Gray">
         <Grid.RowDefinitions>
 
             <RowDefinition Height="56*"/>
@@ -33,6 +33,10 @@
 
         </Grid.RowDefinitions>
         <Grid   Name="UpGrid"  Grid.Row="0" Margin="150,10,150,10" Height="30" Width="600">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
@@ -41,10 +45,10 @@
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions >
 
-            <Label Grid.Column="0" Content="   Drone weight:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="White"/>
-            <ComboBox Grid.Column="1" x:Name="DroneWeights" ItemsSource="{Binding}" SelectionChanged="DroneWeights_SelectionChanged"/>
-            <Label Grid.Column="2" Content="   Drone status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="White"/>
-            <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding}" SelectionChanged="DroneDtatuses_SelectionChanged" />
+            <Label Grid.Column="0" Content="  Drone weight:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
+            <ComboBox Grid.Column="1" x:Name="DroneWeights" ItemsSource="{Binding}" SelectionChanged="DroneWeights_SelectionChanged" Grid.RowSpan="2"/>
+            <Label Grid.Column="2" Content="   Drone status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
+            <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding}" SelectionChanged="DroneDtatuses_SelectionChanged" Grid.RowSpan="2" />
 
         </Grid>
 
@@ -54,13 +58,16 @@
                     <ContentControl Content="{Binding }" MouseDoubleClick="DronesListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>
                 </ItemContainerTemplate>
             </ListView.ItemTemplate>
-            
+            <!--<ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>-->
         </ListView>
 
         <Button Content="close"  HorizontalAlignment="Left" Margin="693,34,0,0" VerticalAlignment="Top"   Click="Close_Page" Grid.Row="2" RenderTransformOrigin="-0.019,0.436" Style="{StaticResource myButtonStyle}"/>
         <Button  Content="add drone"  HorizontalAlignment="Left"   Click="ShowAddDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="595,34,0,0"   Grid.Row="2" Style="{StaticResource myButtonStyle}" />
 
-            
-        
+
     </Grid>
 </UserControl>

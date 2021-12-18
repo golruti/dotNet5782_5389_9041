@@ -39,6 +39,9 @@ namespace PL
             DroneStatuses.DataContext = Enum.GetValues(typeof(Enums.DroneStatuses));
         }
 
+        /// <summary>
+        /// Updates the skimmer list
+        /// </summary>
         private void RefreshDroneList()
         {
             if (DroneStatuses.SelectedItem != null && DroneWeights.SelectedItem != null)
@@ -67,6 +70,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Changes the list of skimmers according to the weight selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DroneWeights_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DroneWeights.SelectedItem == null)
@@ -88,6 +96,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Changes the list of skimmers according to the selected status
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DroneDtatuses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DroneStatuses.SelectedItem == null)
@@ -112,6 +125,11 @@ namespace PL
             
         }
 
+        /// <summary>
+        /// Opens a window for adding a skimmer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
@@ -120,6 +138,11 @@ namespace PL
             this.addTab(tabItem);
         }
 
+        /// <summary>
+        /// window winder that allows you to update the details of the glider that you double-clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedDrone = (sender as ContentControl).DataContext as IBL.BO.DroneForList;
@@ -132,6 +155,11 @@ namespace PL
 
         }
 
+        /// <summary>
+        /// the function close the page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Close_Page(object sender, RoutedEventArgs e)
         {
             object tmp = sender;

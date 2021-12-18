@@ -61,7 +61,7 @@ namespace DalObject
         /// <returns>array of parceles</returns>
         public IEnumerable<Parcel> GetParcels()
         {
-            return DataSource.parcels.ToList();
+            return DataSource.parcels.Select(parcel => parcel.Clone()).ToList();
         }
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace DalObject
         /// <returns>array of customer</returns>
         public IEnumerable<Customer> GetCustomers()
         {
-            return DataSource.customers.ToList();
+            return DataSource.customers.Select(customer => customer.Clone()).ToList();
         }
 
         /// <summary>
@@ -56,7 +56,6 @@ namespace DalObject
         {
             return DataSource.customers.Where(customer => predicate(customer)).ToList();
         }
-
 
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
         /// <summary>
