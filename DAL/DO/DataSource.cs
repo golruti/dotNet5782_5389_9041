@@ -30,7 +30,6 @@ namespace DalObject
             static public double CarriesHeavyWeight = 0.006;
             //קצב טעינה לשעה
             static public double ChargingRate = 20;
-
         }
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace DalObject
 
                 tempParcel.Id = i;
                 tempParcel.SenderId = Rand.Next(customers.Count());
-                if(i==3)
+                if (i == 3)
                 {
                     tempParcel.TargetId = Rand.Next(customers.Count());
                     while (tempParcel.SenderId == tempParcel.TargetId)
@@ -89,14 +88,14 @@ namespace DalObject
                     }
                     tempParcel.Scheduled = DateTime.Now.AddDays(-10);
                     tempParcel.PickedUp = DateTime.Now.AddDays(-5);
-                    tempParcel.Delivered= DateTime.Now.AddDays(-2);
+                    tempParcel.Delivered = DateTime.Now.AddDays(-2);
                 }
 
                 tempParcel.Weight = (WeightCategories)(Rand.Next(0, 3));
                 tempParcel.Priority = (Priorities)(Rand.Next(0, 3));
                 tempParcel.Requested = DateTime.Now;
                 tempParcel.Droneld = -1;
-                if(i==0)
+                if (i == 0)
                 {
                     tempParcel.Droneld = i;
                     tempParcel.Scheduled = DateTime.Now.AddDays(2);

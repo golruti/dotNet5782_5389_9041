@@ -72,11 +72,5 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void textModel_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^a-zA-Z0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
     }
 }

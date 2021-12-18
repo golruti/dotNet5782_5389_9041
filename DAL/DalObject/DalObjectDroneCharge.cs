@@ -18,10 +18,6 @@ namespace DalObject
         /// <param name="droneCharge">The drone charge for Adding</param>
         public void InsertDroneCharge(DroneCharge droneCharge)
         {
-            if (!(uniqueIDTaxCheck(DataSource.droneCharges, droneCharge.DroneId)))
-            {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a Drone Charge - DAL");
-            }
             DataSource.droneCharges.Add(droneCharge);
         }
 
