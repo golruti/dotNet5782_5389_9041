@@ -45,22 +45,21 @@ namespace PL
             {
                 Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
                 Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-                droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(drone => drone.Status == status && drone.MaxWeight == weight));
+                droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(weight,status));
                 DronesListView.DataContext = droneForLists;
             }
             else if (DroneWeights.SelectedItem != null)
             {
                 Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-                droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(drone => drone.MaxWeight == weight));
+                droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(weight));
                 DronesListView.DataContext = droneForLists;
             }
             else if (DroneStatuses.SelectedItem != null)
             {
                 Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-                droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(drone => drone.Status == status));
+                droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(status));
                 DronesListView.DataContext = droneForLists;
-            }
-            
+            }         
             else
             {
                 droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList());
@@ -78,13 +77,13 @@ namespace PL
             {
                 if (DroneStatuses.SelectedItem != null)
                 {
-                    Enums.WeightCategories tempWeight = (Enums.WeightCategories)DroneWeights.SelectedItem;
+                    Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
                     Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-                    DronesListView.DataContext = bl.GetDroneForList(drone => drone.Status == status && drone.MaxWeight == tempWeight);
+                    DronesListView.DataContext = bl.GetDroneForList(weight,status);
                 }
                 else { 
                     Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-                    DronesListView.DataContext = bl.GetDroneForList(drone => drone.MaxWeight == weight);
+                    DronesListView.DataContext = bl.GetDroneForList(weight);
                 }
             }
         }
@@ -102,12 +101,12 @@ namespace PL
                     Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
                     Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
                     
-                    DronesListView.DataContext = bl.GetDroneForList(drone => drone.MaxWeight == weight && drone.Status == status);
+                    DronesListView.DataContext = bl.GetDroneForList( weight,status);
                 }
                 else
                 {
                     Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-                    DronesListView.ItemsSource = bl.GetDroneForList(drone => drone.Status == status);
+                    DronesListView.ItemsSource = bl.GetDroneForList(status);
                 }
             }
             

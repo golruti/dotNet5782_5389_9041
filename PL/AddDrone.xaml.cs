@@ -45,9 +45,25 @@ namespace PL
                     Close_Page(sender, e);
                 }
             }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"The skimmer was not add, {ex.Message}");
+                MessageBox.Show($"The drone was not add, {ex.Message}");
             }
         }
 

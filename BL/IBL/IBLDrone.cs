@@ -17,6 +17,9 @@ namespace IBL
         public Drone GetBLDrone(int id);
         public IEnumerable<DroneForList> GetDroneForList();
         public IEnumerable<DroneForList> GetDroneForList(Predicate<DroneForList> predicate);
+        public IEnumerable<DroneForList> GetDroneForList(Enums.WeightCategories weight, Enums.DroneStatuses status);
+        public IEnumerable<DroneForList> GetDroneForList(Enums.WeightCategories weight);
+        public IEnumerable<DroneForList> GetDroneForList(Enums.DroneStatuses status);
         public void UpdateDroneModel(int id, string model);
         public void PackageCollection(int Id);
         public void PackageDelivery(int id);

@@ -110,13 +110,27 @@ namespace PL
                     Close_Page(sender, e);
                 }
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+
+            }
+            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
-            catch
+            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                MessageBox.Show($"The drone could not be shipped, ");
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
         }
 
@@ -133,13 +147,25 @@ namespace PL
                     Close_Page(sender, e);
                 }
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException ex)
             {
                 MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
             }
-            catch
+            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
-                MessageBox.Show($"The glider was unable to free itself from loading, ");
+                MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
+            }
+            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
             }
         }
 
@@ -155,19 +181,27 @@ namespace PL
                     Close_Page(sender, e);
                 }
             }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
+            }
+            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            {
+                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
+            }
+            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
             }
-            catch
-            {
-                MessageBox.Show($"The drone could not be sent for loading, ");
-            }
         }
-
-
-
-
 
         //איסוף חבילה עי רחפן
         private void ParcelCollection_Click(object sender, RoutedEventArgs e)
@@ -181,13 +215,25 @@ namespace PL
                     Close_Page(sender, e);
                 }
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException ex)
             {
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
-            catch
+            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
-                MessageBox.Show($"The drone could not be shipped, ");
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+            }
+            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
         }
 
@@ -204,13 +250,25 @@ namespace PL
                     Close_Page(sender, e);
                 }
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException ex)
             {
                 MessageBox.Show($"Sorry, the parcel was not delivered, {ex.Message}");
             }
-            catch
+            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
-                MessageBox.Show($"Sorry, the parcel was not delivered, ");
+                MessageBox.Show($"Sorry, the parcel was not delivered, {ex.Message}");
+            }
+            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                MessageBox.Show($"Sorry, the parcel was not delivered, {ex.Message}");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"Sorry, the parcel was not delivered, {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Sorry, the parcel was not delivered, {ex.Message}");
             }
         }
 
@@ -250,13 +308,25 @@ namespace PL
                     Close_Page(sender, e);
                 }
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException ex)
             {
                 MessageBox.Show($"The drone model could not be updated, {ex.Message}");
             }
-            catch
+            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
-                MessageBox.Show($"The drone model could not be updated, ");
+                MessageBox.Show($"The drone model could not be updated, {ex.Message}");
+            }
+            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                MessageBox.Show($"The drone model could not be updated, {ex.Message}");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"The drone model could not be updated, {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone model could not be updated, {ex.Message}");
             }
         }
 
