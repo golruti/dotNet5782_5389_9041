@@ -41,14 +41,14 @@ namespace IDAL
             /// <returns>parsel</returns>
 
 
-            public Parcel(int id, int senderId,int targetId, WeightCategories weight, Priorities priority, int droneld, DateTime requested, DateTime scheduled, DateTime pickedUp ,DateTime delivered)
+            public Parcel(int id, int senderId,int targetId, WeightCategories weight, Priorities priority, DateTime requested, DateTime scheduled, DateTime pickedUp ,DateTime delivered)
             {
                 Id = id;
                 SenderId = senderId;
                 TargetId = targetId;
                 Weight = weight;
                 Priority = priority;
-                Droneld = droneld;
+                Droneld = -1;
                 Requested = requested;
                 Scheduled = scheduled;
                 PickedUp = pickedUp;
