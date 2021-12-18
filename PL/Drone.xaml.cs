@@ -49,7 +49,7 @@ namespace PL
                 ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
 
                 Button SendingDroneForDelivery = new Button();
-                SendingDroneForDelivery.Content = " delivery";
+                SendingDroneForDelivery.Content = " Connecting a parcel to a drone";
                 SendingDroneForDelivery.Click += SendingDroneForDelivery_Click;
                 SendingDroneForDelivery.IsEnabled = true;
                 SendingDroneForDelivery.Background = Brushes.DarkCyan;
