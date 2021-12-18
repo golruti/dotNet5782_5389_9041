@@ -44,7 +44,7 @@ namespace PL
                 sendingDroneForChargingBtn.IsEnabled = true;
                 sendingDroneForChargingBtn.Background = Brushes.DarkCyan;
                 sendingDroneForChargingBtn.Height = 40;
-                sendingDroneForChargingBtn.Width = 110;
+                sendingDroneForChargingBtn.Width = 130;
                 sendingDroneForChargingBtn.HorizontalAlignment = HorizontalAlignment.Center;
                 ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
 
@@ -54,7 +54,7 @@ namespace PL
                 SendingDroneForDelivery.IsEnabled = true;
                 SendingDroneForDelivery.Background = Brushes.DarkCyan;
                 SendingDroneForDelivery.Height = 40;
-                SendingDroneForDelivery.Width = 110;
+                SendingDroneForDelivery.Width = 130;
                 SendingDroneForDelivery.HorizontalAlignment = HorizontalAlignment.Center;
                 ButtonsGroup.Children.Add(SendingDroneForDelivery);
             }
@@ -66,7 +66,7 @@ namespace PL
                 ReleaseDroneFromCharging.IsEnabled = true;
                 ReleaseDroneFromCharging.Background = Brushes.DarkCyan;
                 ReleaseDroneFromCharging.Height = 40;
-                ReleaseDroneFromCharging.Width = 110;
+                ReleaseDroneFromCharging.Width = 130;
                 ReleaseDroneFromCharging.HorizontalAlignment = HorizontalAlignment.Center;
 
                 ButtonsGroup.Children.Add(ReleaseDroneFromCharging);
@@ -79,9 +79,9 @@ namespace PL
                 ParcelCollection.Click += ParcelCollection_Click;
                 ParcelCollection.IsEnabled = true;
                 ParcelCollection.Background = Brushes.DarkCyan;
-                ParcelCollection.Height = 41;
-                ParcelCollection.Width = 90;
-                
+                ParcelCollection.Height = 40;
+                ParcelCollection.Width = 130;
+                ParcelCollection.HorizontalAlignment = HorizontalAlignment.Center;
 
                 ButtonsGroup.Children.Add(ParcelCollection);
             }
@@ -92,9 +92,9 @@ namespace PL
                 ParcelDelivery.Content = "Parcel delivery";
                 ParcelDelivery.Click += ParcelDelivery_Click;
                 ParcelDelivery.Background = Brushes.DarkCyan;
-                ParcelDelivery.Height = 41;
-                ParcelDelivery.Width = 90;
-
+                ParcelDelivery.Height = 40;
+                ParcelDelivery.Width = 130;
+                ParcelDelivery.HorizontalAlignment = HorizontalAlignment.Center;
                 ButtonsGroup.Children.Add(ParcelDelivery);
             }
         }
@@ -140,7 +140,11 @@ namespace PL
         }
 
 
-        //שחרורו רחפן מטעינה
+        /// <summary>
+        /// release drone from charging
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -255,10 +259,11 @@ namespace PL
         }
 
 
-        //הפונקציה לא ממומשת
-        //צריך לממש פונקציה שמאתחלת את הזמנים
-        //-----------------------------------------------
-        //אספקת חבילה
+        /// <summary>
+        /// Package delivery
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ParcelDelivery_Click(object sender, RoutedEventArgs e)
         {
             try

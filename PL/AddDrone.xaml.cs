@@ -34,6 +34,11 @@ namespace PL
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
         }
 
+        /// <summary>
+        /// Puts the new Harhan on the list and updates the details
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Finish_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -67,6 +72,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Closes the page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Close_Page(object sender, RoutedEventArgs e)
         {
             object tmp = sender;
@@ -82,6 +92,11 @@ namespace PL
             this.refreshDroneList();
         }
 
+        /// <summary>
+        /// Input filter for ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
