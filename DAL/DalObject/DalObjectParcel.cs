@@ -16,9 +16,13 @@ namespace DalObject
         /// <param name="parcel">struct of parcel</param>
         public void InsertParcel(Parcel parcel)
         {
-            if (!uniqueIDTaxCheck(DataSource.customers, parcel.SenderId))
+            Customer senderId = DataSource.customers.FirstOrDefault(c => c.Id == parcel.SenderId);
+            Customer targetId = DataSource.customers.FirstOrDefault(c => c.Id == parcel.TargetId);
+
+
+            if (senderId.Equals(default(Customer)))
                 throw new KeyNotFoundException("Add parcel -DAL-:Sender not exist");
-            if (!uniqueIDTaxCheck(DataSource.customers, parcel.TargetId))
+            if (targetId.Equals(default(Customer)))
                 throw new KeyNotFoundException("Add parcel -DAL-:Target not exist");
             if (!(uniqueIDTaxCheck(DataSource.parcels, parcel.Id)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a parcel - DAL");

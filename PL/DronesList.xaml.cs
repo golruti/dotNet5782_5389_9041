@@ -116,7 +116,7 @@ namespace PL
         private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new AddDrone(bl);
+            tabItem.Content = new AddDrone(bl,RefreshDroneList);
             tabItem.Header = "Add drone";
             this.addTab(tabItem);
         }
@@ -145,16 +145,6 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-        }
-
-        private void ContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void ContentControl_StylusMove(object sender, StylusEventArgs e)
-        {
-
         }
     }
 }
