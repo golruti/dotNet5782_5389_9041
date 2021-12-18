@@ -43,8 +43,9 @@ namespace PL
                 sendingDroneForChargingBtn.Click += SendingDroneForCharging_Click;
                 sendingDroneForChargingBtn.IsEnabled = true;
                 sendingDroneForChargingBtn.Background = Brushes.DarkCyan;
-                sendingDroneForChargingBtn.Height = 41;
-                sendingDroneForChargingBtn.Width = 90;
+                sendingDroneForChargingBtn.Height = 40;
+                sendingDroneForChargingBtn.Width = 110;
+                sendingDroneForChargingBtn.HorizontalAlignment = HorizontalAlignment.Center;
                 ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
 
                 Button SendingDroneForDelivery = new Button();
@@ -52,8 +53,9 @@ namespace PL
                 SendingDroneForDelivery.Click += SendingDroneForDelivery_Click;
                 SendingDroneForDelivery.IsEnabled = true;
                 SendingDroneForDelivery.Background = Brushes.DarkCyan;
-                SendingDroneForDelivery.Height = 41;
-                SendingDroneForDelivery.Width = 90;
+                SendingDroneForDelivery.Height = 40;
+                SendingDroneForDelivery.Width = 110;
+                SendingDroneForDelivery.HorizontalAlignment = HorizontalAlignment.Center;
                 ButtonsGroup.Children.Add(SendingDroneForDelivery);
             }
             else if (droneForList.Status == Enums.DroneStatuses.Maintenance)
@@ -63,8 +65,9 @@ namespace PL
                 ReleaseDroneFromCharging.Click += ReleaseDroneFromCharging_Click;
                 ReleaseDroneFromCharging.IsEnabled = true;
                 ReleaseDroneFromCharging.Background = Brushes.DarkCyan;
-                ReleaseDroneFromCharging.Height = 41;
-                ReleaseDroneFromCharging.Width = 90;
+                ReleaseDroneFromCharging.Height = 40;
+                ReleaseDroneFromCharging.Width = 110;
+                ReleaseDroneFromCharging.HorizontalAlignment = HorizontalAlignment.Center;
 
                 ButtonsGroup.Children.Add(ReleaseDroneFromCharging);
             }
