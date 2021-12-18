@@ -14,10 +14,11 @@ namespace IBL
         /// Add a parcel to the list of purcels
         /// </summary>
         /// <param name="tempParcel">The parcel for Adding</param>
+        /// 
         public void AddParcel(Parcel tempParcel)
         {
-            //IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(dal.IncreastNumberIndea(), tempParcel.CustomerSender, tempParcel.CustomerReceives, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
-            //dal.InsertParcel(parcel);
+            IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(tempParcel.Id, tempParcel.CustomerSender.Id, tempParcel.CustomerReceives.Id, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
+            dal.InsertParcel(parcel);
         }
 
 
