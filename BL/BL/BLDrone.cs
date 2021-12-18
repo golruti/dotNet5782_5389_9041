@@ -15,7 +15,7 @@ namespace IBL
         /// Add a drone to the list of drones
         /// </summary>
         /// <param name="tempDrone">The customer for Adding</param>
-        public void AddDrone(int id,int stationId, Enums.WeightCategories maxWeight,string model)
+        public void AddDrone(int id, int stationId, Enums.WeightCategories maxWeight, string model)
         {
             Drone tempDrone = new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), GetBLBaseStation(stationId).Location.Longitude, GetBLBaseStation(stationId).Location.Latitude);
             IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDrone.Id, tempDrone.Model, (IDAL.DO.Enum.WeightCategories)tempDrone.MaxWeight);
@@ -78,7 +78,7 @@ namespace IBL
                 Status = droneToList.Status,
                 Battery = droneToList.Battery,
                 Location = droneToList.Location,
-                Delivery = !droneToList.ParcelDeliveredId.Equals(default) ? CreateParcelInTransfer((int)droneToList.ParcelDeliveredId) : default
+                Delivery = droneToList.ParcelDeliveredId != -1 ? CreateParcelInTransfer((int)droneToList.ParcelDeliveredId) : default
             };
         }
 
@@ -127,6 +127,19 @@ namespace IBL
         /// <param name="battery">battery of the drone</param>
         /// <param name="longitude"></param>
         /// <param name="latitude"></param>
+        public void UpdateDroneStatus(int id, DroneStatuses status, double battery, int parcelIdDeliverd, double longitude, double latitude)
+        {
+            DroneForList tempDroneForList = drones.First(item => item.Id == id);
+            drones.Remove(tempDroneForList);
+            tempDroneForList.Status = status;
+            tempDroneForList.Battery = battery;
+            tempDroneForList.ParcelDeliveredId = parcelIdDeliverd;
+            tempDroneForList.Location.Longitude = longitude;
+            tempDroneForList.Location.Latitude = latitude;
+            tempDroneForList.Time = DateTime.Now;
+            drones.Add(tempDroneForList);
+        }
+
         public void UpdateDroneStatus(int id, DroneStatuses status, double battery, double longitude, double latitude)
         {
             DroneForList tempDroneForList = drones.First(item => item.Id == id);
@@ -139,35 +152,36 @@ namespace IBL
             drones.Add(tempDroneForList);
         }
 
+
         /// <summary>
         /// Collection of a package by skimmer
         /// </summary>
         /// <param name="id">id of drone</param>
         public void PackageCollection(int id)
         {
-            
-            if (drones.FirstOrDefault(item => item.Id == id) !=default(DroneForList))
+
+            if (drones.FirstOrDefault(item => item.Id == id) != default(DroneForList))
             {
                 DroneForList droneForList = drones.First(item => item.Id == id);
                 if (droneForList.Status == DroneStatuses.Delivery)
                 {
-                    int parcelId=-1;
-                   foreach (var tempParcel in dal.GetParcels())
+                    int parcelId = -1;
+                    foreach (var tempParcel in dal.GetParcels())
                     {
                         if (tempParcel.Droneld == id)
                         {
                             parcelId = tempParcel.Id;
                             break;
                         }
-                        
+
                     }
-                    if(GetParcelForList().All(item=>item.Status== ParcelStatuses.Associated))
+                    if (GetParcelForList(item => (item.Status == ParcelStatuses.Associated) && (item.Id == parcelId)).Count() > 0)
                     {
                         IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
                         IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                         double distance = Distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
                         Location location = new Location(customer.Longitude, customer.Latitude);
-                        droneForList.Battery -= ((int)minBattery(droneForList.Location,location,droneForList.Status,droneForList.MaxWeight) + 1);
+                        droneForList.Battery -= ((int)minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1);
                         droneForList.Location = location;
                         drones.Add(droneForList);
                         dal.UpdatePickedUp(parcel);
@@ -176,7 +190,7 @@ namespace IBL
                     {
                         throw new ArgumentNullException("not find the parcel -BL-");
                     }
-                    
+
                 }
                 else
                 {
@@ -195,27 +209,19 @@ namespace IBL
         /// <param name="id"></param>
         public void PackageDelivery(int id)
         {
-            DroneForList drone = new DroneForList();
-            int index = 0;
-            foreach (DroneForList item in drones)
-            {
-                if (item.Id == id)
-                {
-                    drone = item;
-                    break;
-                }
-                ++index;
-            }
-            if (drone.ParcelDeliveredId != 0)
+            DroneForList drone = drones.First(drone => drone.Id == id);
+
+            if (drone.ParcelDeliveredId != -1)
             {
                 IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
                 foreach (IDAL.DO.Parcel item in dal.GetParcels())
                 {
                     if (item.Id == drone.ParcelDeliveredId)
                     {
-                        if (item.PickedUp != null && item.Delivered == default(DateTime))
+                        if (item.PickedUp != null && item.Delivered == null)
                         {
                             parcel = item;
+                            break;
                         }
                         else
                         {
@@ -224,10 +230,13 @@ namespace IBL
                     }
                 }
                 Customer customer = GetBLCustomer(parcel.TargetId);
-                drones[index].Battery -= (minBattery(drone.Location,customer.Location,drone.Status,drone.MaxWeight) + 1);
-                drones[index].Location = customer.Location;
+                drones.Remove(drone);
+
+                drone.Battery -= (minBattery(drone.Location, customer.Location, drone.Status, drone.MaxWeight) + 1);
+                drone.Location = customer.Location;
+                drone.Status = DroneStatuses.Available;
+                drones.Add(drone);
                 parcel.Delivered = DateTime.Now;
-                drones[index].Status = DroneStatuses.Available;
                 dal.UpdateSupply(parcel);
             }
             else
@@ -244,7 +253,7 @@ namespace IBL
         {
             DroneForList tempDroneForList = drones.First(item => item.Id == droneId);
             Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
-            int baseStationId =-1;
+            int baseStationId = -1;
             Location location = new Location(-1, -1);
             double distance = double.MaxValue;
             if ((int)tempDrone.Status == 0)
@@ -258,16 +267,12 @@ namespace IBL
                         baseStationId = item.Id;
                         distance = tempDistance;
                         location = new Location(item.Longitude, item.Latitude);
-
                     }
-                    
                 }
-                if (minBattery(tempDrone.Location,location,tempDrone.Status,tempDrone.MaxWeight) < tempDrone.Battery)
+                if (minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight) < tempDrone.Battery)
                 {
                     UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
                     dal.TryAddDroneCarge(droneId);
-                   
-
                 }
                 else
                 {
@@ -293,16 +298,16 @@ namespace IBL
             {
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
-                    
+
                     TimeSpan time = (TimeSpan)(DateTime.Now - drone.Time);
                     drones.Remove(drone);
-                    
+
                     droneInCharging.Battery = drone.Battery + BatteryCalculationInCharging(time.Hours);
                     drone.Battery = droneInCharging.Battery;
                     drone.Status = (DroneStatuses)0;
                     drones.Add(drone);
                     dal.UpdateRelease(droneId);
-                    
+
                 }
                 else
                 {
@@ -340,9 +345,9 @@ namespace IBL
                 double distance = double.MaxValue;
 
                 foreach (IDAL.DO.Parcel item in dal.GetParcels())
-                {                   
+                {
                     if (minBattery(drone.Location, GetBLCustomer(item.SenderId).Location, drone.Status, drone.MaxWeight) < drone.Battery && (WeightCategories)item.Weight <= drone.MaxWeight)
-                    {                      
+                    {
                         if ((Enums.Priorities)item.Priority > priority)
                         {
                             parcelId = item.Id;
@@ -383,13 +388,13 @@ namespace IBL
                 }
                 if (exist == true)
                 {
-                    UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery, drone.Location.Longitude, drone.Location.Latitude);
+                    UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery, parcelId, drone.Location.Longitude, drone.Location.Latitude);
                     UpdateParcelAffiliation(parcelId, drone.Id, DateTime.Now);
-                    
+
                 }
                 else
                 {
-                    throw new ArgumentNullException("parcel not exist -BL-" );
+                    throw new ArgumentNullException("parcel not exist -BL-");
                 }
 
             }
@@ -407,50 +412,52 @@ namespace IBL
         /// <returns>location of the drone </returns>
         private Location findDroneLocation(DroneForList drone)
         {
-            if (IsDroneMakesDelivery(drone.Id))
-            {
-                if (findParcelState(drone.Id) == parcelState.associatedNotCollected)
-                {
-                    IDAL.DO.Customer senderCustomer2 = new IDAL.DO.Customer();
-                    try
-                    {
-                        senderCustomer2 = dal.FindSenderCustomerByDroneId(drone.Id);
-                    }
-                    catch (ArgumentNullException ex)
-                    {
-                        throw new ArgumentNullException("Get base station -BL-" + ex.Message);
-                    }
+            //if (IsDroneMakesDelivery(drone.Id))
+            //{
+            //    if (findParcelState(drone.Id) == parcelState.associatedNotCollected)
+            //    {
+            //        IDAL.DO.Customer senderCustomer2 = new IDAL.DO.Customer();
+            //        try
+            //        {
+            //            senderCustomer2 = dal.FindSenderCustomerByDroneId(drone.Id);
+            //        }
+            //        catch (ArgumentNullException ex)
+            //        {
+            //            throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+            //        }
 
-                    IDAL.DO.BaseStation soonStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
-                    return new Location(soonStation.Longitude, soonStation.Latitude);
-                }
-                else if (findParcelState(drone.Id) == parcelState.collectedNotDelivered)
-                {
-                    IDAL.DO.Customer senderCustomer = new IDAL.DO.Customer();
-                    try
-                    {
-                        senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
-                    }
-                    catch (ArgumentNullException ex)
-                    {
-                        throw new ArgumentNullException("Get base station -BL-" + ex.Message);
-                    }
-                    senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
-                    return new Location(senderCustomer.Longitude, senderCustomer.Latitude);
-                }
-            }
-            else
-            {
-                if (drone.Status == Enums.DroneStatuses.Maintenance)
-                {
-                    int randNumber1 = rand.Next(dal.GetBaseStations().Count());
-                    var randomBaseStation = (dal.GetBaseStations().ToList())[randNumber1];
-                    return new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
-                }
-            }
-            int randNumber = rand.Next((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).Count()));
-            var randomCustomerProvided = ((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).ToList()))[randNumber];
-            return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
+            //        IDAL.DO.BaseStation soonStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
+            //        return new Location(soonStation.Longitude, soonStation.Latitude);
+            //    }
+            //    else if (findParcelState(drone.Id) == parcelState.collectedNotDelivered)
+            //    {
+            //        IDAL.DO.Customer senderCustomer = new IDAL.DO.Customer();
+            //        try
+            //        {
+            //            senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
+            //        }
+            //        catch (ArgumentNullException ex)
+            //        {
+            //            throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+            //        }
+            //        senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
+            //        return new Location(senderCustomer.Longitude, senderCustomer.Latitude);
+            //    }
+            //}
+            //else
+            //{
+            //    if (drone.Status == Enums.DroneStatuses.Maintenance)
+            //    {
+            //        int randNumber1 = rand.Next(dal.GetBaseStations().Count());
+            //        var randomBaseStation = (dal.GetBaseStations().ToList())[randNumber1];
+            //        return new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
+            //    }
+            //}
+            //int randNumber = rand.Next((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).Count()));
+            //var randomCustomerProvided = ((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).ToList()))[randNumber];
+            //return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
+            return new Location(10, 20);
+
         }
 
         /// <summary>
@@ -465,7 +472,7 @@ namespace IBL
                 return BO.Enums.DroneStatuses.Delivery;
             }
 
-            return (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length);
+            return (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length - 1);
         }
 
         /// <summary>
@@ -478,7 +485,7 @@ namespace IBL
             foreach (var parcel in dal.GetParcels())
             {
                 if (parcel.Droneld == droneId &&
-                    !(parcel.Requested.Equals(null)) && parcel.Delivered.Equals(default(DateTime)))
+                    (!(parcel.Requested.Equals(null))) && parcel.Delivered.Equals(null))
                 {
                     return true;
                 }
@@ -567,7 +574,7 @@ namespace IBL
             {
                 throw new ArgumentNullException("Get nearst base station -BL-");
             }
-            return nearestBaseStation.Clone();
+            return nearestBaseStation;
         }
 
         /// <summary>

@@ -51,7 +51,7 @@ namespace DalObject
         /// <returns>array of station</returns>
         public IEnumerable<BaseStation> GetBaseStations()
         {
-            return DataSource.stations.Select(station => station.Clone());
+            return DataSource.stations;
         }
 
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)

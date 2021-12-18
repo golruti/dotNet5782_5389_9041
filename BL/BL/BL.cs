@@ -54,11 +54,8 @@ namespace IBL
                 drone.Status = findfDroneStatus(drone.Id);
                 if (drone.Status == DroneStatuses.Maintenance)
                     drone.Time = DateTime.Now;
-            }
-
-            foreach (var drone in drones)
-            {
-                drone.ParcelDeliveredId = findParceDeliveredlId(drone.Id);
+                if(drone.Status ==DroneStatuses.Delivery)
+                    drone.ParcelDeliveredId = findParceDeliveredlId(drone.Id);
             }
 
             foreach (var drone in drones)
@@ -71,6 +68,8 @@ namespace IBL
                 drone.Battery = findDroneBattery(drone);
             }
         }
+
+
 
         /// <summary>
         /// The function calculates the minimum charge the glider needs to get 

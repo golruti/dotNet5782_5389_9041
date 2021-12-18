@@ -21,15 +21,15 @@ namespace DalObject
         internal class Config
         {
             //פנוי
-           static public double free = 0.001;
+            static public double free = 0.001;
             //נושא משקל קל
-           static public double CarriesLightWeigh =0.002;
+            static public double CarriesLightWeigh = 0.002;
             //נושא משקל בינוני
-           static public double CarriesMediumWeigh=0.005;
+            static public double CarriesMediumWeigh = 0.005;
             //נושא משקל כבד
-           static public double CarriesHeavyWeight=0.006;
+            static public double CarriesHeavyWeight = 0.006;
             //קצב טעינה לשעה
-           static public double ChargingRate=20;
+            static public double ChargingRate = 20;
 
         }
 
@@ -46,22 +46,20 @@ namespace DalObject
                 tempStation.Id = i;
                 tempStation.Name = $"station {i}";
                 tempStation.ChargeSlote = Rand.Next() + 1;
-                tempStation.Latitude = Rand.Next(-89,89) + Rand.NextDouble();
+                tempStation.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 stations.Add(tempStation);
-               
             }
 
             //customers
             for (int i = 0; i < 10; ++i)
             {
                 Customer tempCustomer = new Customer();
-                tempCustomer.Id =i;
+                tempCustomer.Id = i;
                 tempCustomer.Name = $"customer {i}";
                 tempCustomer.Phone = $"05{Rand.Next(10000000, 100000000)}";
                 tempCustomer.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempCustomer.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
-
                 customers.Add(tempCustomer);
             }
 
@@ -73,7 +71,6 @@ namespace DalObject
                 tempDrone.Model = $"drone {i}";
                 tempDrone.MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0, 3);
                 drones.Add(tempDrone);
-
             }
 
             //parcel
@@ -90,11 +87,19 @@ namespace DalObject
                 }
                 tempParcel.Weight = (WeightCategories)(Rand.Next(0, 3));
                 tempParcel.Priority = (Priorities)(Rand.Next(0, 3));
-                tempParcel.Droneld = i;
                 tempParcel.Requested = DateTime.Now;
-                tempParcel.Scheduled = DateTime.Now.AddDays(2);
-                tempParcel.PickedUp = DateTime.Now.AddDays(30);
-                tempParcel.Delivered = DateTime.Now.AddDays(32);
+                tempParcel.Droneld = -1;
+                if(i==0)
+                {
+                    tempParcel.Droneld = i;
+                    tempParcel.Scheduled = DateTime.Now.AddDays(2);
+                    tempParcel.PickedUp = DateTime.Now.AddDays(30);
+                }
+                if (i == 1)
+                {
+                    tempParcel.Droneld = i;
+                    tempParcel.Scheduled = DateTime.Now.AddDays(2);
+                }
                 parcels.Add(tempParcel);
             }
         }

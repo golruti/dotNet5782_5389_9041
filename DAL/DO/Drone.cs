@@ -27,20 +27,6 @@ namespace IDAL
                     "\n\nStatus: " + "%\n");
             }
 
-            /// <summary>
-            /// The functions create a new instance of drone and copy a deep copy
-            /// </summary>
-            /// <returns>drone</returns>
-            public Drone Clone()
-            {
-                return new Drone()
-                {
-                    Id = this.Id,
-                    Model = this.Model,
-                    MaxWeight = this.MaxWeight,
-                };
-            }
-
             public Drone(int id,string model,WeightCategories maxWeight)
             {
                 Id = id;

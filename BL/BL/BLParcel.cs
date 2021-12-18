@@ -27,13 +27,9 @@ namespace IBL
             parcel.Droneld = droneId;
             parcel.Scheduled = dateTime;
             dal.InsertParcel(parcel);
+
         }
 
-        //public int SenderId { get; set; }
-        //public int TargetId { get; set; }
-        //public int Droneld { get; set; }
-        //public WeightCategories Weight { get; set; }
-        //public Priorities Priority { get; set; }
 
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -146,6 +142,10 @@ namespace IBL
             {
                 try
                 {
+                    if (parcel.Id == 10)
+                    {
+                        int x = 10;
+                    }
                     ParcelsForList.Add(new ParcelForList()
                     {
                         Id = parcel.Id,
@@ -155,6 +155,7 @@ namespace IBL
                         ReceiveCustomer = getReceiveCustomer(parcel),
                         Status = getParcelStatus(parcel)
                     });
+                    
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -282,7 +283,7 @@ namespace IBL
                     return parcel.Id;
                 }
             }
-            return default(int);
+            return -1;
         }
     }
 }
