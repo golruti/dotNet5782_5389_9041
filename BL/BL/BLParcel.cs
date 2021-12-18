@@ -16,20 +16,9 @@ namespace IBL
         /// <param name="tempParcel">The parcel for Adding</param>
         public void AddParcel(Parcel tempParcel)
         {
-            //IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(dal.IncreastNumberIndea(), tempParcel.SenderId, tempParcel.ReceiverId, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
-            //dal.InsertParcel(parcel);
-        }
-
-        public void UpdateParcelAffiliation(int parcelId, int droneId, DateTime dateTime)
-        {
-            IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
-            dal.DeleteParcel(parcelId);
-            parcel.Droneld = droneId;
-            parcel.Scheduled = dateTime;
+            IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(dal.IncreastNumberIndea(), tempParcel.CustomerSender, tempParcel.CustomerReceives, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
             dal.InsertParcel(parcel);
-
         }
-
 
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -195,6 +184,16 @@ namespace IBL
         }
 
         //--------------------------------------------Initialize the parcel list--------------------------------------------------------
+
+        public void UpdateParcelAffiliation(int parcelId, int droneId, DateTime dateTime)
+        {
+            IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
+            dal.DeleteParcel(parcelId);
+            parcel.Droneld = droneId;
+            parcel.Scheduled = dateTime;
+            dal.InsertParcel(parcel);
+
+        }
         /// <summary>
         /// The function returns the parcel status of a particular drone
         /// </summary>

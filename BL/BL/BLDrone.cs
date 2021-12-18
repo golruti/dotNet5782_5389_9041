@@ -413,52 +413,50 @@ namespace IBL
         /// <returns>location of the drone </returns>
         private Location findDroneLocation(DroneForList drone)
         {
-            //if (IsDroneMakesDelivery(drone.Id))
-            //{
-            //    if (findParcelState(drone.Id) == parcelState.associatedNotCollected)
-            //    {
-            //        IDAL.DO.Customer senderCustomer2 = new IDAL.DO.Customer();
-            //        try
-            //        {
-            //            senderCustomer2 = dal.FindSenderCustomerByDroneId(drone.Id);
-            //        }
-            //        catch (ArgumentNullException ex)
-            //        {
-            //            throw new ArgumentNullException("Get base station -BL-" + ex.Message);
-            //        }
+            if (IsDroneMakesDelivery(drone.Id))
+            {
+                if (findParcelState(drone.Id) == parcelState.associatedNotCollected)
+                {
+                    IDAL.DO.Customer senderCustomer2 = new IDAL.DO.Customer();
+                    try
+                    {
+                        senderCustomer2 = dal.FindSenderCustomerByDroneId(drone.Id);
+                    }
+                    catch (ArgumentNullException ex)
+                    {
+                        throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+                    }
 
-            //        IDAL.DO.BaseStation soonStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
-            //        return new Location(soonStation.Longitude, soonStation.Latitude);
-            //    }
-            //    else if (findParcelState(drone.Id) == parcelState.collectedNotDelivered)
-            //    {
-            //        IDAL.DO.Customer senderCustomer = new IDAL.DO.Customer();
-            //        try
-            //        {
-            //            senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
-            //        }
-            //        catch (ArgumentNullException ex)
-            //        {
-            //            throw new ArgumentNullException("Get base station -BL-" + ex.Message);
-            //        }
-            //        senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
-            //        return new Location(senderCustomer.Longitude, senderCustomer.Latitude);
-            //    }
-            //}
-            //else
-            //{
-            //    if (drone.Status == Enums.DroneStatuses.Maintenance)
-            //    {
-            //        int randNumber1 = rand.Next(dal.GetBaseStations().Count());
-            //        var randomBaseStation = (dal.GetBaseStations().ToList())[randNumber1];
-            //        return new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
-            //    }
-            //}
-            //int randNumber = rand.Next((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).Count()));
-            //var randomCustomerProvided = ((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).ToList()))[randNumber];
-            //return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
-            return new Location(10, 20);
-
+                    IDAL.DO.BaseStation soonStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
+                    return new Location(soonStation.Longitude, soonStation.Latitude);
+                }
+                else if (findParcelState(drone.Id) == parcelState.collectedNotDelivered)
+                {
+                    IDAL.DO.Customer senderCustomer = new IDAL.DO.Customer();
+                    try
+                    {
+                        senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
+                    }
+                    catch (ArgumentNullException ex)
+                    {
+                        throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+                    }
+                    senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
+                    return new Location(senderCustomer.Longitude, senderCustomer.Latitude);
+                }
+            }
+            else
+            {
+                if (drone.Status == Enums.DroneStatuses.Maintenance)
+                {
+                    int randNumber1 = rand.Next(dal.GetBaseStations().Count());
+                    var randomBaseStation = (dal.GetBaseStations().ToList())[randNumber1];
+                    return new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
+                }
+            }
+            int randNumber = rand.Next((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).Count()));
+            var randomCustomerProvided = ((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).ToList()))[randNumber];
+            return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
         }
 
         /// <summary>
