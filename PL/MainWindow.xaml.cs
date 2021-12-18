@@ -31,6 +31,11 @@ namespace PL
             InitializeComponent();
         }
 
+        /// <summary>
+        /// open the drone list window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowDroneListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
@@ -42,11 +47,19 @@ namespace PL
 
         }
 
+        /// <summary>
+        /// add tab
+        /// </summary>
+        /// <param name="tabItem">the tab to add</param>
         internal void AddTab(TabItem tabItem)
         {
             tub_control.Items.Add(tabItem);
         }
 
+        /// <summary>
+        /// remove tab
+        /// </summary>
+        /// <param name="tabItem">the tub to remove</param>
         internal void RemoveTab(TabItem tabItem)
         {
             tub_control.Items.Remove(tabItem);
