@@ -78,7 +78,7 @@ namespace IBL
                 Status = droneToList.Status,
                 Battery = droneToList.Battery,
                 Location = droneToList.Location,
-                Delivery = droneToList.ParcelDeliveredId != -1 ? CreateParcelInTransfer((int)droneToList.ParcelDeliveredId) : default
+                Delivery = droneToList.ParcelDeliveredId!=-1 ? CreateParcelInTransfer((int)droneToList.ParcelDeliveredId) : default
             };
         }
 
@@ -127,7 +127,7 @@ namespace IBL
         /// <param name="battery">battery of the drone</param>
         /// <param name="longitude"></param>
         /// <param name="latitude"></param>
-        public void UpdateDroneStatus(int id, DroneStatuses status, double battery, int parcelIdDeliverd, double longitude, double latitude)
+        public void UpdateDroneStatus(int id, DroneStatuses status, double battery,int parcelIdDeliverd, double longitude, double latitude)
         {
             DroneForList tempDroneForList = drones.First(item => item.Id == id);
             drones.Remove(tempDroneForList);
@@ -175,7 +175,7 @@ namespace IBL
                         }
 
                     }
-                    if (GetParcelForList(item => (item.Status == ParcelStatuses.Associated) && (item.Id == parcelId)).Count() > 0)
+                    if (GetParcelForList().All(item => (item.Status == ParcelStatuses.Associated))
                     {
                         IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
                         IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
@@ -388,7 +388,7 @@ namespace IBL
                 }
                 if (exist == true)
                 {
-                    UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery, parcelId, drone.Location.Longitude, drone.Location.Latitude);
+                    UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery,parcelId, drone.Location.Longitude, drone.Location.Latitude);
                     UpdateParcelAffiliation(parcelId, drone.Id, DateTime.Now);
 
                 }
@@ -472,7 +472,7 @@ namespace IBL
                 return BO.Enums.DroneStatuses.Delivery;
             }
 
-            return (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length - 1);
+            return (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length -1);
         }
 
         /// <summary>
