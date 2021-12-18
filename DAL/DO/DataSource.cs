@@ -31,6 +31,7 @@ namespace DalObject
             //קצב טעינה לשעה
            static public double ChargingRate=20;
 
+            static public double ChargingRate = 20;
         }
 
         /// <summary>
@@ -83,18 +84,34 @@ namespace DalObject
 
                 tempParcel.Id = i;
                 tempParcel.SenderId = Rand.Next(customers.Count());
-                tempParcel.TargetId = Rand.Next(customers.Count());
-                while (tempParcel.SenderId == tempParcel.TargetId)
+                if (i == 3)
                 {
                     tempParcel.TargetId = Rand.Next(customers.Count());
+                    while (tempParcel.SenderId == tempParcel.TargetId)
+                    {
+                        tempParcel.TargetId = Rand.Next(customers.Count());
+                    }
+                    tempParcel.Scheduled = DateTime.Now.AddDays(-10);
+                    tempParcel.PickedUp = DateTime.Now.AddDays(-5);
+                    tempParcel.Delivered = DateTime.Now.AddDays(-2);
                 }
+
                 tempParcel.Weight = (WeightCategories)(Rand.Next(0, 3));
                 tempParcel.Priority = (Priorities)(Rand.Next(0, 3));
                 tempParcel.Droneld = i;
                 tempParcel.Requested = DateTime.Now;
-                tempParcel.Scheduled = DateTime.Now.AddDays(2);
-                tempParcel.PickedUp = DateTime.Now.AddDays(30);
-                tempParcel.Delivered = DateTime.Now.AddDays(32);
+                tempParcel.Droneld = -1;
+                if (i == 0)
+                {
+                    tempParcel.Droneld = i;
+                    tempParcel.Scheduled = DateTime.Now.AddDays(2);
+                    tempParcel.PickedUp = DateTime.Now.AddDays(30);
+                }
+                if (i == 1)
+                {
+                    tempParcel.Droneld = i;
+                    tempParcel.Scheduled = DateTime.Now.AddDays(2);
+                }
                 parcels.Add(tempParcel);
             }
         }
