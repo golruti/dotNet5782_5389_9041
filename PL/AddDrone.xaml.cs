@@ -21,7 +21,6 @@ namespace PL
     /// </summary>
     public partial class AddDrone
     {
-
         IBL.IBL bl;
         private Action refreshDroneList;
         public AddDrone(IBL.IBL bl, Action refreshDroneList)
