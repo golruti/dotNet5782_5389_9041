@@ -99,7 +99,11 @@ namespace PL
             }
         }
 
-        //שליחת הרחפן למשלוח
+        /// <summary>
+        /// sending drone to delivery
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SendingDroneForDelivery_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -121,8 +125,11 @@ namespace PL
             }
         }
 
-
-        //שחרורו רחפן מטעינה
+        /// <summary>
+        /// release drone from charging
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -144,7 +151,11 @@ namespace PL
             }
         }
 
-        //שליחת רחפן לטעינה
+        /// <summary>
+        /// sending drone to charging
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SendingDroneForCharging_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -170,7 +181,11 @@ namespace PL
 
 
 
-        //איסוף חבילה עי רחפן
+        /// <summary>
+        /// collection percel by drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ParcelCollection_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -203,8 +218,12 @@ namespace PL
             throw new NotImplementedException();
         }
 
-        //-----------------------------------------------
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Close_Page(object sender, RoutedEventArgs e)
         {
             object tmp = sender;
