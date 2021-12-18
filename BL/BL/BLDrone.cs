@@ -175,21 +175,22 @@ namespace IBL
                         }
 
                     }
-                    if (GetParcelForList().All(item => (item.Status == ParcelStatuses.Associated))
-                    {
+                    //if (GetParcelForList().All(item => (item.Status == ParcelStatuses.Associated)))
+                    //{
                         IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
                         IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                         double distance = Distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
                         Location location = new Location(customer.Longitude, customer.Latitude);
+                    drones.Remove(droneForList);
                         droneForList.Battery -= ((int)minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1);
                         droneForList.Location = location;
                         drones.Add(droneForList);
                         dal.UpdatePickedUp(parcel);
-                    }
-                    else
-                    {
-                        throw new ArgumentNullException("not find the parcel -BL-");
-                    }
+                    //}
+                    //else
+                    //{
+                    //    throw new ArgumentNullException("not find the parcel -BL-");
+                    //}
 
                 }
                 else
