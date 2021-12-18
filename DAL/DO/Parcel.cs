@@ -39,16 +39,30 @@ namespace IDAL
             /// The functions create a new instance of parsel and copy a deep copy
             /// </summary>
             /// <returns>parsel</returns>
+            public Parcel Clone()
+            {
+                return new Parcel()
+                {
+                    Id = this.Id,
+                    SenderId = this.SenderId,
+                    TargetId = this.TargetId,
+                    Weight = this.Weight,
+                    Requested = this.Requested,
+                    Droneld = this.Droneld,
+                    Scheduled = this.Scheduled,
+                    PickedUp = this.PickedUp,
+                    Delivered = this.Delivered
+                };
+            }
 
-
-            public Parcel(int id, int senderId,int targetId, WeightCategories weight, Priorities priority, DateTime requested, DateTime scheduled, DateTime pickedUp ,DateTime delivered)
+            public Parcel(int id, int senderId,int targetId, WeightCategories weight, Priorities priority, int droneld, DateTime requested, DateTime scheduled, DateTime pickedUp ,DateTime delivered)
             {
                 Id = id;
                 SenderId = senderId;
                 TargetId = targetId;
                 Weight = weight;
                 Priority = priority;
-                Droneld = -1;
+                Droneld = droneld;
                 Requested = requested;
                 Scheduled = scheduled;
                 PickedUp = pickedUp;

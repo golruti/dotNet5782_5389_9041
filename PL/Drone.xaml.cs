@@ -69,8 +69,6 @@ namespace PL
                 ButtonsGroup.Children.Add(ReleaseDroneFromCharging);
             }
 
-            Enums.ParcelStatuses b = bl.GetParcelStatusByDrone(droneForList.Id);
-
             if (bl.GetParcelStatusByDrone(droneForList.Id) == Enums.ParcelStatuses.Associated)
             {
                 Button ParcelCollection = new Button();
@@ -80,7 +78,7 @@ namespace PL
                 ParcelCollection.Background = Brushes.DarkCyan;
                 ParcelCollection.Height = 41;
                 ParcelCollection.Width = 90;
-
+                
 
                 ButtonsGroup.Children.Add(ParcelCollection);
             }
@@ -191,30 +189,18 @@ namespace PL
             }
         }
 
+
+        //הפונקציה לא ממומשת
+        //צריך לממש פונקציה שמאתחלת את הזמנים
+        //-----------------------------------------------
         //אספקת חבילה
-        //עובד מצוין
         private void ParcelDelivery_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                bl.PackageDelivery(droneForList.Id);
-                (sender as Button).IsEnabled = false;
-                if (MessageBox.Show("he parcel was successfully delivered", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
-                {
-                    Close_Page(sender, e);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Sorry, the parcel was not delivered, {ex.Message}");
-            }
-            catch
-            {
-                MessageBox.Show($"Sorry, the parcel was not delivered, ");
-            }
+            //bl.PackageDelivery()
+            throw new NotImplementedException();
         }
 
-
+        //-----------------------------------------------
 
         private void Close_Page(object sender, RoutedEventArgs e)
         {

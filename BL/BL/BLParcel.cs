@@ -14,12 +14,26 @@ namespace IBL
         /// Add a parcel to the list of purcels
         /// </summary>
         /// <param name="tempParcel">The parcel for Adding</param>
-        /// 
         public void AddParcel(Parcel tempParcel)
         {
-            IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(tempParcel.Id, tempParcel.CustomerSender.Id, tempParcel.CustomerReceives.Id, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
+            //IDAL.DO.Parcel parcel = new IDAL.DO.Parcel(dal.IncreastNumberIndea(), tempParcel.SenderId, tempParcel.ReceiverId, (IDAL.DO.Enum.WeightCategories)tempParcel.Weight, (IDAL.DO.Enum.Priorities)tempParcel.Priority, null, DateTime.Now, new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0), new DateTime(0, 0, 0, 0, 0, 0, 0));
+            //dal.InsertParcel(parcel);
+        }
+
+        public void UpdateParcelAffiliation(int parcelId, int droneId, DateTime dateTime)
+        {
+            IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
+            dal.DeleteParcel(parcelId);
+            parcel.Droneld = droneId;
+            parcel.Scheduled = dateTime;
             dal.InsertParcel(parcel);
         }
+
+        //public int SenderId { get; set; }
+        //public int TargetId { get; set; }
+        //public int Droneld { get; set; }
+        //public WeightCategories Weight { get; set; }
+        //public Priorities Priority { get; set; }
 
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -132,10 +146,6 @@ namespace IBL
             {
                 try
                 {
-                    if (parcel.Id == 10)
-                    {
-                        int x = 10;
-                    }
                     ParcelsForList.Add(new ParcelForList()
                     {
                         Id = parcel.Id,
@@ -145,7 +155,6 @@ namespace IBL
                         ReceiveCustomer = getReceiveCustomer(parcel),
                         Status = getParcelStatus(parcel)
                     });
-                    
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -185,16 +194,6 @@ namespace IBL
         }
 
         //--------------------------------------------Initialize the parcel list--------------------------------------------------------
-
-        public void UpdateParcelAffiliation(int parcelId, int droneId, DateTime dateTime)
-        {
-            IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
-            dal.DeleteParcel(parcelId);
-            parcel.Droneld = droneId;
-            parcel.Scheduled = dateTime;
-            dal.InsertParcel(parcel);
-
-        }
         /// <summary>
         /// The function returns the parcel status of a particular drone
         /// </summary>
@@ -283,7 +282,7 @@ namespace IBL
                     return parcel.Id;
                 }
             }
-            return -1;
+            return default(int);
         }
     }
 }
