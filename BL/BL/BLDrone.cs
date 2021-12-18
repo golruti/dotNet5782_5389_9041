@@ -454,8 +454,13 @@ namespace IBL
                     return new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
                 }
             }
-            int randNumber = rand.Next((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).Count()));
-            var randomCustomerProvided = ((dal.GetCustomers((customer) => dal.GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any()).ToList()))[randNumber];
+            var x =
+                dal.GetCustomers( (customer) => (
+                (dal.GetParcels( parcel => (parcel.Delivered != null) && (customer.Id == parcel.TargetId ))).Any()
+                )
+                );
+            int randNumber = rand.Next(x.Count());
+            var randomCustomerProvided = x.ToList()[randNumber];
             return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
         }
 

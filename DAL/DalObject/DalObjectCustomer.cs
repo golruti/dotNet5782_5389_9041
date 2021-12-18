@@ -57,6 +57,7 @@ namespace DalObject
             return DataSource.customers.Where(customer => predicate(customer)).ToList();
         }
 
+
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
         /// <summary>
         /// The function deletes a specific customer
