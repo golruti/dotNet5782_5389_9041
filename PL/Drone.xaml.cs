@@ -294,7 +294,7 @@ namespace PL
 
         
         /// <summary>
-        /// 
+        /// close the page
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -314,13 +314,22 @@ namespace PL
             this.refreshDroneList();
         }
 
+        /// <summary>
+        /// Input filter for ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        //עדכון מודל
+        /// <summary>
+        /// update the drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -354,6 +363,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// update the model
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void update_model_TextChanged(object sender, TextChangedEventArgs e)
         {
             newModel = (sender as TextBox).Text;
