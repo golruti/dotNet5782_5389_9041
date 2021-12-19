@@ -83,7 +83,6 @@ namespace IBL
                 Name = customer.Name,
                 Location = new Location(customer.Latitude, customer.Longitude),
                 Phone = customer.Phone,
-
             };
         }
 
@@ -93,7 +92,7 @@ namespace IBL
         /// <param name="parcel">The parcel to convert</param>
         /// <param name="type">The type of the customer</param>
         /// <returns>The converted parcel</returns>
-        private ParcelToCustomer ParcelToParcelAtCustomer(Parcel parcel, string type)
+        private ParcelToCustomer parcelToParcelAtCustomer(Parcel parcel, string type)
         {
             ParcelToCustomer newParcel = new ParcelToCustomer
             {

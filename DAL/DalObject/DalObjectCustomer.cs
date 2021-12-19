@@ -86,27 +86,6 @@ namespace DalObject
 
 
         /// <summary>
-        /// The function returns the list of customers who have been provided with parcels
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Customer> GetCustomersProvided()
-        {
-            Predicate<Customer> predicate = (customer) => GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId).Any();
-            return GetCustomers(predicate);
-            //List<Customer> customerProvided = new List<Customer>();
-            //foreach (var customer in GetCustomers())
-            //{
-            //    foreach (var parcel in GetParcels(parcel => parcel.Delivered.HasValue && customer.Id == parcel.TargetId))
-            //    {
-            //            customerProvided.Add(customer);
-            //    }         
-            //}
-            //return customerProvided;
-        }
-
-
-
-        /// <summary>
         /// The function finds the customer from whom the package that is in the drone came
         /// </summary>
         /// <param name="DroneId">drone ID</param>

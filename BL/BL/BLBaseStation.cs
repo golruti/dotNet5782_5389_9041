@@ -27,8 +27,6 @@ namespace IBL
             }
         }
 
-
-
         //---------------------------------------------Update ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// update base station 
@@ -84,7 +82,7 @@ namespace IBL
                 Name = station.Name,
                 Location = new Location(station.Latitude, station.Longitude),
                 AvailableChargingPorts = station.ChargeSlote - dal.CountFullChargeSlots(station.Id),
-                DronesInCharging = DronesInCharging(station.Id)
+                DronesInCharging = dronesInCharging(station.Id)
             };
         }
 

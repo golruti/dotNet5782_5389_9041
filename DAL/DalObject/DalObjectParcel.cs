@@ -74,7 +74,12 @@ namespace DalObject
             return DataSource.parcels.Where(drone => predicate(drone)).ToList();
         }
 
+
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function deletes a particular parcel
+        /// </summary>
+        /// <param name="id"></param>
         public void DeleteParcel(int id)
         {
             var parcel = DataSource.parcels.FirstOrDefault(d => d.Id == id);

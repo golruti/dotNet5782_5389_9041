@@ -51,7 +51,7 @@ namespace IBL
         {
             try
             {
-                return MapDrone(id);
+                return mapDrone(id);
             }
             catch (ArgumentNullException ex)
             {
@@ -65,7 +65,7 @@ namespace IBL
         /// </summary>
         /// <param name="id">The drone to convert</param>
         /// <returns>The converted drone</returns>
-        private Drone MapDrone(int id)
+        private Drone mapDrone(int id)
         {
             DroneForList droneToList = drones.FirstOrDefault(item => item.Id == id);
             if (droneToList == default)
@@ -78,7 +78,7 @@ namespace IBL
                 Status = droneToList.Status,
                 Battery = droneToList.Battery,
                 Location = droneToList.Location,
-                Delivery = droneToList.ParcelDeliveredId != -1 ? CreateParcelInTransfer((int)droneToList.ParcelDeliveredId) : default
+                Delivery = droneToList.ParcelDeliveredId != -1 ? createParcelInTransfer((int)droneToList.ParcelDeliveredId) : default
             };
         }
 
@@ -207,7 +207,7 @@ namespace IBL
                     {
                         IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
                         IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
-                        double distance = Distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
+                        double distance = this.distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
                         Location location = new Location(customer.Longitude, customer.Latitude);
                         droneForList.Battery -= ((int)minBattery(droneForList.Location,location,droneForList.Status,droneForList.MaxWeight) + 1);
                         droneForList.Location = location;
@@ -294,7 +294,7 @@ namespace IBL
 
                 foreach (var item in dal.GetBaseStations())
                 {
-                    double tempDistance = Distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
+                    double tempDistance = this.distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
                     if (tempDistance < distance)
                     {
                         baseStationId = item.Id;
@@ -339,7 +339,7 @@ namespace IBL
                     TimeSpan time = (TimeSpan)(DateTime.Now - drone.Time);
                     drones.Remove(drone);
                     
-                    droneInCharging.Battery = drone.Battery + BatteryCalculationInCharging(time.Hours);
+                    droneInCharging.Battery = drone.Battery + batteryCalculationInCharging(time.Hours);
                     drone.Battery = droneInCharging.Battery;
                     drone.Status = (DroneStatuses)0;
                     drones.Add(drone);
@@ -401,11 +401,11 @@ namespace IBL
                             }
                             else
                             {
-                                if (Distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude) < distance && (Enums.WeightCategories)item.Weight == weight && (Enums.Priorities)item.Priority == priority)
+                                if (this.distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude) < distance && (Enums.WeightCategories)item.Weight == weight && (Enums.Priorities)item.Priority == priority)
                                 {
                                     exist = true;
                                     parcelId = item.Id;
-                                    distance = Distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude);
+                                    distance = this.distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude);
                                 }
                                 else
                                 {
@@ -415,7 +415,7 @@ namespace IBL
                                         parcelId = item.Id;
                                         priority = (Enums.Priorities)item.Priority;
                                         weight = (Enums.WeightCategories)item.Weight;
-                                        distance = Distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude);
+                                        distance = this.distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude);
                                         break;
                                     }
                                 }
@@ -604,9 +604,9 @@ namespace IBL
             var nearestBaseStation = default(IDAL.DO.BaseStation);
             foreach (var BaseStation in dal.GetBaseStations())
             {
-                if (Distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude) < minDistance)
+                if (distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude) < minDistance)
                 {
-                    minDistance = Distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude);
+                    minDistance = distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude);
                     nearestBaseStation = BaseStation;
                 }
             }
@@ -622,7 +622,7 @@ namespace IBL
         /// </summary>
         /// <param name="time">how much time the drone was in charge</param>
         /// <returns>sum of battary after charge</returns>
-        double BatteryCalculationInCharging(int time)
+        private double batteryCalculationInCharging(int time)
         {
             double battery = time * 0.05;
             if (battery < 100)

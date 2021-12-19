@@ -15,7 +15,7 @@ namespace IBL
         /// <returns>list of Parcels at a customer</returns>
         private List<ParcelToCustomer> findFromCustomer()
         {
-            return getAllParcels().Select(parcel => ParcelToParcelAtCustomer(parcel, "sender")).ToList();
+            return getAllParcels().Select(parcel => parcelToParcelAtCustomer(parcel, "sender")).ToList();
         }
         /// <summary>
         /// The function returns the list of packages at the customer - to the customer
@@ -23,7 +23,7 @@ namespace IBL
         /// <returns>list of Parcels at a customer</returns>
         private List<ParcelToCustomer> findToCustomer()
         {
-            return getAllParcels().Select(parcel => ParcelToParcelAtCustomer(parcel, "Recive")).ToList();
+            return getAllParcels().Select(parcel => parcelToParcelAtCustomer(parcel, "Recive")).ToList();
         }
     }
 }

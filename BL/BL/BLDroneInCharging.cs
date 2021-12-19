@@ -1,9 +1,6 @@
-﻿using System;
+﻿using IBL.BO;
 using System.Collections.Generic;
-
 using System.Linq;
-using IBL.BO;
-using static IBL.BO.Enums;
 
 namespace IBL
 {
@@ -14,7 +11,7 @@ namespace IBL
         /// </summary>
         /// <param name="id">The station ID</param>
         /// <returns>The list of drones in charge</returns>
-        private List<DroneInCharging> DronesInCharging(int id)
+        private List<DroneInCharging> dronesInCharging(int id)
         {
             List<IDAL.DO.DroneCharge> list = (List<IDAL.DO.DroneCharge>)dal.GetDronesCharges(droneCharge => droneCharge.StationId == id);
             if (list.Count == 0)

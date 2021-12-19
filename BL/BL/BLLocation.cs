@@ -19,7 +19,7 @@ namespace IBL
         /// <param name="Latitude2">The Destination point</param>
         /// <param name="Longitude2">The Destination point</param>
         /// <returns></returns>
-        private double Distance(double Latitude1, double Latitude2, double Longitude1, double Longitude2)
+        private double distance(double Latitude1, double Latitude2, double Longitude1, double Longitude2)
         {
             var Coord1 = new GeoCoordinate(Latitude1, Longitude2);
             var Coord2 = new GeoCoordinate(Latitude2, Longitude2);

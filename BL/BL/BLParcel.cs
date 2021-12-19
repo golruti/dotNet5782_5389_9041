@@ -20,6 +20,12 @@ namespace IBL
             //dal.InsertParcel(parcel);
         }
 
+        /// <summary>
+        /// The function updates the details when the פשרבקך is associated with the skimmer
+        /// </summary>
+        /// <param name="parcelId"></param>
+        /// <param name="droneId"></param>
+        /// <param name="dateTime"></param>
         public void UpdateParcelAffiliation(int parcelId, int droneId, DateTime dateTime)
         {
             IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
@@ -28,13 +34,6 @@ namespace IBL
             parcel.Scheduled = dateTime;
             dal.InsertParcel(parcel);
         }
-
-        //public int SenderId { get; set; }
-        //public int TargetId { get; set; }
-        //public int Droneld { get; set; }
-        //public WeightCategories Weight { get; set; }
-        //public Priorities Priority { get; set; }
-
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -84,8 +83,8 @@ namespace IBL
             return new Parcel()
             {
                 Id = parcel.Id,
-                CustomerReceives = MapCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
-                CustomerSender = MapCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
+                CustomerReceives = mapCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
+                CustomerSender = mapCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
                 Weight = (Enums.WeightCategories)parcel.Weight,
                 Priority = (Enums.Priorities)parcel.Priority,
                 Scheduled = parcel.Scheduled,
@@ -101,7 +100,7 @@ namespace IBL
         /// </summary>
         /// <param name="id">The requested parcel to convert</param>
         /// <returns>The converted parcel</returns>
-        private ParcelByTransfer CreateParcelInTransfer(int id)
+        private ParcelByTransfer createParcelInTransfer(int id)
         {
             IDAL.DO.Parcel parcel = dal.GetParcel(id);
             IDAL.DO.Customer sender = dal.GetCustomer(parcel.SenderId);
@@ -114,7 +113,7 @@ namespace IBL
                 ParcelStatus = !parcel.PickedUp.Equals(default),
                 SenderLocation = new Location(sender.Longitude, sender.Latitude),
                 TargetLocation = new Location(target.Longitude, target.Latitude),
-                Distance = Distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
+                Distance = distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
                 Sender = new CustomerDelivery(sender.Id, sender.Name),
                 Target = new CustomerDelivery(target.Id, target.Name)
             };
@@ -125,7 +124,7 @@ namespace IBL
         /// </summary>
         /// <param name="parcel">The customer to convert</param>
         /// <returns>The converted customer</returns>
-        private CustomerDelivery MapCustomerInParcel(IDAL.DO.Customer customer)
+        private CustomerDelivery mapCustomerInParcel(IDAL.DO.Customer customer)
         {
             return new CustomerDelivery()
             {
@@ -188,7 +187,7 @@ namespace IBL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>List of BaseStationForList that maintain the predicate</returns>
-        public IEnumerable<Parcel> getAllParcels(Predicate<Parcel> predicate)
+        public IEnumerable<Parcel> GetAllParcels(Predicate<Parcel> predicate)
         {
             return getAllParcels().Where(parcel => predicate(parcel));
         }
