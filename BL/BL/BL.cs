@@ -11,7 +11,6 @@ namespace BL
 {
     sealed partial class BL : Singleton.Singleton<BL>, BlApi.IBL
     {
-
         private IDAL.IDal dal;
         private List<DroneForList> drones = new List<DroneForList>();
         private static Random rand = new Random();
@@ -50,8 +49,6 @@ namespace BL
             foreach (var drone in drones)
             {
                 drone.Status = findfDroneStatus(drone.Id);
-                if (drone.Status == DroneStatuses.Maintenance)
-                    drone.Time = DateTime.Now;
             }
 
             foreach (var drone in drones)

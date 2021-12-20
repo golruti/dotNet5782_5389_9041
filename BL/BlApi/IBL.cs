@@ -47,7 +47,6 @@ namespace BlApi
         public void PackageCollection(int Id);
         public void PackageDelivery(int id);
         public Enums.ParcelStatuses GetParcelStatusByDrone(int droneId);
-        private IDAL.DO.DroneCharge GetDroneInChargByID(int id);
     }
 }
 
