@@ -12,11 +12,13 @@ namespace IDAL
         {
             public int DroneId { get; set; }
             public int StationId { get; set; }
+            public DateTime? Time { get; set; }
 
             public DroneCharge(int droneId, int stationId)
             {
                 DroneId = droneId;
                 StationId = stationId;
+                Time = DateTime.Now;
             }
 
             public DroneCharge Clone()

@@ -13,7 +13,6 @@ namespace BL
     {
 
         private IDAL.IDal dal;
-        //private List<DroneForList> drones =new List<DroneForList>();
         private List<DroneForList> drones = new List<DroneForList>();
         private static Random rand = new Random();
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }

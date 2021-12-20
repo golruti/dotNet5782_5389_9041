@@ -165,7 +165,7 @@ namespace BL
             tempDroneForList.ParcelDeliveredId = parcelIdDeliverd;
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
-            tempDroneForList.Time = DateTime.Now;
+            
             drones.Add(tempDroneForList);
         }
 
@@ -177,7 +177,6 @@ namespace BL
             tempDroneForList.Battery = battery;
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
-            tempDroneForList.Time = DateTime.Now;
             drones.Add(tempDroneForList);
         }
 
@@ -335,7 +334,7 @@ namespace BL
             {
                 if (drone.Status == DroneStatuses.Maintenance)
                 {                  
-                    TimeSpan time = (TimeSpan)(DateTime.Now - drone.Time);
+                    TimeSpan time = (TimeSpan)(DateTime.Now - GetDroneInChargByID(droneId).Time);
                     drones.Remove(drone);                  
                     droneInCharging.Battery = drone.Battery + batteryCalculationInCharging(time.Hours);
                     drone.Battery = droneInCharging.Battery;

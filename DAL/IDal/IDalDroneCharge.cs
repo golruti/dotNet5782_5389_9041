@@ -14,5 +14,6 @@ namespace IDAL
         public IEnumerable<DroneCharge> GetDronesCharges();
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate);
         public int CountFullChargeSlots(int id);
+        public DroneCharge GetDronesCharge(int id);
     }
 }

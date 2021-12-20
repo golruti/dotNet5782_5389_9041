@@ -28,5 +28,10 @@ namespace BL
             }
             return droneInChargings;
         }
+
+        private IDAL.DO.DroneCharge GetDroneInChargByID(int id)
+        {
+            return dal.GetDroneCharge(id);
+        }
     }
 }

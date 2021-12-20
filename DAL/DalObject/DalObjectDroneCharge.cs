@@ -102,6 +102,11 @@ namespace DalObject
             return DataSource.droneCharges.Where(droneCharge => predicate(droneCharge)).ToList();
         }
 
+        public DroneCharge GetDronesCharge(int id)
+        {
+            return DataSource.droneCharges.FirstOrDefault(item => item.DroneId==id);
+        }
+
         //---------------------------------------------Extensions functions---------------------------------------------------------------------------
         /// <summary>
         /// The function returns how many stations are occupied at a particular station
