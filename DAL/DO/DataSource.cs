@@ -74,7 +74,6 @@ namespace DalObject
                 tempDrone.Model = $"drone {i}";
                 tempDrone.MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0, 3);
                 drones.Add(tempDrone);
-
             }
 
             //parcel

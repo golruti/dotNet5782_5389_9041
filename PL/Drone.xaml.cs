@@ -45,6 +45,7 @@ namespace PL
                 sendingDroneForChargingBtn.Background = Brushes.DarkCyan;
                 sendingDroneForChargingBtn.Height = 40;
                 sendingDroneForChargingBtn.Width = 130;
+                
                 sendingDroneForChargingBtn.HorizontalAlignment = HorizontalAlignment.Center;
                 ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
 
@@ -216,10 +217,6 @@ namespace PL
             }
         }
 
-
-
-
-
         /// <summary>
         /// collection percel by drone
         /// </summary>
@@ -257,7 +254,6 @@ namespace PL
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
         }
-
 
         /// <summary>
         /// Package delivery
