@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enums;
+using static BO.Enums;
 
-namespace IBL.BO
+namespace BO
 {
     public class Parcel
-    {     
+    {
         public int Id { get; set; }
         public CustomerDelivery CustomerSender { get; set; }
         public CustomerDelivery CustomerReceives { get; set; }
@@ -28,15 +28,15 @@ namespace IBL.BO
         /// <returns>String of details for parsel</returns>
         public override string ToString()
         {
-            return ("------\nid: " + Id + 
-                "\nWeight: " + Weight + "\nPriority: " + Priority + "\nRequested: " + Requested + "\nDroneld: " 
+            return ("------\nid: " + Id +
+                "\nWeight: " + Weight + "\nPriority: " + Priority + "\nRequested: " + Requested + "\nDroneld: "
                 + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n------\n");
         }
-        public Parcel(int id, int sender,int receiver,WeightCategories weight,Priorities priority,DroneInParcel droneParcel)
+        public Parcel(int id, int sender, int receiver, WeightCategories weight, Priorities priority, DroneInParcel droneParcel)
         {
             Id = id;
             Weight = weight;
-            Priority = priority; 
+            Priority = priority;
             DroneParcel = droneParcel;
         }
 

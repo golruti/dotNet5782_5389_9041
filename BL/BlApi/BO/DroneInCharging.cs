@@ -4,21 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL.BO
+namespace BO
 {
-    public class DroneInParcel
+    public class DroneInCharging
     {
         public int Id { get; set; }
         public double Battery { get; set; }
-        public Location Location { get; set; }
 
-        public DroneInParcel(int id, int battery, double longitude, double latitude)
+        public DroneInCharging(int id, double battery)
         {
             Id = id;
             Battery = battery;
-            Location = new Location(longitude, latitude);
+
         }
-        public DroneInParcel()
-        { }
+        public DroneInCharging()
+        {
+        }
     }
+
 }
+

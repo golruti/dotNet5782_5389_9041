@@ -1,14 +1,13 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enums;
+using static BO.Enums;
 
-namespace IBL.BO
+namespace BO
 {
-
     public class ParcelToCustomer
     {
         public int Id { get; set; }

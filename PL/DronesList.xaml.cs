@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using IBL.BO;
+using BO;
 
 namespace PL
 {
@@ -22,12 +22,12 @@ namespace PL
     /// </summary>
     public partial class DronesList
     {
-        IBL.IBL bl;
+       BlApi.IBL bl;
         Action<TabItem> addTab;
 
 
         ObservableCollection<DroneForList> droneForLists;
-        public DronesList(IBL.IBL bl, Action<TabItem> addTab, Action<TabItem> removeTab)
+        public DronesList(BlApi.IBL bl, Action<TabItem> addTab, Action<TabItem> removeTab)
         {
             InitializeComponent();
             this.bl = bl;
@@ -145,7 +145,7 @@ namespace PL
         /// <param name="e"></param>
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedDrone = (sender as ContentControl).DataContext as IBL.BO.DroneForList;
+            var selectedDrone = (sender as ContentControl).DataContext as BO.DroneForList;
 
             TabItem tabItem = new TabItem();
             tabItem.Content = new Drone(selectedDrone, this.bl, RefreshDroneList);

@@ -1,4 +1,4 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +21,9 @@ namespace PL
     /// </summary>
     public partial class AddDrone
     {
-        IBL.IBL bl;
+       BlApi.IBL bl;
         private Action refreshDroneList;
-        public AddDrone(IBL.IBL bl, Action refreshDroneList)
+        public AddDrone(BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
             this.bl = bl;
@@ -42,7 +42,7 @@ namespace PL
         {
             try
             {
-                bl.AddDrone(int.Parse(Id.Text), int.Parse(StationsId.Text), (IBL.BO.Enums.WeightCategories)DroneWeights.SelectedItem, Model.Text);
+                bl.AddDrone(int.Parse(Id.Text), int.Parse(StationsId.Text), (BO.Enums.WeightCategories)DroneWeights.SelectedItem, Model.Text);
 
                 if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -53,11 +53,11 @@ namespace PL
             {
                 MessageBox.Show($"The drone was not add, {ex.Message}");
             }
-            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
                 MessageBox.Show($"The drone was not add, {ex.Message}");
             }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 MessageBox.Show($"The drone was not add, {ex.Message}");
             }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
-using static IBL.BO.Enums;
+using BO;
+using static BO.Enums;
 
-namespace IBL
+namespace BL
 {
     partial class BL
     {

@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using IBL.BO;
+using BO;
 using Singleton;
-using static IBL.BO.Enums;
+using static BO.Enums;
 
 
-namespace IBL
+namespace BL
 {
-    
-    sealed partial class BL : Singleton.Singleton<BL>, IBL
+    sealed partial class BL : Singleton.Singleton<BL>, BlApi.IBL
     {
-        
+
         private IDAL.IDal dal;
         //private List<DroneForList> drones =new List<DroneForList>();
-        private List <DroneForList> drones =new List<DroneForList>();
+        private List<DroneForList> drones = new List<DroneForList>();
         private static Random rand = new Random();
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
 

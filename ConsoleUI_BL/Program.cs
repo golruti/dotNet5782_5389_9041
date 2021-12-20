@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using IBL;
-using IBL.BO;
-using static IBL.BO.Enums;
+
+using BO;
+using static BO.Enums;
 using System.ComponentModel;
 using Singleton;
 
@@ -10,12 +10,12 @@ namespace ConsoleUI_BL
 {
     class Program
     {
-        private static IBL.IBL bl;
+        private static BlApi.IBL bl;
         private static Random rand = new Random();
         static int idParcel = 0;
         static void Main(string[] args)
         {
-            bl = Singleton<IBL.BL>.Instance;
+            bl = Singleton<BL.BL>.Instance;
             ShowMenu();
         }
 
@@ -56,11 +56,11 @@ namespace ConsoleUI_BL
                 {
                     Console.WriteLine(ex.Message == string.Empty ? ex : ex.Message);
                 }
-                catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+                catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
                 {
                     Console.WriteLine(ex);
                 }
-                catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+                catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
                 {
                     Console.WriteLine(ex);
                 }
@@ -211,14 +211,14 @@ namespace ConsoleUI_BL
                 case UpdateOptions.RECHARGE:
                     Console.WriteLine("Enter IDs for drone:");
                     droneId = int.Parse(Console.ReadLine());
-                    bl.SendDroneToRecharge(droneId);
+                    bl.UpdateCharge(droneId);
                     break;
 
                 case UpdateOptions.REKEASE:
                     Console.WriteLine("Enter ID for drone and the time in charging:");
                     droneId = int.Parse(Console.ReadLine());
                     int time = int.Parse(Console.ReadLine());
-                    bl.ReleaseDroneFromRecharge(droneId);
+                    bl.UpdateRelease(droneId);
                     break;
 
                 case UpdateOptions.SCHEDULED:

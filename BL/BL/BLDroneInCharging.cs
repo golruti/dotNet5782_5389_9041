@@ -1,10 +1,10 @@
-﻿using IBL.BO;
+﻿using BO;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IBL
+namespace BL
 {
-    partial class BL : IBL
+    partial class BL 
     {
         /// <summary>
         /// The function returns a list of drones loaded at a particular base station

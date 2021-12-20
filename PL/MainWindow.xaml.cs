@@ -23,11 +23,11 @@ namespace PL
     /// 
     public partial class MainWindow : Window/*, INotifyPropertyChanged*/
     {
-        private IBL.IBL bl;
+        private BlApi.IBL bl;
 
         public MainWindow()
         {
-            bl = Singleton<IBL.BL>.Instance;
+            bl = Singleton<BL.BL>.Instance;
             InitializeComponent();
         }
 
@@ -44,7 +44,6 @@ namespace PL
             tabItem.Header = "Drone List";
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);
-
         }
 
         /// <summary>
@@ -63,8 +62,6 @@ namespace PL
         internal void RemoveTab(TabItem tabItem)
         {
             tub_control.Items.Remove(tabItem);
-        }
-
-        
+        }      
     }
 }

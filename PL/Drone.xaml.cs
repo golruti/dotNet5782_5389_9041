@@ -1,4 +1,4 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +22,12 @@ namespace PL
     /// </summary>
     public partial class Drone
     {
-        private IBL.IBL bl;
-        private IBL.BO.Drone droneForList;
+        private BlApi.IBL bl;
+        private BO.Drone droneForList;
         Action refreshDroneList;
         private string newModel;
 
-        public Drone(DroneForList droneForList, IBL.IBL bl, Action refreshDroneList)
+        public Drone(DroneForList droneForList, BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
 
@@ -120,11 +120,11 @@ namespace PL
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
 
             }
-            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
@@ -149,7 +149,7 @@ namespace PL
         {
             try
             {
-                bl.ReleaseDroneFromRecharge(droneForList.Id);
+                bl.UpdateRelease(droneForList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -160,11 +160,11 @@ namespace PL
             {
                 MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
             }
-            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
                 MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
             }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 MessageBox.Show($"The drone not succeed to free itself from charging, {ex.Message}");
             }
@@ -187,7 +187,7 @@ namespace PL
         {
             try
             {
-                bl.SendDroneToRecharge(droneForList.Id);
+                bl.UpdateCharge(droneForList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -198,11 +198,11 @@ namespace PL
             {
                 MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
             }
-            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
                 MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
             }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
             }
@@ -240,11 +240,11 @@ namespace PL
             {
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
-            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
@@ -279,11 +279,11 @@ namespace PL
             {
                 MessageBox.Show($"Sorry, the parcel was not delivered, {ex.Message}");
             }
-            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
                 MessageBox.Show($"Sorry, the parcel was not delivered, {ex.Message}");
             }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 MessageBox.Show($"Sorry, the parcel was not delivered, {ex.Message}");
             }
@@ -350,11 +350,11 @@ namespace PL
             {
                 MessageBox.Show($"The drone model could not be updated, {ex.Message}");
             }
-            catch (ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
                 MessageBox.Show($"The drone model could not be updated, {ex.Message}");
             }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 MessageBox.Show($"The drone model could not be updated, {ex.Message}");
             }

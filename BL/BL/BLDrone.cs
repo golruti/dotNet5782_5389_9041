@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
-using static IBL.BO.Enums;
+using BO;
+using static BO.Enums;
 
-namespace IBL
+namespace BL
 {
     partial class BL
     {
@@ -282,7 +282,7 @@ namespace IBL
         /// Sending a skimmer for charging
         /// </summary>
         /// <param name="droneId">id of drone</param>
-        public void SendDroneToRecharge(int droneId)
+        public void UpdateCharge(int droneId)
         {
             DroneForList tempDroneForList = drones.First(item => item.Id == droneId);
             Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
@@ -327,24 +327,21 @@ namespace IBL
         /// </summary>
         /// <param name="droneId">id of drone</param>
         /// <param name="time">the time the drone was in charge</param>
-        public void ReleaseDroneFromRecharge(int droneId)
+        public void UpdateRelease(int droneId)
         {
             DroneInCharging droneInCharging = new DroneInCharging();
             DroneForList drone = drones.First(item => item.Id == droneId);
             if (drone != null)
             {
                 if (drone.Status == DroneStatuses.Maintenance)
-                {
-                    
+                {                  
                     TimeSpan time = (TimeSpan)(DateTime.Now - drone.Time);
-                    drones.Remove(drone);
-                    
+                    drones.Remove(drone);                  
                     droneInCharging.Battery = drone.Battery + batteryCalculationInCharging(time.Hours);
                     drone.Battery = droneInCharging.Battery;
                     drone.Status = (DroneStatuses)0;
                     drones.Add(drone);
-                    dal.UpdateRelease(droneId);
-                    
+                    dal.UpdateRelease(droneId);                 
                 }
                 else
                 {

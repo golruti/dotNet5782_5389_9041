@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace IBL.BO
+
+namespace BO
 {
-    public class BaseStation 
+    public class BaseStation
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,7 +16,7 @@ namespace IBL.BO
             return $"------\nStation{Id} : {Name}\ncharge slots={AvailableChargingPorts}\nlocation={Location.Latitude},{Location.Latitude}\n------\n";
         }
 
-        public BaseStation( int id, string name, double longitude, double latitude, int availableChargingStations)
+        public BaseStation(int id, string name, double longitude, double latitude, int availableChargingStations)
         {
             Id = id;
             Name = name;
@@ -32,4 +33,3 @@ namespace IBL.BO
 }
 
 
-  

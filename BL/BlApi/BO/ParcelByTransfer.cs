@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enums;
+using static BO.Enums;
 
-namespace IBL.BO
+namespace BO
 {
     //חבילה בהעברה
     public class ParcelByTransfer

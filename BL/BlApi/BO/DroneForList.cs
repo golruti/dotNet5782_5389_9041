@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enums;
+using static BO.Enums;
 
-namespace IBL.BO
+namespace BO
 {
     public class DroneForList
     {
@@ -31,7 +31,7 @@ namespace IBL.BO
             Battery = battery;
             Status = status;
             Location = new Location(longitude, latitude);
-            
+
         }
 
         public DroneForList() { }

@@ -4,23 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL.BO
+
+namespace BO
+
 {
-    public class DroneInCharging
+    public class CustomerDelivery
     {
         public int Id { get; set; }
-        public double Battery { get; set; }
-        
-        public DroneInCharging(int id, double battery)
+        public string Name { get; set; }
+
+        public CustomerDelivery(int id, string name)
         {
             Id = id;
-            Battery = battery;
-            
+            Name = name;
         }
-        public DroneInCharging()
+        public CustomerDelivery()
         {
+
         }
     }
+
 
 }
 

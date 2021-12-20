@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL.BO
+namespace BO
 {
     public class CustomerForList
     {
@@ -16,7 +16,6 @@ namespace IBL.BO
         public int NumParcelReceived { get; set; }
         public int NumParcelWayToCustomer { get; set; }
 
-
         public override string ToString()
         {
             return $"Customer #{Id}: {Name}, Phone{Phone}, Num Parcel Sent Delivered = {NumParcelSentDelivered}, " +
@@ -24,7 +23,7 @@ namespace IBL.BO
                 $" NumP arcel Way To Customer = {NumParcelWayToCustomer}";
         }
 
-        public CustomerForList(int id,string name,string phone,int parcelSentDelivered, int parcelSentNotDelivered, int recievedParcel, int parcelOnWayToCustomer)
+        public CustomerForList(int id, string name, string phone, int parcelSentDelivered, int parcelSentNotDelivered, int recievedParcel, int parcelOnWayToCustomer)
         {
             Id = id;
             Name = name;
@@ -39,8 +38,6 @@ namespace IBL.BO
         {
 
         }
-
-
     }
 }
 
