@@ -46,6 +46,16 @@ namespace PL
             AddTab(tabItem);
         }
 
+        private void ShowBaseStationListWindow(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new BaseStationList(bl, AddTab, RemoveTab);
+            button.Visibility = Visibility.Collapsed;
+            tabItem.Header = "Base station List";
+            tub_control.Visibility = Visibility.Visible;
+            AddTab(tabItem);
+        }
+
         /// <summary>
         /// add tab
         /// </summary>
