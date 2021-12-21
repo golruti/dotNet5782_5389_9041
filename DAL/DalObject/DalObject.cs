@@ -9,7 +9,7 @@ using Singleton;
 
 namespace DAL
 {
-    public sealed partial class DalObject : Singleton.Singleton<DalObject>,DalApi.IDal
+    public sealed partial class DalObject : Singleton.Singleton<DalObject>, DalApi.IDal
     {
         /// <summary>
         /// constructor

@@ -81,10 +81,11 @@ namespace BL
                 Id = station.Id,
                 Name = station.Name,
                 Location = new Location(station.Latitude, station.Longitude),
-                AvailableChargingPorts = station.ChargeSlote - dal.CountFullChargeSlots(station.Id),
+                AvailableChargingPorts = station.ChargeSlote - CountFullChargeSlots(station.Id),
                 DronesInCharging = dronesInCharging(station.Id)
             };
         }
+
 
         //---------------------------------------------Show list ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -100,8 +101,8 @@ namespace BL
                 {
                     Id = baseStation.Id,
                     Name = baseStation.Name,
-                    AvailableChargingPorts = (baseStation.ChargeSlote) - dal.CountFullChargeSlots(baseStation.Id),
-                    UsedChargingPorts = dal.CountFullChargeSlots(baseStation.Id)
+                    AvailableChargingPorts = (baseStation.ChargeSlote) - CountFullChargeSlots(baseStation.Id),
+                    UsedChargingPorts = CountFullChargeSlots(baseStation.Id)
                 });
             }
             return BaseStationsForList;
@@ -119,12 +120,20 @@ namespace BL
 
         public List<int> GetBaseStationForListsId()
         {
-            List<int> baseStationsId=new();
-            foreach( var item in GetBaseStationForList())
+            List<int> baseStationsId = new();
+            foreach (var item in GetBaseStationForList())
             {
                 baseStationsId.Add(item.Id);
             }
             return baseStationsId;
+        }
+
+        //------------Private auxiliary functions-----------------
+        private int CountFullChargeSlots(int stationId)
+        {
+            IEnumerable<DO.DroneCharge> droneCharges = dal.GetDronesCharges();
+            droneCharges.Where(droneCharge => droneCharge.StationId == stationId);
+            return droneCharges.Count();
         }
     }
 }

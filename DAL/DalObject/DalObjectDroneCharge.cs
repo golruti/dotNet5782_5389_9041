@@ -18,6 +18,10 @@ namespace DAL
         /// <param name="droneCharge">The drone charge for Adding</param>
         public void AddDroneCharge(DroneCharge droneCharge)
         {
+            if (!(uniqueIDTaxCheck(DataSource.droneCharges, droneCharge.DroneId)))
+            {
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone charge - DAL");
+            }
             DataSource.droneCharges.Add(droneCharge);
         }
 
@@ -100,23 +104,6 @@ namespace DAL
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate)
         {
             return DataSource.droneCharges.Where(droneCharge => predicate(droneCharge)).ToList();
-        }
-
-        //---------------------------------------------Extensions functions---------------------------------------------------------------------------
-        /// <summary>
-        /// The function returns how many stations are occupied at a particular station
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>The number of stations occupied</returns>
-        public int CountFullChargeSlots(int id)
-        {
-            int count = 0;
-            foreach (DroneCharge item in DataSource.droneCharges)
-            {
-                if (item.StationId == id)
-                    ++count;
-            }
-            return count;
         }
     }
 }

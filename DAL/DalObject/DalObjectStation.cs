@@ -30,8 +30,10 @@ namespace DAL
         /// <param name="id"></param>
         public void DeleteBaseStation(int id)
         {
-
-            DataSource.stations.Remove(GetBaseStation(id));
+            var station = DataSource.stations.FirstOrDefault(s => s.Id == id);
+            if (station.Equals(default(BaseStation)))
+                throw new KeyNotFoundException("Delete station -DAL-: There is no suitable station in data");
+            DataSource.stations.Remove(station);
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------

@@ -40,8 +40,6 @@ namespace DalApi
         public DroneCharge GetDroneCharge(int droneId);
         public IEnumerable<DroneCharge> GetDronesCharges();
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate);
-        //לסדר
-        public int CountFullChargeSlots(int id);
         public void DeleteDroneCharge(int droneId);
 
 
