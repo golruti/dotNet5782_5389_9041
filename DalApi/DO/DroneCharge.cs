@@ -18,18 +18,7 @@ namespace DO
             StationId = stationId;
             Time = DateTime.Now;
         }
-
-        public DroneCharge Clone()
-        {
-            return new DroneCharge()
-            {
-                DroneId = this.DroneId,
-                StationId = this.StationId,
-            };
-
-
         }
-
     }
 }
 

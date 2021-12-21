@@ -16,6 +16,7 @@ namespace DAL
         /// <param name="parcel">struct of parcel</param>
         public void AddParcel(Parcel parcel)
         {
+            parcel.Id = RunNumberForParcel();
             Customer senderId = DataSource.customers.FirstOrDefault(c => c.Id == parcel.SenderId);
             Customer targetId = DataSource.customers.FirstOrDefault(c => c.Id == parcel.TargetId);
 
@@ -68,7 +69,7 @@ namespace DAL
         /// <returns>array of parceles</returns>
         public IEnumerable<Parcel> GetParcels()
         {
-            return DataSource.parcels.Select(parcel => parcel.Clone()).ToList();
+            return DataSource.parcels.ToList();
         }
 
         /// <summary>
@@ -155,12 +156,6 @@ namespace DAL
             }
         }
 
-        static int Index = 0;
-        int IncreastNumberIndea()
-        {
-            return ++Index;
-        }
-
 
         /// <summary>
         /// update parcel assembly by drone
@@ -185,6 +180,16 @@ namespace DAL
             {
                 throw ex;
             }
+        }
+
+        //------------------------------------------Private auxiliary functions--------------
+        /// <summary>
+        /// Auxiliary function that returns the running number and advances it.
+        /// </summary>
+        /// <returns></returns>
+        private int RunNumberForParcel()
+        {
+            return (DataSource.Config.Index)++;
         }
     }
 }

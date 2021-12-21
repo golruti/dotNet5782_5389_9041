@@ -57,7 +57,7 @@ namespace DAL
         /// <returns>array of drones</returns>
         public IEnumerable<Drone> GetDrones()
         {
-            return DataSource.drones.Select(drone => drone.Clone()).ToList();
+            return DataSource.drones.ToList();
         }
 
         /// <summary>

@@ -33,22 +33,6 @@ namespace DO
             Longitude = longitude;
             Latitude = lattitude;
         }
-
-        /// <summary>
-        /// The functions create a new instance of customer and copy a deep copy
-        /// </summary>
-        /// <returns>customer</returns>
-        public Customer Clone()
-        {
-            return new Customer()
-            {
-                Id = this.Id,
-                Name = this.Name,
-                Phone = this.Phone,
-                Longitude = this.Longitude,
-                Latitude = this.Latitude
-            };
-        }
     }
 }
 

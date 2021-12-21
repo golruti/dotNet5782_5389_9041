@@ -611,7 +611,7 @@ namespace BL
             {
                 throw new ArgumentNullException("Get nearst base station -BL-");
             }
-            return nearestBaseStation.Clone();
+            return nearestBaseStation;
         }
 
         /// <summary>

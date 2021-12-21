@@ -20,21 +20,6 @@ namespace DO
                 "\nLattitude: " + Latitude + "\nChargeSlote: " + ChargeSlote + "\n");
         }
 
-        /// <summary>
-        /// The functions create a new instancenew of base-station and copy a deep copy
-        /// </summary>
-        /// <returns>station</returns>
-        public BaseStation Clone()
-        {
-            return new BaseStation()
-            {
-                Id = this.Id,
-                Name = this.Name,
-                Longitude = this.Longitude,
-                Latitude = this.Latitude,
-                ChargeSlote = this.ChargeSlote
-            };
-        }
 
         public BaseStation(int id, string name, double longitude, double lattitude, int chargeSlote)
         {

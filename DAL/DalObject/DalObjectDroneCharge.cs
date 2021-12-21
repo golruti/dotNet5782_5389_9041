@@ -93,7 +93,7 @@ namespace DAL
         /// <returns>The drones charge list</returns>
         public IEnumerable<DroneCharge> GetDronesCharges()
         {
-            return DataSource.droneCharges.Select(drone => drone.Clone()).ToList();
+            return DataSource.droneCharges.ToList();
         }
 
         /// <summary>
