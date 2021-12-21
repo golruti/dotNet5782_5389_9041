@@ -18,7 +18,6 @@ namespace DO
             StationId = stationId;
             Time = DateTime.Now;
         }
-        }
     }
 }
 
