@@ -20,7 +20,6 @@ namespace DAL
             Customer senderId = DataSource.customers.FirstOrDefault(c => c.Id == parcel.SenderId);
             Customer targetId = DataSource.customers.FirstOrDefault(c => c.Id == parcel.TargetId);
 
-
             if (senderId.Equals(default(Customer)))
                 throw new KeyNotFoundException("Add parcel -DAL-:Sender not exist");
             if (targetId.Equals(default(Customer)))
@@ -57,11 +56,6 @@ namespace DAL
             return parcel;
         }
 
-        //public Parcel GetParcelByDrone(int droneId)
-        //{
-        //   return DataSource.parcels.FirstOrDefault(parcel => parcel.Droneld == droneId);
-        //}
-
         //--------------------------------------------Show list---------------------------------------------------------------------------------------
         /// <summary>
         /// The function prepares a new array of all existing parcels
@@ -81,7 +75,6 @@ namespace DAL
         {
             return DataSource.parcels.Where(drone => predicate(drone)).ToList();
         }
-
 
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
         /// <summary>
@@ -155,7 +148,6 @@ namespace DAL
                 throw ex;
             }
         }
-
 
         /// <summary>
         /// update parcel assembly by drone

@@ -35,7 +35,6 @@ namespace DAL
             return temp.Equals(default(T));
         }
 
-
         /// <summary>
         /// Takes from the DataSource the electricity use data of the drone
         /// </summary>

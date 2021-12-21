@@ -74,7 +74,7 @@ namespace DAL
             {
                 Parcel tempParcel = new Parcel();
 
-                tempParcel.Id = i;
+                tempParcel.Id = (Config.Index)++;
                 tempParcel.SenderId = Rand.Next(customers.Count());
                 if (i == 3)
                 {

@@ -9,7 +9,6 @@ namespace DAL
 {
     public partial class DalObject
     {
-
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
         /// Add a base station to the array of stations
