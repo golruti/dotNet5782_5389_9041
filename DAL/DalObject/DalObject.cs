@@ -1,14 +1,15 @@
-﻿using IDAL;
-using IDAL.DO;
+﻿using DalApi;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Singleton;
-namespace DalObject
+
+namespace DAL
 {
-    public sealed partial class DalObject : Singleton.Singleton<DalObject>,IDAL.IDal
+    public sealed partial class DalObject : Singleton.Singleton<DalObject>, DalApi.IDal
     {
         /// <summary>
         /// constructor
@@ -25,7 +26,7 @@ namespace DalObject
         /// <param name="lst"></param>
         /// <param name="id"></param>
         /// <returns>if the ID is unique</returns>
-        public bool uniqueIDTaxCheck<T>(IEnumerable<T> lst, int id)
+        private bool uniqueIDTaxCheck<T>(IEnumerable<T> lst, int id)
         {
             if (lst.Count() <= 0)
                 return true;
@@ -33,7 +34,6 @@ namespace DalObject
             T temp = lst.FirstOrDefault(item => (int)item.GetType().GetProperty("Id")?.GetValue(item) == id);
             return temp.Equals(default(T));
         }
-
 
         /// <summary>
         /// Takes from the DataSource the electricity use data of the drone

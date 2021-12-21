@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
-using static IDAL.DO.Enum;
+using DO;
+using static DO.Enum;
 
-namespace DalObject
+namespace DAL
 {
     public class DataSource
     {
@@ -20,18 +20,12 @@ namespace DalObject
 
         internal class Config
         {
-            //פנוי
-           static public double free = 0.001;
-            //נושא משקל קל
-           static public double CarriesLightWeigh =0.002;
-            //נושא משקל בינוני
-           static public double CarriesMediumWeigh=0.005;
-            //נושא משקל כבד
-           static public double CarriesHeavyWeight=0.006;
-            //קצב טעינה לשעה
-           static public double ChargingRate=20;
-
-            
+            static public double free = 0.001;
+            static public double CarriesLightWeigh = 0.002;
+            static public double CarriesMediumWeigh = 0.005;
+            static public double CarriesHeavyWeight = 0.006;
+            static public double ChargingRate = 20;
+            static public int Index = 0;
         }
 
         /// <summary>
@@ -39,7 +33,6 @@ namespace DalObject
         /// </summary>
         public static void Initialize()
         {
-
             //stations
             for (int i = 0; i < 2; ++i)
             {
@@ -47,17 +40,17 @@ namespace DalObject
                 tempStation.Id = i;
                 tempStation.Name = $"station {i}";
                 tempStation.ChargeSlote = Rand.Next() + 1;
-                tempStation.Latitude = Rand.Next(-89,89) + Rand.NextDouble();
+                tempStation.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 stations.Add(tempStation);
-               
+
             }
 
             //customers
             for (int i = 0; i < 10; ++i)
             {
                 Customer tempCustomer = new Customer();
-                tempCustomer.Id =i;
+                tempCustomer.Id = i;
                 tempCustomer.Name = $"customer {i}";
                 tempCustomer.Phone = $"05{Rand.Next(10000000, 100000000)}";
                 tempCustomer.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
@@ -72,7 +65,7 @@ namespace DalObject
                 Drone tempDrone = new Drone();
                 tempDrone.Id = i;
                 tempDrone.Model = $"drone {i}";
-                tempDrone.MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0, 3);
+                tempDrone.MaxWeight = (DO.Enum.WeightCategories)Rand.Next(0, 3);
                 drones.Add(tempDrone);
             }
 
@@ -81,7 +74,7 @@ namespace DalObject
             {
                 Parcel tempParcel = new Parcel();
 
-                tempParcel.Id = i;
+                tempParcel.Id = (Config.Index)++;
                 tempParcel.SenderId = Rand.Next(customers.Count());
                 if (i == 3)
                 {

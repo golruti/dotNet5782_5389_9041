@@ -28,11 +28,11 @@ namespace BL
         /// <param name="dateTime"></param>
         public void UpdateParcelAffiliation(int parcelId, int droneId, DateTime dateTime)
         {
-            IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
+            DO.Parcel parcel = dal.GetParcel(parcelId);
             dal.DeleteParcel(parcelId);
             parcel.Droneld = droneId;
             parcel.Scheduled = dateTime;
-            dal.InsertParcel(parcel);
+            dal.AddParcel(parcel);
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ namespace BL
         /// <returns></returns>
         public Enums.ParcelStatuses GetParcelStatusByDrone(int droneId)
         {
-            Parcel parcel = mapParcel(dal.GetParcelByDrone(droneId));
+            Parcel parcel = mapParcel(dal.GetParcel(parcel => parcel.Droneld == droneId));
 
             if (parcel.Delivered != null)
                 return Enums.ParcelStatuses.Provided;
@@ -77,7 +77,7 @@ namespace BL
         /// </summary>
         /// <param name="parcel">he parcel to convert</param>
         /// <returns>The converted parcel</returns>
-        private Parcel mapParcel(IDAL.DO.Parcel parcel)
+        private Parcel mapParcel(DO.Parcel parcel)
         {
             var tmpDrone = drones.FirstOrDefault(drone => drone.Id == parcel.Droneld);
             return new Parcel()
@@ -102,9 +102,9 @@ namespace BL
         /// <returns>The converted parcel</returns>
         private ParcelByTransfer createParcelInTransfer(int id)
         {
-            IDAL.DO.Parcel parcel = dal.GetParcel(id);
-            IDAL.DO.Customer sender = dal.GetCustomer(parcel.SenderId);
-            IDAL.DO.Customer target = dal.GetCustomer(parcel.TargetId);
+            DO.Parcel parcel = dal.GetParcel(id);
+            DO.Customer sender = dal.GetCustomer(parcel.SenderId);
+            DO.Customer target = dal.GetCustomer(parcel.TargetId);
             return new ParcelByTransfer
             {
                 Id = id,
@@ -124,7 +124,7 @@ namespace BL
         /// </summary>
         /// <param name="parcel">The customer to convert</param>
         /// <returns>The converted customer</returns>
-        private CustomerDelivery mapCustomerInParcel(IDAL.DO.Customer customer)
+        private CustomerDelivery mapCustomerInParcel(DO.Customer customer)
         {
             return new CustomerDelivery()
             {
@@ -219,7 +219,7 @@ namespace BL
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>The name of the sending customer</returns>
-        private string getSendCustomerName(IDAL.DO.Parcel parcel)
+        private string getSendCustomerName(DO.Parcel parcel)
         {
             if ((dal.GetCustomers().First(customer => customer.Id == parcel.SenderId)).Name.Equals(default(string)))
             {
@@ -233,7 +233,7 @@ namespace BL
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>The name of the receiving customer</returns>
-        private string getReceiveCustomer(IDAL.DO.Parcel parcel)
+        private string getReceiveCustomer(DO.Parcel parcel)
         {
             if ((dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId)).Name.Equals(default(string)))
             {
@@ -247,7 +247,7 @@ namespace BL
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>The parcel status</returns>
-        private BO.Enums.ParcelStatuses getParcelStatus(IDAL.DO.Parcel parcel)
+        private BO.Enums.ParcelStatuses getParcelStatus(DO.Parcel parcel)
         {
             if (!(parcel.Requested.Equals(null)))
             {

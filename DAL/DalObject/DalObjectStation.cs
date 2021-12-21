@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
 
-namespace DalObject
+namespace DAL
 {
     public partial class DalObject
     {
-
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
         /// Add a base station to the array of stations
         /// </summary>
         /// <param name="station">struct of station</param>
-        public void InsertStation(BaseStation station)
+        public void AddBaseStation(BaseStation station)
         {
             if (!(uniqueIDTaxCheck(DataSource.stations, station.Id)))
             {
@@ -30,17 +29,19 @@ namespace DalObject
         /// <param name="id"></param>
         public void DeleteBaseStation(int id)
         {
-
-            DataSource.stations.Remove(GetStation(id));
+            var station = DataSource.stations.FirstOrDefault(s => s.Id == id);
+            if (station.Equals(default(BaseStation)))
+                throw new KeyNotFoundException("Delete station -DAL-: There is no suitable station in data");
+            DataSource.stations.Remove(station);
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------
         /// <returns>base station</returns>
-        public BaseStation GetStation(int idStation)
+        public BaseStation GetBaseStation(int idStation)
         {
-            BaseStation station = DataSource.stations.First(station => station.Id == idStation);
+            BaseStation station = DataSource.stations.FirstOrDefault(station => station.Id == idStation);
             if (station.GetType().Equals(default))
-                throw new Exception("Get station -DAL-: There is no suitable customer in data");
+                throw new KeyNotFoundException("Get station -DAL-: There is no suitable customer in data");
             return station;
         }
 
@@ -51,7 +52,7 @@ namespace DalObject
         /// <returns>array of station</returns>
         public IEnumerable<BaseStation> GetBaseStations()
         {
-            return DataSource.stations.Select(station => station.Clone());
+            return DataSource.stations.ToList();
         }
 
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)

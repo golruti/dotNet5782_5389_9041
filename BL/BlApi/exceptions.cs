@@ -20,8 +20,8 @@ namespace BO
         {
             return Message + "There is no nearby base station that the drone can reach exception";
         }
-
     }
+
 
     [Serializable]
     public class ThereIsAnObjectWithTheSameKeyInTheListException : Exception

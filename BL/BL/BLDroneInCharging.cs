@@ -13,7 +13,7 @@ namespace BL
         /// <returns>The list of drones in charge</returns>
         private List<DroneInCharging> dronesInCharging(int id)
         {
-            List<IDAL.DO.DroneCharge> list = (List<IDAL.DO.DroneCharge>)dal.GetDronesCharges(droneCharge => droneCharge.StationId == id);
+            List<DO.DroneCharge> list = (List<DO.DroneCharge>)dal.GetDronesCharges(droneCharge => droneCharge.StationId == id);
             if (list.Count == 0)
                 return new();
             List<DroneInCharging> droneInChargings = new();
@@ -29,7 +29,7 @@ namespace BL
             return droneInChargings;
         }
 
-        private IDAL.DO.DroneCharge GetDroneInChargByID(int id)
+        private DO.DroneCharge GetDroneInChargByID(int id)
         {
             return dal.GetDroneCharge(id);
         }

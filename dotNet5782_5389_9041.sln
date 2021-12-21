@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{652F63D4-CC5B-4D0B-B1E5-C2F041B45D47}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{63826D67-F249-4381-ABB3-9762C44F905A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalObject", "DAL\DalObject.csproj", "{63826D67-F249-4381-ABB3-9762C44F905A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{81885B1E-218E-4AD7-A31B-A947777A457D}"
 EndProject
@@ -21,6 +21,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{F6FF919D-0EC0-4907-AD47-462B294D0709}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Singleton", "Singleton\Singleton.csproj", "{11F37BAE-9339-4BC9-B844-ED63CF7A60E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalApi", "DalApi\DalApi.csproj", "{393A3066-1725-4E6F-A419-C1AEAB808DFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{11F37BAE-9339-4BC9-B844-ED63CF7A60E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11F37BAE-9339-4BC9-B844-ED63CF7A60E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11F37BAE-9339-4BC9-B844-ED63CF7A60E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{393A3066-1725-4E6F-A419-C1AEAB808DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{393A3066-1725-4E6F-A419-C1AEAB808DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{393A3066-1725-4E6F-A419-C1AEAB808DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{393A3066-1725-4E6F-A419-C1AEAB808DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
