@@ -18,12 +18,12 @@ namespace BL
         /// <param name="tempCustomer">The customer for Adding</param>
         public void AddCustomer(Customer tempCustomer)
         {
-            IDAL.DO.Customer customer = new IDAL.DO.Customer(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
+            DO.Customer customer = new DO.Customer(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
             try
             {
                 dal.InsertCustomer(customer);
             }
-            catch (IDAL.DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
@@ -38,7 +38,7 @@ namespace BL
         /// <param name="phone"></param>
         public void UpdateCustomer(int id, string name = "-1", string phone = "-1")
         {
-            IDAL.DO.Customer tempCustomer = dal.GetCustomer(id);
+            DO.Customer tempCustomer = dal.GetCustomer(id);
             dal.DeleteCustomer(id);
             if (name == "-1")
             {
@@ -48,7 +48,7 @@ namespace BL
             {
                 phone = tempCustomer.Phone;
             }
-            IDAL.DO.Customer customer = new IDAL.DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
+           DO.Customer customer = new DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
             dal.InsertCustomer(customer);
         }
 
@@ -75,7 +75,7 @@ namespace BL
         /// </summary>
         /// <param name="customer">The customer to convert</param>
         /// <returns>The converted customer</returns>
-        private Customer mapCustomer(IDAL.DO.Customer customer)
+        private Customer mapCustomer(DO.Customer customer)
         {
             return new Customer()
             {
@@ -130,7 +130,7 @@ namespace BL
         public IEnumerable<CustomerForList> GetCustomerForList()
         {
             List<CustomerForList> CustomerForList = new List<CustomerForList>();
-            List<IDAL.DO.Parcel> parcels = (List<IDAL.DO.Parcel>)dal.GetParcels();
+            List<DO.Parcel> parcels = (List<DO.Parcel>)dal.GetParcels();
             foreach (var customer in dal.GetCustomers())
             {
                 CustomerForList.Add(new CustomerForList()

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
 
-namespace DalObject
+namespace DAL
 {
     public partial class DalObject
     {
@@ -92,7 +92,7 @@ namespace DalObject
         /// <returns>customer from whom the package </returns>
         public Customer FindSenderCustomerByDroneId(int DroneId)
         {
-            Customer customer = new IDAL.DO.Customer();
+            Customer customer = new DO.Customer();
             foreach (var parcel in GetParcels())
             {
                 if (parcel.Droneld == DroneId)

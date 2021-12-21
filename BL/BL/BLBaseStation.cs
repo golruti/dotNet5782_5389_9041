@@ -16,12 +16,12 @@ namespace BL
         /// <param name="tempBaseStation">The station for Adding</param>
         public void AddBaseStation(BaseStation tempBaseStation)
         {
-            IDAL.DO.BaseStation baseStation = new IDAL.DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, tempBaseStation.AvailableChargingPorts);
+            DO.BaseStation baseStation = new DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, tempBaseStation.AvailableChargingPorts);
             try
             {
                 dal.InsertStation(baseStation);
             }
-            catch (IDAL.DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
@@ -36,7 +36,7 @@ namespace BL
         /// <param name="chargeSlote">sum of charge slote</param>
         public void UpdateBaseStation(int id, string name = "-1", int chargeSlote = -1)
         {
-            IDAL.DO.BaseStation tempBaseStation = dal.GetStation(id);
+            DO.BaseStation tempBaseStation = dal.GetStation(id);
             dal.DeleteBaseStation(id);
             if (name == "-1")
             {
@@ -46,7 +46,7 @@ namespace BL
             {
                 chargeSlote = tempBaseStation.ChargeSlote;
             }
-            IDAL.DO.BaseStation station = new IDAL.DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
+            DO.BaseStation station = new DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
             dal.InsertStation(station);
         }
 
@@ -74,7 +74,7 @@ namespace BL
         /// </summary>
         /// <param name="station">The sation to convert</param>
         /// <returns>The converted station</returns>
-        private BaseStation mapBaseStation(IDAL.DO.BaseStation station)
+        private BaseStation mapBaseStation(DO.BaseStation station)
         {
             return new BaseStation()
             {

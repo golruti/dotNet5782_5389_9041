@@ -20,14 +20,21 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    /// 
-    public partial class MainWindow : Window/*, INotifyPropertyChanged*/
+    public partial class MainWindow : Window
     {
         private BlApi.IBL bl;
 
         public MainWindow()
         {
-            bl = Singleton<BL.BL>.Instance;
+            try
+            {
+                bl = BlApi.BlFactory.GetBl();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The BL object could not be loaded");
+                this.Close();
+            }
             InitializeComponent();
         }
 
@@ -62,6 +69,6 @@ namespace PL
         internal void RemoveTab(TabItem tabItem)
         {
             tub_control.Items.Remove(tabItem);
-        }      
+        }
     }
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
-using static IDAL.DO.Enum;
+using DO;
+using static DO.Enum;
 
-namespace DalObject
+namespace DAL
 {
     public class DataSource
     {
@@ -20,18 +20,11 @@ namespace DalObject
 
         internal class Config
         {
-            //פנוי
            static public double free = 0.001;
-            //נושא משקל קל
            static public double CarriesLightWeigh =0.002;
-            //נושא משקל בינוני
            static public double CarriesMediumWeigh=0.005;
-            //נושא משקל כבד
            static public double CarriesHeavyWeight=0.006;
-            //קצב טעינה לשעה
-           static public double ChargingRate=20;
-
-            
+           static public double ChargingRate=20;        
         }
 
         /// <summary>
@@ -39,7 +32,6 @@ namespace DalObject
         /// </summary>
         public static void Initialize()
         {
-
             //stations
             for (int i = 0; i < 2; ++i)
             {
@@ -72,7 +64,7 @@ namespace DalObject
                 Drone tempDrone = new Drone();
                 tempDrone.Id = i;
                 tempDrone.Model = $"drone {i}";
-                tempDrone.MaxWeight = (IDAL.DO.Enum.WeightCategories)Rand.Next(0, 3);
+                tempDrone.MaxWeight = (DO.Enum.WeightCategories)Rand.Next(0, 3);
                 drones.Add(tempDrone);
             }
 

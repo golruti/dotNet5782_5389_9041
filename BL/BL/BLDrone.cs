@@ -18,14 +18,14 @@ namespace BL
         public void AddDrone(int id,int stationId, Enums.WeightCategories maxWeight,string model)
         {
             Drone tempDrone = new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), GetBLBaseStation(stationId).Location.Longitude, GetBLBaseStation(stationId).Location.Latitude);
-            IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDrone.Id, tempDrone.Model, (IDAL.DO.Enum.WeightCategories)tempDrone.MaxWeight);
+            DO.Drone drone = new DO.Drone(tempDrone.Id, tempDrone.Model, (DO.Enum.WeightCategories)tempDrone.MaxWeight);
             try
             {
                 dal.InsertDrone(drone);
                 DroneForList droneForList = new DroneForList(tempDrone.Id, tempDrone.Model, tempDrone.MaxWeight, tempDrone.Battery, tempDrone.Status, tempDrone.Location.Longitude, tempDrone.Location.Latitude);
                 drones.Add(droneForList);
             }
-            catch (IDAL.DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
@@ -144,7 +144,7 @@ namespace BL
             tempDroneForList.Model = model;
             drones.Add(tempDroneForList);
             dal.DeleteDrone(id);
-            IDAL.DO.Drone drone = new IDAL.DO.Drone(tempDroneForList.Id, tempDroneForList.Model, (IDAL.DO.Enum.WeightCategories)tempDroneForList.MaxWeight);
+            DO.Drone drone = new DO.Drone(tempDroneForList.Id, tempDroneForList.Model, (DO.Enum.WeightCategories)tempDroneForList.MaxWeight);
             dal.InsertDrone(drone);
         }
 
@@ -204,8 +204,8 @@ namespace BL
 
                     if (parcelId != -1)
                     {
-                        IDAL.DO.Parcel parcel = dal.GetParcel(parcelId);
-                        IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
+                        DO.Parcel parcel = dal.GetParcel(parcelId);
+                        DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                         double distance = this.distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
                         Location location = new Location(customer.Longitude, customer.Latitude);
                         droneForList.Battery -= ((int)minBattery(droneForList.Location,location,droneForList.Status,droneForList.MaxWeight) + 1);
@@ -249,8 +249,8 @@ namespace BL
             }
             if (drone.ParcelDeliveredId != 0)
             {
-                IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
-                foreach (IDAL.DO.Parcel item in dal.GetParcels())
+                DO.Parcel parcel = new DO.Parcel();
+                foreach (DO.Parcel item in dal.GetParcels())
                 {
                     if (item.Id == drone.ParcelDeliveredId)
                     {
@@ -377,7 +377,7 @@ namespace BL
                 Enums.WeightCategories weight = Enums.WeightCategories.Light;
                 double distance = double.MaxValue;
 
-                foreach (IDAL.DO.Parcel item in dal.GetParcels())
+                foreach (DO.Parcel item in dal.GetParcels())
                 {                   
                     if (minBattery(drone.Location, GetBLCustomer(item.SenderId).Location, drone.Status, drone.MaxWeight) < drone.Battery && (WeightCategories)item.Weight <= drone.MaxWeight)
                     {                      
@@ -449,7 +449,7 @@ namespace BL
             {
                 if (findParcelState(drone.Id) == parcelState.associatedNotCollected)
                 {
-                    IDAL.DO.Customer senderCustomer2 = new IDAL.DO.Customer();
+                    DO.Customer senderCustomer2 = new DO.Customer();
                     try
                     {
                         senderCustomer2 = dal.FindSenderCustomerByDroneId(drone.Id);
@@ -459,12 +459,12 @@ namespace BL
                         throw new ArgumentNullException("Get base station -BL-" + ex.Message);
                     }
 
-                    IDAL.DO.BaseStation soonStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
+                    DO.BaseStation soonStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
                     return new Location(soonStation.Longitude, soonStation.Latitude);
                 }
                 else if (findParcelState(drone.Id) == parcelState.collectedNotDelivered)
                 {
-                    IDAL.DO.Customer senderCustomer = new IDAL.DO.Customer();
+                    DO.Customer senderCustomer = new DO.Customer();
                     try
                     {
                         senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
@@ -594,10 +594,10 @@ namespace BL
         /// <param name="LongitudeSenderCustomer">Location of the drone</param>
         /// <param name="LatitudeSenderCustomer">Location of the drone</param>
         /// <returns> The nearest base station</returns>
-        private IDAL.DO.BaseStation nearestBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
+        private DO.BaseStation nearestBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
         {
             var minDistance = double.MaxValue;
-            var nearestBaseStation = default(IDAL.DO.BaseStation);
+            var nearestBaseStation = default(DO.BaseStation);
             foreach (var BaseStation in dal.GetBaseStations())
             {
                 if (distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude) < minDistance)
@@ -606,7 +606,7 @@ namespace BL
                     nearestBaseStation = BaseStation;
                 }
             }
-            if (nearestBaseStation.Equals(default(IDAL.DO.BaseStation)))
+            if (nearestBaseStation.Equals(default(DO.BaseStation)))
             {
                 throw new ArgumentNullException("Get nearst base station -BL-");
             }

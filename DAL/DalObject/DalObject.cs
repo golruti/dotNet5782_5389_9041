@@ -1,14 +1,15 @@
-﻿using IDAL;
-using IDAL.DO;
+﻿using DalApi;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Singleton;
-namespace DalObject
+
+namespace DAL
 {
-    public sealed partial class DalObject : Singleton.Singleton<DalObject>,IDAL.IDal
+    public sealed partial class DalObject : Singleton.Singleton<DalObject>,DalApi.IDal
     {
         /// <summary>
         /// constructor

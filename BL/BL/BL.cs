@@ -11,7 +11,7 @@ namespace BL
 {
     sealed partial class BL : Singleton.Singleton<BL>, BlApi.IBL
     {
-        private IDAL.IDal dal;
+        private DalApi.IDal dal;
         private List<DroneForList> drones = new List<DroneForList>();
         private static Random rand = new Random();
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
@@ -21,7 +21,17 @@ namespace BL
         /// </summary>
         private BL()
         {
-            dal = Singleton<DalObject.DalObject>.Instance;
+            try
+            {
+                dal = DalApi.DalFactory.GetDal();
+
+            }
+            catch (Exception ex)
+            {
+                throw  new Exception(ex.Message);
+            }
+
+
             initializeDrones();
             double[] arr = dal.GetElectricityUse();
             double available = arr[0];
