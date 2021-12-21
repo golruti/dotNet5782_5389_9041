@@ -26,7 +26,7 @@ namespace DAL
         /// <param name="lst"></param>
         /// <param name="id"></param>
         /// <returns>if the ID is unique</returns>
-        public bool uniqueIDTaxCheck<T>(IEnumerable<T> lst, int id)
+        private bool uniqueIDTaxCheck<T>(IEnumerable<T> lst, int id)
         {
             if (lst.Count() <= 0)
                 return true;

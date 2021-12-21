@@ -26,15 +26,7 @@ namespace PL
 
         public MainWindow()
         {
-            try
-            {
-                bl = BlApi.BlFactory.GetBl();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"The BL object could not be loaded");
-                this.Close();
-            }
+            bl = BlApi.BlFactory.GetBl();
             InitializeComponent();
         }
 

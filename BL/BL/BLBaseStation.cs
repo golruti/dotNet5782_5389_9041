@@ -19,7 +19,7 @@ namespace BL
             DO.BaseStation baseStation = new DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, tempBaseStation.AvailableChargingPorts);
             try
             {
-                dal.InsertStation(baseStation);
+                dal.AddBaseStation(baseStation);
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -36,7 +36,7 @@ namespace BL
         /// <param name="chargeSlote">sum of charge slote</param>
         public void UpdateBaseStation(int id, string name = "-1", int chargeSlote = -1)
         {
-            DO.BaseStation tempBaseStation = dal.GetStation(id);
+            DO.BaseStation tempBaseStation = dal.GetBaseStation(id);
             dal.DeleteBaseStation(id);
             if (name == "-1")
             {
@@ -47,7 +47,7 @@ namespace BL
                 chargeSlote = tempBaseStation.ChargeSlote;
             }
             DO.BaseStation station = new DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
-            dal.InsertStation(station);
+            dal.AddBaseStation(station);
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ namespace BL
         {
             try
             {
-                return mapBaseStation(dal.GetStation(id));
+                return mapBaseStation(dal.GetBaseStation(id));
             }
             catch (ArgumentNullException ex)
             {

@@ -16,7 +16,7 @@ namespace DAL
         /// </summary>
         /// </summary>
         /// <param name="droneCharge">The drone charge for Adding</param>
-        public void InsertDroneCharge(DroneCharge droneCharge)
+        public void AddDroneCharge(DroneCharge droneCharge)
         {
             DataSource.droneCharges.Add(droneCharge);
         }
@@ -28,7 +28,7 @@ namespace DAL
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
         /// <returns>Returns if the base station is available to receive the glider</returns>
-        public void TryAddDroneCarge(int droneId)
+        public void UpdateCharge(int droneId)
         {
             var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
             if (drone.Equals(default(Drone)))
@@ -40,7 +40,7 @@ namespace DAL
             DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
             try
             {
-                InsertDroneCharge(droneCharge);
+                AddDroneCharge(droneCharge);
             }
             catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -53,7 +53,7 @@ namespace DAL
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
         /// <returns>Returns the mother drone released from charging</returns>
-        public void TryRemoveDroneCarge(int droneId)
+        public void DeleteDroneCharge(int droneId)
         {
             var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
             if (drone.Equals(default(Drone)))
@@ -76,9 +76,9 @@ namespace DAL
         /// <returns>The specific drone charge</returns>
         public DroneCharge GetDroneCharge(int droneId)
         {
-            var droneCharge = DataSource.droneCharges.First(dc => dc.DroneId == droneId);
+            var droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId);
             if (droneCharge.GetType().Equals(default))
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Get drone -DAL-: There is no suitable customer in data");
+                throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data");
             return droneCharge;
         }
 
@@ -100,11 +100,6 @@ namespace DAL
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate)
         {
             return DataSource.droneCharges.Where(droneCharge => predicate(droneCharge)).ToList();
-        }
-
-        public DroneCharge GetDronesCharge(int id)
-        {
-            return DataSource.droneCharges.FirstOrDefault(item => item.DroneId==id);
         }
 
         //---------------------------------------------Extensions functions---------------------------------------------------------------------------

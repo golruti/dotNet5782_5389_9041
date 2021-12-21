@@ -14,7 +14,7 @@ namespace DAL
         /// Add a customer to the array of existing customers
         /// </summary>
         /// <param name="customer">struct of customer</param>
-        public void InsertCustomer(Customer customer)
+        public void AddCustomer(Customer customer)
         {
             if (! (uniqueIDTaxCheck(DataSource.customers, customer.Id)))
             {
@@ -31,12 +31,25 @@ namespace DAL
         /// <returns>customer</returns>
         public Customer GetCustomer(int idCustomer)
         {
-            Customer customer = DataSource.customers.First(customer => customer.Id == idCustomer);
+            Customer customer = DataSource.customers.FirstOrDefault(customer => customer.Id == idCustomer);
             if (customer.GetType().Equals(default))
                 throw new KeyNotFoundException("Get customer -DAL-: There is no suitable customer in data");
             return customer;
         }
 
+        /// <summary>
+        /// The function accepts a condition in the predicate and returns the customer who satisfies the condition
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public Customer GetCustomer(Predicate<Customer> predicate)
+        {
+            Customer customer = DataSource.customers.FirstOrDefault(customer => predicate(customer));
+            if (customer.GetType().Equals(default))
+                throw new KeyNotFoundException("Get customer -DAL-: There is no suitable customer in data");
+            return customer;
+        }
+        
         //--------------------------------------------Show list-------------------------------------------------------------------------------------------
         /// <summary>
         /// The function prepares a new array of all existing customers
@@ -44,7 +57,7 @@ namespace DAL
         /// <returns>array of customer</returns>
         public IEnumerable<Customer> GetCustomers()
         {
-            return DataSource.customers.Select(customer => customer.Clone()).ToList();
+            return DataSource.customers.ToList();
         }
 
         /// <summary>
@@ -57,7 +70,7 @@ namespace DAL
             return DataSource.customers.Where(customer => predicate(customer)).ToList();
         }
 
-        //--------------------------------------------Update-------------------------------------------------------------------------------------------
+        //--------------------------------------------Delete-------------------------------------------------------------------------------------------
         /// <summary>
         /// The function deletes a specific customer
         /// </summary>
@@ -66,43 +79,8 @@ namespace DAL
         {
             var customer = DataSource.customers.FirstOrDefault(c => c.Id == id);
             if (customer.Equals(default(Drone)))
-                throw new Exception("Delete customer -DAL-: There is no suitable customer in data");
+                throw new KeyNotFoundException("Delete customer -DAL-: There is no suitable customer in data");
             DataSource.customers.Remove(customer);
-        }
-
-        //---------------------------------------------Extensions functions---------------------------------------------------------------------------
-        /// <summary>
-        /// The function finds the customer to whom the parcel in the drone should arrive
-        /// </summary>
-        /// <param name="ParcelDeliveredId"> customer ID</param>
-        /// <returns>the customer to whom the parcel</returns>
-        public Customer customerByDrone(int ParcelDeliveredId)
-        {
-            var customer = DataSource.customers.FirstOrDefault(customer => customer.Id == ParcelDeliveredId);
-            if (customer.Equals(default(Drone)))
-                throw new Exception("Get customer -DAL-: There is no suitable customer in data");
-            return customer;
-        }
-
-
-        /// <summary>
-        /// The function finds the customer from whom the package that is in the drone came
-        /// </summary>
-        /// <param name="DroneId">drone ID</param>
-        /// <returns>customer from whom the package </returns>
-        public Customer FindSenderCustomerByDroneId(int DroneId)
-        {
-            Customer customer = new DO.Customer();
-            foreach (var parcel in GetParcels())
-            {
-                if (parcel.Droneld == DroneId)
-                {
-                    customer = GetCustomer(parcel.SenderId);
-                }
-            }
-            if (customer.Equals(default(Customer)))
-                throw new KeyNotFoundException("Get customer -DAL-: There is no suitable customer in data");
-            return customer;
         }
     }
 }

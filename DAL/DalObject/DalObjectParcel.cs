@@ -14,7 +14,7 @@ namespace DAL
         /// Receipt of parcel for shipment.
         /// </summary>
         /// <param name="parcel">struct of parcel</param>
-        public void InsertParcel(Parcel parcel)
+        public void AddParcel(Parcel parcel)
         {
             Customer senderId = DataSource.customers.FirstOrDefault(c => c.Id == parcel.SenderId);
             Customer targetId = DataSource.customers.FirstOrDefault(c => c.Id == parcel.TargetId);
@@ -37,22 +37,29 @@ namespace DAL
         /// <returns>parcel</returns>
         public Parcel GetParcel(int idParcel)
         {
-            Parcel parcel = DataSource.parcels.First(parcel => parcel.Id == idParcel);
+            Parcel parcel = DataSource.parcels.FirstOrDefault(parcel => parcel.Id == idParcel);
             if (parcel.GetType().Equals(default))
-                throw new Exception("Get parcel -DAL-: There is no suitable customer in data");
+                throw new KeyNotFoundException("Get parcel -DAL-: There is no suitable customer in data");
+            return parcel;
+        }
+        /// <summary>
+        /// The function accepts a condition in the predicate and returns 
+        /// the parcel that satisfies the condition
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public Parcel GetParcel(Predicate<Parcel> predicate)
+        {
+            Parcel parcel = DataSource.parcels.FirstOrDefault(parcel => predicate(parcel));
+            if (parcel.GetType().Equals(default))
+                throw new KeyNotFoundException("Get parcel -DAL-: There is no suitable customer in data");
             return parcel;
         }
 
-        //צריך בדיקת תקינות!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        /// <summary>
-        /// The function returns a package according to the glider to which it is associated
-        /// </summary>
-        /// <param name="droneId"></param>
-        /// <returns></returns>
-        public Parcel GetParcelByDrone(int droneId)
-        {
-           return DataSource.parcels.FirstOrDefault(parcel => parcel.Droneld == droneId);
-        }
+        //public Parcel GetParcelByDrone(int droneId)
+        //{
+        //   return DataSource.parcels.FirstOrDefault(parcel => parcel.Droneld == droneId);
+        //}
 
         //--------------------------------------------Show list---------------------------------------------------------------------------------------
         /// <summary>
@@ -84,24 +91,37 @@ namespace DAL
         {
             var parcel = DataSource.parcels.FirstOrDefault(d => d.Id == id);
             if (parcel.Equals(default(Parcel)))
-                throw new Exception("Delete parcel -DAL-: There is no suitable customer in data");
+                throw new KeyNotFoundException("Delete parcel -DAL-: There is no suitable customer in data");
             DataSource.parcels.Remove(parcel);
         }
 
         /// <summary>
-        /// Package assembly by drone
+        ///Assigning a parcel to a drone
         /// </summary>
         /// <param name="idParcel">Id of the parcel</param>
         public void UpdateParcelPickedUp(int idParcel)
         {
-            for (int i = 0; i < DataSource.parcels.Count(); ++i)
+            Parcel parcel = DataSource.parcels.FirstOrDefault(parcel => parcel.Id == idParcel);
+            if (parcel.Equals(default(Parcel)))
             {
-                if (DataSource.parcels[i].Id == idParcel)
-                {
-                    Parcel p = DataSource.parcels[i];
-                    p.PickedUp = DateTime.Now;
-                    DataSource.parcels[i] = p;
-                }
+                throw new KeyNotFoundException("Update parcel-DAL-There is no suitable customer in data");
+            }
+            parcel.PickedUp = DateTime.Now;
+            try
+            {
+                DeleteParcel(parcel.Id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            try
+            {
+                AddParcel(parcel);
+            }
+            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                throw ex;
             }
         }
 
@@ -111,15 +131,27 @@ namespace DAL
         /// <param name="idxParcel">Id of the parcel</param>
         public void UpdateParcelDelivered(int idParcel)
         {
-            for (int i = 0; i < DataSource.parcels.Count; ++i)
+            Parcel parcel = DataSource.parcels.FirstOrDefault(parcel => parcel.Id == idParcel);
+            if (parcel.Equals(default(Parcel)))
             {
-                if (DataSource.parcels[i].Id == idParcel)
-                {
-                    Parcel p = DataSource.parcels[i];
-                    p.Delivered = DateTime.Now;
-                    DataSource.parcels[i] = p;
-                    break;
-                }
+                throw new KeyNotFoundException("Update parcel-DAL-There is no suitable customer in data");
+            }
+            parcel.Delivered = DateTime.Now;
+            try
+            {
+                DeleteParcel(parcel.Id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            try
+            {
+                AddParcel(parcel);
+            }
+            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                throw ex;
             }
         }
 
@@ -129,35 +161,30 @@ namespace DAL
             return ++Index;
         }
 
-        /// <summary>
-        /// the function update that the parcel picked up
-        /// </summary>
-        /// <param name="parcel">update parcel</param>
-        public void UpdatePickedUp(Parcel parcel)
-        {
-            Parcel tempParcel = DataSource.parcels.Find(item => parcel.Id == item.Id);
-            DataSource.parcels.Remove(parcel);
-            parcel.PickedUp = DateTime.Now;
-            DataSource.parcels.Add(parcel);
-        }
 
         /// <summary>
-        /// update Delivery of a package by skimmer
+        /// update parcel assembly by drone
         /// </summary>
         /// <param name="parcel">the parcel to update</param>
         public void UpdateSupply(Parcel parcel)
         {
-            Parcel tempParcel = new Parcel();
+            parcel.Scheduled = DateTime.Now;
             try
             {
-                tempParcel = GetParcel(parcel.Id);
+                DeleteParcel(parcel.Id);
             }
-            catch
+            catch (KeyNotFoundException ex)
             {
-                throw new Exception("Get parcel -DAL-: There is no suitable parcel in data");
-            }         
-            tempParcel.Delivered = parcel.Delivered;
-            DataSource.parcels.Add(tempParcel);
+                throw ex;
+            }
+            try
+            {
+                AddParcel(parcel);
+            }
+            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                throw ex;
+            }
         }
     }
 }

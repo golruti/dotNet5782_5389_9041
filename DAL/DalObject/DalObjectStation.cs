@@ -15,7 +15,7 @@ namespace DAL
         /// Add a base station to the array of stations
         /// </summary>
         /// <param name="station">struct of station</param>
-        public void InsertStation(BaseStation station)
+        public void AddBaseStation(BaseStation station)
         {
             if (!(uniqueIDTaxCheck(DataSource.stations, station.Id)))
             {
@@ -31,16 +31,16 @@ namespace DAL
         public void DeleteBaseStation(int id)
         {
 
-            DataSource.stations.Remove(GetStation(id));
+            DataSource.stations.Remove(GetBaseStation(id));
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------
         /// <returns>base station</returns>
-        public BaseStation GetStation(int idStation)
+        public BaseStation GetBaseStation(int idStation)
         {
-            BaseStation station = DataSource.stations.First(station => station.Id == idStation);
+            BaseStation station = DataSource.stations.FirstOrDefault(station => station.Id == idStation);
             if (station.GetType().Equals(default))
-                throw new Exception("Get station -DAL-: There is no suitable customer in data");
+                throw new KeyNotFoundException("Get station -DAL-: There is no suitable customer in data");
             return station;
         }
 

@@ -32,7 +32,7 @@ namespace BL
             dal.DeleteParcel(parcelId);
             parcel.Droneld = droneId;
             parcel.Scheduled = dateTime;
-            dal.InsertParcel(parcel);
+            dal.AddParcel(parcel);
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ namespace BL
         /// <returns></returns>
         public Enums.ParcelStatuses GetParcelStatusByDrone(int droneId)
         {
-            Parcel parcel = mapParcel(dal.GetParcelByDrone(droneId));
+            Parcel parcel = mapParcel(dal.GetParcel(parcel => parcel.Droneld == droneId));
 
             if (parcel.Delivered != null)
                 return Enums.ParcelStatuses.Provided;

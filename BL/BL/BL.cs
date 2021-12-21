@@ -21,17 +21,7 @@ namespace BL
         /// </summary>
         private BL()
         {
-            try
-            {
-                dal = DalApi.DalFactory.GetDal();
-
-            }
-            catch (Exception ex)
-            {
-                throw  new Exception(ex.Message);
-            }
-
-
+            dal = DalApi.DalFactory.GetDal();
             initializeDrones();
             double[] arr = dal.GetElectricityUse();
             double available = arr[0];

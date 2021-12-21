@@ -21,7 +21,7 @@ namespace BL
             DO.Customer customer = new DO.Customer(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
             try
             {
-                dal.InsertCustomer(customer);
+                dal.AddCustomer(customer);
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -49,7 +49,7 @@ namespace BL
                 phone = tempCustomer.Phone;
             }
            DO.Customer customer = new DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
-            dal.InsertCustomer(customer);
+            dal.AddCustomer(customer);
         }
 
         //---------------------------------------------Show item---------------------------------------------------------------------------------

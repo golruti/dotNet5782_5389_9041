@@ -37,7 +37,7 @@
                
                 
 
-                <CheckBox Content="Checked" Click="AvailableBaseStations_SelectionChanged" x:Name="Available" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="203,10,301,-10" RenderTransformOrigin="0.5,0.5">
+                <CheckBox Content="Checked"  x:Name="Available" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="203,10,301,-10" RenderTransformOrigin="0.5,0.5">
                     <CheckBox.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>

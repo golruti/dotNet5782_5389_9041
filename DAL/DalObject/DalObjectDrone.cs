@@ -14,7 +14,7 @@ namespace DAL
         /// Add a drone to the array of existing drones
         /// </summary>
         /// <param name="drone">struct of drone</param>
-        public void InsertDrone(Drone drone)
+        public void AddDrone(Drone drone)
         {
             if (!(uniqueIDTaxCheck(DataSource.drones, drone.Id)))
             {
@@ -32,7 +32,7 @@ namespace DAL
         {
             var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
             if (drone.Equals(default(Drone)))
-                throw new Exception("Delete drone -DAL-: There is no suitable customer in data");
+                throw new KeyNotFoundException("Delete drone -DAL-: There is no suitable customer in data");
             DataSource.drones.Remove(drone);
         }
 
@@ -44,9 +44,9 @@ namespace DAL
         /// <returns>drone</returns>
         public Drone GetDrone(int idDrone)
         {
-            Drone drone = DataSource.drones.First(drone => drone.Id == idDrone);
+            Drone drone = DataSource.drones.FirstOrDefault(drone => drone.Id == idDrone);
             if (drone.GetType().Equals(default))
-                throw new Exception("Get drone -DAL-: There is no suitable customer in data");
+                throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data");
             return drone;
         }
 

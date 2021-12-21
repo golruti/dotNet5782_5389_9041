@@ -15,13 +15,13 @@ namespace BL
         /// Add a drone to the list of drones
         /// </summary>
         /// <param name="tempDrone">The customer for Adding</param>
-        public void AddDrone(int id,int stationId, Enums.WeightCategories maxWeight,string model)
+        public void AddDrone(int id, int stationId, Enums.WeightCategories maxWeight, string model)
         {
             Drone tempDrone = new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), GetBLBaseStation(stationId).Location.Longitude, GetBLBaseStation(stationId).Location.Latitude);
             DO.Drone drone = new DO.Drone(tempDrone.Id, tempDrone.Model, (DO.Enum.WeightCategories)tempDrone.MaxWeight);
             try
             {
-                dal.InsertDrone(drone);
+                dal.AddDrone(drone);
                 DroneForList droneForList = new DroneForList(tempDrone.Id, tempDrone.Model, tempDrone.MaxWeight, tempDrone.Battery, tempDrone.Status, tempDrone.Location.Longitude, tempDrone.Location.Latitude);
                 drones.Add(droneForList);
             }
@@ -145,7 +145,7 @@ namespace BL
             drones.Add(tempDroneForList);
             dal.DeleteDrone(id);
             DO.Drone drone = new DO.Drone(tempDroneForList.Id, tempDroneForList.Model, (DO.Enum.WeightCategories)tempDroneForList.MaxWeight);
-            dal.InsertDrone(drone);
+            dal.AddDrone(drone);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace BL
             tempDroneForList.ParcelDeliveredId = parcelIdDeliverd;
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
-            
+
             drones.Add(tempDroneForList);
         }
 
@@ -186,14 +186,14 @@ namespace BL
         /// <param name="id">id of drone</param>
         public void PackageCollection(int id)
         {
-            
-            if (drones.FirstOrDefault(item => item.Id == id) !=default(DroneForList))
+
+            if (drones.FirstOrDefault(item => item.Id == id) != default(DroneForList))
             {
                 DroneForList droneForList = drones.First(item => item.Id == id);
                 if (droneForList.Status == DroneStatuses.Delivery)
                 {
-                    int parcelId=-1;
-                   foreach (var tempParcel in dal.GetParcels())
+                    int parcelId = -1;
+                    foreach (var tempParcel in dal.GetParcels())
                     {
                         if (tempParcel.Droneld == id)
                         {
@@ -208,10 +208,10 @@ namespace BL
                         DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                         double distance = this.distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
                         Location location = new Location(customer.Longitude, customer.Latitude);
-                        droneForList.Battery -= ((int)minBattery(droneForList.Location,location,droneForList.Status,droneForList.MaxWeight) + 1);
+                        droneForList.Battery -= ((int)minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1);
                         droneForList.Location = location;
                         drones.Add(droneForList);
-                        dal.UpdatePickedUp(parcel);
+                        dal.UpdateParcelPickedUp(parcel.Id);
                     }
                     else
                     {
@@ -265,7 +265,7 @@ namespace BL
                     }
                 }
                 Customer customer = GetBLCustomer(parcel.TargetId);
-                drones[index].Battery -= (minBattery(drone.Location,customer.Location,drone.Status,drone.MaxWeight) + 1);
+                drones[index].Battery -= (minBattery(drone.Location, customer.Location, drone.Status, drone.MaxWeight) + 1);
                 drones[index].Location = customer.Location;
                 parcel.Delivered = DateTime.Now;
                 drones[index].Status = DroneStatuses.Available;
@@ -285,7 +285,7 @@ namespace BL
         {
             DroneForList tempDroneForList = drones.First(item => item.Id == droneId);
             Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
-            int baseStationId =-1;
+            int baseStationId = -1;
             Location location = new Location(-1, -1);
             double distance = double.MaxValue;
             if ((int)tempDrone.Status == 0)
@@ -301,13 +301,13 @@ namespace BL
                         location = new Location(item.Longitude, item.Latitude);
 
                     }
-                    
+
                 }
-                if (minBattery(tempDrone.Location,location,tempDrone.Status,tempDrone.MaxWeight) < tempDrone.Battery)
+                if (minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight) < tempDrone.Battery)
                 {
                     UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
-                    dal.TryAddDroneCarge(droneId);
-                   
+                    dal.UpdateCharge(droneId);
+
 
                 }
                 else
@@ -333,14 +333,14 @@ namespace BL
             if (drone != null)
             {
                 if (drone.Status == DroneStatuses.Maintenance)
-                {                  
+                {
                     TimeSpan time = (TimeSpan)(DateTime.Now - GetDroneInChargByID(droneId).Time);
-                    drones.Remove(drone);                  
+                    drones.Remove(drone);
                     droneInCharging.Battery = drone.Battery + batteryCalculationInCharging(time.Hours);
                     drone.Battery = droneInCharging.Battery;
                     drone.Status = (DroneStatuses)0;
                     drones.Add(drone);
-                    dal.UpdateRelease(droneId);                 
+                    dal.UpdateRelease(droneId);
                 }
                 else
                 {
@@ -378,9 +378,9 @@ namespace BL
                 double distance = double.MaxValue;
 
                 foreach (DO.Parcel item in dal.GetParcels())
-                {                   
+                {
                     if (minBattery(drone.Location, GetBLCustomer(item.SenderId).Location, drone.Status, drone.MaxWeight) < drone.Battery && (WeightCategories)item.Weight <= drone.MaxWeight)
-                    {                      
+                    {
                         if ((Enums.Priorities)item.Priority > priority)
                         {
                             parcelId = item.Id;
@@ -423,11 +423,11 @@ namespace BL
                 {
                     UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery, parcelId, drone.Location.Longitude, drone.Location.Latitude);
                     UpdateParcelAffiliation(parcelId, drone.Id, DateTime.Now);
-                    
+
                 }
                 else
                 {
-                    throw new ArgumentNullException("parcel not exist -BL-" );
+                    throw new ArgumentNullException("parcel not exist -BL-");
                 }
 
             }
@@ -452,7 +452,8 @@ namespace BL
                     DO.Customer senderCustomer2 = new DO.Customer();
                     try
                     {
-                        senderCustomer2 = dal.FindSenderCustomerByDroneId(drone.Id);
+                        senderCustomer2 = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
+
                     }
                     catch (ArgumentNullException ex)
                     {
@@ -467,13 +468,13 @@ namespace BL
                     DO.Customer senderCustomer = new DO.Customer();
                     try
                     {
-                        senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
+                        senderCustomer = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
                     }
                     catch (ArgumentNullException ex)
                     {
                         throw new ArgumentNullException("Get base station -BL-" + ex.Message);
                     }
-                    senderCustomer = dal.FindSenderCustomerByDroneId(drone.Id);
+                    senderCustomer = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
                     return new Location(senderCustomer.Longitude, senderCustomer.Latitude);
                 }
             }
@@ -544,7 +545,7 @@ namespace BL
                 try
                 {
                     minDroneTarget = minBattery(drone.Location,
-                        new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
+                        new Location(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude),
                          drone.Status, drone.MaxWeight);
                 }
                 catch (Exception ex)
@@ -555,9 +556,9 @@ namespace BL
                 try
                 {
                     minTargetBaseStation = minBattery(
-                     new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
-                    new Location(nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Latitude,
-                    nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Longitude),
+                     new Location(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude),
+                    new Location(nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
+                    nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude),
                     Enums.DroneStatuses.Available, drone.MaxWeight);
                 }
                 catch (Exception ex)
@@ -576,9 +577,9 @@ namespace BL
             try
             {
                 minDroneBaseStation = minBattery(
-                    new Location(dal.customerByDrone(drone.ParcelDeliveredId).Longitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude),
-                   new Location(nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Latitude,
-                   nearestBaseStation(dal.customerByDrone(drone.ParcelDeliveredId).Latitude, dal.customerByDrone(drone.ParcelDeliveredId).Longitude).Longitude),
+                    new Location(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude),
+                   new Location(nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
+                   nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude),
                    Enums.DroneStatuses.Available, drone.MaxWeight);
                 return rand.Next((int)(minDroneBaseStation), 101);
             }
