@@ -27,21 +27,25 @@ namespace PL
         Action<TabItem> addTab;
         private string newName;
         private string newNum;
-        private BO.BaseStationForList baseStationForList;
-        private BO.Drone droneForList;
+        private BO.BaseStation baseStation;
         Action refreshBaseStationList;
-        ObservableCollection<DroneForList> droneForLists;
+        List<DroneInCharging> droneInChargings;
+        
         public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, Action<TabItem> removeTab, BaseStationForList baseStationForList, Action refreshBaseStationList)
         {
             InitializeComponent();
             this.bl = bl;
-            this.addTab = addTab;
-            //baseStationForList = bl.GetBLBaseStation(baseStationForList.Id);
-            droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList().Where(item => item.Location == bl.GetBLBaseStation(baseStationForList.Id).Location && item.Status == Enums.DroneStatuses.Maintenance));
-            DronesListView.DataContext = droneForLists;
+            baseStation = bl.GetBLBaseStation(baseStationForList.Id);
+            DataContext = baseStationForList;
+            //baseStationForList = bl.GetBLBaseStatiog(baseStationForList.Id);
+            //droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList().Where(item => item.Location == bl.GetBLBaseStation(baseStationForList.Id).Location && item.Status == Enums.DroneStatuses.Maintenance));
+            //DronesListView.DataContext = droneForLists;
+            droneInChargings=bl.dronesInCharging(baseStationForList.Id);
+            DronesListView.DataContext = droneInChargings;
             this.refreshBaseStationList = refreshBaseStationList;
-            this.droneForList = bl.GetBLDrone(droneForList.Id);
-            this.DataContext = droneForList;
+            //this.droneForList = bl.GetBLDrone(droneForList.Id);
+            //this.DataContext = droneForList;
+            this.addTab = addTab;
 
         }
 
@@ -60,7 +64,7 @@ namespace PL
         private void RefreshDroneList()
         {
             
-            DronesListView.DataContext = droneForLists;
+            DronesListView.DataContext = droneInChargings;
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
@@ -85,17 +89,17 @@ namespace PL
             {
                 if (update_name.Text != null && update_num_of_charging_ports.Text != null)
                 {
-                    bl.UpdateBaseStation(baseStationForList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
+                    bl.UpdateBaseStation(baseStation.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
                     (sender as Button).IsEnabled = false;
                 }
                 else if(update_name.Text != null)
                 {
-                    bl.UpdateBaseStation(baseStationForList.Id, update_name.Text,baseStationForList.AvailableChargingPorts);
+                    bl.UpdateBaseStation(baseStation.Id, update_name.Text,baseStation.AvailableChargingPorts);
                     (sender as Button).IsEnabled = false;
                 }
                 else
                 {
-                    bl.UpdateBaseStation(baseStationForList.Id, baseStationForList.Name, int.Parse(update_num_of_charging_ports.Text));
+                    bl.UpdateBaseStation(baseStation.Id, baseStation.Name, int.Parse(update_num_of_charging_ports.Text));
                     (sender as Button).IsEnabled = false;
                 }
                 if (MessageBox.Show("The base station has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)

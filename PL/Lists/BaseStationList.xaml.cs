@@ -24,7 +24,7 @@ namespace PL
     {
         BlApi.IBL bl;
         Action<TabItem> addTab;
-
+        Action<TabItem> removeTab;
 
         ObservableCollection<BaseStationForList> BaseStations;
         public BaseStationList(BlApi.IBL bl, Action<TabItem> addTab, Action<TabItem> removeTab)
@@ -32,7 +32,7 @@ namespace PL
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
-
+            this.removeTab = removeTab;
             BaseStations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationForList());
             BaseStationListView.DataContext = BaseStations;
             
@@ -82,10 +82,10 @@ namespace PL
         /// <param name="e"></param>
         private void BaseStationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedDrone = (sender as ContentControl).DataContext as BO.DroneForList;
+            var selectedBaseStation = (sender as ContentControl).DataContext as BO.BaseStationForList;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(selectedDrone, this.bl, RefreshBaseStationList);
+            tabItem.Content = new BaseStation(this.bl,addTab,removeTab,selectedBaseStation, RefreshBaseStationList);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);

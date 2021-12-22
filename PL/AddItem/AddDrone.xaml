@@ -11,7 +11,7 @@
         
 
 
-        <Grid Grid.Row="0"  Name="UpGrid"  Margin="176,50,176,150" Height="150" Width="252" >
+        <Grid Grid.Row="0"  Name="UpGrid"  Margin="176,50,176,150" Height="170" Width="252" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="126"/>
                 <ColumnDefinition Width="126"/>
