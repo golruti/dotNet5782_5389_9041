@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" x:Name="button" Grid.Column="0">
-            <Button Content="drones list" Click="ShowDroneListWindow" Width="300" Height="50" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" FontSize="30" FontFamily="Consolas" FontWeight="Bold">
+            <Button Content="drones list" Click="ShowDroneListWindow" Width="215" Height="50" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" FontSize="30" FontFamily="Consolas" FontWeight="Bold">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="DarkCyan"/>
@@ -34,7 +34,28 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="CastomerOfCompany" RenderTransformOrigin="0.5,0.5" Width="209" Height="81" Click="Button_Click">
+            <Button Content="Base stations list" Click="ShowBaseStationListWindow" Width="280" Height="50" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" FontSize="30" FontFamily="Consolas" FontWeight="Bold">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="DarkCyan"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Gray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="CastomerOfCompany" RenderTransformOrigin="0.5,0.5" Width="268" Height="109" Click="Button_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>

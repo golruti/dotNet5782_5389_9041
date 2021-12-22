@@ -64,5 +64,14 @@ namespace PL
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
         }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            //TabItem tabItem = new TabItem();
+            //tabItem.Content = new MainWindow();
+            //tabItem.Header = "MainWindow";
+            //this.addTab(tabItem);
+            Close_Page(sender, e);
+        }
     }
 }

@@ -9,6 +9,7 @@
     <Grid>
         <Button Content="Sigh up" HorizontalAlignment="Left" Margin="456,167,0,0" VerticalAlignment="Top" Height="62" Width="95" Click="ShowSignUpWindow"/>
         <Button Content="Sigh in" HorizontalAlignment="Left" Margin="281,167,0,0" VerticalAlignment="Top" Height="62" Width="95" Click="ShowSignInWindow"/>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top" Height="73" Width="100" Click="Back_Click"/>
 
     </Grid>
 </UserControl>

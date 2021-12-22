@@ -6,24 +6,23 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
          Height="450" Width="800">
+    <UserControl.Resources>
+        <Style x:Key="RoundCorner" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="40" Background="Gray" BorderThickness="1" Padding="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+     
+    </UserControl.Resources>
     <Grid>
-        <!--<UserControl.Resources>
-            <Style x:Key="myButtonStyle"
-           TargetType="Button">
-                <Setter Property="FontSize"
-              Value="10" />
-                <Setter Property="FontFamily"
-              Value="Consolas" />
-                <Setter Property="FontWeight"
-              Value="Bold" />
-                <Setter Property="Height"
-                    Value="41"/>
-                <Setter Property="Width"
-                    Value="72"/>
-                <Setter Property="Background"
-                    Value="DarkCyan"/>
-            </Style>
-        </UserControl.Resources>-->
+
+
 
         <Grid Background="Gray">
             <Grid.RowDefinitions>
@@ -34,19 +33,12 @@
 
             </Grid.RowDefinitions>
             <Grid   Name="UpGrid"  Grid.Row="0" Margin="150,10,150,10" Height="30" Width="600">
-               
-                
 
-                <CheckBox Content="Checked"  x:Name="Available" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="203,10,301,-10" RenderTransformOrigin="0.5,0.5">
-                    <CheckBox.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="0.706"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </CheckBox.RenderTransform>
-                </CheckBox>
+
+
+                <CheckBox Content="for available base stations"  x:Name="Available" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="123,9,217,-9" RenderTransformOrigin="0.5,0.5"/>
+
+
 
 
 
@@ -60,11 +52,11 @@
                 </ListView.ItemTemplate>
 
             </ListView>
-
+            
             <Button Content="close"  HorizontalAlignment="Left" Margin="693,34,0,0" VerticalAlignment="Top"   Click="Close_Page" Grid.Row="2" RenderTransformOrigin="-0.019,0.436" FontSize="10" FontFamily="Consolas" FontWeight="Bold" Height="41" Width="100" Background="DarkCyan"/>
             <Button  Content="add Base Station"  HorizontalAlignment="Left"   Click="ShowAddBaseStationWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="577,34,0,0"   Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold" Height="41" Width="100" Background="DarkCyan"/>
-
-
+            <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+            <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddBaseStationWindow" Content="add base station" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
         </Grid>
     </Grid>
 </UserControl>
