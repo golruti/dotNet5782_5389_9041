@@ -73,5 +73,22 @@ namespace PL
             //this.addTab(tabItem);
             Close_Page(sender, e);
         }
+
+        private void Show_SignIn_buttons(object sender, RoutedEventArgs e)
+        {
+            Id_sign_in.Visibility = Visibility.Visible;
+            pass_sign_in.Visibility = Visibility.Visible;
+            ok_sign_in.Visibility = Visibility.Visible;
+            center_sign_in.Visibility = Visibility.Collapsed;
+            center_sign_up.Visibility = Visibility.Collapsed;
+        }
+        private void Show_SignUp_buttons(object sender, RoutedEventArgs e)
+        {
+            Id_sign_up.Visibility = Visibility.Visible;
+            pass_sign_up.Visibility = Visibility.Visible;
+            ok_sign_up.Visibility = Visibility.Visible;
+            center_sign_in.Visibility = Visibility.Collapsed;
+            center_sign_up.Visibility = Visibility.Collapsed;
+        }
     }
 }

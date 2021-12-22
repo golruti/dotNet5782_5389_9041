@@ -7,9 +7,17 @@
         mc:Ignorable="d"
          Height="450" Width="800">
     <Grid>
-        <Button Content="Sigh up" HorizontalAlignment="Left" Margin="456,167,0,0" VerticalAlignment="Top" Height="62" Width="95" Click="ShowSignUpWindow"/>
-        <Button Content="Sigh in" HorizontalAlignment="Left" Margin="281,167,0,0" VerticalAlignment="Top" Height="62" Width="95" Click="ShowSignInWindow"/>
+        <Button x:Name="center_sign_up" Visibility="Visible" Content="Sigh up" HorizontalAlignment="Left" Margin="456,167,0,0" VerticalAlignment="Top" Height="62" Width="95" Click="Show_SignUp_buttons" />
+        <Button  x:Name="center_sign_in" Visibility="Visible" Content="Sigh in" HorizontalAlignment="Left" Margin="281,167,0,0" VerticalAlignment="Top" Height="62" Width="95" Click="Show_SignIn_buttons" />
         <Button Content="Back" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top" Height="73" Width="100" Click="Back_Click"/>
+
+        <TextBox x:Name="Id_sign_in"  Visibility="Collapsed" HorizontalAlignment="Left" Margin="268,271,0,0" Text="Id" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="pass_sign_in" Visibility="Collapsed" HorizontalAlignment="Left" Margin="268,307,0,0" Text="Password" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <Button x:Name="ok_sign_in" Visibility="Collapsed" Click="ShowSignInWindow"  Content="Sign in" HorizontalAlignment="Left" Margin="296,349,0,0" VerticalAlignment="Top" Width="64" Height="43"/>
+
+        <TextBox x:Name="Id_sign_up"  Visibility="Collapsed" HorizontalAlignment="Left" Margin="459,271,0,0" Text="Id" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="pass_sign_up" Visibility="Collapsed" HorizontalAlignment="Left" Margin="459,307,0,0" Text="Password" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <Button x:Name="ok_sign_up" Visibility="Collapsed" Click="ShowSignUpWindow" Content="Sign up" HorizontalAlignment="Left" Margin="487,349,0,0" VerticalAlignment="Top" Width="64" Height="43"/>
 
     </Grid>
 </UserControl>

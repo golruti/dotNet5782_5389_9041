@@ -50,5 +50,7 @@ namespace PL
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
         }
+
+  
     }
 }
