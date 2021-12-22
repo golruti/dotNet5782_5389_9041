@@ -13,7 +13,7 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid Background="White">
+    <Grid Background="White" DataContext="{Binding}">
         <Grid.RowDefinitions>
             <RowDefinition Height="455"/>
             <RowDefinition Height="175"/>
@@ -47,15 +47,15 @@
             <TextBox x:Name="update_name" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name, Mode=OneWay}" TextChanged="update_name_TextChanged" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
 
             <Label Grid.Row="4" Grid.Column="0" Content="num of charging ports:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <TextBox x:Name="update_num_of_charging_ports" Grid.Row="4" Grid.Column="1" Text="{Binding Path=ChargingPorts, Mode=OneWay}" IsEnabled="True" TextChanged="update_num_of_charging_ports_TextChanged" FontSize="15" FontFamily="Copperplate Gothic"/>
+            <TextBox x:Name="update_num_of_charging_ports" Grid.Row="4" Grid.Column="1" Text="{Binding Path=AvailableChargingPorts, Mode=OneWay}" IsEnabled="True" TextChanged="update_num_of_charging_ports_TextChanged" FontSize="15" FontFamily="Copperplate Gothic"/>
 
             <Label Grid.Row="6" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,1,0,12" RenderTransformOrigin="0.5,0.5"/>
             <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Path=Location}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
             <Label Grid.Row="8" Grid.Column="0" Content="drones in charging: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,0,0,150" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
-            <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="9" Grid.ColumnSpan="2" >
+            <ListView x:Name="DronesListView" ItemsSource="{Binding Path=DronesInCharging}" Grid.Row="9" Grid.ColumnSpan="2" >
                 <ListView.ItemTemplate>
                     <ItemContainerTemplate>
-                        <ContentControl Content="{Binding }" MouseDoubleClick="DronesListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>
+                        <ContentControl Content="{Binding Path=DronesInCharging }" MouseDoubleClick="DronesListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>
                     </ItemContainerTemplate>
                 </ListView.ItemTemplate>
 

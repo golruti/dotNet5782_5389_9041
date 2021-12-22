@@ -11,7 +11,7 @@ namespace BL
         /// </summary>
         /// <param name="id">The station ID</param>
         /// <returns>The list of drones in charge</returns>
-        private List<DroneInCharging> dronesInCharging(int id)
+        public List<DroneInCharging> dronesInCharging(int id)
         {
             List<DO.DroneCharge> list = (List<DO.DroneCharge>)dal.GetDronesCharges(droneCharge => droneCharge.StationId == id);
             if (list.Count == 0)

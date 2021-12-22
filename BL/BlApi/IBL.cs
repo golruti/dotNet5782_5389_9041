@@ -19,7 +19,7 @@ namespace BlApi
         void AddDrone(int id, int stationId, Enums.WeightCategories maxWeight, string model);
         public void AddCustomer(Customer tempCustomer);
         public void AddParcel(Parcel tempParcel);
-
+        public List<DroneInCharging> dronesInCharging(int id);
         public BaseStation GetBLBaseStation(int id);
         public Drone GetBLDrone(int id);
         public Customer GetBLCustomer(int id);
