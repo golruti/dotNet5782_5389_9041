@@ -12,11 +12,11 @@ namespace DAL
     {
         public static Random Rand = new Random();
 
-        static internal List<Drone> drones = new();
-        static internal List<BaseStation> stations = new();
-        static internal List<Customer> customers = new();
-        static internal List<Parcel> parcels = new();
-        static internal List<DroneCharge> droneCharges = new();
+        static internal Dictionary<int,Drone> drones = new();
+        static internal Dictionary<int, BaseStation> stations = new();
+        static internal Dictionary<int, Customer> customers = new();
+        static internal Dictionary<int, Parcel> parcels = new();
+        static internal Dictionary<int, DroneCharge> droneCharges = new();
 
         internal class Config
         {
@@ -39,11 +39,10 @@ namespace DAL
                 BaseStation tempStation = new BaseStation();
                 tempStation.Id = i;
                 tempStation.Name = $"station {i}";
-                tempStation.ChargeSlote = Rand.Next() + 1;
+                tempStation.ChargeSlote = Rand.Next(50) ;
                 tempStation.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
-                stations.Add(tempStation);
-
+                stations[tempStation.Id] =tempStation;
             }
 
             //customers
@@ -55,8 +54,7 @@ namespace DAL
                 tempCustomer.Phone = $"05{Rand.Next(10000000, 100000000)}";
                 tempCustomer.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempCustomer.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
-
-                customers.Add(tempCustomer);
+                customers[tempCustomer.Id] = tempCustomer;
             }
 
             //drones
@@ -66,7 +64,7 @@ namespace DAL
                 tempDrone.Id = i;
                 tempDrone.Model = $"drone {i}";
                 tempDrone.MaxWeight = (DO.Enum.WeightCategories)Rand.Next(0, 3);
-                drones.Add(tempDrone);
+                drones[tempDrone.Id] =tempDrone;
             }
 
             //parcel
@@ -104,7 +102,7 @@ namespace DAL
                     tempParcel.Droneld = i;
                     tempParcel.Scheduled = DateTime.Now.AddDays(2);
                 }
-                parcels.Add(tempParcel);
+                parcels[tempParcel.Id] =tempParcel;
             }
         }
     }

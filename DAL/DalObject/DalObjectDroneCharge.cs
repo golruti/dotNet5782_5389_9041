@@ -18,13 +18,10 @@ namespace DAL
         /// <param name="droneCharge">The drone charge for Adding</param>
         public void AddDroneCharge(DroneCharge droneCharge)
         {
-            if (!(uniqueIDTaxCheck(DataSource.droneCharges, droneCharge.DroneId)))
-            {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone charge - DAL");
-            }
-            DataSource.droneCharges.Add(droneCharge);
+            if (DataSource.droneCharges.ContainsKey(droneCharge.DroneId))
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone - DAL");
+            DataSource.droneCharges.Add(droneCharge.StationId, droneCharge);
         }
-
 
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
         // <summary>
@@ -42,14 +39,7 @@ namespace DAL
                 throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data");
 
             DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
-            try
-            {
-                AddDroneCharge(droneCharge);
-            }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
-            {
-                throw ex;
-            }
+            AddDroneCharge(droneCharge);
         }
 
         /// <summary>
@@ -59,10 +49,8 @@ namespace DAL
         /// <returns>Returns the mother drone released from charging</returns>
         public void DeleteDroneCharge(int droneId)
         {
-            var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
-            if (drone.Equals(default(Drone)))
-                throw new Exception("Get drone -DAL-: There is no suitable customer in data");
-            DataSource.droneCharges.Remove(GetDroneCharge(droneId));
+            if (!DataSource.droneCharges.Remove(droneId))
+                throw new KeyNotFoundException("Delete drone charge -DAL-: There is no suitable drone charge in data");
         }
 
         /// <summary>
@@ -71,8 +59,9 @@ namespace DAL
         /// <param name="id"></param>
         public void UpdateRelease(int id)
         {
-            DataSource.droneCharges.RemoveAll(item => id == item.DroneId);
+            DeleteDroneCharge(id);
         }
+
         //---------------------------------------------Show item-----------------------------------------------------------------------------------------
         /// The function returns a specific drone charge
         /// </summary>
@@ -93,7 +82,7 @@ namespace DAL
         /// <returns>The drones charge list</returns>
         public IEnumerable<DroneCharge> GetDronesCharges()
         {
-            return DataSource.droneCharges.ToList();
+            return DataSource.droneCharges.Values.ToList();
         }
 
         /// <summary>
@@ -103,7 +92,7 @@ namespace DAL
         /// <returns>List of DroneCharge that maintain the predicate</returns>
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate)
         {
-            return DataSource.droneCharges.Where(droneCharge => predicate(droneCharge)).ToList();
+            return DataSource.droneCharges.Values.Where(droneCharge => predicate(droneCharge)).ToList();
         }
     }
 }

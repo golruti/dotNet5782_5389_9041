@@ -17,12 +17,10 @@ namespace DAL
         public void AddParcel(Parcel parcel)
         {
             parcel.Id = RunNumberForParcel();
-            Customer senderId = DataSource.customers.FirstOrDefault(c => c.Id == parcel.SenderId);
-            Customer targetId = DataSource.customers.FirstOrDefault(c => c.Id == parcel.TargetId);
 
-            if (senderId.Equals(default(Customer)))
+            if (!DataSource.customers.ContainsKey(parcel.SenderId))
                 throw new KeyNotFoundException("Add parcel -DAL-:Sender not exist");
-            if (targetId.Equals(default(Customer)))
+            if (!DataSource.customers.ContainsKey(parcel.TargetId))
                 throw new KeyNotFoundException("Add parcel -DAL-:Target not exist");
             if (!(uniqueIDTaxCheck(DataSource.parcels, parcel.Id)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a parcel - DAL");
@@ -101,22 +99,9 @@ namespace DAL
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable customer in data");
             }
             parcel.PickedUp = DateTime.Now;
-            try
-            {
-                DeleteParcel(parcel.Id);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                throw ex;
-            }
-            try
-            {
-                AddParcel(parcel);
-            }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
-            {
-                throw ex;
-            }
+
+            DeleteParcel(parcel.Id);
+            AddParcel(parcel);
         }
 
         /// <summary>
@@ -131,22 +116,8 @@ namespace DAL
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable customer in data");
             }
             parcel.Delivered = DateTime.Now;
-            try
-            {
-                DeleteParcel(parcel.Id);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                throw ex;
-            }
-            try
-            {
-                AddParcel(parcel);
-            }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
-            {
-                throw ex;
-            }
+            DeleteParcel(parcel.Id);
+            AddParcel(parcel);
         }
 
         /// <summary>
@@ -156,22 +127,8 @@ namespace DAL
         public void UpdateSupply(Parcel parcel)
         {
             parcel.Scheduled = DateTime.Now;
-            try
-            {
                 DeleteParcel(parcel.Id);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                throw ex;
-            }
-            try
-            {
                 AddParcel(parcel);
-            }
-            catch (ThereIsAnObjectWithTheSameKeyInTheListException ex)
-            {
-                throw ex;
-            }
         }
 
         //------------------------------------------Private auxiliary functions--------------

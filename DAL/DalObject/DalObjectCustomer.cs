@@ -16,11 +16,9 @@ namespace DAL
         /// <param name="customer">struct of customer</param>
         public void AddCustomer(Customer customer)
         {
-            if (! (uniqueIDTaxCheck(DataSource.customers, customer.Id)))
-            {
+            if (DataSource.customers.ContainsKey(customer.Id))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a customer - DAL");
-            }
-            DataSource.customers.Add(customer);
+            DataSource.customers.Add(customer.Id, customer);
         }
 
         //--------------------------------------------Show item-------------------------------------------------------------------------------------------
@@ -31,10 +29,9 @@ namespace DAL
         /// <returns>customer</returns>
         public Customer GetCustomer(int idCustomer)
         {
-            Customer customer = DataSource.customers.FirstOrDefault(customer => customer.Id == idCustomer);
-            if (customer.GetType().Equals(default))
+            if (!DataSource.customers.ContainsKey(idCustomer))
                 throw new KeyNotFoundException("Get customer -DAL-: There is no suitable customer in data");
-            return customer;
+            return DataSource.customers[idCustomer];
         }
 
         /// <summary>
@@ -44,12 +41,12 @@ namespace DAL
         /// <returns></returns>
         public Customer GetCustomer(Predicate<Customer> predicate)
         {
-            Customer customer = DataSource.customers.FirstOrDefault(customer => predicate(customer));
-            if (customer.GetType().Equals(default))
+            Customer customer = DataSource.customers.Values.FirstOrDefault(customer => predicate(customer));
+            if (customer.Equals(default))
                 throw new KeyNotFoundException("Get customer -DAL-: There is no suitable customer in data");
             return customer;
         }
-        
+
         //--------------------------------------------Show list-------------------------------------------------------------------------------------------
         /// <summary>
         /// The function prepares a new array of all existing customers
@@ -57,7 +54,7 @@ namespace DAL
         /// <returns>array of customer</returns>
         public IEnumerable<Customer> GetCustomers()
         {
-            return DataSource.customers.ToList();
+            return DataSource.customers.Values.ToList();
         }
 
         /// <summary>
@@ -67,7 +64,7 @@ namespace DAL
         /// <returns>List of customers that maintain the predicate</returns>
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate)
         {
-            return DataSource.customers.Where(customer => predicate(customer)).ToList();
+            return DataSource.customers.Values.Where(customer => predicate(customer)).ToList();
         }
 
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------
@@ -77,10 +74,8 @@ namespace DAL
         /// <param name="id">customer ID</param>
         public void DeleteCustomer(int id)
         {
-            var customer = DataSource.customers.FirstOrDefault(c => c.Id == id);
-            if (customer.Equals(default(Drone)))
+            if (!DataSource.customers.Remove(id))
                 throw new KeyNotFoundException("Delete customer -DAL-: There is no suitable customer in data");
-            DataSource.customers.Remove(customer);
         }
     }
 }

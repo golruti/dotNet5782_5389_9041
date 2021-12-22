@@ -32,6 +32,31 @@ namespace PL
             this.customerInList = bl.GetBLCustomer(customerInList.Id);
             this.DataContext = customerInList;
         }
+
+        private void showParcelsFromCustomer(object sender, RoutedEventArgs e)
+        {
+            //TabItem tabItem = new TabItem();
+            //tabItem.Content = new CustomersList(bl, AddTab, RemoveTab);
+            //button.Visibility = Visibility.Collapsed;
+            //tabItem.Header = "customers List";
+            //tub_control.Visibility = Visibility.Visible;
+            //AddTab(tabItem);
+        }
+
+        private void Close_Page(object sender, RoutedEventArgs e)
+        {
+            object tmp = sender;
+            TabItem tabItem = null;
+            while (tmp.GetType() != typeof(TabControl))
+            {
+                if (tmp.GetType() == typeof(TabItem))
+                    tabItem = (tmp as TabItem);
+                tmp = ((FrameworkElement)tmp).Parent;
+            }
+            if (tmp is TabControl tabControl)
+                tabControl.Items.Remove(tabItem);
+            this.refreshCustomersList();
+        }
     }
 }
 

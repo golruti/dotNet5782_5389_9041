@@ -8,6 +8,22 @@
        Height="450" Width="800">
     <Grid>
         <Label  Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+        <TextBlock Grid.Row="0" Text="{Binding Path=Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+        <Label  Content="Name: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+        <TextBlock Grid.Row="0"  Text="{Binding Path=Name}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+        <Label  Content="Phone: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+        <TextBlock Grid.Row="0"  Text="{Binding Path=Phone}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+        <Button x:Name="Parcel_from_customer" Content="Displays the parcels sent by the customer" Click="showParcelsFromCustomer"/>
+        
     </Grid>
 </UserControl>
+
+
+public int Id { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public Location Location { get; set; }
+        public IEnumerable
+<ParcelToCustomer>FromCustomer { get; set; }
+        public IEnumerable
+    <ParcelToCustomer>ToCustomer { get; set; }

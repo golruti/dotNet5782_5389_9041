@@ -39,7 +39,6 @@ namespace PL
         {
             var selectedCustomer = (sender as ContentControl).DataContext as BO.CustomerForList;
 
-
             TabItem tabItem = new TabItem();
             tabItem.Content = new Customer(selectedCustomer, this.bl, RefreshCustomerList);
             tabItem.Header = "Update customer";
