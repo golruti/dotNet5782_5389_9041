@@ -23,7 +23,7 @@ namespace PL
     public partial class Drone
     {
         private BlApi.IBL bl;
-        private BO.Drone droneForList;
+        private BO.Drone droneInList;
         Action refreshDroneList;
         private string newModel;
 
@@ -33,7 +33,7 @@ namespace PL
 
             this.bl = bl;
             this.refreshDroneList = refreshDroneList;
-            this.droneForList = bl.GetBLDrone(droneForList.Id);
+            this.droneInList = bl.GetBLDrone(droneForList.Id);
             this.DataContext = droneForList;
 
             if (droneForList.Status == Enums.DroneStatuses.Available)
@@ -109,7 +109,7 @@ namespace PL
         {
             try
             {
-                bl.AssignParcelToDrone(droneForList.Id);
+                bl.AssignParcelToDrone(droneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -150,7 +150,7 @@ namespace PL
         {
             try
             {
-                bl.UpdateRelease(droneForList.Id);
+                bl.UpdateRelease(droneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -188,7 +188,7 @@ namespace PL
         {
             try
             {
-                bl.UpdateCharge(droneForList.Id);
+                bl.UpdateCharge(droneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -226,7 +226,7 @@ namespace PL
         {
             try
             {
-                bl.PackageCollection(droneForList.Id);
+                bl.PackageCollection(droneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -264,7 +264,7 @@ namespace PL
         {
             try
             {
-                bl.PackageDelivery(droneForList.Id);
+                bl.PackageDelivery(droneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("he parcel was successfully delivered", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -335,7 +335,7 @@ namespace PL
         {
             try
             {
-                bl.UpdateDroneModel(droneForList.Id, update_model.Text);
+                bl.UpdateDroneModel(droneInList.Id, update_model.Text);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone model has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {

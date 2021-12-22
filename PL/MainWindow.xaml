@@ -55,7 +55,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="CastomerOfCompany" RenderTransformOrigin="0.5,0.5" Width="268" Height="109" Click="Button_Click">
+            <Button Content="CastomerOfCompany" RenderTransformOrigin="0.5,0.5" Width="59" Height="109" Click="Button_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -65,6 +65,7 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
+            <Button Content="Customers List" Width="201" Height="67" Click="showCustomersListWindow"/>
         </StackPanel>
 
         <TabControl x:Name="tub_control" Grid.Column="0" Grid.ColumnSpan="4"  Visibility="Collapsed" >

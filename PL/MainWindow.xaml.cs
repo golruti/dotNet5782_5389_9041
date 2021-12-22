@@ -81,5 +81,15 @@ namespace PL
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);
         }
+
+        private void showCustomersListWindow(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new CustomersList(bl, AddTab, RemoveTab);
+            button.Visibility = Visibility.Collapsed;
+            tabItem.Header = "customers List";
+            tub_control.Visibility = Visibility.Visible;
+            AddTab(tabItem);
+        }
     }
 }
