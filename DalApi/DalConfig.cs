@@ -20,5 +20,4 @@ namespace DalApi
                           ).ToDictionary(p => "" + p.Name, p => p.Value);
         }
     }
-
 }

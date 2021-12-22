@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" x:Name="button" Grid.Column="0">
-            <Button Content="drones list" Click="ShowDroneListWindow" Width="1500" Height="50" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" FontSize="30" FontFamily="Consolas" FontWeight="Bold">
+            <Button Content="drones list" Click="ShowDroneListWindow" Width="300" Height="50" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" FontSize="30" FontFamily="Consolas" FontWeight="Bold">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="DarkCyan"/>
@@ -33,6 +33,16 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
+            </Button>
+            <Button Content="CastomerOfCompany" RenderTransformOrigin="0.5,0.5" Width="209" Height="81" Click="Button_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-180.105"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
             </Button>
         </StackPanel>
 

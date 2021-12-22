@@ -62,5 +62,14 @@ namespace PL
         {
             tub_control.Items.Remove(tabItem);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new CustomerOfCompany(AddTab);
+            tabItem.Header = "CustomerOfCompany";
+            tub_control.Visibility = Visibility.Visible;
+            AddTab(tabItem);
+        }
     }
 }

@@ -16,9 +16,11 @@ namespace DalApi
             string dalType = DalConfig.DalName;
             string dalPkg = DalConfig.DalPackages[dalType];
             if (dalPkg == null) throw new DalConfigException($"Package {dalType} is not found in packages list in dal-config.xml");
-
-             Assembly.LoadFrom($@"{Directory.GetCurrentDirectory()}\..\..\..\..\DAL\bin\Debug\net5.0\{dalPkg}.dll"); 
-            //catch (Exception) { throw new DalConfigException("Failed to load the dal-config.xml file"); }
+            try
+            {
+                Assembly.LoadFrom($@"{Directory.GetCurrentDirectory()}\..\..\..\..\DAL\bin\Debug\net5.0\{dalPkg}.dll");
+            }
+            catch (Exception) { throw new DalConfigException("Failed to load the dal-config.xml file"); }
 
             Type type = Type.GetType($"DAL.{dalPkg}, {dalPkg}");
             if (type == null) throw new DalConfigException($"Class {dalPkg} was not found in the {dalPkg}.dll");
