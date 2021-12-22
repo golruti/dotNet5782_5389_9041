@@ -24,7 +24,7 @@ namespace PL
     {
        BlApi.IBL bl;
         Action<TabItem> addTab;
-
+        Action<TabItem> removeTab;
 
         ObservableCollection<DroneForList> droneForLists;
         public DronesList(BlApi.IBL bl, Action<TabItem> addTab, Action<TabItem> removeTab)
@@ -32,7 +32,7 @@ namespace PL
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
-
+            this.removeTab = removeTab;
             droneForLists= new ObservableCollection<DroneForList>(bl.GetDroneForList());
             DronesListView.DataContext = droneForLists;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));

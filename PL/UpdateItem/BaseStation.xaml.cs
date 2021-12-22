@@ -36,12 +36,12 @@ namespace PL
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
-            //baseStationForList = bl.GetBLBaseStation(baseStationForList.Id);
+            //baseStationForList = bl.GetBLBaseStatiog(baseStationForList.Id);
             droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList().Where(item => item.Location == bl.GetBLBaseStation(baseStationForList.Id).Location && item.Status == Enums.DroneStatuses.Maintenance));
             DronesListView.DataContext = droneForLists;
             this.refreshBaseStationList = refreshBaseStationList;
-            this.droneForList = bl.GetBLDrone(droneForList.Id);
-            this.DataContext = droneForList;
+            //this.droneForList = bl.GetBLDrone(droneForList.Id);
+            //this.DataContext = droneForList;
 
         }
 
