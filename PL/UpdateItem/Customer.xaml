@@ -21,16 +21,16 @@
         <Label  Content="Phone: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
         <TextBlock Grid.Row="0"  Text="{Binding Path=Phone}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
         <Button x:Name="Parcel_from_customer" Content="Displays the parcels sent by the customer" Click="showParcelsFromCustomer"/>
-        
+
     </Grid>
 </UserControl>
 
 
-public int Id { get; set; }
+<!--public int Id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
-        public Location Location { get; set; }
-        public IEnumerable
-<ParcelToCustomer>FromCustomer { get; set; }
-        public IEnumerable
-    <ParcelToCustomer>ToCustomer { get; set; }
+        public Location Location { get; set; }-->
+        <!--public IEnumerable-->
+<!--<ParcelToCustomer>FromCustomer { get; set; }
+        public IEnumerable</ParcelToCustomer>
+    <ParcelToCustomer>ToCustomer { get; set; }</ParcelToCustomer>-->
