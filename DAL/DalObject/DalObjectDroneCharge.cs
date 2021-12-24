@@ -31,10 +31,10 @@ namespace DAL
         /// <returns>Returns if the base station is available to receive the glider</returns>
         public void UpdateCharge(int droneId)
         {
-            var drone = DataSource.drones.FirstOrDefault(d => d.Id == droneId);
+            var drone = DataSource.drones.Values.FirstOrDefault(d => d.Id == droneId);
             if (drone.Equals(default(Drone)))
                 throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data"); ;
-            var station = DataSource.stations.FirstOrDefault(s => s.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == s.Id));
+            var station = DataSource.stations.Values.FirstOrDefault(s => s.ChargeSlote > DataSource.droneCharges.Values.Count(dc => dc.StationId == s.Id));
             if (station.Equals(default(BaseStation)))
                 throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data");
 
@@ -69,7 +69,7 @@ namespace DAL
         /// <returns>The specific drone charge</returns>
         public DroneCharge GetDroneCharge(int droneId)
         {
-            var droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId);
+            var droneCharge = DataSource.droneCharges.Values.FirstOrDefault(dc => dc.DroneId == droneId);
             if (droneCharge.GetType().Equals(default))
                 throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data");
             return droneCharge;

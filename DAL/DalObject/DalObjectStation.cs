@@ -16,11 +16,9 @@ namespace DAL
         /// <param name="station">struct of station</param>
         public void AddBaseStation(BaseStation station)
         {
-            if (!(uniqueIDTaxCheck(DataSource.stations, station.Id)))
-            {
+            if (DataSource.stations.ContainsKey(station.Id))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a station - DAL");
-            }
-            DataSource.stations.Add(station);
+            DataSource.stations.Add(station.Id, station);
         }
 
         //---------------------------------------------Update--------------------------------------------------------------------------------------------
@@ -29,17 +27,19 @@ namespace DAL
         /// <param name="id"></param>
         public void DeleteBaseStation(int id)
         {
-            var station = DataSource.stations.FirstOrDefault(s => s.Id == id);
-            if (station.Equals(default(BaseStation)))
+            if (!DataSource.stations.Remove(id))
                 throw new KeyNotFoundException("Delete station -DAL-: There is no suitable station in data");
-            DataSource.stations.Remove(station);
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------
-        /// <returns>base station</returns>
+        /// <summary>
+        /// The function deletes a specific station
+        /// </summary>
+        /// <param name="idStation"></param>
+        /// <returns>station id</returns>
         public BaseStation GetBaseStation(int idStation)
         {
-            BaseStation station = DataSource.stations.FirstOrDefault(station => station.Id == idStation);
+            BaseStation station = DataSource.stations.Values.FirstOrDefault(station => station.Id == idStation);
             if (station.GetType().Equals(default))
                 throw new KeyNotFoundException("Get station -DAL-: There is no suitable customer in data");
             return station;
@@ -52,12 +52,12 @@ namespace DAL
         /// <returns>array of station</returns>
         public IEnumerable<BaseStation> GetBaseStations()
         {
-            return DataSource.stations.ToList();
+            return DataSource.stations.Values.ToList();
         }
 
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)
         {
-            return DataSource.stations.Where(station => predicate(station)).ToList();
+            return DataSource.stations.Values.Where(station => predicate(station)).ToList();
         }
     }
 }
