@@ -26,6 +26,22 @@ namespace BL
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
         }
+        //---------------------------------------------Delete ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function gets a station ID and tries to delete it
+        /// </summary>
+        /// <param name="station"></param>
+        private void deleteBLBaseStation(int stationId)
+        {
+            try
+            {
+                dal.DeleteBaseStation(stationId);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Delete base station -BL-" + ex.Message);
+            }
+        }
 
         //---------------------------------------------Update ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -36,8 +52,17 @@ namespace BL
         /// <param name="chargeSlote">sum of charge slote</param>
         public void UpdateBaseStation(int id, string name = "-1", int chargeSlote = -1)
         {
-            DO.BaseStation tempBaseStation = dal.GetBaseStation(id);
-            dal.DeleteBaseStation(id);
+            DO.BaseStation tempBaseStation;
+            try
+            {
+                tempBaseStation = dal.GetBaseStation(id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Get base station -BL-" + ex.Message);
+            }
+
+            deleteBLBaseStation(id);
             if (name == "-1")
             {
                 name = tempBaseStation.Name;
@@ -47,7 +72,14 @@ namespace BL
                 chargeSlote = tempBaseStation.ChargeSlote;
             }
             DO.BaseStation station = new DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
-            dal.AddBaseStation(station);
+            try
+            {
+                dal.AddBaseStation(station);
+            }
+            catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+            }
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,30 +94,11 @@ namespace BL
             {
                 return mapBaseStation(dal.GetBaseStation(id));
             }
-            catch (ArgumentNullException ex)
+            catch (KeyNotFoundException ex)
             {
-
-                throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get base station -BL-" + ex.Message);
             }
         }
-
-        /// <summary>
-        /// Convert a DAL station to BL satation
-        /// </summary>
-        /// <param name="station">The sation to convert</param>
-        /// <returns>The converted station</returns>
-        private BaseStation mapBaseStation(DO.BaseStation station)
-        {
-            return new BaseStation()
-            {
-                Id = station.Id,
-                Name = station.Name,
-                Location = new Location(station.Latitude, station.Longitude),
-                AvailableChargingPorts = station.ChargeSlote - CountFullChargeSlots(station.Id),
-                DronesInCharging = dronesInCharging(station.Id)
-            };
-        }
-
 
         //---------------------------------------------Show list ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -101,8 +114,8 @@ namespace BL
                 {
                     Id = baseStation.Id,
                     Name = baseStation.Name,
-                    AvailableChargingPorts = (baseStation.ChargeSlote) - CountFullChargeSlots(baseStation.Id),
-                    UsedChargingPorts = CountFullChargeSlots(baseStation.Id)
+                    AvailableChargingPorts = (baseStation.ChargeSlote) - countFullChargeSlots(baseStation.Id),
+                    UsedChargingPorts = countFullChargeSlots(baseStation.Id)
                 });
             }
             return BaseStationsForList;
@@ -115,24 +128,36 @@ namespace BL
         /// <returns>List of BaseStationForList that maintain the predicate</returns>
         public IEnumerable<BaseStationForList> GetBaseStationForList(Predicate<BaseStationForList> predicate)
         {
-            return GetBaseStationForList().Where(s => predicate(s));
+            return GetBaseStationForList().Where(station => predicate(station));
         }
 
-        public List<int> GetBaseStationForListsId()
+        //--------------------------------------------Initialize the parcel list--------------------------------------------------------
+
+        /// <summary>
+        /// Convert a DAL station to BL satation
+        /// </summary>
+        /// <param name="station">The sation to convert</param>
+        /// <returns>The converted station</returns>
+        private BaseStation mapBaseStation(DO.BaseStation station)
         {
-            List<int> baseStationsId = new();
-            foreach (var item in GetBaseStationForList())
+            return new BaseStation()
             {
-                baseStationsId.Add(item.Id);
-            }
-            return baseStationsId;
+                Id = station.Id,
+                Name = station.Name,
+                Location = new Location(station.Latitude, station.Longitude),
+                AvailableChargingPorts = station.ChargeSlote - countFullChargeSlots(station.Id),
+                DronesInCharging = DronesInCharging(station.Id)
+            };
         }
 
-        //------------Private auxiliary functions-----------------
-        private int CountFullChargeSlots(int stationId)
+        /// <summary>
+        /// The function returns the amount of charging stations occupied at a particular station
+        /// </summary>
+        /// <param name="stationId"></param>
+        /// <returns></returns>
+        private int countFullChargeSlots(int stationId)
         {
-            IEnumerable<DO.DroneCharge> droneCharges = dal.GetDronesCharges();
-            droneCharges.Where(droneCharge => droneCharge.StationId == stationId);
+            IEnumerable<DO.DroneCharge> droneCharges = dal.GetDronesCharges(droneCharge => droneCharge.StationId == stationId);
             return droneCharges.Count();
         }
     }

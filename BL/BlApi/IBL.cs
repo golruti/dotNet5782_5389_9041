@@ -19,7 +19,7 @@ namespace BlApi
         void AddDrone(int id, int stationId, Enums.WeightCategories maxWeight, string model);
         public void AddCustomer(Customer tempCustomer);
         public void AddParcel(Parcel tempParcel);
-        public List<DroneInCharging> dronesInCharging(int id);
+        public List<DroneInCharging> DronesInCharging(int id);
         public BaseStation GetBLBaseStation(int id);
         public Drone GetBLDrone(int id);
         public Customer GetBLCustomer(int id);
@@ -38,7 +38,6 @@ namespace BlApi
         public IEnumerable<ParcelForList> GetParcelForList(Predicate<ParcelForList> predicate);
 
         public void UpdateBaseStation(int id, string name, int chargeSlote);
-        public List<int> GetBaseStationForListsId();
         public void UpdateDroneModel(int id, string model);
         void UpdateRelease(int droneId);
         void UpdateCharge(int droneId);

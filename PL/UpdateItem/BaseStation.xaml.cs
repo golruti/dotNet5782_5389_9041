@@ -40,7 +40,7 @@ namespace PL
             //baseStationForList = bl.GetBLBaseStatiog(baseStationForList.Id);
             //droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList().Where(item => item.Location == bl.GetBLBaseStation(baseStationForList.Id).Location && item.Status == Enums.DroneStatuses.Maintenance));
             //DronesListView.DataContext = droneForLists;
-            droneInChargings=bl.dronesInCharging(baseStationForList.Id);
+            droneInChargings=bl.DronesInCharging(baseStationForList.Id);
             DronesListView.DataContext = droneInChargings;
             this.refreshBaseStationList = refreshBaseStationList;
             //this.droneForList = bl.GetBLDrone(droneForList.Id);

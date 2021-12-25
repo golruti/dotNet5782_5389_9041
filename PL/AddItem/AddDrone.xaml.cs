@@ -28,7 +28,7 @@ namespace PL
             InitializeComponent();
             this.bl = bl;
 
-            StationsId.DataContext = bl.GetBaseStationForListsId();
+            StationsId.DataContext = bl.GetBaseStationForList();
             this.refreshDroneList = refreshDroneList;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
         }

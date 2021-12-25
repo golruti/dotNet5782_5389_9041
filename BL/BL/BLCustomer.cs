@@ -29,6 +29,23 @@ namespace BL
             }
         }
 
+        //---------------------------------------------Delete ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function gets a customer ID and tries to delete it
+        /// </summary>
+        /// <param name="station"></param>
+        private void deleteBLCustomer(int customerId)
+        {
+            try
+            {
+                dal.DeleteCustomer(customerId);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Delete customer -BL-" + ex.Message);
+            }
+        }
+
         //--------------------------------------------Update----------------------------------------------------------------------------------------
         /// <summary>
         /// update customer
@@ -38,18 +55,31 @@ namespace BL
         /// <param name="phone"></param>
         public void UpdateCustomer(int id, string name = "-1", string phone = "-1")
         {
-            DO.Customer tempCustomer = dal.GetCustomer(id);
-            dal.DeleteCustomer(id);
+            DO.Customer tempCustomer;
+            deleteBLCustomer(id);
+            try
+            {
+                tempCustomer = dal.GetCustomer(id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+
+                throw new KeyNotFoundException("Get customer by id -BL-" + ex.Message);
+            }
+
             if (name == "-1")
-            {
                 name = tempCustomer.Name;
-            }
             if (phone == "-1")
-            {
                 phone = tempCustomer.Phone;
+            DO.Customer customer = new DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
+            try
+            {
+                dal.AddCustomer(customer);
             }
-           DO.Customer customer = new DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
-            dal.AddCustomer(customer);
+            catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+            }
         }
 
         //---------------------------------------------Show item---------------------------------------------------------------------------------
@@ -64,62 +94,10 @@ namespace BL
             {
                 return mapCustomer(dal.GetCustomer(id));
             }
-            catch (ArgumentNullException ex)
+            catch (KeyNotFoundException ex)
             {
-                throw new ArgumentNullException("Get base station -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get customer by id -BL-" + ex.Message);
             }
-        }
-
-        /// <summary>
-        /// Convert a DAL customer to BL customer
-        /// </summary>
-        /// <param name="customer">The customer to convert</param>
-        /// <returns>The converted customer</returns>
-        private Customer mapCustomer(DO.Customer customer)
-        {
-            return new Customer()
-            {
-                Id = customer.Id,
-                Name = customer.Name,
-                Location = new Location(customer.Latitude, customer.Longitude),
-                Phone = customer.Phone,
-            };
-        }
-
-        /// <summary>
-        /// Convert a BL parcel to Parcel At Customer
-        /// </summary>
-        /// <param name="parcel">The parcel to convert</param>
-        /// <param name="type">The type of the customer</param>
-        /// <returns>The converted parcel</returns>
-        private ParcelToCustomer parcelToParcelAtCustomer(Parcel parcel, string type)
-        {
-            ParcelToCustomer newParcel = new ParcelToCustomer
-            {
-                Id = parcel.Id,
-                Weight = parcel.Weight,
-                Priority = parcel.Priority,
-                Status = parcel.Scheduled == default ? default : parcel.PickedUp == default ? ParcelStatuses.Associated : parcel.Scheduled == default ?
-                                                                                                                 ParcelStatuses.Collected : ParcelStatuses.Provided
-            };
-
-            if (type == "sender")
-            {
-                newParcel.Customer = new CustomerDelivery()
-                {
-                    Id = parcel.CustomerReceives.Id,
-                    Name = parcel.CustomerReceives.Name
-                };
-            }
-            else
-            {
-                newParcel.Customer = new CustomerDelivery()
-                {
-                    Id = parcel.CustomerSender.Id,
-                    Name = parcel.CustomerSender.Name
-                };
-            }
-            return newParcel;
         }
 
         //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -156,6 +134,36 @@ namespace BL
         public IEnumerable<CustomerForList> GetCustomerForList(Predicate<CustomerForList> predicate)
         {
             return GetCustomerForList().Where(customer => predicate(customer));
+        }
+
+        //--------------------------------------------Initialize the parcel list--------------------------------------------------------
+        /// <summary>
+        /// Convert a DAL customer to BL customer
+        /// </summary>
+        /// <param name="customer">The customer to convert</param>
+        /// <returns>The converted customer</returns>
+        private Customer mapCustomer(DO.Customer customer)
+        {
+            return new Customer()
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Location = new Location(customer.Latitude, customer.Longitude),
+                Phone = customer.Phone,
+            };
+        }
+        /// <summary>
+        /// Convert a DAL customer to BL Customer In Parcel
+        /// </summary>
+        /// <param name="parcel">The customer to convert</param>
+        /// <returns>The converted customer</returns>
+        private CustomerDelivery mapCustomerInParcel(DO.Customer customer)
+        {
+            return new CustomerDelivery()
+            {
+                Id = customer.Id,
+                Name = customer.Name
+            };
         }
     }
 }

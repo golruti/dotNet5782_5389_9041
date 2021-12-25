@@ -9,11 +9,11 @@ namespace BL
         /// <summary>
         /// The function returns a list of drones loaded at a particular base station
         /// </summary>
-        /// <param name="id">The station ID</param>
+        /// <param name="stationId">The station ID</param>
         /// <returns>The list of drones in charge</returns>
-        public List<DroneInCharging> dronesInCharging(int id)
+        public List<DroneInCharging> DronesInCharging(int stationId)
         {
-            List<DO.DroneCharge> list = (List<DO.DroneCharge>)dal.GetDronesCharges(droneCharge => droneCharge.StationId == id);
+            List<DO.DroneCharge> list = (List<DO.DroneCharge>)dal.GetDronesCharges(droneCharge => droneCharge.StationId == stationId);
             if (list.Count == 0)
                 return new();
             List<DroneInCharging> droneInChargings = new();
@@ -28,9 +28,17 @@ namespace BL
             return droneInChargings;
         }
 
+        //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         private DO.DroneCharge GetDroneInChargByID(int id)
         {
-            return dal.GetDroneCharge(id);
+            try
+            {
+                return dal.GetDroneCharge(id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Get drone charge -BL-" + ex.Message);
+            }
         }
     }
 }

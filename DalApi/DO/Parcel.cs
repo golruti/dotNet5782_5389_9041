@@ -13,7 +13,8 @@ namespace DO
         public int Id { get; set; }
         public int SenderId { get; set; }
         public int TargetId { get; set; }
-        public int Droneld { get; set; }
+        //לעשות ערך של -1
+        public int Droneld { get; set; } 
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
         public DateTime? Requested { get; set; }
@@ -34,7 +35,7 @@ namespace DO
         }
 
 
-        public Parcel(int senderId, int targetId, WeightCategories weight, Priorities priority, int droneld, DateTime requested, DateTime scheduled, DateTime pickedUp, DateTime delivered):this()
+        public Parcel(int senderId, int targetId, WeightCategories weight, Priorities priority, int droneld, DateTime? requested, DateTime? scheduled, DateTime? pickedUp, DateTime? delivered):this()
         {
             SenderId = senderId;
             TargetId = targetId;

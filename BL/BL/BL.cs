@@ -12,10 +12,8 @@ namespace BL
     sealed partial class BL : Singleton.Singleton<BL>, BlApi.IBL
     {
         private static DalApi.IDal dal;
-        //private static List<DroneForList> drones = new List<DroneForList>();
         static private Dictionary<int, DroneForList> drones = new();
         private static Random rand = new Random();
-
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
 
         /// <summary>
