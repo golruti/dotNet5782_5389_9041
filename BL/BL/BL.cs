@@ -11,9 +11,11 @@ namespace BL
 {
     sealed partial class BL : Singleton.Singleton<BL>, BlApi.IBL
     {
-        private DalApi.IDal dal;
-        private List<DroneForList> drones = new List<DroneForList>();
+        private static DalApi.IDal dal;
+        //private static List<DroneForList> drones = new List<DroneForList>();
+        static private Dictionary<int, DroneForList> drones = new();
         private static Random rand = new Random();
+
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace BL
         {
             foreach (var drone in dal.GetDrones())
             {
-                drones.Add(new DroneForList
+                drones.Add(drone.Id, new DroneForList
                 {
                     Id = drone.Id,
                     Model = drone.Model,
@@ -48,22 +50,22 @@ namespace BL
 
             foreach (var drone in drones)
             {
-                drone.Status = findfDroneStatus(drone.Id);
+                drone.Value.Status = findfDroneStatus(drone.Value.Id);
             }
 
             foreach (var drone in drones)
             {
-                drone.ParcelDeliveredId = findParceDeliveredlId(drone.Id);
+                drone.Value.ParcelDeliveredId = findParceDeliveredlId(drone.Value.Id);
             }
 
             foreach (var drone in drones)
             {
-                drone.Location = findDroneLocation(drone);
+                drone.Value.Location = findDroneLocation(drone.Value);
             }
 
             foreach (var drone in drones)
             {
-                drone.Battery = findDroneBattery(drone);
+                drone.Value.Battery = findDroneBattery(drone.Value);
             }
         }
 

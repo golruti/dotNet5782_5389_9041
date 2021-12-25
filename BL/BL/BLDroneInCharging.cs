@@ -18,9 +18,8 @@ namespace BL
                 return new();
             List<DroneInCharging> droneInChargings = new();
             DroneForList droneToList;
-            foreach (var drone in list)
-            {
-                droneToList = drones.FirstOrDefault(item => (item.Id == drone.DroneId));
+            foreach (var drone in list)            {
+                droneToList = drones.Values.FirstOrDefault(d => (d.Id == drone.DroneId));
                 if (droneToList != default)
                 {
                     droneInChargings.Add(new DroneInCharging() { Id = drone.DroneId, Battery = droneToList.Battery });
