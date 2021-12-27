@@ -17,7 +17,8 @@ namespace BO
         public CustomerDelivery Target { get; set; }
         public Location SenderLocation { get; set; }
         public Location TargetLocation { get; set; }
-        public bool ParcelStatus { get; set; }
+        public bool IsDestinationParcel { get; set; }
+
         public double Distance { get; set; }
     }
 }

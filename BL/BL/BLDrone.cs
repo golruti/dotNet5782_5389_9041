@@ -397,7 +397,7 @@ namespace BL
             if ((! drone.Equals(default)) && drone.Status == DroneStatuses.Available)
             {
                 int parcelId = 0;
-                bool exist = false;
+                bool isExist = false;
 
                 Enums.Priorities priority = Enums.Priorities.Regular;
                 Enums.WeightCategories weight = Enums.WeightCategories.Light;
@@ -411,7 +411,7 @@ namespace BL
                         {
                             parcelId = item.Id;
                             priority = (Enums.Priorities)item.Priority;
-                            exist = true;
+                            isExist = true;
                         }
                         else
                         {
@@ -419,21 +419,21 @@ namespace BL
                             {
                                 parcelId = item.Id;
                                 weight = (Enums.WeightCategories)item.Weight;
-                                exist = true;
+                                isExist = true;
                             }
                             else
                             {
                                 if (this.distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude) < distance && (Enums.WeightCategories)item.Weight == weight && (Enums.Priorities)item.Priority == priority)
                                 {
-                                    exist = true;
+                                    isExist = true;
                                     parcelId = item.Id;
                                     distance = this.distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude);
                                 }
                                 else
                                 {
-                                    if (exist == false)
+                                    if (isExist == false)
                                     {
-                                        exist = true;
+                                        isExist = true;
                                         parcelId = item.Id;
                                         priority = (Enums.Priorities)item.Priority;
                                         weight = (Enums.WeightCategories)item.Weight;
@@ -445,7 +445,7 @@ namespace BL
                         }
                     }
                 }
-                if (exist == true)
+                if (isExist == true)
                 {
                     UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery, parcelId, drone.Location.Longitude, drone.Location.Latitude);
                     UpdateParcelAffiliation(parcelId, drone.Id, DateTime.Now);

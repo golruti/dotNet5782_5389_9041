@@ -246,7 +246,7 @@ namespace BL
                 Id = id,
                 Weight = (Enums.WeightCategories)parcel.Weight,
                 Priority = (Enums.Priorities)parcel.Priority,
-                ParcelStatus = !parcel.PickedUp.Equals(default),
+                IsDestinationParcel = !parcel.PickedUp.Equals(default),
                 SenderLocation = new Location(sender.Longitude, sender.Latitude),
                 TargetLocation = new Location(target.Longitude, target.Latitude),
                 Distance = distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
