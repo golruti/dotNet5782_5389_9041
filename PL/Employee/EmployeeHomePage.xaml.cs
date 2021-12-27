@@ -22,15 +22,12 @@ namespace PL
     {
         private BlApi.IBL bl;
         Action<TabItem> addTab;
-
-
         public EmployeeHomePage(BlApi.IBL bl, Action<TabItem> addTab)
         {
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
         }
-
 
         /// <summary>
         /// open the drone list window
@@ -41,7 +38,7 @@ namespace PL
         {
             TabItem tabItem = new TabItem();
             tabItem.Content = new DronesList(bl, addTab);
-            tabItem.Header = "Drone List";
+            tabItem.Header = "Drone list";
             addTab(tabItem);
         }
 
@@ -50,16 +47,15 @@ namespace PL
             TabItem tabItem = new TabItem();
             tabItem.Content = new BaseStationList(bl, addTab);
             button.Visibility = Visibility.Collapsed;
-            tabItem.Header = "Base station List";
+            tabItem.Header = "Base station list";
             addTab(tabItem);
         }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
             tabItem.Content = new CustomerEntrance(bl,addTab);
-            tabItem.Header = "CustomerOfCompany";
+            tabItem.Header = "Customer entrance";
             addTab(tabItem);
         }
 
@@ -68,7 +64,7 @@ namespace PL
             TabItem tabItem = new TabItem();
             tabItem.Content = new CustomersList(bl, addTab);
             button.Visibility = Visibility.Collapsed;
-            tabItem.Header = "customers List";
+            tabItem.Header = "Customers list";
             addTab(tabItem);
         }
     }

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// This is a type that represents the claim of a drone -
+    /// Including the details of the loaded drone and the station where it is loaded.
+    /// </summary>
     public struct DroneCharge
     {
         public int DroneId { get; set; }
