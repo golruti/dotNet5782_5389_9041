@@ -9,6 +9,7 @@ namespace DO
 {
     public struct Enum
     {
+        //The weight of the parcel
         public enum WeightCategories
         {
             Light,
@@ -16,6 +17,7 @@ namespace DO
             Medium
         }
 
+        //Priority of parcel delivery
         public enum Priorities
         {
             Regular,

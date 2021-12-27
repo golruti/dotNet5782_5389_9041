@@ -8,6 +8,10 @@ using static DO.Enum;
 
 namespace DO
 {
+    /// <summary>
+    /// This is a type that represents a drone in the shipping company -
+    /// Including the details of the drone.
+    /// </summary>
     public struct Drone
     {
 

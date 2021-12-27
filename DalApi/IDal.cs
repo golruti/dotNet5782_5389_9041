@@ -9,7 +9,7 @@ namespace DalApi
 {
     public interface IDal
     {
-        //Base Station
+        #region Base station
         public void AddBaseStation(BaseStation station);
         public BaseStation GetBaseStation(int idStation);
         public IEnumerable<BaseStation> GetBaseStations();
@@ -17,33 +17,33 @@ namespace DalApi
         public void DeleteBaseStation(int id);
         void UpdateRelease(int droneId);
         public void UpdateCharge(int droneId);
+        #endregion
 
-
-        //Customer
+        #region Customer
         public void AddCustomer(Customer customer);
         public Customer GetCustomer(int idCustomer);
         public Customer GetCustomer(Predicate<Customer> predicate);
         public IEnumerable<Customer> GetCustomers();
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate);
         public void DeleteCustomer(int id);
+        #endregion
 
-
-        //Drone
+        #region Drone
         public void AddDrone(Drone drone);
         public Drone GetDrone(int idDrone);
         public IEnumerable<Drone> GetDrones();
         public void DeleteDrone(int droneId);
+        #endregion
 
-
-        //Drone charge
+        #region Drone charge
         public void AddDroneCharge(DroneCharge droneCharge);
         public DroneCharge GetDroneCharge(int droneId);
         public IEnumerable<DroneCharge> GetDronesCharges();
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate);
         public void DeleteDroneCharge(int droneId);
+        #endregion
 
-
-        //parcel
+        #region parcel
         public void AddParcel(Parcel parcel);
         public Parcel GetParcel(int idParcel);
         public Parcel GetParcel(Predicate<Parcel> predicate);
@@ -53,8 +53,7 @@ namespace DalApi
         public void UpdateParcelDelivered(int idParcel);
         public void UpdateSupply(Parcel parcel);
         public void DeleteParcel(int id);
-
-
+        #endregion
         public double[] GetElectricityUse();
     }
 }

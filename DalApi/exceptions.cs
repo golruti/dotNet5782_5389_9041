@@ -10,6 +10,8 @@ using System.Runtime.Serialization;
 namespace DO
 {
     [Serializable]
+
+    #region ThereIsAnObjectWithTheSameKeyInTheListException
     public class ThereIsAnObjectWithTheSameKeyInTheListException : Exception
     {
         public ThereIsAnObjectWithTheSameKeyInTheListException() : base() { }
@@ -22,13 +24,14 @@ namespace DO
             return "An element with the same key already exists in the list";
         }
     }
+    #endregion
 
-
+    #region DalConfigException
     public class DalConfigException : Exception
     {
         public DalConfigException(string msg) : base(msg) { }
         public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
     }
-
+    #endregion
 }
 

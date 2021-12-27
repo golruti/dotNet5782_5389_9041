@@ -98,7 +98,7 @@ namespace BL
                     return distance * (dal.GetElectricityUse()[3]);
                 }
             }
-            throw new Exception("It is not possible to calculate the drone distance in maintenance");
+            throw new KeyNotFoundException("It is not possible to calculate the drone distance in maintenance");
         }
     }
 }

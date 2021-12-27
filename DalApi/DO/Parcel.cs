@@ -8,6 +8,10 @@ using static DO.Enum;
 
 namespace DO
 {
+    /// <summary>
+    /// This is a type that represents a parcel that was sent / will be sent to the customer -
+    /// Including the details of the parcel.
+    /// </summary>
     public struct Parcel
     {
         public int Id { get; set; }
