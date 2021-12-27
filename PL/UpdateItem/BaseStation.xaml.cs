@@ -29,7 +29,7 @@ namespace PL
         private string newNum;
         private BO.BaseStation baseStation;
         Action refreshBaseStationList;
-        List<DroneInCharging> droneInChargings;
+        IEnumerable<DroneInCharging> droneInChargings;
         
         public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList)
         {

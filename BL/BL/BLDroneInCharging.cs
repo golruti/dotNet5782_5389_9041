@@ -11,11 +11,11 @@ namespace BL
         /// </summary>
         /// <param name="stationId">The station ID</param>
         /// <returns>The list of drones in charge</returns>
-        public List<DroneInCharging> DronesInCharging(int stationId)
+        public IEnumerable<DroneInCharging> DronesInCharging(int stationId)
         {
             List<DO.DroneCharge> list = (List<DO.DroneCharge>)dal.GetDronesCharges(droneCharge => droneCharge.StationId == stationId);
             if (list.Count == 0)
-                return new();
+                return Enumerable.Empty<DroneInCharging>();
             List<DroneInCharging> droneInChargings = new();
             DroneForList droneToList;
             foreach (var drone in list)            {
