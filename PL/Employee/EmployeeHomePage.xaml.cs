@@ -18,14 +18,17 @@ namespace PL
     /// <summary>
     /// Interaction logic for EntranceOfManagers.xaml
     /// </summary>
-    public partial class EntranceOfManagers : UserControl
+    public partial class EmployeeHomePage : UserControl
     {
         private BlApi.IBL bl;
+        Action<TabItem> addTab;
 
-        public EntranceOfManagers()
+
+        public EmployeeHomePage(BlApi.IBL bl, Action<TabItem> addTab)
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBl();
+            this.bl = bl;
+            this.addTab = addTab;
         }
 
 
@@ -37,58 +40,36 @@ namespace PL
         private void ShowDroneListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new DronesList(bl, AddTab, RemoveTab);
-            button.Visibility = Visibility.Collapsed;
+            tabItem.Content = new DronesList(bl, addTab);
             tabItem.Header = "Drone List";
-            //tub_control.Visibility = Visibility.Visible;
-            AddTab(tabItem);
+            addTab(tabItem);
         }
 
         private void ShowBaseStationListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStationList(bl, AddTab);
+            tabItem.Content = new BaseStationList(bl, addTab);
             button.Visibility = Visibility.Collapsed;
             tabItem.Header = "Base station List";
-            //tub_control.Visibility = Visibility.Visible;
-            AddTab(tabItem);
+            addTab(tabItem);
         }
 
-        /// <summary>
-        /// add tab
-        /// </summary>
-        /// <param name="tabItem">the tab to add</param>
-        internal void AddTab(TabItem tabItem)
-        {
-            //tub_control.Items.Add(tabItem);
-        }
-
-        /// <summary>
-        /// remove tab
-        /// </summary>
-        /// <param name="tabItem">the tub to remove</param>
-        internal void RemoveTab(TabItem tabItem)
-        {
-            //tub_control.Items.Remove(tabItem);
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerOfCompany(AddTab,bl);
+            tabItem.Content = new CustomerEntrance(bl,addTab);
             tabItem.Header = "CustomerOfCompany";
-            //tub_control.Visibility = Visibility.Visible;
-            AddTab(tabItem);
+            addTab(tabItem);
         }
 
         private void showCustomersListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomersList(bl, AddTab, RemoveTab);
+            tabItem.Content = new CustomersList(bl, addTab);
             button.Visibility = Visibility.Collapsed;
             tabItem.Header = "customers List";
-            //tub_control.Visibility = Visibility.Visible;
-            AddTab(tabItem);
+            addTab(tabItem);
         }
     }
 }

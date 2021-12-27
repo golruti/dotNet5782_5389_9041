@@ -10,41 +10,40 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for CustomerOfCompany.xaml
+    /// Interaction logic for AA.xaml
     /// </summary>
-    public partial class CustomerOfCompany
+    public partial class CustomerEntrance : UserControl
     {
         Action<TabItem> addTab;
         private BlApi.IBL bl;
 
-        public CustomerOfCompany(Action<TabItem> addTab, BlApi.IBL bl)
+        public CustomerEntrance(BlApi.IBL bl, Action<TabItem> addTab)
         {
             InitializeComponent();
             this.addTab = addTab;
-            bl = BlApi.BlFactory.GetBl();
-
+            this.bl = bl;
         }
 
-        private void ShowSignInWindow(object sender, RoutedEventArgs e)
+        private void sign_in_show_CustomerPageHome(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new SignIn(bl,addTab);
-            tabItem.Header = "Sign in";
+            tabItem.Content = new CustomerHomePage();
+            tabItem.Header = "Customer Home Page";
             this.addTab(tabItem);
             Close_Page(sender, e);
-
         }
 
-        private void ShowSignUpWindow(object sender, RoutedEventArgs e)
+        private void sign_up_show_CustomerPageHome(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new SignUp(bl,addTab);
-            tabItem.Header = "Sign up";
+            tabItem.Content = new CustomerHomePage();
+            tabItem.Header = "Customer Home Page";
             this.addTab(tabItem);
             Close_Page(sender, e);
         }
@@ -70,11 +69,15 @@ namespace PL
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            //TabItem tabItem = new TabItem();
-            //tabItem.Content = new MainWindow();
-            //tabItem.Header = "MainWindow";
-            //this.addTab(tabItem);
-            Close_Page(sender, e);
+            Id_sign_up.Visibility = Visibility.Collapsed;
+            pass_sign_up.Visibility = Visibility.Collapsed;
+            ok_sign_up.Visibility = Visibility.Collapsed;
+            Id_sign_in.Visibility = Visibility.Collapsed;
+            pass_sign_in.Visibility = Visibility.Collapsed;
+            ok_sign_in.Visibility = Visibility.Collapsed;
+            center_sign_in.Visibility = Visibility.Visible;
+            center_sign_up.Visibility = Visibility.Visible;
+            back.Visibility = Visibility.Collapsed;
         }
 
         private void Show_SignIn_buttons(object sender, RoutedEventArgs e)
@@ -84,6 +87,7 @@ namespace PL
             ok_sign_in.Visibility = Visibility.Visible;
             center_sign_in.Visibility = Visibility.Collapsed;
             center_sign_up.Visibility = Visibility.Collapsed;
+            back.Visibility = Visibility.Visible;
         }
         private void Show_SignUp_buttons(object sender, RoutedEventArgs e)
         {
@@ -92,6 +96,8 @@ namespace PL
             ok_sign_up.Visibility = Visibility.Visible;
             center_sign_in.Visibility = Visibility.Collapsed;
             center_sign_up.Visibility = Visibility.Collapsed;
+            back.Visibility = Visibility.Visible;
+
         }
     }
 }

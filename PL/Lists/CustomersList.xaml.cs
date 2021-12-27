@@ -25,7 +25,7 @@ namespace PL
         Action<TabItem> addTab;
         ObservableCollection<CustomerForList> customerForLists;
 
-        public CustomersList(BlApi.IBL bl, Action<TabItem> addTab, Action<TabItem> removeTab)
+        public CustomersList(BlApi.IBL bl, Action<TabItem> addTab)
         {
             InitializeComponent();
             this.bl = bl;

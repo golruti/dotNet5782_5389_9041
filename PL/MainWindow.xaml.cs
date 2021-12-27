@@ -42,8 +42,17 @@ namespace PL
         private void showCustomerOfCompanyWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerOfCompany( AddTab,bl);
+            tabItem.Content = new CustomerEntrance(bl, AddTab);
             tabItem.Header = "Customer of company";
+            tub_control.Visibility = Visibility.Visible;
+            AddTab(tabItem);
+        }
+
+        private void showEmployeeWindow(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new Employee(bl, AddTab);
+            tabItem.Header = "Employee";
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);
         }

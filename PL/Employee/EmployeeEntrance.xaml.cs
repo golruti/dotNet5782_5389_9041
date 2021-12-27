@@ -16,30 +16,33 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for SignIn.xaml
+    /// Interaction logic for Employee.xaml
     /// </summary>
-    public partial class SignUp : UserControl
+    public partial class Employee : UserControl
     {
         Action<TabItem> addTab;
         private BlApi.IBL bl;
 
-
-        public SignUp(BlApi.IBL bl,Action<TabItem> addTab)
+        public Employee(BlApi.IBL bl, Action<TabItem> addTab)
         {
             InitializeComponent();
-            this.bl = bl;
+            this.bl = bl; ;
             this.addTab = addTab;
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
+        private void show_EmployeeHomePage(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerOfCompany(addTab,bl);
-            tabItem.Header = "CustomerOfCompany";
+            tabItem.Content = new EmployeeHomePage(bl, addTab);
+            tabItem.Header = "Employee Home Page";
             this.addTab(tabItem);
             Close_Page(sender, e);
         }
-
+        /// <summary>
+        /// the function close the page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Close_Page(object sender, RoutedEventArgs e)
         {
             object tmp = sender;
