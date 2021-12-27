@@ -31,7 +31,7 @@ namespace PL
         Action refreshBaseStationList;
         List<DroneInCharging> droneInChargings;
         
-        public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, Action<TabItem> removeTab, BaseStationForList baseStationForList, Action refreshBaseStationList)
+        public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList)
         {
             InitializeComponent();
             this.bl = bl;

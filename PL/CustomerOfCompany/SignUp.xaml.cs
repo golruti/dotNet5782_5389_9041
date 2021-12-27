@@ -21,17 +21,20 @@ namespace PL
     public partial class SignUp : UserControl
     {
         Action<TabItem> addTab;
+        private BlApi.IBL bl;
 
-        public SignUp(Action<TabItem> addTab)
+
+        public SignUp(BlApi.IBL bl,Action<TabItem> addTab)
         {
             InitializeComponent();
+            this.bl = bl;
             this.addTab = addTab;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerOfCompany(addTab);
+            tabItem.Content = new CustomerOfCompany(addTab,bl);
             tabItem.Header = "CustomerOfCompany";
             this.addTab(tabItem);
             Close_Page(sender, e);

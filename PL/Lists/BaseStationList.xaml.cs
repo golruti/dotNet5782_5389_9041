@@ -24,15 +24,13 @@ namespace PL
     {
         BlApi.IBL bl;
         Action<TabItem> addTab;
-        Action<TabItem> removeTab;
 
         ObservableCollection<BaseStationForList> BaseStations;
-        public BaseStationList(BlApi.IBL bl, Action<TabItem> addTab, Action<TabItem> removeTab)
+        public BaseStationList(BlApi.IBL bl, Action<TabItem> addTab)
         {
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
-            this.removeTab = removeTab;
             BaseStations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationForList());
             BaseStationListView.DataContext = BaseStations;
             
@@ -85,7 +83,7 @@ namespace PL
             var selectedBaseStation = (sender as ContentControl).DataContext as BO.BaseStationForList;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStation(this.bl,addTab,removeTab,selectedBaseStation, RefreshBaseStationList);
+            tabItem.Content = new BaseStation(this.bl,addTab,selectedBaseStation, RefreshBaseStationList);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);

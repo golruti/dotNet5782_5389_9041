@@ -6,68 +6,12 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" >
-    <Grid x:Name="MainGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Orientation="Horizontal" x:Name="button" Grid.Column="0">
-            <Button Content="drones list" Click="ShowDroneListWindow" Width="215" Height="50" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" FontSize="30" FontFamily="Consolas" FontWeight="Bold">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="DarkCyan"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Gray"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Content="Base stations list" Click="ShowBaseStationListWindow" Width="280" Height="50" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" FontSize="30" FontFamily="Consolas" FontWeight="Bold">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="DarkCyan"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Gray"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Content="CastomerOfCompany" RenderTransformOrigin="0.5,0.5" Width="59" Height="109" Click="Button_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="-1"/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-180.105"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
-            <Button Content="Customers List" Width="201" Height="67" Click="showCustomersListWindow"/>
+    <Grid>
+        <StackPanel>
+            <Label Content="Hello..!&#xA;How would you like to enter ..?" FontSize="30" HorizontalAlignment="Left" Margin="123,45,0,0" VerticalAlignment="Top" Width="465" Height="88"/>
+            <Button Content="employee in the company." Margin="40" Click="showCustomerOfCompanyWindow" />
+            <Button Content="Castomer of company" Margin="40"/>
         </StackPanel>
-
         <TabControl x:Name="tub_control" Grid.Column="0" Grid.ColumnSpan="4"  Visibility="Collapsed" >
         </TabControl>
     </Grid>

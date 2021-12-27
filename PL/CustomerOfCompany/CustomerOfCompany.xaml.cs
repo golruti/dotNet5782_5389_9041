@@ -20,17 +20,20 @@ namespace PL
     public partial class CustomerOfCompany
     {
         Action<TabItem> addTab;
+        private BlApi.IBL bl;
 
-        public CustomerOfCompany(Action<TabItem> addTab)
+        public CustomerOfCompany(Action<TabItem> addTab, BlApi.IBL bl)
         {
             InitializeComponent();
             this.addTab = addTab;
+            bl = BlApi.BlFactory.GetBl();
+
         }
 
         private void ShowSignInWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new SignIn(addTab);
+            tabItem.Content = new SignIn(bl,addTab);
             tabItem.Header = "Sign in";
             this.addTab(tabItem);
             Close_Page(sender, e);
@@ -40,7 +43,7 @@ namespace PL
         private void ShowSignUpWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new SignUp(addTab);
+            tabItem.Content = new SignUp(bl,addTab);
             tabItem.Header = "Sign up";
             this.addTab(tabItem);
             Close_Page(sender, e);

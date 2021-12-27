@@ -31,31 +31,6 @@ namespace PL
         }
 
         /// <summary>
-        /// open the drone list window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ShowDroneListWindow(object sender, RoutedEventArgs e)
-        {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new DronesList(bl, AddTab, RemoveTab);
-            button.Visibility = Visibility.Collapsed;
-            tabItem.Header = "Drone List";
-            tub_control.Visibility = Visibility.Visible;
-            AddTab(tabItem);
-        }
-
-        private void ShowBaseStationListWindow(object sender, RoutedEventArgs e)
-        {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStationList(bl, AddTab, RemoveTab);
-            button.Visibility = Visibility.Collapsed;
-            tabItem.Header = "Base station List";
-            tub_control.Visibility = Visibility.Visible;
-            AddTab(tabItem);
-        }
-
-        /// <summary>
         /// add tab
         /// </summary>
         /// <param name="tabItem">the tab to add</param>
@@ -64,30 +39,11 @@ namespace PL
             tub_control.Items.Add(tabItem);
         }
 
-        /// <summary>
-        /// remove tab
-        /// </summary>
-        /// <param name="tabItem">the tub to remove</param>
-        internal void RemoveTab(TabItem tabItem)
-        {
-            tub_control.Items.Remove(tabItem);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void showCustomerOfCompanyWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerOfCompany(AddTab);
-            tabItem.Header = "CustomerOfCompany";
-            tub_control.Visibility = Visibility.Visible;
-            AddTab(tabItem);
-        }
-
-        private void showCustomersListWindow(object sender, RoutedEventArgs e)
-        {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomersList(bl, AddTab, RemoveTab);
-            button.Visibility = Visibility.Collapsed;
-            tabItem.Header = "customers List";
+            tabItem.Content = new CustomerOfCompany( AddTab,bl);
+            tabItem.Header = "Customer of company";
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);
         }
