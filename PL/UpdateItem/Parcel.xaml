@@ -43,10 +43,10 @@
             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
 
             <Label Grid.Row="2" Grid.Column="0" Content="SendCustomer: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <ContentControl Grid.Row="2" Grid.Column="1" Content="{Binding Path=SendCustomer}"  MouseDoubleClick="SendCustomerView_MouseDoubleClick"   FontSize="15" FontFamily="Copperplate Gothic Bold"/>
+            <ContentControl Grid.Row="2" Grid.Column="1" Content="{Binding Path=SendCustomer}"  FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
             <Label Grid.Row="4" Grid.Column="0" Content="ReceiveCustomer: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <ContentControl  Grid.Row="4" Grid.Column="1" Content="{Binding Path=ReceiveCustomer}" MouseDoubleClick="ReceiveCustomerView_MouseDoubleClick"   FontSize="15" FontFamily="Copperplate Gothic Bold"/>
+            <ContentControl  Grid.Row="4" Grid.Column="1" Content="{Binding Path=ReceiveCustomer}"  FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
             <Label Grid.Row="6" Grid.Column="0" Content="Weight: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
             <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Path=Weight}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
