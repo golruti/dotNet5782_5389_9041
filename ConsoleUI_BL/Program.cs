@@ -280,7 +280,7 @@ namespace ConsoleUI_BL
                         String model = Console.ReadLine();
                         bl.GetBLBaseStation(stationId);
 
-                        bl.AddDrone(id,stationId, (Enums.WeightCategories)maxWeight, model);
+                        bl.AddDrone(new BO.Drone(id,model, (BO.Enums.WeightCategories)maxWeight, BO.Enums.DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetBLBaseStation(stationId).Location.Longitude, bl.GetBLBaseStation(stationId).Location.Latitude));
                     }
                     else
                     {
@@ -312,7 +312,7 @@ namespace ConsoleUI_BL
                     }
                     break;
                 case EntityOptions.PARCEL:
-                    Console.WriteLine("Enter Idof the sender and of the reciver and the weight of the Parcel(for light press 1 for Medium press 2 for Heavy press 3 ) and the priority(for Regular  press 1 for Emergency press 2 for Fast press 3) :");
+                    Console.WriteLine("Enter Id of the sender and of the reciver and the weight of the Parcel(for light press 1 for Medium press 2 for Heavy press 3 ) and the priority(for Regular  press 1 for Emergency press 2 for Fast press 3) :");
                     int idSender, idReceiver, weight, priority;
                     if (int.TryParse(Console.ReadLine(), out idSender) && int.TryParse(Console.ReadLine(), out idReceiver) && Enum.TryParse(Console.ReadLine(), out weight) && Enum.TryParse(Console.ReadLine(), out priority))
                     {

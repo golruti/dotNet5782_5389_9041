@@ -1,5 +1,4 @@
-﻿using BO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,25 +11,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BO;
 
-namespace PL
+namespace PL.AddItem
 {
     /// <summary>
-    /// Interaction logic for AddDrone.xaml
+    /// Interaction logic for AddParcel.xaml
     /// </summary>
-    public partial class AddDrone
+    public partial class AddParcel : UserControl
     {
-       BlApi.IBL bl;
-        private Action refreshDroneList;
-        public AddDrone(BlApi.IBL bl, Action refreshDroneList)
+        BlApi.IBL bl;
+        private Action refreshParcelList;
+        static int idParcel = 0;
+        public AddParcel(BlApi.IBL bl, Action refreshParcelList)
         {
             InitializeComponent();
             this.bl = bl;
 
-            StationsId.DataContext = (bl.GetBaseStationForList()).Select(s=>s.Id);
-            this.refreshDroneList = refreshDroneList;
-            DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
+            Priority.DataContext = Enum.GetValues(typeof(Enums.Priorities));
+            this.refreshParcelList = refreshParcelList;
+            Weight.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
         }
 
         /// <summary>
@@ -42,10 +44,10 @@ namespace PL
         {
             try
             {
-                bl.AddDrone(new BO.Drone(int.Parse(Id.Text), Model.Text, (BO.Enums.WeightCategories)DroneWeights.SelectedItem, BO.Enums.DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude, bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude));
-               
+                
+                bl.AddParcel(new BO.Parcel(idParcel++, int.Parse(senderId.Text), int.Parse(reciverId.Text), (BO.Enums.WeightCategories)Weight.SelectedItem, (BO.Enums.Priorities)Priority.SelectedItem,new BO.DroneInParcel()));
 
-                if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                if (MessageBox.Show("the parcel was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     Close_Page(sender, e);
                 }
@@ -89,7 +91,7 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-           refreshDroneList();
+            this.refreshParcelList();
         }
 
         /// <summary>

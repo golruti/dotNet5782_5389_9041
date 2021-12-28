@@ -16,7 +16,7 @@ namespace BlApi
     public interface IBL
     {
         public void AddBaseStation(BaseStation tempBaseStation);
-        void AddDrone(int id, int stationId, Enums.WeightCategories maxWeight, string model);
+        void AddDrone(Drone tempDrone);
         public void AddCustomer(Customer tempCustomer);
         public void AddParcel(Parcel tempParcel);
         public IEnumerable<DroneInCharging> DronesInCharging(int id);

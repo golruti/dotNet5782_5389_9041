@@ -15,9 +15,9 @@ namespace BL
         /// Add a drone to the list of drones
         /// </summary>
         /// <param name="tempDrone">The customer for Adding</param>
-        public void AddDrone(int id, int stationId, Enums.WeightCategories maxWeight, string model)
+        public void AddDrone(Drone tempDrone)
         {
-            Drone tempDrone = new Drone(id, model, (Enums.WeightCategories)maxWeight, DroneStatuses.Maintenance, rand.Next(20, 41), GetBLBaseStation(stationId).Location.Longitude, GetBLBaseStation(stationId).Location.Latitude);
+             
             DO.Drone drone = new DO.Drone(tempDrone.Id, tempDrone.Model, (DO.Enum.WeightCategories)tempDrone.MaxWeight);
             try
             {
