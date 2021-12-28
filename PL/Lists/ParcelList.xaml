@@ -109,26 +109,29 @@
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
                 
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions >
+            
             <Label Grid.Column="0" Content="  status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
             <ComboBox  Grid.Column="1" x:Name="ParcelStatuses" ItemsSource="{Binding}" SelectionChanged="ParcelStatuses_SelectionChanged" Grid.RowSpan="2" />
             <Label Grid.Column="2" Content=" sender id:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
             <ComboBox Grid.Column="3" x:Name="SenderId" ItemsSource="{Binding}" SelectionChanged="SenderId_SelectionChanged" Grid.RowSpan="2"/>
             <Label Grid.Column="4" Content="receive id:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
             <ComboBox  Grid.Column="5" x:Name="ReceiveId" ItemsSource="{Binding}" SelectionChanged="ReceiveId_SelectionChanged" Grid.RowSpan="2" />
-            <Label Grid.Column="6" Content="from :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox  Grid.Column="7" x:Name="From" ItemsSource="{Binding}" SelectionChanged="time_SelectionChanged" Grid.RowSpan="2" />
-            <Label Grid.Column="8" Content="to :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox  Grid.Column="9" x:Name="To" ItemsSource="{Binding}" SelectionChanged="time_SelectionChanged" Grid.RowSpan="2" />
+            <Label Grid.Column="6" Content="time :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
+            <Label Grid.Column="7" Content="from :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
+            <ComboBox  Grid.Column="8" x:Name="From" ItemsSource="{Binding}" SelectionChanged="time_SelectionChanged" Grid.RowSpan="2" />
+            <Label Grid.Column="9" Content="to :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
+            <ComboBox  Grid.Column="10" x:Name="To" ItemsSource="{Binding}" SelectionChanged="time_SelectionChanged" Grid.RowSpan="2" />
 
         </Grid>
 
-        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
+        <ListView x:Name="ParcelesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
             <ListView.ItemTemplate>
                 <ItemContainerTemplate>
                     <ContentControl Content="{Binding }" MouseDoubleClick="DronesListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>

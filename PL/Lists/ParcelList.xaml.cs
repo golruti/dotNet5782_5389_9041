@@ -25,48 +25,57 @@ namespace PL.Lists
         BlApi.IBL bl;
         Action<TabItem> addTab;
 
-        ObservableCollection<DroneForList> droneForLists;
+        ObservableCollection<ParcelForList> parcelForLists;
         public ParcelList(BlApi.IBL bl, Action<TabItem> addTab)
         {
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
 
-            droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList());
-            DronesListView.DataContext = droneForLists;
+            parcelForLists = new ObservableCollection<ParcelForList>(bl.GetParcelForList());
+            ParcelesListView.DataContext = parcelForLists;
             ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
             
         }
         /// <summary>
         /// Updates the skimmer list
         /// </summary>
-        //private void RefreshDroneList()
-        //{
-        //    if (DroneStatuses.SelectedItem != null && DroneWeights.SelectedItem != null)
-        //    {
-        //        Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-        //        Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-        //        droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(weight, status));
-        //        DronesListView.DataContext = droneForLists;
-        //    }
-        //    else if (DroneWeights.SelectedItem != null)
-        //    {
-        //        Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-        //        droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(weight));
-        //        DronesListView.DataContext = droneForLists;
-        //    }
-        //    else if (DroneStatuses.SelectedItem != null)
-        //    {
-        //        Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-        //        droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(status));
-        //        DronesListView.DataContext = droneForLists;
-        //    }
-        //    else
-        //    {
-        //        droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList());
-        //        DronesListView.DataContext = droneForLists;
-        //    }
-        //}
+        private void RefreshParcelList()
+        {
+            //ParcelStatuses,SenderId,ReceiveId,From,To
+            if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedItem != null && To.SelectedItem != null)
+            {
+               
+                Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                parcelForLists = new ObservableCollection<ParcelForList>(bl.GetParcelForList());
+                ParcelesListView.DataContext = parcelForLists;
+            }
+            else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedItem != null && To.SelectedItem != null)
+            {
+                
+            }
+            else if (ParcelStatuses.SelectedItem != null  && ReceiveId.SelectedItem != null && From.SelectedItem != null && To.SelectedItem != null)
+            {
+                
+            }
+            else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && From.SelectedItem != null && To.SelectedItem != null)
+            {
+                
+            }
+            else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null  && To.SelectedItem != null)
+            {
+                
+            }
+            else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedItem != null && To.SelectedItem != null)
+            {
+                
+
+            }
+            else
+            {
+                
+            }
+        }
 
         /// <summary>
         /// Changes the list of skimmers according to the weight selected
@@ -129,10 +138,10 @@ namespace PL.Lists
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
+        private void ShowAddParcelWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new AddDrone(bl, RefreshDroneList);
+            tabItem.Content = new AddDrone(bl, RefreshParcelList);
             tabItem.Header = "Add drone";
             this.addTab(tabItem);
         }
@@ -147,7 +156,7 @@ namespace PL.Lists
             var selectedDrone = (sender as ContentControl).DataContext as BO.DroneForList;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(selectedDrone, this.bl, RefreshDroneList);
+            tabItem.Content = new Drone(selectedDrone, this.bl, RefreshParcelList);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);
