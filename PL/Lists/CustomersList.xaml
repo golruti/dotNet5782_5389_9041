@@ -8,13 +8,24 @@
          Height="450" Width="800">
     <Grid>
 
-        <ListView x:Name="CustomersListView" ItemsSource="{Binding}">
-            <ListView.ItemTemplate>
-                <ItemContainerTemplate>
-                    <ContentControl Content="{Binding }" MouseDoubleClick="ContentControl_MouseDoubleClick" FontFamily="Copperplate Gothic Bold"  ></ContentControl>
-                </ItemContainerTemplate>
-            </ListView.ItemTemplate>
+        <ListView x:Name="CustomersListView" ItemsSource="{Binding}"  MouseDoubleClick="CustomersListView_MouseLeftButtonDown">
+            <ListView.View >
 
+                <GridView  >
+                    <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
+                    <GridViewColumn  Header="Name" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn  Header="Phone number" DisplayMemberBinding="{Binding Phone}" />
+                    <GridViewColumn  Header="send parcel" DisplayMemberBinding="{Binding NumParcelSentDelivered}"/>
+                    <GridViewColumn  Header="parcel in process" DisplayMemberBinding="{Binding NumParcelSentNotDelivered}"/>
+                    <GridViewColumn Header="parcel on way" DisplayMemberBinding="{Binding NumParcelWayToCustomer}"/>
+                    <GridViewColumn  Header="Recived parcel" DisplayMemberBinding="{Binding NumParcelReceived}"/>
+                </GridView>
+
+            </ListView.View>
         </ListView>
+
+        <StackPanel>
+            <Button x:Name="add_customer" Content="add customer" Height="40" Width="130" Background="DarkCyan"  Click="add_customer_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+        </StackPanel>
     </Grid>
 </UserControl>

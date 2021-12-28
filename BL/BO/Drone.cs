@@ -24,8 +24,6 @@ namespace BO
             return $"------\nDrone {Id} : {Model}\n{Status}\n{MaxWeight}\nlocation = {Location.Latitude},{Location.Latitude}/nbattery = {(int)(Battery)}%\n------\n ";
         }
 
-
-
         public Drone(int id, string model, WeightCategories maxWeight, DroneStatuses status, double battery, double longitude, double latitude)
         {
             Id = id;

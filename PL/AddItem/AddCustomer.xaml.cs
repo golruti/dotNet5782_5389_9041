@@ -1,8 +1,8 @@
-﻿using BO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,38 +11,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BO;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for Customer.xaml
+    /// Interaction logic for AddCustomer.xaml
     /// </summary>
-    public partial class Customer 
+    public partial class AddCustomer : UserControl
     {
-        private BlApi.IBL bl;
-        private BO.Customer customerInList;
-        Action refreshCustomersList;
-        public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
+        BlApi.IBL bl;
+        private Action refreshCustomersList;
+        public AddCustomer(BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
             this.bl = bl;
             this.refreshCustomersList = refreshCustomersList;
-            this.customerInList = bl.GetBLCustomer(customerInList.Id);
-            this.DataContext = customerInList;
         }
 
-        private void showParcelsFromCustomer(object sender, RoutedEventArgs e)
-        {
-            //TabItem tabItem = new TabItem();
-            //tabItem.Content = new CustomersList(bl, AddTab, RemoveTab);
-            //button.Visibility = Visibility.Collapsed;
-            //tabItem.Header = "customers List";
-            //tub_control.Visibility = Visibility.Visible;
-            //AddTab(tabItem);
-        }
-
+        /// <summary>
+        /// Closes the page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Close_Page(object sender, RoutedEventArgs e)
         {
             object tmp = sender;
@@ -55,10 +47,17 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            this.refreshCustomersList();
+            refreshCustomersList();
         }
 
+        private void Add_Customer_finish_click(object sender, RoutedEventArgs e)
+        {
+            bl.AddCustomer(new BO.Customer(int.Parse(ID.Text), name.Text, phone.Text, double.Parse(longg.Text), double.Parse(longg.Text)));
+
+            if (MessageBox.Show("the customer was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            {
+                Close_Page(sender, e);
+            }
+        }
     }
 }
-
-

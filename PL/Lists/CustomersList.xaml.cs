@@ -35,22 +35,31 @@ namespace PL
             CustomersListView.DataContext = customerForLists;
         }
 
-        private void ContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void CustomersListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var selectedCustomer = (sender as ContentControl).DataContext as BO.CustomerForList;
-
+            var selectedCustomer = CustomersListView.SelectedItem as BO.CustomerForList;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(selectedCustomer, this.bl, RefreshCustomerList);
+            tabItem.Content = new Customer(selectedCustomer, this.bl, refreshCustomerList);
             tabItem.Header = "Update customer";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);
         }
 
 
-        private void RefreshCustomerList()
+        private void refreshCustomerList()
         {
             customerForLists = new ObservableCollection<CustomerForList>(bl.GetCustomerForList());
             CustomersListView.DataContext = customerForLists;
         }
+
+        private void add_customer_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new AddCustomer(bl, refreshCustomerList);
+            tabItem.Header = "Add customer";
+            this.addTab(tabItem);
+        }
+
+
     }
 }

@@ -39,7 +39,7 @@ namespace PL
         }
 
         /// <summary>
-        /// Updates the skimmer list
+        /// Updates the drone list
         /// </summary>
         private void RefreshDroneList()
         {

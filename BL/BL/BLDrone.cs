@@ -22,6 +22,7 @@ namespace BL
             try
             {
                 dal.AddDrone(drone);
+               
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {

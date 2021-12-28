@@ -13,16 +13,48 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid>
-        <Label  Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-        <TextBlock  Text="{Binding Path=Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
-        <Label  Content="Name: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-        <TextBlock   Text="{Binding Path=Name}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
-        <Label  Content="Phone: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-        <TextBlock   Text="{Binding Path=Phone}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
-        <Button x:Name="Parcel_from_customer" Content="Displays the parcels sent by the customer" Click="showParcelsFromCustomer"/>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="480"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="151,62,150,220">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="10"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="10"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="10"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="10"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="10"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  MinWidth="80" Width="73*"/>
+                <ColumnDefinition Width="177*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}"  FontSize="15" FontFamily="Copperplate Gothic"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Name: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Name}"  FontSize="15" FontFamily="Copperplate Gothic"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="Phone: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Phone}" FontSize="15" FontFamily="Copperplate Gothic"/>
+            <Label Grid.Row="5" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Location}"  FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3"/>
+
+        </Grid>
+        <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
+            <Button Content="close" Height="40" Width="130" Background="DarkCyan"  Click="Close_Page" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
+         </StackPanel>
+
 
     </Grid>
+
 </UserControl>
 
 
@@ -30,7 +62,7 @@
         public string Name { get; set; }
         public string Phone { get; set; }
         public Location Location { get; set; }-->
-        <!--public IEnumerable-->
+<!--public IEnumerable-->
 <!--<ParcelToCustomer>FromCustomer { get; set; }
         public IEnumerable</ParcelToCustomer>
     <ParcelToCustomer>ToCustomer { get; set; }</ParcelToCustomer>-->
