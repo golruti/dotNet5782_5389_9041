@@ -65,6 +65,7 @@ namespace DAL
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate)
         {
             return DataSource.customers.Values.Where(customer => predicate(customer)).ToList();
+
         }
 
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------

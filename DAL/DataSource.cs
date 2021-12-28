@@ -8,11 +8,11 @@ using static DO.Enum;
 
 namespace DAL
 {
-    public class DataSource
+    static class DataSource
     {
         public static Random Rand = new Random();
 
-        static internal Dictionary<int,Drone> drones = new();
+        static internal Dictionary<int, Drone> drones = new();
         static internal Dictionary<int, BaseStation> stations = new();
         static internal Dictionary<int, Customer> customers = new();
         static internal Dictionary<int, Parcel> parcels = new();
@@ -39,10 +39,10 @@ namespace DAL
                 BaseStation tempStation = new BaseStation();
                 tempStation.Id = i;
                 tempStation.Name = $"station {i}";
-                tempStation.ChargeSlote = Rand.Next(50) ;
+                tempStation.ChargeSlote = Rand.Next(50);
                 tempStation.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
-                stations[tempStation.Id] =tempStation;
+                stations[tempStation.Id] = tempStation;
             }
 
             //customers
@@ -64,7 +64,7 @@ namespace DAL
                 tempDrone.Id = i;
                 tempDrone.Model = $"drone {i}";
                 tempDrone.MaxWeight = (DO.Enum.WeightCategories)Rand.Next(0, 3);
-                drones[tempDrone.Id] =tempDrone;
+                drones[tempDrone.Id] = tempDrone;
             }
 
             //parcel
@@ -102,7 +102,7 @@ namespace DAL
                     tempParcel.Droneld = i;
                     tempParcel.Scheduled = DateTime.Now.AddDays(2);
                 }
-                parcels[tempParcel.Id] =tempParcel;
+                parcels[tempParcel.Id] = tempParcel;
             }
         }
     }
