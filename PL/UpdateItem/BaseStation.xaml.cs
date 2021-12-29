@@ -140,7 +140,7 @@ namespace PL
                 tabControl.Items.Remove(tabItem);
 
             this.refreshBaseStationList();
-            //this.refreshDroneList();
+            
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)
