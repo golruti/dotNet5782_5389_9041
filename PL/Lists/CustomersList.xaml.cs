@@ -39,7 +39,7 @@ namespace PL
         {
             var selectedCustomer = CustomersListView.SelectedItem as BO.CustomerForList;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(selectedCustomer.Id,selectedCustomer, this.bl, refreshCustomerList);
+            tabItem.Content = new Customer(selectedCustomer, this.bl, refreshCustomerList);
             tabItem.Header = "Update customer";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);

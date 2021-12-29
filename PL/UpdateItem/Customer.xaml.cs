@@ -32,7 +32,7 @@ namespace PL
             Add_grid.Visibility = Visibility.Visible;
         }
 
-        public Customer( int customerId,CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
+        public Customer( CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
             this.bl = bl;
