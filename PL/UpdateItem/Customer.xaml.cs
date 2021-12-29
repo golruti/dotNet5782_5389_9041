@@ -19,12 +19,13 @@ namespace PL
     /// <summary>
     /// Interaction logic for Customer.xaml
     /// </summary>
-    public partial class Customer 
+    public partial class Customer
     {
         private BlApi.IBL bl;
         private BO.Customer customerInList;
         Action refreshCustomersList;
-        public Customer( BlApi.IBL bl, Action refreshCustomersList)
+        private string newPhone;
+        public Customer(BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
             this.bl = bl;
@@ -32,7 +33,7 @@ namespace PL
             Add_grid.Visibility = Visibility.Visible;
         }
 
-        public Customer( CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
+        public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
             this.bl = bl;
@@ -57,6 +58,11 @@ namespace PL
             refreshCustomersList();
         }
 
+        private void update_phone_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            newPhone = (sender as TextBox).Text;
+        }
+
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             bl.DeleteBLCustomer(customerInList.Id);
@@ -66,10 +72,17 @@ namespace PL
             }
         }
 
-        private void showPArcelsSenderByTheCustomer_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void Add_Customer_finish_click(object sender, RoutedEventArgs e)
+        {
+            bl.AddCustomer(new BO.Customer(int.Parse(ID.Text), name.Text, phone.Text, double.Parse(longg.Text), double.Parse(longg.Text)));
+
+            if (MessageBox.Show("the customer was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            {
+                Close_Page(sender, e);
+            }
         }
+
     }
 }
 
