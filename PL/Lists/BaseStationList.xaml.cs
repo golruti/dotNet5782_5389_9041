@@ -68,8 +68,8 @@ namespace PL
         private void ShowAddBaseStationWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new AddDrone(bl, RefreshBaseStationList);
-            tabItem.Header = "Add drone";
+            tabItem.Content = new BaseStation(bl);
+            tabItem.Header = "Add base station";
             this.addTab(tabItem);
         }
 

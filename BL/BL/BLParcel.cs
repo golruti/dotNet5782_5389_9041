@@ -130,261 +130,256 @@ namespace BL
             return GetParcelForList().Where(parcel => predicate(parcel));
         }
 
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver, Priorities priority, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver, Priorities priority)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority);
-        }
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, Priorities priority)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status  && parcel.Priority == priority);
-        }
+        //public IEnumerable<ParcelForList> GetParcelForList(string idSender, string idReceiver, Priorities priority, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status );
-        }
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver, Priorities priority, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForList( string idSender)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender );
-        }
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, Priorities priority, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
 
-        
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(ParcelStatuses status, string idSender, string idReceiver, Priorities priority, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, Priorities priority)
-        {
-            return GetParcelForList(parcel =>  parcel.Status == status && parcel.Priority == priority);
-        }
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver, Priorities priority, DateTime from)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForList( string idSender, Priorities priority)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender  && parcel.Priority == priority);
-        }
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver, DateTime from)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested > from);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver, Priorities priority)
-        {
-            return GetParcelForList(parcel =>  parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority);
-        }
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver, Priorities priority)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForListWithOutSender( string idReceiver, Priorities priority)
-        {
-            return GetParcelForList(parcel =>  parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority);
-        }
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver, Priorities priority, DateTime from)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForListWithOutSender(string idReceiver)
-        {
-            return GetParcelForList(parcel =>parcel.ReceiveCustomer == idReceiver );
-        }
-        public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver)
-        {
-            return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver );
-        }
+        //public IEnumerable<ParcelForList> GetParcelForList(string idSender, string idReceiver, Priorities priority, DateTime from)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver );
-        }
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForList( string idSender, string idReceiver)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender  && parcel.ReceiveCustomer == idReceiver);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver, Priorities priority,DateTime from,DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested>from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver  && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status  && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status,  string idReceiver, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList( string idSender, string idReceiver, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender &&  parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, Priorities priority, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-       
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, Priorities priority, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel =>  parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList( string idSender, Priorities priority, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver, Priorities priority, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel =>  parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-       
-
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, Priorities priority, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.Status == status  && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutSender(string idReceiver, Priorities priority, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel =>  parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList( string idSender, string idReceiver, Priorities priority, DateTime from, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender  && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver, Priorities priority, DateTime from)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from );
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver, DateTime from)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver  && GetBLParcel(parcel.Id).Requested > from);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender,DateTime from)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status  && GetBLParcel(parcel.Id).Requested > from);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver, DateTime from)
-        {
-            return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested > from);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList( string idSender, string idReceiver, DateTime from)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested > from);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, Priorities priority, DateTime from)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status  && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, Priorities priority, DateTime from)
-        {
-            return GetParcelForList(parcel =>  parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForList( string idSender, Priorities priority, DateTime from)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver, Priorities priority, DateTime from)
-        {
-            return GetParcelForList(parcel =>  parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
-        }
-
-       
-
-        public IEnumerable<ParcelForList> GetParcelForList( string idSender, string idReceiver, Priorities priority, DateTime from)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender  && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
-        }
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(ParcelStatuses status, string idSender, string idReceiver, Priorities priority, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(ParcelStatuses status, string idSender, string idReceiver,  DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver  && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFrom( string idSender, string idReceiver, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFromAndSender(ParcelStatuses status,  string idReceiver, DateTime to)
-        {
-            return GetParcelForList(parcel =>  parcel.Status == status && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(ParcelStatuses status, string idSender,  DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status  && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(ParcelStatuses status, string idSender, Priorities priority, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFromAndSender(ParcelStatuses status, string idReceiver, Priorities priority, DateTime to)
-        {
-            return GetParcelForList(parcel =>  parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
-        }
-
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFrom( string idSender, string idReceiver, Priorities priority, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
-        }
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, Priorities priority, DateTime from)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
+        //}
 
 
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(ParcelStatuses status, Priorities priority, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
-        }
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(string idSender, Priorities priority, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
-        }
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFromAndSender(string idReceiver, Priorities priority, DateTime to)
-        {
-            return GetParcelForList(parcel => parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
-        }
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForList(DateTime from, DateTime to)
-        {
-            return GetParcelForList().Where(parcel => GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
-        }
+        //public IEnumerable<ParcelForList> GetParcelForList(string idSender, string idReceiver, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForList(Priorities priority)
-        {
-            return GetParcelForList(parcel => parcel.Priority == priority);
-        }
-       
-        public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status)
-        {
-            return GetParcelForList(parcel => parcel.Status == status);
-        }
-        public IEnumerable<ParcelForList> GetParcelForList(DateTime from)
-        {
-            return GetParcelForList().Where(parcel => GetBLParcel(parcel.Id).Requested > from);
-        }
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, Priorities priority, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
 
-        public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(DateTime to)
-        {
-            return GetParcelForList().Where(parcel => GetBLParcel(parcel.Id).Requested < to);
-        }
-       
+        //public IEnumerable<ParcelForList> GetParcelForList(string idSender, Priorities priority, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, Priorities priority, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutSender(string idReceiver, Priorities priority, DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(ParcelStatuses status, string idSender, string idReceiver, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(ParcelStatuses status, string idSender, Priorities priority, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFromAndSender(ParcelStatuses status, string idReceiver, Priorities priority, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(string idSender, string idReceiver, Priorities priority, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(string idSender, string idReceiver, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFromAndSender(ParcelStatuses status, string idReceiver, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(ParcelStatuses status, string idSender, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(ParcelStatuses status, Priorities priority, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
+        //}
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(string idSender, Priorities priority, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
+        //}
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFromAndSender(string idReceiver, Priorities priority, DateTime to)
+        //{
+        //    return GetParcelForList(parcel => parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, Priorities priority, DateTime from)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(string idSender, Priorities priority, DateTime from)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Priority == priority && GetBLParcel(parcel.Id).Requested > from);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, Priorities priority)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status  && parcel.Priority == priority);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver, Priorities priority)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, string idReceiver)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && parcel.ReceiveCustomer == idReceiver);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender, DateTime from)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status && GetBLParcel(parcel.Id).Requested > from);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver, DateTime from)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested > from);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(string idSender, string idReceiver, DateTime from)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.ReceiveCustomer == idReceiver && GetBLParcel(parcel.Id).Requested > from);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, string idSender)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Status == status );
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status, Priorities priority)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.Priority == priority);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(string idSender, Priorities priority)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.Priority == priority);
+        //}
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutSender(string idReceiver, Priorities priority)
+        //{
+        //    return GetParcelForList(parcel => parcel.ReceiveCustomer == idReceiver && parcel.Priority == priority);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutSender(ParcelStatuses status, string idReceiver)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status && parcel.ReceiveCustomer == idReceiver);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(string idSender, string idReceiver)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender && parcel.ReceiveCustomer == idReceiver);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(DateTime from, DateTime to)
+        //{
+        //    return GetParcelForList().Where(parcel => GetBLParcel(parcel.Id).Requested > from && GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(Priorities priority)
+        //{
+        //    return GetParcelForList(parcel => parcel.Priority == priority);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForList(ParcelStatuses status)
+        //{
+        //    return GetParcelForList(parcel => parcel.Status == status);
+        //}
+        //public IEnumerable<ParcelForList> GetParcelForList(DateTime from)
+        //{
+        //    return GetParcelForList().Where(parcel => GetBLParcel(parcel.Id).Requested > from);
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutFrom(DateTime to)
+        //{
+        //    return GetParcelForList().Where(parcel => GetBLParcel(parcel.Id).Requested < to);
+        //}
+
+
+        //public IEnumerable<ParcelForList> GetParcelForList( string idSender)
+        //{
+        //    return GetParcelForList(parcel => parcel.SendCustomer == idSender );
+        //}
+
+        //public IEnumerable<ParcelForList> GetParcelForListWithOutSender(string idReceiver)
+        //{
+        //    return GetParcelForList(parcel =>parcel.ReceiveCustomer == idReceiver );
+        //}
+
+
 
         /// <summary>
         /// Retrieves the list of parcels from the data and converts it to BL parcel 

@@ -36,7 +36,7 @@ namespace BlApi
         public IEnumerable<CustomerForList> GetCustomerForList(Predicate<CustomerForList> predicate);
         public IEnumerable<ParcelForList> GetParcelForList();
         public IEnumerable<ParcelForList> GetParcelForList(Predicate<ParcelForList> predicate);
-
+        public CustomerForList GetCustomerForList(string name);
         public void UpdateBaseStation(int id, string name, int chargeSlote);
         public void UpdateDroneModel(int id, string model);
         void UpdateRelease(int droneId);

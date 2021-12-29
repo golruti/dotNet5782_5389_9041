@@ -116,15 +116,29 @@
             <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding}" SelectionChanged="DroneDtatuses_SelectionChanged" Grid.RowSpan="2" />
 
         </Grid>
+        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick">
+            <ListView.View >
 
-        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
+                <GridView  >
+                    <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
+                    <GridViewColumn  Header="Model" DisplayMemberBinding="{Binding Model}" />
+                    <GridViewColumn  Header="MaxWeight" DisplayMemberBinding="{Binding MaxWeight}" />
+                    <GridViewColumn  Header="Battery" DisplayMemberBinding="{Binding Battery}"/>
+                    <GridViewColumn  Header="Status" DisplayMemberBinding="{Binding Status}"/>
+                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}"/>
+                    <GridViewColumn  Header="ParcelDeliveredId" DisplayMemberBinding="{Binding ParcelDeliveredId}"/>
+                </GridView>
+
+            </ListView.View>
+        </ListView>
+        <!--<ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
             <ListView.ItemTemplate>
                 <ItemContainerTemplate>
                     <ContentControl Content="{Binding }" MouseDoubleClick="DronesListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>
                 </ItemContainerTemplate>
             </ListView.ItemTemplate>
 
-        </ListView>
+        </ListView>-->
 
         <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
         <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddDroneWindow" Content="add drone" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>

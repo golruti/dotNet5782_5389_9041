@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,28 +30,75 @@ namespace PL
         private string newNum;
         private BO.BaseStation baseStation;
         Action refreshBaseStationList;
-        IEnumerable<DroneInCharging> droneInChargings;
         
+        
+        public BaseStation(BlApi.IBL bl)
+        {
+            InitializeComponent();
+            this.bl = bl;
+            
+
+        }
         public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList)
         {
             InitializeComponent();
             this.bl = bl;
             baseStation = bl.GetBLBaseStation(baseStationForList.Id);
             DataContext = baseStationForList;
-            //baseStationForList = bl.GetBLBaseStatiog(baseStationForList.Id);
-            //droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList().Where(item => item.Location == bl.GetBLBaseStation(baseStationForList.Id).Location && item.Status == Enums.DroneStatuses.Maintenance));
-            //DronesListView.DataContext = droneForLists;
-            droneInChargings=bl.DronesInCharging(baseStationForList.Id);
-            DronesListView.DataContext = droneInChargings;
+            
             this.refreshBaseStationList = refreshBaseStationList;
-            //this.droneForList = bl.GetBLDrone(droneForList.Id);
-            //this.DataContext = droneForList;
+            
             this.addTab = addTab;
 
         }
 
-        
-        private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Finish_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.AddBaseStation(new BO.BaseStation(int.Parse(Id.Text),Name.Text,double.Parse(longitude.Text), double.Parse(latitude.Text),int.Parse(Num_of_charging_positions.Text)));
+
+                if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    Close_Page(sender, e);
+                }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+        }
+
+       
+
+        /// <summary>
+        /// Input filter for ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+    
+    private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedDrone = (sender as ContentControl).DataContext as BO.DroneForList;
 
@@ -81,6 +129,7 @@ namespace PL
                 tabControl.Items.Remove(tabItem);
 
             this.refreshBaseStationList();
+            this.refreshDroneList();
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)

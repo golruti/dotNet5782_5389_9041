@@ -24,9 +24,19 @@ namespace PL
     {
         private BlApi.IBL bl;
         private BO.Drone droneInList;
-        Action refreshDroneList;
+        private Action refreshDroneList;
         private string newModel;
+        
+        private Random rand;
+        public Drone(BlApi.IBL bl, Action refreshDroneList)
+        {
+            InitializeComponent();
+            this.bl = bl;
 
+            StationsId.DataContext = (bl.GetBaseStationForList()).Select(s => s.Id);
+            this.refreshDroneList = refreshDroneList;
+            DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
+        }
         public Drone(DroneForList droneForList, BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
@@ -99,6 +109,49 @@ namespace PL
                 ButtonsGroup.Children.Add(ParcelDelivery);
             }
         }
+
+
+        /// <summary>
+        /// Puts the new Harhan on the list and updates the details
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Finish_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.AddDrone(new BO.Drone(int.Parse(Id.Text), Model.Text, (BO.Enums.WeightCategories)DroneWeights.SelectedItem, BO.Enums.DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude, bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude));
+
+
+                if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    Close_Page(sender, e);
+                }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The drone was not add, {ex.Message}");
+            }
+        }
+
+       
+
 
         /// <summary>
         /// sending drone to delivery

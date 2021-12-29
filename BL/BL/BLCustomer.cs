@@ -136,6 +136,11 @@ namespace BL
             return GetCustomerForList().Where(customer => predicate(customer));
         }
 
+        public CustomerForList GetCustomerForList(string name)
+        {
+            return GetCustomerForList().FirstOrDefault(customer => customer.Name==name);
+        }
+
         //--------------------------------------------Initialize the parcel list--------------------------------------------------------
         /// <summary>
         /// Convert a DAL customer to BL customer

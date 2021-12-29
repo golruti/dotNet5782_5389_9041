@@ -21,9 +21,9 @@ namespace PL
     /// </summary>
     public partial class AddDrone
     {
-       BlApi.IBL bl;
+        BlApi.IBL bl;
         private Action refreshDroneList;
-        Random rand;
+        private Random rand;
         public AddDrone(BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
