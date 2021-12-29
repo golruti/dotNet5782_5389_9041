@@ -25,7 +25,7 @@
         </ListView>
 
         <StackPanel>
-            <Button x:Name="add_customer" Content="add customer" Height="40" Width="130" Background="DarkCyan"  Click="add_customer_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+            <Button x:Name="add_customer" Margin="500,410,0,0" Content="add customer" Height="40" Width="130" Background="DarkCyan"  Click="add_customer_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
         </StackPanel>
     </Grid>
 </UserControl>

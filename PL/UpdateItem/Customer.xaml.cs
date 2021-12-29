@@ -24,23 +24,22 @@ namespace PL
         private BlApi.IBL bl;
         private BO.Customer customerInList;
         Action refreshCustomersList;
-        public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
+        public Customer( BlApi.IBL bl, Action refreshCustomersList)
+        {
+            InitializeComponent();
+            this.bl = bl;
+            this.refreshCustomersList = refreshCustomersList;
+            Add_grid.Visibility = Visibility.Visible;
+        }
+
+        public Customer( int customerId,CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
             this.bl = bl;
             this.refreshCustomersList = refreshCustomersList;
             this.customerInList = bl.GetBLCustomer(customerInList.Id);
+            Update_grid.Visibility = Visibility.Visible;
             this.DataContext = customerInList;
-        }
-
-        private void showParcelsFromCustomer(object sender, RoutedEventArgs e)
-        {
-            //TabItem tabItem = new TabItem();
-            //tabItem.Content = new CustomersList(bl, AddTab, RemoveTab);
-            //button.Visibility = Visibility.Collapsed;
-            //tabItem.Header = "customers List";
-            //tub_control.Visibility = Visibility.Visible;
-            //AddTab(tabItem);
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
@@ -55,9 +54,22 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            this.refreshCustomersList();
+            refreshCustomersList();
         }
 
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            bl.DeleteBLCustomer(customerInList.Id);
+            if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            {
+                Close_Page(sender, e);
+            }
+        }
+
+        private void showPArcelsSenderByTheCustomer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 

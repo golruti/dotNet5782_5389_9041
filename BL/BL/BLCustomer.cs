@@ -34,7 +34,7 @@ namespace BL
         /// The function gets a customer ID and tries to delete it
         /// </summary>
         /// <param name="station"></param>
-        private void deleteBLCustomer(int customerId)
+        public void DeleteBLCustomer(int customerId)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace BL
         public void UpdateCustomer(int id, string name = "-1", string phone = "-1")
         {
             DO.Customer tempCustomer;
-            deleteBLCustomer(id);
+            DeleteBLCustomer(id);
             try
             {
                 tempCustomer = dal.GetCustomer(id);

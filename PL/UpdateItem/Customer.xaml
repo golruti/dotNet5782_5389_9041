@@ -13,56 +13,98 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="480"/>
-            <RowDefinition Height="100"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="151,62,150,220">
+    <Grid Background="White"   >
+        <Grid x:Name="Update_grid" Visibility="Collapsed">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" MinHeight="25"/>
-                <RowDefinition Height="Auto" MinHeight="10"/>
-                <RowDefinition Height="Auto" MinHeight="25"/>
-                <RowDefinition Height="Auto" MinHeight="10"/>
-                <RowDefinition Height="Auto" MinHeight="25"/>
-                <RowDefinition Height="Auto" MinHeight="10"/>
-                <RowDefinition Height="Auto" MinHeight="25"/>
-                <RowDefinition Height="Auto" MinHeight="10"/>
-                <RowDefinition Height="Auto" MinHeight="25"/>
-                <RowDefinition Height="Auto" MinHeight="10"/>
-                <RowDefinition Height="Auto" MinHeight="25"/>
-                <RowDefinition Height="Auto" MinHeight="50"/>
+                <RowDefinition Height="480"/>
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition  MinWidth="80" Width="73*"/>
-                <ColumnDefinition Width="177*"/>
-            </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}"  FontSize="15" FontFamily="Copperplate Gothic"/>
-            <Label Grid.Row="2" Grid.Column="0" Content="Name: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Name}"  FontSize="15" FontFamily="Copperplate Gothic"/>
-            <Label Grid.Row="4" Grid.Column="0" Content="Phone: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Phone}" FontSize="15" FontFamily="Copperplate Gothic"/>
-            <Label Grid.Row="5" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Location}"  FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3"/>
 
+            <Grid Grid.Row="0" Margin="151,62,150,277">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="25"/>
+                    <RowDefinition Height="Auto" MinHeight="10"/>
+                    <RowDefinition Height="Auto" MinHeight="25"/>
+                    <RowDefinition Height="Auto" MinHeight="10"/>
+                    <RowDefinition Height="Auto" MinHeight="25"/>
+                    <RowDefinition Height="Auto" MinHeight="10"/>
+                    <RowDefinition Height="Auto" MinHeight="25"/>
+                    <RowDefinition Height="Auto" MinHeight="10"/>
+                    <RowDefinition Height="Auto" MinHeight="25"/>
+                    <RowDefinition Height="Auto" MinHeight="10"/>
+                    <RowDefinition Height="Auto" MinHeight="25"/>
+                    <RowDefinition Height="Auto" MinHeight="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  MinWidth="80" Width="73*"/>
+                    <ColumnDefinition Width="177*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}"  FontSize="15" FontFamily="Copperplate Gothic"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Name: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Name}"  FontSize="15" FontFamily="Copperplate Gothic"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="Phone: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Phone}" FontSize="15" FontFamily="Copperplate Gothic"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Location}"  FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Location}"  FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3"/>
+
+            </Grid>
+            <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
+                <Button Content="delete customer" Height="40" Width="130" Background="DarkCyan" Margin="500,0,0,0" Click="Delete_Click" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
+                <Button Content="close" Height="40" Width="130" Background="DarkCyan" Margin="30,0,0,0" Click="Close_Page" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
+            </StackPanel>
+            <Button Content="The parcels sent-->>" HorizontalAlignment="Left" Margin="172,208,0,0" VerticalAlignment="Top" Width="193" Click="showPArcelsSenderByTheCustomer_Click"/>
+            <Button Content="The parcels received-->>" HorizontalAlignment="Left" Margin="381,208,0,0" VerticalAlignment="Top" Width="202"/>
         </Grid>
-        <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
-            <Button Content="close" Height="40" Width="130" Background="DarkCyan"  Click="Close_Page" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-         </StackPanel>
+
+
+        <Grid x:Name="Add_grid" Visibility="Collapsed" >
+
+            <Grid Grid.Row="0"  Name="UpGrid"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="126"/>
+                    <ColumnDefinition Width="126"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0"  Grid.Row="0" Content=" id:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+                <TextBox x:Name="ID" Grid.Row="0"  Background="LightGray"  Grid.Column="1"/>
+
+                <Label Grid.Column="0"  Grid.Row="1" Content=" name:"   FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+                <TextBox x:Name="name" Grid.Row="1"  Background="LightGray" Grid.Column="1"  Margin="0,1,0,0" Grid.RowSpan="2"/>
+
+                <Label Grid.Column="0"  Grid.Row="3" Content="phone:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+                <TextBox x:Name="phone" Grid.Row="3" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
+
+                <Label Grid.Column="0"  Grid.Row="4" Content="longitude:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+                <TextBox x:Name="longg" Grid.Row="4" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
+
+                <Label Grid.Column="0"  Grid.Row="5" Content="latitude:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
+                <TextBox x:Name="lat" Grid.Row="5" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
+            </Grid>
+
+            <Grid Width="200" Height="50" Margin="259,205,145,95">
+                <Button  Content="finish"  Margin="34,15,100,15"  Height="20" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+                <Button Background="DarkCyan" Content="cencel"  Margin="115,15,22,15" Click="Close_Page"  Height="20" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
+
+            </Grid>
+        </Grid>
+
 
 
     </Grid>
 
 </UserControl>
-
-
-<!--public int Id { get; set; }
-        public string Name { get; set; }
-        public string Phone { get; set; }
-        public Location Location { get; set; }-->
-<!--public IEnumerable-->
-<!--<ParcelToCustomer>FromCustomer { get; set; }
-        public IEnumerable</ParcelToCustomer>
-    <ParcelToCustomer>ToCustomer { get; set; }</ParcelToCustomer>-->

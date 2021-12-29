@@ -39,7 +39,7 @@ namespace PL
         {
             var selectedCustomer = CustomersListView.SelectedItem as BO.CustomerForList;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(selectedCustomer, this.bl, refreshCustomerList);
+            tabItem.Content = new Customer(selectedCustomer.Id,selectedCustomer, this.bl, refreshCustomerList);
             tabItem.Header = "Update customer";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);
@@ -55,7 +55,7 @@ namespace PL
         private void add_customer_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new AddCustomer(bl, refreshCustomerList);
+            tabItem.Content = new Customer(bl, refreshCustomerList);
             tabItem.Header = "Add customer";
             this.addTab(tabItem);
         }
