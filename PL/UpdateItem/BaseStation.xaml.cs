@@ -30,28 +30,43 @@ namespace PL
         private string newNum;
         private BO.BaseStation baseStation;
         Action refreshBaseStationList;
-        
-        
-        public BaseStation(BlApi.IBL bl)
+        ObservableCollection<DroneForList> droneList;
+        private IEnumerable<BO.DroneInCharging> dronesInCharging;
+        //Action refreshDroneList;
+
+        public BaseStation(BlApi.IBL bl, Action refreshBaseStationList)
         {
             InitializeComponent();
             this.bl = bl;
-            
+            this.refreshBaseStationList = refreshBaseStationList;
 
         }
-        public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList)
+        public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList/*,Action refreshDroneList*/)
         {
             InitializeComponent();
             this.bl = bl;
             baseStation = bl.GetBLBaseStation(baseStationForList.Id);
             DataContext = baseStationForList;
-            
+            droneList = new ObservableCollection<DroneForList>(bl.GetDroneForList());
             this.refreshBaseStationList = refreshBaseStationList;
-            
+            //this.refreshDroneList = refreshDroneList;
             this.addTab = addTab;
+            dronesInCharging = bl.DronesInCharging(baseStation.Id);
+        }
+
+        private void RefreshDroneInChargeList()
+        {
+            dronesInCharging = bl.DronesInCharging(baseStation.Id);
+            DronesListView.DataContext = dronesInCharging;
 
         }
 
+        private void RefreshDroneList()
+        {
+            
+            DronesListView.DataContext = droneList;
+
+        }
         private void Finish_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -109,11 +124,7 @@ namespace PL
             this.addTab(tabItem);
 
         }
-        private void RefreshDroneList()
-        {
-            
-            DronesListView.DataContext = droneInChargings;
-        }
+      
 
         private void Close_Page(object sender, RoutedEventArgs e)
         {
@@ -129,7 +140,7 @@ namespace PL
                 tabControl.Items.Remove(tabItem);
 
             this.refreshBaseStationList();
-            this.refreshDroneList();
+            //this.refreshDroneList();
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)
