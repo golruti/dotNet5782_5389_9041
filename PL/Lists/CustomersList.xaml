@@ -8,10 +8,10 @@
          Height="450" Width="800">
     <Grid>
 
-        <ListView x:Name="CustomersListView" ItemsSource="{Binding}"  MouseDoubleClick="CustomersListView_MouseLeftButtonDown">
+        <ListView x:Name="CustomersListView" ItemsSource="{Binding}" DisplayMemberPath="" MouseDoubleClick="CustomersListView_MouseLeftButtonDown">
             <ListView.View >
 
-                <GridView  >
+                <GridView>
                     <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
                     <GridViewColumn  Header="Name" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn  Header="Phone number" DisplayMemberBinding="{Binding Phone}" />

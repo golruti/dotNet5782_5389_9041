@@ -23,7 +23,7 @@ namespace PL
     {
         BlApi.IBL bl;
         private Action refreshDroneList;
-        private Random rand;
+        Random rand = new Random();
         public AddDrone(BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();

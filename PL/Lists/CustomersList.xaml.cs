@@ -30,7 +30,8 @@ namespace PL
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
-
+            //ListCollectionView listCollectionView = new ListCollectionView(new ObservableCollection<CustomerForList>(bl.GetCustomerForList()));
+            //listCollectionView.Filter+=FilterCustorm
             customerForLists = new ObservableCollection<CustomerForList>(bl.GetCustomerForList());
             CustomersListView.DataContext = customerForLists;
         }
