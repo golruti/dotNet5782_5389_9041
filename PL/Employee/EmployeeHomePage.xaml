@@ -15,6 +15,7 @@
 
         <StackPanel Orientation="Horizontal" x:Name="button" Grid.Column="0">
             <Button Content="drones list" Click="ShowDroneListWindow"/>
+            <Button Content="parcels list" Click="ShowParcelListWindow"/>
             <Button Content="Base stations list" Click="ShowBaseStationListWindow" />
             <Button Content="Customers List"  Click="showCustomersListWindow"/>
         </StackPanel>

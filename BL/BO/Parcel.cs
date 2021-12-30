@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,9 @@ namespace BO
 {
     public class Parcel
     {
+        private IBL bl;
+        private Action refreshParcelList;
+
         public int Id { get; set; }
         public CustomerDelivery CustomerSender { get; set; }
         public CustomerDelivery CustomerReceives { get; set; }
@@ -42,6 +46,12 @@ namespace BO
 
         public Parcel()
         { }
+
+        public Parcel(IBL bl, Action refreshParcelList)
+        {
+            this.bl = bl;
+            this.refreshParcelList = refreshParcelList;
+        }
     }
 }
 

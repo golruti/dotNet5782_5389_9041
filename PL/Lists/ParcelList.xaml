@@ -13,7 +13,7 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
-    <!--<UserControl.Resources>
+    <UserControl.Resources>
         <Style x:Key="RoundCorner" TargetType="{x:Type Button}">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -110,7 +110,10 @@
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
-                
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
@@ -125,25 +128,43 @@
             <ComboBox  Grid.Column="5" x:Name="ReceiveId" ItemsSource="{Binding}" SelectionChanged="ReceiveId_SelectionChanged" Grid.RowSpan="2" />
             <Label Grid.Column="6" Content="time :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
             <Label Grid.Column="7" Content="from :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox  Grid.Column="8" x:Name="From" ItemsSource="{Binding}" SelectionChanged="time_SelectionChanged" Grid.RowSpan="2" />
-            <Label Grid.Column="9" Content="to :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox  Grid.Column="10" x:Name="To" ItemsSource="{Binding}" SelectionChanged="time_SelectionChanged" Grid.RowSpan="2" />
+            <ComboBox  Grid.Column="8" x:Name="YearF" ItemsSource="{Binding}" SelectionChanged="time_from_SelectionChanged" Grid.RowSpan="2" />
+            <ComboBox  Grid.Column="9" x:Name="MonthF" ItemsSource="{Binding}" SelectionChanged="time_from_SelectionChanged" Grid.RowSpan="2" />
+            <ComboBox  Grid.Column="10" x:Name="DayF" ItemsSource="{Binding}" SelectionChanged="time_from_SelectionChanged" Grid.RowSpan="2" />
+            <Label Grid.Column="11" Content="to :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
+            <ComboBox  Grid.Column="12" x:Name="YearT" ItemsSource="{Binding}" SelectionChanged="time_to_SelectionChanged" Grid.RowSpan="2" />
+            <ComboBox  Grid.Column="13" x:Name="MonthT" ItemsSource="{Binding}" SelectionChanged="time_to_SelectionChanged" Grid.RowSpan="2" />
+            <ComboBox  Grid.Column="14" x:Name="DayT" ItemsSource="{Binding}" SelectionChanged="time_to_SelectionChanged" Grid.RowSpan="2" />
 
         </Grid>
+        <ListView x:Name="ParcelesListView" ItemsSource="{Binding}" Grid.Row="1"  MouseDoubleClick="ParcelListView_MouseDoubleClick">
+            <ListView.View >
 
-        <ListView x:Name="ParcelesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
+                <GridView  >
+                    <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
+                    <GridViewColumn  Header="Sender" DisplayMemberBinding="{Binding SendCustomer}" />
+                    <GridViewColumn  Header="Receiver" DisplayMemberBinding="{Binding ReceiveCustomer}" />
+                    <GridViewColumn  Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
+                    <GridViewColumn  Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
+                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}"/>
+                    <GridViewColumn  Header="Status" DisplayMemberBinding="{Binding Status}"/>
+                </GridView>
+
+            </ListView.View>
+        </ListView>
+        <!--<ListView x:Name="ParcelesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
             <ListView.ItemTemplate>
                 <ItemContainerTemplate>
                     <ContentControl Content="{Binding }" MouseDoubleClick="DronesListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>
                 </ItemContainerTemplate>
             </ListView.ItemTemplate>
 
-        </ListView>
+        </ListView>-->
 
-        --><!--<Button Content="close"  HorizontalAlignment="Left" Margin="693,34,0,0" VerticalAlignment="Top"   Click="Close_Page" Grid.Row="2" RenderTransformOrigin="-0.019,0.436" Style="{StaticResource myButtonStyle}"/>
-        <Button  Content="add drone"  HorizontalAlignment="Left"   Click="ShowAddDroneWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="595,34,0,0"   Grid.Row="2" Style="{StaticResource myButtonStyle}" />--><!--
+        <Button Content="close"  HorizontalAlignment="Left" Margin="693,34,0,0" VerticalAlignment="Top"   Click="Close_Page" Grid.Row="2" RenderTransformOrigin="-0.019,0.436" Style="{StaticResource myButtonStyle}"/>
+        <Button  Content="add parcel"  HorizontalAlignment="Left"   Click="ShowAddParcelWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="595,34,0,0"   Grid.Row="2" Style="{StaticResource myButtonStyle}" />
         <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
-        <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddDroneWindow" Content="add drone" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+        <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddParcelWindow" Content="add drone" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
 
-    </Grid>-->
+    </Grid>
 </UserControl>

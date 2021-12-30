@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,15 @@ namespace PL
             addTab(tabItem);
         }
 
+        private void ShowParcelListWindow(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new ParcelList(bl, addTab);
+            button.Visibility = Visibility.Collapsed;
+            tabItem.Header = "parcel list";
+            addTab(tabItem);
+        }
+
         private void ShowBaseStationListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
@@ -66,6 +76,18 @@ namespace PL
             button.Visibility = Visibility.Collapsed;
             tabItem.Header = "Customers list";
             addTab(tabItem);
+        }
+
+        private class ParcelList
+        {
+            private IBL bl;
+            private Action<TabItem> addTab;
+
+            public ParcelList(IBL bl, Action<TabItem> addTab)
+            {
+                this.bl = bl;
+                this.addTab = addTab;
+            }
         }
     }
 }

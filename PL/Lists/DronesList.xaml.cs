@@ -178,7 +178,7 @@ namespace PL
         private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new AddDrone(bl, RefreshDroneList);
+            tabItem.Content = new Drone(bl, RefreshDroneList);
             tabItem.Header = "Add drone";
             this.addTab(tabItem);
         }
