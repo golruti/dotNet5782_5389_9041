@@ -38,9 +38,9 @@ namespace PL.Lists
             this.addTab = addTab;
             listCollectionView = new ListCollectionView(parcelForLists);
             listCollectionView.Filter += FilterParcel;
-            //parcelForLists = new ObservableCollection<ParcelForList>(bl.GetParcelForList());
+            parcelForLists = new ObservableCollection<ParcelForList>(bl.GetParcelForList());
             ParcelesListView.DataContext = listCollectionView;
-            //ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
+            ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
             DayF.DataContext= day;
             DayT.DataContext = day;
             MonthF.DataContext = month;
