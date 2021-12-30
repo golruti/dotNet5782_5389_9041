@@ -15,12 +15,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL.UpdateItem
+namespace PL
 {
     /// <summary>
     /// Interaction logic for Parcel.xaml
     /// </summary>
-    public partial class Parcel : UserControl
+    public partial class Parcel 
     {
         Action<TabItem> addTab;
         private BlApi.IBL bl;
