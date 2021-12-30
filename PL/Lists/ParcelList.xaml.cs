@@ -354,10 +354,9 @@ namespace PL
         /// <param name="e"></param>
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedDrone = (sender as ContentControl).DataContext as BO.ParcelForList;
-
+            var selectedParcel = ParcelesListView.SelectedItem as BO.ParcelForList;
             TabItem tabItem = new TabItem();
-           //tabItem.Content = new Parcel(selectedDrone, this.bl, RefreshParcelList, RefreshParcelList, addTab);
+            tabItem.Content = new Parcel(selectedParcel, this.bl, RefreshParcelList);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);

@@ -56,7 +56,7 @@ namespace BL
         public void UpdateCustomer(int id, string name = "-1", string phone = "-1")
         {
             DO.Customer tempCustomer;
-            DeleteBLCustomer(id);
+            
             try
             {
                 tempCustomer = dal.GetCustomer(id);
@@ -71,10 +71,12 @@ namespace BL
                 name = tempCustomer.Name;
             if (phone == "-1")
                 phone = tempCustomer.Phone;
+            DeleteBLCustomer(id);
             DO.Customer customer = new DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
             try
             {
                 dal.AddCustomer(customer);
+                
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {

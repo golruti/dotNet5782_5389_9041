@@ -25,6 +25,11 @@ namespace PL
         private BO.Customer customerInList;
         Action refreshCustomersList;
         private string newPhone;
+        private string newName;
+        private IEnumerable<BO.ParcelToCustomer> fromCustomer;
+        private IEnumerable<BO.ParcelToCustomer> toCustomer;
+
+
         public Customer(BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
@@ -39,8 +44,12 @@ namespace PL
             this.bl = bl;
             this.refreshCustomersList = refreshCustomersList;
             this.customerInList = bl.GetBLCustomer(customerInList.Id);
+            newName = customerInList.Name;
+            newPhone = customerInList.Phone;
             Update_grid.Visibility = Visibility.Visible;
             this.DataContext = customerInList;
+            toCustomer = this.customerInList.ToCustomer;
+            ToCustomerView.DataContext = toCustomer;
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
@@ -63,6 +72,12 @@ namespace PL
             newPhone = (sender as TextBox).Text;
         }
 
+        private void update_name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            newName = (sender as TextBox).Text;
+
+        }
+
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             bl.DeleteBLCustomer(customerInList.Id);
@@ -83,6 +98,22 @@ namespace PL
             }
         }
 
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.UpdateCustomer(customerInList.Id, customerInList.Name, newPhone);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            if (MessageBox.Show("the customer was seccessfully updated", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            {
+                Close_Page(sender, e);
+            }
+        }
     }
 }
 

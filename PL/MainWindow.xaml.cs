@@ -39,6 +39,19 @@ namespace PL
             tub_control.Items.Add(tabItem);
         }
 
+        private void CloseTab(object sender, RoutedEventArgs e)
+        {
+            object tmp = sender;
+            TabItem tabItem = null;
+            while (tmp.GetType() != typeof(TabControl))
+            {
+                if (tmp.GetType() == typeof(TabItem))
+                    tabItem = (tmp as TabItem);
+                tmp = ((FrameworkElement)tmp).Parent;
+            }
+            if (tmp is TabControl tabControl)
+                tabControl.Items.Remove(tabItem);
+        }
         private void showCustomerOfCompanyWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();

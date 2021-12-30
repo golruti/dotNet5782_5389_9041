@@ -21,9 +21,10 @@ namespace PL
     public partial class CustomerEntrance : UserControl
     {
         Action<TabItem> addTab;
+        Action<object, RoutedEventArgs> closeTab;
         private BlApi.IBL bl;
 
-        public CustomerEntrance(BlApi.IBL bl, Action<TabItem> addTab)
+        public CustomerEntrance(BlApi.IBL bl, Action<TabItem> addTab )
         {
             InitializeComponent();
             this.addTab = addTab;

@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL.UpdateItem
+namespace PL
 {
     /// <summary>
     /// Interaction logic for Parcel.xaml
@@ -38,29 +38,26 @@ namespace PL.UpdateItem
             Weight.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
         }
 
-        public Parcel(ParcelForList parcelForList, BlApi.IBL bl, Action refreshParcelList, Action<TabItem> addTab)
+        public Parcel(ParcelForList parcelForList, BlApi.IBL bl, Action refreshParcelList)
         {
             InitializeComponent();
 
             this.bl = bl;
             this.refreshParcelList = refreshParcelList;
-            this.addTab = addTab;
             this.parcelInList = bl.GetBLParcel(parcelForList.Id);
             this.DataContext = parcelForList;
 
             if (parcelForList.Status != Enums.ParcelStatuses.Provided )
             {
                 Button ShowDrone = new Button();
-                ShowDrone.Content = "Details of the drone";
+                ShowDrone.Content = "Details of the parcel";
                 ShowDrone.Click += ShowDrone_Click;
                 ShowDrone.IsEnabled = true;
                 ShowDrone.Background = Brushes.DarkCyan;
                 ShowDrone.Height = 40;
                 ShowDrone.Width = 130;
                 ShowDrone.HorizontalAlignment = HorizontalAlignment.Center;
-                ButtonsGroup.Children.Add(ShowDrone);
-
-                
+                ButtonsGroup.Children.Add(ShowDrone);              
             }
             
         }
