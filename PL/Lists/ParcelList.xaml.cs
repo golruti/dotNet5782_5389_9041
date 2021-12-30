@@ -357,7 +357,7 @@ namespace PL
             var selectedDrone = (sender as ContentControl).DataContext as BO.ParcelForList;
 
             TabItem tabItem = new TabItem();
-           tabItem.Content = new Parcel(selectedDrone, this.bl, RefreshParcelList, RefreshParcelList, addTab);
+           //tabItem.Content = new Parcel(selectedDrone, this.bl, RefreshParcelList, RefreshParcelList, addTab);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);
