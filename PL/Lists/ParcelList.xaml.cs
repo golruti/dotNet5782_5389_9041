@@ -16,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-namespace PL.Lists
+namespace PL
 {
     /// <summary>
     /// Interaction logic for ParcelList.xaml
@@ -36,9 +36,9 @@ namespace PL.Lists
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
+            parcelForLists = new ObservableCollection<ParcelForList>(bl.GetParcelForList());
             listCollectionView = new ListCollectionView(parcelForLists);
             listCollectionView.Filter += FilterParcel;
-            parcelForLists = new ObservableCollection<ParcelForList>(bl.GetParcelForList());
             ParcelesListView.DataContext = listCollectionView;
             ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
             DayF.DataContext= day;
@@ -48,7 +48,6 @@ namespace PL.Lists
             YearF.DataContext = year;
             YearT.DataContext = year;
         }
-
 
         private void RefreshFilter()
         {
@@ -311,37 +310,27 @@ namespace PL.Lists
         /// < param name="e"></param>
         private void ParcelStatuses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshFilter();
-
-           
+            RefreshFilter();          
         }
 
         private void SenderId_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshFilter();
-
-           
+            RefreshFilter();          
         }
 
         private void ReceiveId_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshFilter();
-
-           
+            RefreshFilter();           
         }
 
         private void time_to_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshFilter();
-
-            
+            RefreshFilter();           
         }
 
         private void time_from_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshFilter();
-
-            
+            RefreshFilter();           
         }
 
         
@@ -368,7 +357,7 @@ namespace PL.Lists
             var selectedDrone = (sender as ContentControl).DataContext as BO.DroneForList;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedDrone, this.bl, RefreshParcelList, RefreshParcelList, addTab);
+           // tabItem.Content = new Parcel(selectedDrone, this.bl, RefreshParcelList, RefreshParcelList, addTab);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);

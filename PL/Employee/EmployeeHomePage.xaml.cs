@@ -77,17 +77,5 @@ namespace PL
             tabItem.Header = "Customers list";
             addTab(tabItem);
         }
-
-        private class ParcelList
-        {
-            private IBL bl;
-            private Action<TabItem> addTab;
-
-            public ParcelList(IBL bl, Action<TabItem> addTab)
-            {
-                this.bl = bl;
-                this.addTab = addTab;
-            }
-        }
     }
 }
