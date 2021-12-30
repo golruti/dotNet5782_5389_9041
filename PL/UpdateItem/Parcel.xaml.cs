@@ -20,7 +20,7 @@ namespace PL
     /// <summary>
     /// Interaction logic for Parcel.xaml
     /// </summary>
-    public partial class Parcel : UserControl
+    public partial class Parcel 
     {
         Action<TabItem> addTab;
         private BlApi.IBL bl;
