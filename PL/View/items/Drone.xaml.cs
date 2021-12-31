@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PL.ViewModel;
+
 
 namespace PL
 {
@@ -25,9 +27,11 @@ namespace PL
         private BlApi.IBL bl;
         private BO.Drone droneInList;
         private Action refreshDroneList;
-        private string newModel;
-        
+        private string newModel;       
         private Random rand;
+
+        
+
         public Drone(BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();

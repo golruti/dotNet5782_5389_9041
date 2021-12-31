@@ -8,7 +8,7 @@ using static PO.Enums;
 
 namespace PO
 {
-    class Parcel : INotifyPropertyChanged
+   public class Parcel : INotifyPropertyChanged
     {
         private int id;
         public int Id

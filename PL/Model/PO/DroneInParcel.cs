@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PO
 {
-    class BaseStation : INotifyPropertyChanged
+   public class DroneInParcel : INotifyPropertyChanged
     {
         private int id;
         public int Id
@@ -20,27 +20,14 @@ namespace PO
             }
         }
 
-
-
-        private string name;
-        public string Name
+        private double battery;
+        public double Battery
         {
-            get { return name; }
+            get { return battery; }
             set
             {
-                name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
-
-        private int availableChargingPorts;
-        public int AvailableChargingPorts
-        {
-            get { return availableChargingPorts; }
-            set
-            {
-                availableChargingPorts = value;
-                OnPropertyChanged(nameof(AvailableChargingPorts));
+                battery = value;
+                OnPropertyChanged(nameof(Battery));
             }
         }
 
@@ -54,18 +41,6 @@ namespace PO
                 OnPropertyChanged(nameof(Location));
             }
         }
-
-        private IEnumerable<DroneInCharging> dronesInCharging;
-        public IEnumerable<DroneInCharging> DronesInCharging
-        {
-            get { return dronesInCharging; }
-            set
-            {
-                dronesInCharging = value;
-                OnPropertyChanged(nameof(DronesInCharging));
-            }
-        }
-
 
 
 
@@ -81,3 +56,4 @@ namespace PO
         #endregion
     }
 }
+

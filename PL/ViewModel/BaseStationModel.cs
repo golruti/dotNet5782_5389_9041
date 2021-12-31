@@ -6,15 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Data;
 
-namespace PL
+namespace PL.ViewModel
 {
-    class CustomerListModel
+    public class BaseStationModel
     {
         BlApi.IBL bl;
-        ObservableCollection<CustomerForList> customerForLists;
-        ListCollectionView listCollectionView;
+        private PO.BaseStation baseStation;
+        Action refreshBaseStationList;
         Action<TabItem> addTab;
         Action<TabItem> closeTab;
     }

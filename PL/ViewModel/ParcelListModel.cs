@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace PL
+namespace PL.ViewModel
 {
-    class ParcelListModel
+    public class ParcelListModel
     {
         BlApi.IBL bl;
         ListCollectionView listCollectionView;

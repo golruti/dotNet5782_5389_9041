@@ -8,7 +8,7 @@ using static PO.Enums;
 
 namespace PO
 {
-    class Drone : INotifyPropertyChanged
+   public class DroneForList : INotifyPropertyChanged
     {
         private int id;
         public int Id
@@ -44,7 +44,8 @@ namespace PO
         }
 
         private DroneStatuses status;
-        public DroneStatuses Status {
+        public DroneStatuses Status
+        {
             get { return status; }
             set
             {
@@ -75,13 +76,14 @@ namespace PO
             }
         }
 
-        private ParcelByTransfer delivery;
-        public ParcelByTransfer Delivery {
-            get { return delivery; }
+        private int parcelDeliveredId;
+        public int ParcelDeliveredId
+        {
+            get { return parcelDeliveredId; }
             set
             {
-                delivery = value;
-                OnPropertyChanged(nameof(Delivery));
+                parcelDeliveredId = value;
+                OnPropertyChanged(nameof(ParcelDeliveredId));
             }
         }
 
@@ -99,3 +101,4 @@ namespace PO
         #endregion
     }
 }
+

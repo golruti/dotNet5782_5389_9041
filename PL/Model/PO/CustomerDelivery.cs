@@ -7,31 +7,29 @@ using System.Threading.Tasks;
 
 namespace PO
 {
-    class Location : INotifyPropertyChanged
+   public class CustomerDelivery : INotifyPropertyChanged
     {
-        private double longitude;
-        public double Longitude
+        private int id;
+        public int Id
         {
-            get { return longitude; }
+            get { return id; }
             set
             {
-                longitude = value;
-                OnPropertyChanged(nameof(Longitude));
+                id = value;
+                OnPropertyChanged(nameof(Id));
             }
         }
 
-        private double latitude;
-        public double Latitude
+        private string name;
+        public string Name
         {
-            get { return latitude; }
+            get { return name; }
             set
             {
-                latitude = value;
-                OnPropertyChanged(nameof(Latitude));
+                name = value;
+                OnPropertyChanged(nameof(Name));
             }
         }
-
-
 
         #region INotifyPropertyChanged Members  
         public event PropertyChangedEventHandler PropertyChanged;

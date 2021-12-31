@@ -43,22 +43,22 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}"  FontSize="15" FontFamily="Copperplate Gothic" Grid.ColumnSpan="2"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CustomerInList.Id}"  FontSize="15" FontFamily="Copperplate Gothic" Grid.ColumnSpan="2"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Name: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Name}" TextChanged="update_name_TextChanged"  FontSize="15" FontFamily="Copperplate Gothic" Grid.ColumnSpan="2"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CustomerInList.Name}" TextChanged="update_name_TextChanged"  FontSize="15" FontFamily="Copperplate Gothic" Grid.ColumnSpan="2"/>
 
                 <Label Grid.Row="3" Grid.Column="0" Content="phone: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
-                <TextBox x:Name="update_model" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Phone, Mode=OneWay}" TextChanged="update_phone_TextChanged" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Grid.ColumnSpan="2" Margin="0,10,0,10" Grid.RowSpan="3"/>
+                <TextBox x:Name="update_model" Grid.Row="3" Grid.Column="1" Text="{Binding CustomerInList.Phone}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Grid.ColumnSpan="2" Margin="0,10,0,10" Grid.RowSpan="3"/>
 
                 <Label Grid.Row="6" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
-                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Path=Location}"  FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding CustomerInList.Location.Longitude}"  FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
 
                 <Label Grid.Row="8" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
-                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding Path=Location}"  FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding CustomerInList.Location.Latitude}"  FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
             </Grid>
 
-            <ListView x:Name="ToCustomerView" ItemsSource="{Binding}" Grid.Row="0" Margin="-15,226,400,126" >
+            <ListView x:Name="ToCustomerView" ItemsSource="{Binding CustomerInList.ToCustomer}" Grid.Row="0" Margin="-15,226,400,126" >
                 <ListView.View >
 
                     <GridView>

@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PL.ViewModel;
 
 
 namespace PL
@@ -21,39 +22,23 @@ namespace PL
     /// </summary>
     public partial class Customer
     {
-        private BlApi.IBL bl;
-        private BO.Customer customerInList;
-        Action refreshCustomersList;
-        private string newPhone;
-        private string newName;
-        private IEnumerable<BO.ParcelToCustomer> fromCustomer;
-        private IEnumerable<BO.ParcelToCustomer> toCustomer;
-
-        CustomerModel CustomerModel;
+        CustomerViewModel CustomerViewModel;
 
         public Customer(BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
-            this.bl = bl;
-            this.refreshCustomersList = refreshCustomersList;
             Add_grid.Visibility = Visibility.Visible;
 
-            CustomerModel = new CustomerModel();
-            this.DataContext = CustomerModel;
+            CustomerViewModel = new CustomerViewModel(bl, refreshCustomersList);
+            this.DataContext = CustomerViewModel;
         }
 
         public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
-            this.bl = bl;
-            this.refreshCustomersList = refreshCustomersList;
-            this.customerInList = bl.GetBLCustomer(customerInList.Id);
-            newName = customerInList.Name;
-            newPhone = customerInList.Phone;
+            CustomerViewModel = new CustomerViewModel(customerInList, bl, refreshCustomersList);
+            this.DataContext = CustomerViewModel;
             Update_grid.Visibility = Visibility.Visible;
-            this.DataContext = customerInList;
-            toCustomer = this.customerInList.ToCustomer;
-            ToCustomerView.DataContext = toCustomer;
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
@@ -68,23 +53,18 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            refreshCustomersList();
-        }
-
-        private void update_phone_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            newPhone = (sender as TextBox).Text;
+            CustomerViewModel.RefreshCustomersList();
         }
 
         private void update_name_TextChanged(object sender, TextChangedEventArgs e)
         {
-            newName = (sender as TextBox).Text;
+            CustomerViewModel.NewName = (sender as TextBox).Text;
 
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            bl.DeleteBLCustomer(customerInList.Id);
+            CustomerViewModel.Bl.DeleteBLCustomer(CustomerViewModel.CustomerInList.Id);
             if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -94,7 +74,7 @@ namespace PL
 
         private void Add_Customer_finish_click(object sender, RoutedEventArgs e)
         {
-            bl.AddCustomer(new BO.Customer(int.Parse(ID.Text), name.Text, phone.Text, double.Parse(longg.Text), double.Parse(longg.Text)));
+            CustomerViewModel.Bl.AddCustomer(new BO.Customer(int.Parse(ID.Text), name.Text, phone.Text, double.Parse(longg.Text), double.Parse(longg.Text)));
 
             if (MessageBox.Show("the customer was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
@@ -106,7 +86,7 @@ namespace PL
         {
             try
             {
-                bl.UpdateCustomer(customerInList.Id, customerInList.Name, newPhone);
+              CustomerViewModel.Bl.UpdateCustomer(CustomerViewModel.CustomerInList.Id, CustomerViewModel.CustomerInList.Name, CustomerViewModel.CustomerInList.Phone);
             }
             catch (Exception)
             {

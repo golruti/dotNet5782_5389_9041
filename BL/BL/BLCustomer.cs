@@ -151,12 +151,26 @@ namespace BL
         /// <returns>The converted customer</returns>
         private Customer mapCustomer(DO.Customer customer)
         {
+            var sendedList = dal.GetParcels().Where(p => p.SenderId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
+            var targerList = dal.GetParcels().Where(p => p.TargetId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
             return new Customer()
             {
                 Id = customer.Id,
                 Name = customer.Name,
                 Location = new Location(customer.Latitude, customer.Longitude),
                 Phone = customer.Phone,
+                FromCustomer = sendedList,
+                ToCustomer = targerList,
+            };
+        }
+
+        private ParcelToCustomer mapParcelToParcelToCustomer(DO.Parcel parcel)
+        {
+            return new ParcelToCustomer()
+            {
+                //Id = parcel.Id,
+                //Priority = parcel.Priority,
+                //Status =
             };
         }
 

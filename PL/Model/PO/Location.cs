@@ -7,38 +7,27 @@ using System.Threading.Tasks;
 
 namespace PO
 {
-    class DroneInCharging : INotifyPropertyChanged
+   public class Location : INotifyPropertyChanged
     {
-        private int id;
-        public int Id
+        private double longitude;
+        public double Longitude
         {
-            get { return id; }
+            get { return longitude; }
             set
             {
-                id = value;
-                OnPropertyChanged(nameof(Id));
+                longitude = value;
+                OnPropertyChanged(nameof(Longitude));
             }
         }
 
-        private double battery;
-        public double Battery
+        private double latitude;
+        public double Latitude
         {
-            get { return battery; }
+            get { return latitude; }
             set
             {
-                battery = value;
-                OnPropertyChanged(nameof(Battery));
-            }
-        }
-
-        private DateTime? time;
-        public DateTime? Time
-        {
-            get { return time; }
-            set
-            {
-                time = value;
-                OnPropertyChanged(nameof(Time));
+                latitude = value;
+                OnPropertyChanged(nameof(Latitude));
             }
         }
 
