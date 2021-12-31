@@ -303,7 +303,10 @@ namespace PL
         /// </summary>
         private void RefreshParcelList()
         {
-            
+            parcelForLists = new ObservableCollection<ParcelForList>(bl.GetParcelForList());
+            listCollectionView = new ListCollectionView(parcelForLists);
+            listCollectionView.Filter += FilterParcel;
+            ParcelesListView.DataContext = listCollectionView;
         }
 
         /// <summary>
@@ -360,7 +363,7 @@ namespace PL
             var selectedParcel = ParcelesListView.SelectedItem as BO.ParcelForList;
             TabItem tabItem = new TabItem();
             tabItem.Content = new Parcel(selectedParcel, this.bl, RefreshParcelList);
-            tabItem.Header = "Update drone";
+            tabItem.Header = "Update Parcel";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);
 

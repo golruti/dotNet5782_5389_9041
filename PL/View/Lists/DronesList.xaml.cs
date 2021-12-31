@@ -189,8 +189,8 @@ namespace PL
         /// <param name="e"></param>
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedDrone = (sender as ContentControl).DataContext as BO.DroneForList;
-
+            var selectedDrone = DronesListView.SelectedItem as BO.DroneForList;
+           
             TabItem tabItem = new TabItem();
             tabItem.Content = new Drone(selectedDrone, this.bl, RefreshDroneList);
             tabItem.Header = "Update drone";

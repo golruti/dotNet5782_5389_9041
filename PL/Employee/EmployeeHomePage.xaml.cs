@@ -47,7 +47,7 @@ namespace PL
         {
             TabItem tabItem = new TabItem();
             tabItem.Content = new ParcelList(bl, addTab);
-            button.Visibility = Visibility.Collapsed;
+            //button.Visibility = Visibility.Collapsed;
             tabItem.Header = "parcel list";
             addTab(tabItem);
         }
@@ -57,7 +57,7 @@ namespace PL
             TabItem tabItem = new TabItem();
             tabItem.Content = new BaseStationList(bl, addTab);
             button.Visibility = Visibility.Collapsed;
-            tabItem.Header = "Base station list";
+            //tabItem.Header = "Base station list";
             addTab(tabItem);
         }
 
