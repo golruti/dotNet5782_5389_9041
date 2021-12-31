@@ -8,7 +8,7 @@ using static PO.Enums;
 
 namespace PO
 {
-    class ParcelForList : INotifyPropertyChanged
+    public class ParcelForList : INotifyPropertyChanged
     {
         private int id;
         public int Id
@@ -22,7 +22,8 @@ namespace PO
         }
 
         private string sendCustomer;
-        public string SendCustomer {
+        public string SendCustomer
+        {
             get { return sendCustomer; }
             set
             {
@@ -32,7 +33,8 @@ namespace PO
         }
 
         private string receiveCustomer;
-        public string ReceiveCustomer {
+        public string ReceiveCustomer
+        {
             get { return receiveCustomer; }
             set
             {
@@ -42,7 +44,8 @@ namespace PO
         }
 
         private WeightCategories weight;
-        public WeightCategories Weight {
+        public WeightCategories Weight
+        {
             get { return weight; }
             set
             {
@@ -52,7 +55,8 @@ namespace PO
         }
 
         private Priorities priority;
-        public Priorities Priority {
+        public Priorities Priority
+        {
             get { return priority; }
             set
             {
@@ -62,7 +66,8 @@ namespace PO
         }
 
         private ParcelStatuses status;
-        public ParcelStatuses Status {
+        public ParcelStatuses Status
+        {
             get { return status; }
             set
             {

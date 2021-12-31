@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace PL
+namespace PL.ViewModel
 {
-    class BaseStationListModel
+   public class DroneListModel
     {
         BlApi.IBL bl;
-        ObservableCollection<BaseStationForList> BaseStations;
+        ObservableCollection<DroneForList> droneForLists;
         ListCollectionView listCollectionView;
         Action<TabItem> addTab;
         Action<TabItem> closeTab;

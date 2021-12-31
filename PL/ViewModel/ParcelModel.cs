@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace PL
+namespace PL.ViewModel
 {
-    class ParcelModel
+    public class ParcelModel
     {
         private BlApi.IBL bl;
         private BO.Parcel parcelInList;

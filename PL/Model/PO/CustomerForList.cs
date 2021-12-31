@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PO
 {
-    class CustomerForList : INotifyPropertyChanged
+   public class CustomerForList : INotifyPropertyChanged
     {
         private int id;
         public int Id

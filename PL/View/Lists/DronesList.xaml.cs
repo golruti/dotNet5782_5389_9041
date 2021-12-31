@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using BO;
+using PL.ViewModel;
 
 namespace PL
 {

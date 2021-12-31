@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PO
 {
-    class BaseStationForList : INotifyPropertyChanged
+    public class Customer : INotifyPropertyChanged
     {
         private int id;
         public int Id
@@ -31,25 +31,46 @@ namespace PO
             }
         }
 
-        private int availableChargingPorts;
-        public int AvailableChargingPorts
+        private string phone;
+        public string Phone
         {
-            get { return availableChargingPorts; }
+            get { return phone; }
             set
             {
-                availableChargingPorts = value;
-                OnPropertyChanged(nameof(AvailableChargingPorts));
+                phone = value;
+                OnPropertyChanged(nameof(Phone));
             }
         }
 
-        private int usedChargingPorts;
-        public int UsedChargingPorts
+        private Location location;
+        public Location Location
         {
-            get { return usedChargingPorts; }
+            get { return location; }
             set
             {
-                usedChargingPorts = value;
-                OnPropertyChanged(nameof(UsedChargingPorts));
+                location = value;
+                OnPropertyChanged(nameof(Location));
+            }
+        }
+
+        private IEnumerable<ParcelToCustomer> fromCustomer;
+        public IEnumerable<ParcelToCustomer> FromCustomer
+        {
+            get { return fromCustomer; }
+            set
+            {
+                fromCustomer= value;
+                OnPropertyChanged(nameof(FromCustomer));
+            }
+        }
+
+        private IEnumerable<ParcelToCustomer> toCustomer;
+        public IEnumerable<ParcelToCustomer> ToCustomer {
+            get { return toCustomer; }
+            set
+            {
+                toCustomer = value;
+                OnPropertyChanged(nameof(ToCustomer));
             }
         }
 

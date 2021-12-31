@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PO
 {
-    class DroneInParcel : INotifyPropertyChanged
+   public class DroneInCharging : INotifyPropertyChanged
     {
         private int id;
         public int Id
@@ -31,14 +31,14 @@ namespace PO
             }
         }
 
-        private Location location;
-        public Location Location
+        private DateTime? time;
+        public DateTime? Time
         {
-            get { return location; }
+            get { return time; }
             set
             {
-                location = value;
-                OnPropertyChanged(nameof(Location));
+                time = value;
+                OnPropertyChanged(nameof(Time));
             }
         }
 
@@ -56,4 +56,3 @@ namespace PO
         #endregion
     }
 }
-
