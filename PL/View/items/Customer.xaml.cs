@@ -29,6 +29,7 @@ namespace PL
         private IEnumerable<BO.ParcelToCustomer> fromCustomer;
         private IEnumerable<BO.ParcelToCustomer> toCustomer;
 
+        CustomerModel CustomerModel;
 
         public Customer(BlApi.IBL bl, Action refreshCustomersList)
         {
@@ -36,6 +37,9 @@ namespace PL
             this.bl = bl;
             this.refreshCustomersList = refreshCustomersList;
             Add_grid.Visibility = Visibility.Visible;
+
+            CustomerModel = new CustomerModel();
+            this.DataContext = CustomerModel;
         }
 
         public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)

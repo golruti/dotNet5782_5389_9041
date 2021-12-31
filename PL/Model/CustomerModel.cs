@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace PL
 {
-    class CustonerModel
+    class CustomerModel
     {
         private BlApi.IBL bl;
         private PO.Customer customerInList;
