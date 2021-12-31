@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL"
-      xmlns:Converters="clr-namespace:ValueConverters" 
+      xmlns:Converters="clr-namespace:Converters" 
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -15,7 +15,13 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
-        <!--<Converters:ValueConverter x:Key="valueconverter"></Converters:ValueConverter>-->
+        <Converters:ContentConvert x:Key="contentConvert"></Converters:ContentConvert>
+        <Converters:DroneAvailableStatusConvert x:Key="droneAvailableStatusConvert"></Converters:DroneAvailableStatusConvert>
+        <Converters:DroneDeliveryStatusConvert x:Key="droneDeliveryStatusConvert"></Converters:DroneDeliveryStatusConvert>
+        <Converters:DroneMaintenanceStatusConvert x:Key="droneMaintenanceStatusConvert"></Converters:DroneMaintenanceStatusConvert>
+        <Converters:ParcelStatusByDroneAssociatedConvert x:Key="parcelStatusByDroneAssociatedConvert"></Converters:ParcelStatusByDroneAssociatedConvert>
+        <Converters:ParcelStatusByDroneCollectedConvert x:Key="parcelStatusByDroneCollectedConvert"></Converters:ParcelStatusByDroneCollectedConvert>
+        
         
     </UserControl.Resources>
     <Grid Background="White">
@@ -63,10 +69,15 @@
 
             </Grid>
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
-                <!--<Button Content = "Sending a drone for charging" Click = "SendingDroneForCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" IsEnabled="{Binding Path=Text, ElementName=txtFirstName,Converter={StaticResource valueconverter}}"></Button>-->
+                <Button Content = "Sending a drone for charging" Click = "SendingDroneForCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding droneForList.status,Converter={StaticResource droneAvailableStatusConvert}}"/>
+                <Button Content = " Connecting a parcel to a drone" Click= "SendingDroneForDelivery_Click" Background = "DarkCyan" Height ="40" Width = "130" Visibility="{Binding droneForList.status,Converter={StaticResource droneAvailableStatusConvert}}"/>
+                <Button Content = "Release drone from charging" Click= "ReleaseDroneFromCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" HorizontalAlignment ="Center" Visibility="{Binding droneForList.status,Converter={StaticResource droneMaintenanceStatusConvert}}"/>
+                <Button Content = "Parcel delivery" Click = "ParcelDelivery_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding parcelStutus,Converter={StaticResource parcelStatusByDroneCollectedConvert}}"/>
+                
+                <Button Content = "Parcel collection" Click = "ParcelCollection_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding parcelStutus,Converter={StaticResource parcelStatusByDroneAssociatedConvert}}"/>
                 <Button x:Name="finish" Content="Finish" Visibility="Collapsed"  Background="DarkCyan" Height="40" Width="130" HorizontalAlignment = "Center" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
                 <Button Content="close"   Height="40" Width="130" Background="DarkCyan"  Click="Close_Page" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-                <Button  Content="Update Model" Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
+                <Button  Content="Update Model" Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold" IsEnabled="{Binding ElementName=Model,Converter={StaticResource contentConvert}}"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="Add_grid" Visibility="Collapsed" >
@@ -98,7 +109,7 @@
             </Grid>
 
             <Grid Width="200" Height="50" Margin="259,205,145,95">
-                <!--<Button Content = "Sending a drone for charging" Click = "Finish_Click" Background = "DarkCyan" Height = "40" Width = "130" IsEnabled="{Binding Path=Text, ElementName=Model,Converter={StaticResource valueconverter}}"></Button>-->
+                <Button Content = "Update_Click" Click = "Update_Click" Background = "DarkCyan" Height = "40" Width = "130" IsEnabled="{Binding ,Converter={StaticResource contentConvert}}"></Button>
                 <Button  Content="finish"  Margin="40,15,100,15" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
                 <Button Background="DarkCyan" Content="concel"  Margin="115,15,25,15" Click="Close_Page"  Height="20" Width="60" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
             </Grid>

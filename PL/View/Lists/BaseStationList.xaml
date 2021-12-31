@@ -43,15 +43,29 @@
 
                 <CheckBox Content="for available base stations"  x:Name="Available" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="123,9,217,-9" RenderTransformOrigin="0.5,0.5"/>
             </Grid>
+            <ListView x:Name="BaseStationListView" ItemsSource="{Binding}" DisplayMemberPath="" MouseDoubleClick="BaseStationListView_MouseDoubleClick" Grid.Row="1" Grid.RowSpan="2">
+                <ListView.View >
 
-            <ListView x:Name="BaseStationListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
+                    <GridView>
+                       
+                        <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
+                        <GridViewColumn  Header="Name" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn  Header="AvailableChargingPorts" DisplayMemberBinding="{Binding AvailableChargingPorts}" />
+                        <GridViewColumn  Header="UsedChargingPorts" DisplayMemberBinding="{Binding UsedChargingPorts}"/>
+                        
+                    </GridView>
+
+                </ListView.View>
+            </ListView>
+
+            <!--<ListView x:Name="BaseStationListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
                 <ListView.ItemTemplate>
                     <ItemContainerTemplate>
                         <ContentControl Content="{Binding }" MouseDoubleClick="BaseStationListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>
                     </ItemContainerTemplate>
                 </ListView.ItemTemplate>
 
-            </ListView>
+            </ListView>-->
             
             <!--<Button Content="close"  HorizontalAlignment="Left" Margin="693,34,0,0" VerticalAlignment="Top"   Click="Close_Page" Grid.Row="2" RenderTransformOrigin="-0.019,0.436" FontSize="10" FontFamily="Consolas" FontWeight="Bold" Height="41" Width="100" Background="DarkCyan"/>
             <Button  Content="add Base Station"  HorizontalAlignment="Left"   Click="ShowAddBaseStationWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="577,34,0,0"   Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold" Height="41" Width="100" Background="DarkCyan"/>-->

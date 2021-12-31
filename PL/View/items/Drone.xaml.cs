@@ -36,7 +36,7 @@ namespace PL
         {
             InitializeComponent();
             this.bl = bl;
-
+            
             StationsId.DataContext = (bl.GetBaseStationForList()).Select(s => s.Id);
             this.refreshDroneList = refreshDroneList;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
@@ -49,44 +49,44 @@ namespace PL
             this.refreshDroneList = refreshDroneList;
             this.droneInList = bl.GetBLDrone(droneForList.Id);
             this.DataContext = droneForList;
-
+            Enums.ParcelStatuses parcelStutus = bl.GetParcelStatusByDrone(droneForList.Id);
             if (droneForList.Status == Enums.DroneStatuses.Available)
             {
-                Button sendingDroneForChargingBtn = new Button();
-                sendingDroneForChargingBtn.Content = "Sending a drone for charging";
-                sendingDroneForChargingBtn.Click += SendingDroneForCharging_Click;
-                sendingDroneForChargingBtn.IsEnabled = true;
-                sendingDroneForChargingBtn.Background = Brushes.DarkCyan;
-                sendingDroneForChargingBtn.Height = 40;
-                sendingDroneForChargingBtn.Width = 130;
+                //Button sendingDroneForChargingBtn = new Button();
+                //sendingDroneForChargingBtn.Content = "Sending a drone for charging";
+                //sendingDroneForChargingBtn.Click += SendingDroneForCharging_Click;
+                //sendingDroneForChargingBtn.IsEnabled = true;
+                //sendingDroneForChargingBtn.Background = Brushes.DarkCyan;
+                //sendingDroneForChargingBtn.Height = 40;
+                //sendingDroneForChargingBtn.Width = 130;
                 
-                sendingDroneForChargingBtn.HorizontalAlignment = HorizontalAlignment.Center;
-                ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
+                //sendingDroneForChargingBtn.HorizontalAlignment = HorizontalAlignment.Center;
+                //ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
 
-                Button SendingDroneForDelivery = new Button();
-                SendingDroneForDelivery.Content = " Connecting a parcel to a drone";
-                SendingDroneForDelivery.Click += SendingDroneForDelivery_Click;
-                SendingDroneForDelivery.IsEnabled = true;
-                SendingDroneForDelivery.Background = Brushes.DarkCyan;
-                SendingDroneForDelivery.Height = 40;
-                SendingDroneForDelivery.Width = 130;
-                SendingDroneForDelivery.HorizontalAlignment = HorizontalAlignment.Center;
-                ButtonsGroup.Children.Add(SendingDroneForDelivery);
+                //Button SendingDroneForDelivery = new Button();
+                //SendingDroneForDelivery.Content = " Connecting a parcel to a drone";
+                //SendingDroneForDelivery.Click += SendingDroneForDelivery_Click;
+                //SendingDroneForDelivery.IsEnabled = true;
+                //SendingDroneForDelivery.Background = Brushes.DarkCyan;
+                //SendingDroneForDelivery.Height = 40;
+                //SendingDroneForDelivery.Width = 130;
+                //SendingDroneForDelivery.HorizontalAlignment = HorizontalAlignment.Center;
+                //ButtonsGroup.Children.Add(SendingDroneForDelivery);
             }
             else if (droneForList.Status == Enums.DroneStatuses.Maintenance)
             {
-                Button ReleaseDroneFromCharging = new Button();
-                ReleaseDroneFromCharging.Content = "Release drone from charging";
-                ReleaseDroneFromCharging.Click += ReleaseDroneFromCharging_Click;
-                ReleaseDroneFromCharging.IsEnabled = true;
-                ReleaseDroneFromCharging.Background = Brushes.DarkCyan;
-                ReleaseDroneFromCharging.Height = 40;
-                ReleaseDroneFromCharging.Width = 130;
-                ReleaseDroneFromCharging.HorizontalAlignment = HorizontalAlignment.Center;
+                //Button ReleaseDroneFromCharging = new Button();
+                //ReleaseDroneFromCharging.Content = "Release drone from charging";
+                //ReleaseDroneFromCharging.Click += ReleaseDroneFromCharging_Click;
+                //ReleaseDroneFromCharging.IsEnabled = true;
+                //ReleaseDroneFromCharging.Background = Brushes.DarkCyan;
+                //ReleaseDroneFromCharging.Height = 40;
+                //ReleaseDroneFromCharging.Width = 130;
+                //ReleaseDroneFromCharging.HorizontalAlignment = HorizontalAlignment.Center;
 
-                ButtonsGroup.Children.Add(ReleaseDroneFromCharging);
+                //ButtonsGroup.Children.Add(ReleaseDroneFromCharging);
             }
-
+            
             if (bl.GetParcelStatusByDrone(droneForList.Id) == Enums.ParcelStatuses.Associated)
             {
                 Button ParcelCollection = new Button();

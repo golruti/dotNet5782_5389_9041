@@ -53,13 +53,18 @@
                 <Label Grid.Row="6" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,1,0,12" RenderTransformOrigin="0.5,0.5"/>
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Path=Location}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
                 <Label Grid.Row="8" Grid.Column="0" Content="drones in charging: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,0,0,150" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
-                <ListView x:Name="DronesListView" ItemsSource="{Binding Path=DronesInCharging}" Grid.Row="9" Grid.ColumnSpan="2" >
-                    <ListView.ItemTemplate>
-                        <ItemContainerTemplate>
-                            <ContentControl Content="{Binding Path=DronesInCharging }" MouseDoubleClick="DronesListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>
-                        </ItemContainerTemplate>
-                    </ListView.ItemTemplate>
+             
+                <ListView x:Name="DronesListView" ItemsSource="{Binding Path=DronesInCharging}" DisplayMemberPath="" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="9" Grid.ColumnSpan="2">
+                    <ListView.View >
 
+                        <GridView>
+
+                            <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
+                            <GridViewColumn  Header="Battery" DisplayMemberBinding="{Binding Battery}" />
+                            
+                        </GridView>
+
+                    </ListView.View>
                 </ListView>
             </Grid>
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,398,0,10">

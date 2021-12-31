@@ -58,7 +58,7 @@
                 <Label Grid.Row="10" Grid.Column="0" Content="Status: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
                 <TextBlock Grid.Row="10" Grid.Column="1" Text="{Binding Path=Status}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
 
-
+                
 
             </Grid>
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
