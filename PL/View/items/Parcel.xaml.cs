@@ -32,7 +32,7 @@ namespace PL
         {
             InitializeComponent();
             this.bl = bl;
-
+            Add_grid.Visibility = Visibility.Visible;
             Priority.DataContext = Enum.GetValues(typeof(Enums.Priorities));
             this.refreshParcelList = refreshParcelList;
             Weight.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
@@ -41,7 +41,8 @@ namespace PL
         public Parcel(ParcelForList parcelForList, BlApi.IBL bl, Action refreshParcelList)
         {
             InitializeComponent();
-
+            Update_grid.Visibility = Visibility.Visible;
+            
             this.bl = bl;
             this.refreshParcelList = refreshParcelList;
             this.parcelInList = bl.GetBLParcel(parcelForList.Id);

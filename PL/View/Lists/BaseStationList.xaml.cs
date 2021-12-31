@@ -79,7 +79,8 @@ namespace PL
         /// <param name="e"></param>
         private void BaseStationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedBaseStation = (sender as ContentControl).DataContext as BO.BaseStationForList;
+            
+            var selectedBaseStation = BaseStationListView.SelectedItem as BO.BaseStationForList;
 
             TabItem tabItem = new TabItem();
             tabItem.Content = new BaseStation(this.bl,addTab,selectedBaseStation, RefreshBaseStationList);

@@ -39,12 +39,14 @@ namespace PL
             InitializeComponent();
             this.bl = bl;
             this.refreshBaseStationList = refreshBaseStationList;
-
+            Add_grid.Visibility = Visibility.Visible;
         }
+        
         public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList/*,Action refreshDroneList*/)
         {
             InitializeComponent();
             this.bl = bl;
+            Update_grid.Visibility = Visibility.Visible;
             baseStation = bl.GetBLBaseStation(baseStationForList.Id);
             DataContext = baseStationForList;
             droneList = new ObservableCollection<DroneForList>(bl.GetDroneForList());

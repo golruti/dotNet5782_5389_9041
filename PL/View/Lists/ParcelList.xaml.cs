@@ -62,12 +62,12 @@ namespace PL
         {
             if (obj is ParcelForList parcel)
             {
-                if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
+                if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null && To.SelectedDate!=null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
                     DateTime dateTimeT = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
                     DateTime dateTimeF = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
-                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTimeF && bl.GetBLParcel(parcel.Id).Requested < dateTimeT;
+                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTimeF && bl.GetBLParcel(parcel.Id).Requested < dateTimeT && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
                 else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
@@ -340,6 +340,15 @@ namespace PL
         }
 
         
+        private void To_time_selectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshFilter();
+        }
+
+        private void From_time_selectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshFilter();
+        }
         /// <summary>
         /// Opens a window for adding a skimmer
         /// </summary>
