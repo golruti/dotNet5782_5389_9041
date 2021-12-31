@@ -159,6 +159,7 @@ namespace BL
                 Phone = customer.Phone,
             };
         }
+
         /// <summary>
         /// Convert a DAL customer to BL Customer In Parcel
         /// </summary>

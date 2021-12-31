@@ -8,5 +8,27 @@ namespace PO
 {
     class Enums
     {
+
+        public enum WeightCategories
+        {
+            Light, Medium, Heavy
+        }
+
+        public enum Priorities
+        {
+            Regular, Fast, Emergency
+        }
+
+        public enum DroneStatuses
+        {
+            Available, Maintenance, Delivery
+        }
+        public enum ParcelStatuses
+        {
+            Created,
+            Associated,
+            Collected,
+            Provided
+        }
     }
 }

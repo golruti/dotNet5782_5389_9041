@@ -18,7 +18,6 @@ namespace BO
         public Location SenderLocation { get; set; }
         public Location TargetLocation { get; set; }
         public bool IsDestinationParcel { get; set; }
-
         public double Distance { get; set; }
     }
 }
