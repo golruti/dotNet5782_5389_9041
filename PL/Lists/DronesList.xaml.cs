@@ -24,7 +24,6 @@ namespace PL
     {
         BlApi.IBL bl;
         Action<TabItem> addTab;
-
         ObservableCollection<DroneForList> droneForLists;
         ListCollectionView listCollectionView;
 
