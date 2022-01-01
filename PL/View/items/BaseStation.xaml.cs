@@ -33,7 +33,6 @@ namespace PL
         Action refreshBaseStationList;
         ObservableCollection<DroneForList> droneList;
         private IEnumerable<BO.DroneInCharging> dronesInCharging;
-        //Action refreshDroneList;
 
         public BaseStation(BlApi.IBL bl, Action refreshBaseStationList)
         {
