@@ -27,10 +27,9 @@ namespace PL
         public Customer(BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
-            Add_grid.Visibility = Visibility.Visible;
-
             CustomerViewModel = new CustomerViewModel(bl, refreshCustomersList);
             this.DataContext = CustomerViewModel;
+            Add_grid.Visibility = Visibility.Visible;
         }
 
         public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
@@ -56,12 +55,6 @@ namespace PL
             CustomerViewModel.RefreshCustomersList();
         }
 
-        private void update_name_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            CustomerViewModel.NewName = (sender as TextBox).Text;
-
-        }
-
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             CustomerViewModel.Bl.DeleteBLCustomer(CustomerViewModel.CustomerInList.Id);
@@ -70,7 +63,6 @@ namespace PL
                 Close_Page(sender, e);
             }
         }
-
 
         private void Add_Customer_finish_click(object sender, RoutedEventArgs e)
         {

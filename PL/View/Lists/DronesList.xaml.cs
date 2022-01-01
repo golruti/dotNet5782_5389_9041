@@ -25,14 +25,17 @@ namespace PL
     {
         BlApi.IBL bl;
         Action<TabItem> addTab;
+        Action<object, RoutedEventArgs> RemoveTab;
         ObservableCollection<DroneForList> droneForLists;
         ListCollectionView listCollectionView;
 
-        public DronesList(BlApi.IBL bl, Action<TabItem> addTab)
+        public DronesList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
+            this.RemoveTab = removeTab;
+
 
             droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList());
             listCollectionView = new ListCollectionView(droneForLists);

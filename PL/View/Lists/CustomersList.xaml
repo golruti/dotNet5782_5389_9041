@@ -8,20 +8,20 @@
          Height="450" Width="800">
     <Grid>
 
-        <ListView x:Name="CustomersListView" ItemsSource="{Binding}" DisplayMemberPath="" MouseDoubleClick="CustomersListView_MouseLeftButtonDown">
+        <ListView x:Name="CustomersListViewXaml" ItemsSource="{Binding CustomersForList}" MouseDoubleClick="CustomersListView_MouseLeftButtonDown">
+           
             <ListView.View >
-
                 <GridView>
-                    <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
-                    <GridViewColumn  Header="Name" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn  Header="Phone number" DisplayMemberBinding="{Binding Phone}" />
+                    <GridViewColumn  Header="ID" DisplayMemberBinding="{Binding Id }"/>
+                    <GridViewColumn  Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn  Header="Phone number" DisplayMemberBinding="{Binding Phone}"/>
                     <GridViewColumn  Header="send parcel" DisplayMemberBinding="{Binding NumParcelSentDelivered}"/>
                     <GridViewColumn  Header="parcel in process" DisplayMemberBinding="{Binding NumParcelSentNotDelivered}"/>
                     <GridViewColumn Header="parcel on way" DisplayMemberBinding="{Binding NumParcelWayToCustomer}"/>
                     <GridViewColumn  Header="Recived parcel" DisplayMemberBinding="{Binding NumParcelReceived}"/>
                 </GridView>
-
             </ListView.View>
+        
         </ListView>
 
         <StackPanel>

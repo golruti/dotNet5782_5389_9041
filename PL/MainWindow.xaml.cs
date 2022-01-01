@@ -39,6 +39,19 @@ namespace PL
             tub_control.Items.Add(tabItem);
         }
 
+        internal void RemoveTab(object sender, RoutedEventArgs e)
+        {
+            object tmp = sender;
+            TabItem tabItem = null;
+            while (tmp.GetType() != typeof(TabControl))
+            {
+                if (tmp.GetType() == typeof(TabItem))
+                    tabItem = (tmp as TabItem);
+                tmp = ((FrameworkElement)tmp).Parent;
+            }
+            if (tmp is TabControl tabControl)
+                tabControl.Items.Remove(tabItem);
+        }
         private void CloseTab(object sender, RoutedEventArgs e)
         {
             object tmp = sender;
@@ -55,7 +68,7 @@ namespace PL
         private void showCustomerOfCompanyWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerEntrance(bl, AddTab);
+            tabItem.Content = new CustomerEntrance(bl, AddTab,RemoveTab);
             tabItem.Header = "Customer of company";
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);
@@ -64,7 +77,7 @@ namespace PL
         private void showEmployeeWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Employee(bl, AddTab);
+            tabItem.Content = new Employee(bl, AddTab, RemoveTab);
             tabItem.Header = "Employee";
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);

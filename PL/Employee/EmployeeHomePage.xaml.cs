@@ -23,11 +23,13 @@ namespace PL
     {
         private BlApi.IBL bl;
         Action<TabItem> addTab;
-        public EmployeeHomePage(BlApi.IBL bl, Action<TabItem> addTab)
+        Action<object, RoutedEventArgs> RemoveTab;
+        public EmployeeHomePage(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
+            this.RemoveTab = removeTab;
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace PL
         private void ShowDroneListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new DronesList(bl, addTab);
+            tabItem.Content = new DronesList(bl, addTab, RemoveTab);
             tabItem.Header = "Drone list";
             addTab(tabItem);
         }
@@ -46,7 +48,7 @@ namespace PL
         private void ShowParcelListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new ParcelList(bl, addTab);
+            tabItem.Content = new ParcelList(bl, addTab, RemoveTab);
             //button.Visibility = Visibility.Collapsed;
             tabItem.Header = "parcel list";
             addTab(tabItem);
@@ -55,7 +57,7 @@ namespace PL
         private void ShowBaseStationListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStationList(bl, addTab);
+            tabItem.Content = new BaseStationList(bl, addTab, RemoveTab);
             button.Visibility = Visibility.Collapsed;
             //tabItem.Header = "Base station list";
             addTab(tabItem);
@@ -64,7 +66,7 @@ namespace PL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerEntrance(bl,addTab);
+            tabItem.Content = new CustomerEntrance(bl,addTab, RemoveTab);
             tabItem.Header = "Customer entrance";
             addTab(tabItem);
         }
@@ -72,7 +74,7 @@ namespace PL
         private void showCustomersListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomersList(bl, addTab);
+            tabItem.Content = new CustomersList(bl, addTab, RemoveTab);
             button.Visibility = Visibility.Collapsed;
             tabItem.Header = "Customers list";
             addTab(tabItem);

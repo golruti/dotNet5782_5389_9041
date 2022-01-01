@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PL.ViewModel;
 
+
 namespace PL
 {
     /// <summary>
@@ -22,44 +23,32 @@ namespace PL
     /// </summary>
     public partial class CustomersList
     {
-        BlApi.IBL bl;
-        Action<TabItem> addTab;
-        ObservableCollection<CustomerForList> customerForLists;
+        CustomerListViewModel customerListViewModel;
 
-        public CustomersList(BlApi.IBL bl, Action<TabItem> addTab)
+        public CustomersList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
-            this.bl = bl;
-            this.addTab = addTab;
-            customerForLists = new ObservableCollection<CustomerForList>(bl.GetCustomerForList());
-            CustomersListView.DataContext = customerForLists;
+            customerListViewModel = new CustomerListViewModel(bl, addTab,removeTab);
+            this.DataContext = customerListViewModel;
         }
 
         private void CustomersListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var selectedCustomer = CustomersListView.SelectedItem as BO.CustomerForList;
+            var selectedCustomer = CustomersListViewXaml.SelectedItem as PO.CustomerForList;
+            
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(selectedCustomer, this.bl, refreshCustomerList);
+            tabItem.Content = new Customer(PO.ConvertFunctions.POCustomerForListToBO( selectedCustomer), customerListViewModel.Bl, customerListViewModel.RefreshCustomerList);
             tabItem.Header = "Update customer";
             tabItem.Visibility = Visibility.Visible;
-            this.addTab(tabItem);
-        }
-
-
-        private void refreshCustomerList()
-        {
-            customerForLists = new ObservableCollection<CustomerForList>(bl.GetCustomerForList());
-            CustomersListView.DataContext = customerForLists;
+            customerListViewModel.AddTab(tabItem);
         }
 
         private void add_customer_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(bl, refreshCustomerList);
+            tabItem.Content = new Customer(customerListViewModel.Bl, customerListViewModel.RefreshCustomerList);
             tabItem.Header = "Add customer";
-            this.addTab(tabItem);
+            customerListViewModel.AddTab(tabItem);
         }
-
-
     }
 }

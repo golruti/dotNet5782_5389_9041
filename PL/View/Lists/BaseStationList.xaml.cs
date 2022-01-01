@@ -25,12 +25,14 @@ namespace PL
     {
         BlApi.IBL bl;
         Action<TabItem> addTab;
+        Action<object, RoutedEventArgs> RemoveTab;
         ObservableCollection<BaseStationForList> BaseStations;
-        public BaseStationList(BlApi.IBL bl, Action<TabItem> addTab)
+        public BaseStationList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
             this.bl = bl;
             this.addTab = addTab;
+            this.RemoveTab = removeTab;
             BaseStations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationForList());
             BaseStationListView.DataContext = BaseStations;
             

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,8 +26,6 @@ namespace PO
             return (Enums.ParcelStatuses)parcelStatuses;
         }
 
-
-
         public static Location BOLocationToPO(BO.Location location)
         {
             return new Location
@@ -36,7 +35,7 @@ namespace PO
             };
         }
 
-        DroneInParcel BODroneParceToPO(BO.DroneInParcel droneParcel)
+        public static DroneInParcel BODroneParceToPO(BO.DroneInParcel droneParcel)
         {
             return new DroneInParcel
             {
@@ -55,7 +54,7 @@ namespace PO
                 Name = customerDelivery.Name,
             };
         }
-        Parcel BOParcelToPO(BO.Parcel parcel)
+        public static Parcel BOParcelToPO(BO.Parcel parcel)
         {
             return new Parcel
             {
@@ -72,7 +71,6 @@ namespace PO
             };
         }
 
-
         public static IEnumerable<ParcelToCustomer> BOParcelToCustomerToPO(IEnumerable<BO.ParcelToCustomer> parcelsToCustomer)
         {
             if (parcelsToCustomer == null)
@@ -86,7 +84,6 @@ namespace PO
                 Customer = BOCustomerDeliveryToPO(parcel.Customer)
             });
         }
-
         public static Customer BOCustomerToPO(BO.Customer customer)
         {
             return new Customer
@@ -101,9 +98,32 @@ namespace PO
         }
 
 
-        IEnumerable<CustomerForList> BOCustomerForListToPO(IEnumerable<BO.CustomerForList> customersForList)
+        public static ObservableCollection<CustomerForList> BOCustomerForListToPO(IEnumerable<BO.CustomerForList> customersForList)
         {
-            return customersForList.Select(customer => new CustomerForList()
+            ObservableCollection<PO.CustomerForList> c = new ObservableCollection<CustomerForList>();
+
+            foreach (var customer in customersForList)
+            {
+                c.Add(new CustomerForList()
+                {
+                    Id = customer.Id,
+                    Name = customer.Name,
+                    Phone = customer.Phone,
+                    NumParcelSentDelivered = customer.NumParcelSentDelivered,
+                    NumParcelSentNotDelivered = customer.NumParcelSentNotDelivered,
+                    NumParcelReceived = customer.NumParcelReceived,
+                    NumParcelWayToCustomer = customer.NumParcelWayToCustomer
+                });
+            }
+
+            //if (customersForList == null)
+            //    return ObservableCollection.Empty<CustomerForList>();
+            return c;
+        }
+
+        public static BO.CustomerForList POCustomerForListToBO(CustomerForList customer)
+        {
+            return new BO.CustomerForList()
             {
                 Id = customer.Id,
                 Name = customer.Name,
@@ -112,7 +132,7 @@ namespace PO
                 NumParcelSentNotDelivered = customer.NumParcelSentNotDelivered,
                 NumParcelReceived = customer.NumParcelReceived,
                 NumParcelWayToCustomer = customer.NumParcelWayToCustomer
-            });
+            };
         }
     }
 }

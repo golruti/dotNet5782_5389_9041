@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,18 +23,21 @@ namespace PL
     {
         Action<TabItem> addTab;
         private BlApi.IBL bl;
+        private Action<object, RoutedEventArgs> RemoveTab;
 
-        public Employee(BlApi.IBL bl, Action<TabItem> addTab)
+        public Employee(IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
-            this.bl = bl; ;
+
+            this.bl = bl;
             this.addTab = addTab;
+            this.RemoveTab = removeTab;
         }
 
         private void show_EmployeeHomePage(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new EmployeeHomePage(bl, addTab);
+            tabItem.Content = new EmployeeHomePage(bl, addTab, RemoveTab);
             tabItem.Header = "Employee Home Page";
             this.addTab(tabItem);
             Close_Page(sender, e);

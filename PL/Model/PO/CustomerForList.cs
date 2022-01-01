@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PO
 {
-   public class CustomerForList : INotifyPropertyChanged
+    public class CustomerForList : INotifyPropertyChanged
     {
         private int id;
         public int Id
@@ -34,7 +34,7 @@ namespace PO
         private string phone;
         public string Phone
         {
-            get { return Phone; }
+            get { return phone; }
             set
             {
                 phone = value;
@@ -44,7 +44,8 @@ namespace PO
 
         private int numParcelSentDelivered;
 
-        public int NumParcelSentDelivered {
+        public int NumParcelSentDelivered
+        {
             get { return numParcelSentDelivered; }
             set
             {
@@ -54,7 +55,8 @@ namespace PO
         }
 
         private int numParcelSentNotDelivered;
-        public int NumParcelSentNotDelivered {
+        public int NumParcelSentNotDelivered
+        {
             get { return numParcelSentNotDelivered; }
             set
             {
@@ -64,7 +66,8 @@ namespace PO
         }
 
         private int numParcelReceived;
-        public int NumParcelReceived {
+        public int NumParcelReceived
+        {
             get { return numParcelReceived; }
             set
             {
@@ -74,7 +77,8 @@ namespace PO
         }
 
         private int numParcelWayToCustomer;
-        public int NumParcelWayToCustomer {
+        public int NumParcelWayToCustomer
+        {
             get { return numParcelWayToCustomer; }
             set
             {
@@ -82,7 +86,6 @@ namespace PO
                 OnPropertyChanged(nameof(NumParcelWayToCustomer));
             }
         }
-
 
         #region INotifyPropertyChanged Members  
         public event PropertyChangedEventHandler PropertyChanged;

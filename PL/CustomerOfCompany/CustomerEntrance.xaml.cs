@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,13 +22,16 @@ namespace PL
     public partial class CustomerEntrance : UserControl
     {
         Action<TabItem> addTab;
+        Action<object, RoutedEventArgs> RemoveTab;
         Action<object, RoutedEventArgs> closeTab;
         private BlApi.IBL bl;
 
-        public CustomerEntrance(BlApi.IBL bl, Action<TabItem> addTab )
+
+        public CustomerEntrance(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab )
         {
             InitializeComponent();
             this.addTab = addTab;
+            this.RemoveTab = removeTab;
             this.bl = bl;
         }
 
