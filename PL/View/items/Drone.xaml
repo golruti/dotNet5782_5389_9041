@@ -21,6 +21,7 @@
         <Converters:DroneMaintenanceStatusConvert x:Key="droneMaintenanceStatusConvert"></Converters:DroneMaintenanceStatusConvert>
         <Converters:ParcelStatusByDroneAssociatedConvert x:Key="parcelStatusByDroneAssociatedConvert"></Converters:ParcelStatusByDroneAssociatedConvert>
         <Converters:ParcelStatusByDroneCollectedConvert x:Key="parcelStatusByDroneCollectedConvert"></Converters:ParcelStatusByDroneCollectedConvert>
+        <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
         
         
     </UserControl.Resources>
@@ -109,8 +110,17 @@
             </Grid>
 
             <Grid Width="200" Height="50" Margin="259,205,145,95">
-                <!--<Button Content = "Update_Click" Click = "Update_Click" Background = "DarkCyan" Height = "40" Width = "130" IsEnabled="{Binding ,Converter={StaticResource contentConvert}}"></Button>-->
-                <Button  Content="finish"  Margin="40,15,100,15" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+                <Button Content = "Update_Click" Click = "Update_Click" Background = "DarkCyan" Height = "40" Width = "130" IsEnabled="{Binding ElementName=Model ,Converter={StaticResource contentConvert}}"></Button>
+                <Button  Content="finish"  Margin="40,15,100,15" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource multyConvert4Items}">
+                            <Binding ElementName="Id" Path="Text"></Binding>
+                            <Binding ElementName="StationsId" Path="Text"></Binding>
+                            <Binding ElementName="Model" Path="Text"></Binding>
+                            <Binding ElementName="DroneWeights" Path="Text"></Binding>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
                 <Button Background="DarkCyan" Content="concel"  Margin="115,15,25,15" Click="Close_Page"  Height="20" Width="60" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
             </Grid>
 

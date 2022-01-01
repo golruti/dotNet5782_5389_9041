@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PL"
+             xmlns:Converters="clr-namespace:Converters" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -13,7 +14,10 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
-
+    <UserControl.Resources>
+        <Converters:ContentConvert x:Key="contentConvert"></Converters:ContentConvert>
+        <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
+    </UserControl.Resources>
     <Grid Background="White">
         <Grid x:Name="Update_grid" Visibility="Collapsed">
             <Grid.RowDefinitions>
@@ -93,7 +97,6 @@
                 <TextBox x:Name="reciverId" Grid.Row="2"  Background="LightGray" PreviewTextInput="textID_PreviewTextInput" Grid.Column="1"/>
                 <Label  Grid.Row="4" Content="   weight:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" HorizontalAlignment="Center" Width="128" Margin="0,5,0,5" Grid.RowSpan="3"/>
                 <ComboBox x:Name="Weight"  Grid.Column="1" ItemsSource="{Binding}" Grid.Row="4" Margin="0,0,0,7" Grid.RowSpan="2"  />
-
                 <Label Grid.Column="0"  Grid.Row="6" Content="   priority:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,5,0,0" Grid.RowSpan="2"/>
                 <ComboBox x:Name="Priority" Background="White" ItemsSource="{Binding}" Grid.Row="6" Grid.Column="1" Margin="0,5,0,0" Grid.RowSpan="2"  />
             </Grid>
@@ -103,7 +106,16 @@
                     <ColumnDefinition Width="137*"/>
                     <ColumnDefinition Width="63*"/>
                 </Grid.ColumnDefinitions>
-                <Button  Content="finish"  Margin="40,15,37,15" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+                <Button  Content="finish"  Margin="40,15,37,15" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource multyConvert4Items}">
+                            <Binding ElementName="senderId" Path="Text"></Binding>
+                            <Binding ElementName="reciverId" Path="Text"></Binding>
+                            <Binding ElementName="Weight" Path="Text"></Binding>
+                            <Binding ElementName="Priority" Path="Text"></Binding>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
                 <Button Background="DarkCyan" Content="concel"  Margin="115,15,25,15" Click="Close_Page"  Height="20" Width="60" FontSize="10" FontFamily="Consolas" FontWeight="Bold" Grid.ColumnSpan="2" />
             </Grid>
 

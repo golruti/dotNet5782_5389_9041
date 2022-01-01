@@ -62,175 +62,166 @@ namespace PL
         {
             if (obj is ParcelForList parcel)
             {
-                if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null && To.SelectedDate!=null)
+                if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate!=null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTimeT = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-                    DateTime dateTimeF = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
-                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTimeF && bl.GetBLParcel(parcel.Id).Requested < dateTimeT && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
-
-                }
-                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
-                {
-                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTimeT = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-                    DateTime dateTimeF = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
-                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTimeF && bl.GetBLParcel(parcel.Id).Requested < dateTimeT;
-
-                }
-
-                else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
-                {
-                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTimeT = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-                    DateTime dateTimeF = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
-                    return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTimeF && bl.GetBLParcel(parcel.Id).Requested < dateTimeT;
-
-                }
-                else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
-                {
-
-                    DateTime dateTimeT = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-                    DateTime dateTimeF = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
-                    return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTimeF && bl.GetBLParcel(parcel.Id).Requested < dateTimeT;
-
-                }
-                else if (ReceiveId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
-                {
-                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTimeT = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-                    DateTime dateTimeF = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
-                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTimeF && bl.GetBLParcel(parcel.Id).Requested < dateTimeT;
-
-                }
-                else if (SenderId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
-                {
-                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTimeT = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-                    DateTime dateTimeF = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
-                    return parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTimeF && bl.GetBLParcel(parcel.Id).Requested < dateTimeT;
-
-                }
-                else if (ParcelStatuses.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
-                {
-
-                    DateTime dateTimeT = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-                    DateTime dateTimeF = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
-                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTimeF && bl.GetBLParcel(parcel.Id).Requested < dateTimeT;
-
-                }
-                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null)
-                {
-                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTime = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-
-                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
-
-                }
-                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null)
-                {
-                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTime = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-
-                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
-
-                }
-
-                else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null)
-                {
-                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTime = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-
-                    return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
-
-                }
-                else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null)
-                {
-
-                    DateTime dateTime = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-
-                    return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
-
-                }
-                else if (ReceiveId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null)
-                {
-                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTime = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-
-                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
-
-                }
-                else if (SenderId.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null)
-                {
-                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTime = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-
-                    return parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
-
-                }
-                else if (ParcelStatuses.SelectedItem != null && YearT.SelectedItem != null && YearT.SelectedItem != null && MonthT.SelectedItem != null && DayT.SelectedItem != null)
-                {
-
-                    DateTime dateTime = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-
-                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
-
-                }
-                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && YearF.SelectedItem!=null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
-                {
-                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTime = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
                     
-                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested>dateTime;
+                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate  && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+
+                }
+                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
+                {
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    
+                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+
+                }
+
+                else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
+                {
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    
+                    return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+
+                }
+                else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
+                {
+
+                  
+                    return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+
+                }
+                else if (ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
+                {
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                   
+                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+
+                }
+                else if (SenderId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
+                {
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                   
+                    return parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+
+                }
+                else if (ParcelStatuses.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
+                {
+
+                    
+                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+
+                }
+                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null )
+                {
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    
+                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
+
+                }
+                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && To.SelectedDate != null )
+                {
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    
+
+                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
+
+                }
+
+                else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null )
+                {
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                   
+
+                    return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
+
+                }
+                else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null )
+                {
+
+                   
+
+                    return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
+
+                }
+                else if (ReceiveId.SelectedItem != null && To.SelectedDate != null )
+                {
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    
+
+                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
+
+                }
+                else if (SenderId.SelectedItem != null && To.SelectedDate != null )
+                {
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    
+                    return parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
+
+                }
+                else if (ParcelStatuses.SelectedItem != null && To.SelectedDate != null )
+                {
+
+                   
+
+                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
+
+                }
+                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null  && From.SelectedDate != null)
+                {
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    
+                    
+                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested> From.SelectedDate;
                     
                 }
-                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null  && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
+                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTime = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
+                    
 
-                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem  && bl.GetBLParcel(parcel.Id).Requested > dateTime;
+                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem  && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
 
-                else if (ParcelStatuses.SelectedItem != null  && ReceiveId.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
+                else if (ParcelStatuses.SelectedItem != null  && ReceiveId.SelectedItem != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTime = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
+                   
 
-                    return parcel.Status == status &&  parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
+                    return parcel.Status == status &&  parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
-                else if ( SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
+                else if ( SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedDate != null)
                 {
                    
-                    DateTime dateTime = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
+                    
 
-                    return  parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
+                    return  parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
-                else if ( ReceiveId.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
+                else if ( ReceiveId.SelectedItem != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTime = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
+                    
 
-                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
+                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
-                else if ( SenderId.SelectedItem != null &&  YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
+                else if ( SenderId.SelectedItem != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    DateTime dateTime = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
+                    
 
-                    return  parcel.SendCustomer == SenderId.SelectedItem  && bl.GetBLParcel(parcel.Id).Requested > dateTime;
+                    return  parcel.SendCustomer == SenderId.SelectedItem  && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
-                else if (ParcelStatuses.SelectedItem != null && YearF.SelectedItem != null && MonthF.SelectedItem != null && DayF.SelectedItem != null)
+                else if (ParcelStatuses.SelectedItem != null && From.SelectedDate != null)
                 {
                     
-                    DateTime dateTime = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
+                    
 
-                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > dateTime;
+                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
 
@@ -249,12 +240,11 @@ namespace PL
                     
                     return  parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
                 }
-                else if ( YearT.SelectedItem != null && YearF.SelectedItem != null)
+                else if ( To.SelectedDate != null && From.SelectedDate != null)
                 {
 
-                    DateTime dateTimeT = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
-                    DateTime dateTimeF = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
-                    return  bl.GetBLParcel(parcel.Id).Requested > dateTimeF && bl.GetBLParcel(parcel.Id).Requested < dateTimeT;
+                   
+                    return  bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
                 else if ( ReceiveId.SelectedItem != null )
