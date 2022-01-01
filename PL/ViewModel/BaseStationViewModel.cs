@@ -9,12 +9,17 @@ using System.Windows.Controls;
 
 namespace PL.ViewModel
 {
-    public class BaseStationModel
+    public class BaseStationViewModel
     {
         BlApi.IBL bl;
         private PO.BaseStation baseStation;
         Action refreshBaseStationList;
         Action<TabItem> addTab;
         Action<TabItem> closeTab;
+
+        private string newName;
+        private string newNum;
+
+        ObservableCollection<DroneForList> droneList;
     }
 }

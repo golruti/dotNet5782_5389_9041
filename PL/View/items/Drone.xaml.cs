@@ -24,94 +24,22 @@ namespace PL
     /// </summary>
     public partial class Drone
     {
-        private BlApi.IBL bl;
-        private BO.Drone droneInList;
-        private Action refreshDroneList;
-        private string newModel;       
-        private Random rand;
-
-        
+        DroneViewModel droneViewModel;
 
         public Drone(BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
-            this.bl = bl;
-            
-            StationsId.DataContext = (bl.GetBaseStationForList()).Select(s => s.Id);
-            this.refreshDroneList = refreshDroneList;
-            DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
+            droneViewModel = new DroneViewModel(bl, refreshDroneList);
+            this.DataContext = droneViewModel;
+            Add_grid.Visibility = Visibility.Visible;
         }
         public Drone(DroneForList droneForList, BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
-
-            this.bl = bl;
-            this.refreshDroneList = refreshDroneList;
-            this.droneInList = bl.GetBLDrone(droneForList.Id);
-            this.DataContext = droneForList;
-            Enums.ParcelStatuses parcelStutus = bl.GetParcelStatusByDrone(droneForList.Id);
-            if (droneForList.Status == Enums.DroneStatuses.Available)
-            {
-                //Button sendingDroneForChargingBtn = new Button();
-                //sendingDroneForChargingBtn.Content = "Sending a drone for charging";
-                //sendingDroneForChargingBtn.Click += SendingDroneForCharging_Click;
-                //sendingDroneForChargingBtn.IsEnabled = true;
-                //sendingDroneForChargingBtn.Background = Brushes.DarkCyan;
-                //sendingDroneForChargingBtn.Height = 40;
-                //sendingDroneForChargingBtn.Width = 130;
-                
-                //sendingDroneForChargingBtn.HorizontalAlignment = HorizontalAlignment.Center;
-                //ButtonsGroup.Children.Add(sendingDroneForChargingBtn);
-
-                //Button SendingDroneForDelivery = new Button();
-                //SendingDroneForDelivery.Content = " Connecting a parcel to a drone";
-                //SendingDroneForDelivery.Click += SendingDroneForDelivery_Click;
-                //SendingDroneForDelivery.IsEnabled = true;
-                //SendingDroneForDelivery.Background = Brushes.DarkCyan;
-                //SendingDroneForDelivery.Height = 40;
-                //SendingDroneForDelivery.Width = 130;
-                //SendingDroneForDelivery.HorizontalAlignment = HorizontalAlignment.Center;
-                //ButtonsGroup.Children.Add(SendingDroneForDelivery);
-            }
-            else if (droneForList.Status == Enums.DroneStatuses.Maintenance)
-            {
-                //Button ReleaseDroneFromCharging = new Button();
-                //ReleaseDroneFromCharging.Content = "Release drone from charging";
-                //ReleaseDroneFromCharging.Click += ReleaseDroneFromCharging_Click;
-                //ReleaseDroneFromCharging.IsEnabled = true;
-                //ReleaseDroneFromCharging.Background = Brushes.DarkCyan;
-                //ReleaseDroneFromCharging.Height = 40;
-                //ReleaseDroneFromCharging.Width = 130;
-                //ReleaseDroneFromCharging.HorizontalAlignment = HorizontalAlignment.Center;
-
-                //ButtonsGroup.Children.Add(ReleaseDroneFromCharging);
-            }
-            
-            if (bl.GetParcelStatusByDrone(droneForList.Id) == Enums.ParcelStatuses.Associated)
-            {
-                Button ParcelCollection = new Button();
-                ParcelCollection.Content = "Parcel collection";
-                ParcelCollection.Click += ParcelCollection_Click;
-                ParcelCollection.IsEnabled = true;
-                ParcelCollection.Background = Brushes.DarkCyan;
-                ParcelCollection.Height = 40;
-                ParcelCollection.Width = 130;
-                ParcelCollection.HorizontalAlignment = HorizontalAlignment.Center;
-
-                ButtonsGroup.Children.Add(ParcelCollection);
-            }
-
-            else if (bl.GetParcelStatusByDrone(droneForList.Id) == Enums.ParcelStatuses.Collected)
-            {
-                Button ParcelDelivery = new Button();
-                ParcelDelivery.Content = "Parcel delivery";
-                ParcelDelivery.Click += ParcelDelivery_Click;
-                ParcelDelivery.Background = Brushes.DarkCyan;
-                ParcelDelivery.Height = 40;
-                ParcelDelivery.Width = 130;
-                ParcelDelivery.HorizontalAlignment = HorizontalAlignment.Center;
-                ButtonsGroup.Children.Add(ParcelDelivery);
-            }
+            droneViewModel = new DroneViewModel(droneForList, bl, refreshDroneList);
+            this.DataContext = droneViewModel;
+            Update_grid.Visibility = Visibility.Visible;
+            Enums.ParcelStatuses parcelStutus = droneViewModel.Bl.GetParcelStatusByDrone(droneForList.Id);
         }
 
 
@@ -124,12 +52,12 @@ namespace PL
         {
             try
             {
-                bl.AddDrone(new BO.Drone(int.Parse(Id.Text), Model.Text, (BO.Enums.WeightCategories)DroneWeights.SelectedItem, BO.Enums.DroneStatuses.Maintenance, rand.Next(20, 41), bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude, bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude));
-
+                droneViewModel.Bl.AddDrone(new BO.Drone(int.Parse(Id.Text), Model.Text, (BO.Enums.WeightCategories)DroneWeights.SelectedItem, BO.Enums.DroneStatuses.Maintenance, droneViewModel.Rand.Next(20, 41),
+                    droneViewModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude, droneViewModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude));
 
                 if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    Close_Page(sender, e);
+                    droneViewModel.RefreshDronesList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -154,7 +82,7 @@ namespace PL
             }
         }
 
-       
+
 
 
         /// <summary>
@@ -166,11 +94,11 @@ namespace PL
         {
             try
             {
-                bl.AssignParcelToDrone(droneInList.Id);
+                droneViewModel.Bl.AssignParcelToDrone(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    Close_Page(sender, e);
+                    droneViewModel.RefreshDronesList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -207,11 +135,11 @@ namespace PL
         {
             try
             {
-                bl.UpdateRelease(droneInList.Id);
+                droneViewModel.Bl.UpdateRelease(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    Close_Page(sender, e);
+                    droneViewModel.RefreshDronesList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -245,11 +173,11 @@ namespace PL
         {
             try
             {
-                bl.UpdateCharge(droneInList.Id);
+                droneViewModel.Bl.UpdateCharge(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    Close_Page(sender, e);
+                    droneViewModel.RefreshDronesList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -283,11 +211,11 @@ namespace PL
         {
             try
             {
-                bl.PackageCollection(droneInList.Id);
+                droneViewModel.Bl.PackageCollection(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    Close_Page(sender, e);
+                    droneViewModel.RefreshDronesList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -321,11 +249,11 @@ namespace PL
         {
             try
             {
-                bl.PackageDelivery(droneInList.Id);
+                droneViewModel.Bl.PackageDelivery(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("he parcel was successfully delivered", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    Close_Page(sender, e);
+                    droneViewModel.RefreshDronesList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -350,7 +278,7 @@ namespace PL
             }
         }
 
-        
+
         /// <summary>
         /// close the page
         /// </summary>
@@ -369,7 +297,7 @@ namespace PL
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
 
-            this.refreshDroneList();
+            droneViewModel.RefreshDronesList();
         }
 
         /// <summary>
@@ -392,11 +320,11 @@ namespace PL
         {
             try
             {
-                bl.UpdateDroneModel(droneInList.Id, update_model.Text);
+                droneViewModel.Bl.UpdateDroneModel(droneViewModel.DroneInList.Id, update_model.Text);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone model has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    Close_Page(sender, e);
+                    droneViewModel.RefreshDronesList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -419,16 +347,6 @@ namespace PL
             {
                 MessageBox.Show($"The drone model could not be updated, {ex.Message}");
             }
-        }
-
-        /// <summary>
-        /// update the model
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void update_model_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            newModel = (sender as TextBox).Text;
         }
     }
 }

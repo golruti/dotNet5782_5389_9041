@@ -50,22 +50,22 @@
                     <ColumnDefinition Width="177*"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DroneInList.Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Model: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox x:Name="update_model" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Model, Mode=OneWay}" TextChanged="update_model_TextChanged" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
+                <TextBox x:Name="update_model" Grid.Row="2" Grid.Column="1" Text="{Binding DroneInList.Model}"  IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
                 <Label Grid.Row="4" Grid.Column="0" Content="MaxWeight: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=MaxWeight}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding DroneInList.MaxWeight}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="5" Grid.Column="0" Content="Status: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
-                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Status}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding DroneInList.Status}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3"/>
 
                 <Label Grid.Row="8" Grid.Column="0" Content="Battery: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding Path=Battery}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding DroneInList.Battery}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="9" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,50" Grid.RowSpan="3"/>
-                <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding Path=Location}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,50" Grid.RowSpan="3"/>
+                <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding DroneInList.Location}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,50" Grid.RowSpan="3"/>
 
             </Grid>
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">

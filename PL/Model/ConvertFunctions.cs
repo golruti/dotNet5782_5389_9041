@@ -15,6 +15,11 @@ namespace PO
         {
             return (Enums.WeightCategories)weight;
         }
+        public static Enums.DroneStatuses BOEnumDroneStatusesToPO(BO.Enums.DroneStatuses status)
+        {
+            return (Enums.DroneStatuses)status;
+        }
+
 
         public static Enums.Priorities BOEnumPrioritiesToPO(BO.Enums.Priorities prioruty)
         {
@@ -132,6 +137,36 @@ namespace PO
                 NumParcelSentNotDelivered = customer.NumParcelSentNotDelivered,
                 NumParcelReceived = customer.NumParcelReceived,
                 NumParcelWayToCustomer = customer.NumParcelWayToCustomer
+            };
+        }
+
+        public static ParcelByTransfer BOParcelByTransferToPO(BO.ParcelByTransfer parcel)
+        {
+            return new ParcelByTransfer
+            {
+                Id = parcel.Id,
+                Priority = BOEnumPrioritiesToPO(parcel.Priority),
+                Weight = BOEnumWeightCategoriesToPO(parcel.Weight),
+                Sender = BOCustomerDeliveryToPO(parcel.Sender),
+                Target = BOCustomerDeliveryToPO(parcel.Target),
+                SenderLocation = BOLocationToPO(parcel.SenderLocation),
+                TargetLocation = BOLocationToPO(parcel.TargetLocation),
+                IsDestinationParcel = parcel.IsDestinationParcel,
+                Distance = parcel.Distance
+            };
+        }
+
+        public static Drone BODroneToPO(BO.Drone drone)
+        {
+            return new Drone()
+            {
+                Id = drone.Id,
+                Model = drone.Model,
+                MaxWeight = BOEnumWeightCategoriesToPO(drone.MaxWeight),
+                Status = BOEnumDroneStatusesToPO(drone.Status),
+                Battery = drone.Battery,
+                Location = BOLocationToPO(drone.Location),
+                Delivery = BOParcelByTransferToPO(drone.Delivery)
             };
         }
     }

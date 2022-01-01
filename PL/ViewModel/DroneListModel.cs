@@ -12,10 +12,6 @@ namespace PL.ViewModel
 {
    public class DroneListModel
     {
-        BlApi.IBL bl;
-        ObservableCollection<DroneForList> droneForLists;
-        ListCollectionView listCollectionView;
-        Action<TabItem> addTab;
-        Action<TabItem> closeTab;
+
     }
 }

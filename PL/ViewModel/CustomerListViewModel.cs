@@ -17,9 +17,9 @@ namespace PL.ViewModel
         public BlApi.IBL Bl { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
         public Action<object, RoutedEventArgs> RemoveTab { get; private set; }
+
         private ObservableCollection<PO.CustomerForList> customersForList;
         public event PropertyChangedEventHandler PropertyChanged;
-
         public ObservableCollection<PO.CustomerForList> CustomersForList
         {
             get { return customersForList; }
@@ -42,9 +42,5 @@ namespace PL.ViewModel
         {
             CustomersForList = new ObservableCollection<CustomerForList>(ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()));
         }
-
-
-
-
     }
 }
