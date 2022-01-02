@@ -46,7 +46,7 @@ namespace PL
         /// <summary>
         /// Puts the new Harhan on the list and updates the details
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender"></paramz
         /// <param name="e"></param>
         private void Finish_Click(object sender, RoutedEventArgs e)
         {
@@ -124,7 +124,19 @@ namespace PL
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
         }
-
+        private void Close_Page(object sender, RoutedEventArgs e)
+        {
+            object tmp = sender;
+            TabItem tabItem = null;
+            while (tmp.GetType() != typeof(TabControl))
+            {
+                if (tmp.GetType() == typeof(TabItem))
+                    tabItem = (tmp as TabItem);
+                tmp = ((FrameworkElement)tmp).Parent;
+            }
+            if (tmp is TabControl tabControl)
+                tabControl.Items.Remove(tabItem);
+        }
 
         /// <summary>
         /// release drone from charging
@@ -276,28 +288,6 @@ namespace PL
             {
                 MessageBox.Show($"Sorry, the parcel was not delivered, {ex.Message}");
             }
-        }
-
-
-        /// <summary>
-        /// close the page
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Close_Page(object sender, RoutedEventArgs e)
-        {
-            object tmp = sender;
-            TabItem tabItem = null;
-            while (tmp.GetType() != typeof(TabControl))
-            {
-                if (tmp.GetType() == typeof(TabItem))
-                    tabItem = (tmp as TabItem);
-                tmp = ((FrameworkElement)tmp).Parent;
-            }
-            if (tmp is TabControl tabControl)
-                tabControl.Items.Remove(tabItem);
-
-            droneViewModel.RefreshDronesList();
         }
 
         /// <summary>

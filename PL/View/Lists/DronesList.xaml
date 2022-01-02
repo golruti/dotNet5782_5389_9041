@@ -116,7 +116,7 @@
             <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding}" SelectionChanged="DroneDtatuses_SelectionChanged" Grid.RowSpan="2" />
 
         </Grid>
-        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick">
+        <ListView x:Name="DronesListView" ItemsSource="{Binding ListCollectionView}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick">
             <ListView.View >
 
                 <GridView  >
@@ -131,14 +131,6 @@
 
             </ListView.View>
         </ListView>
-        <!--<ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
-            <ListView.ItemTemplate>
-                <ItemContainerTemplate>
-                    <ContentControl Content="{Binding }" MouseDoubleClick="DronesListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>
-                </ItemContainerTemplate>
-            </ListView.ItemTemplate>
-
-        </ListView>-->
 
         <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
         <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddDroneWindow" Content="add drone" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>

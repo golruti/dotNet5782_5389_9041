@@ -17,6 +17,9 @@ namespace PL.ViewModel
         public Random Rand { get; private set; }
         public PO.Drone DroneInList { get; set; }
 
+        //StationsId.DataContext = (bl.GetBaseStationForList()).Select(s => s.Id);
+        //DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
+        //Enums.ParcelStatuses parcelStutus = bl.GetParcelStatusByDrone(droneForList.Id);
 
         public DroneViewModel(BlApi.IBL bl, Action refreshDronesList)
         {

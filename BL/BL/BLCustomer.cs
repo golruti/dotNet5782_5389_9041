@@ -151,8 +151,24 @@ namespace BL
         /// <returns>The converted customer</returns>
         private Customer mapCustomer(DO.Customer customer)
         {
-            var sendedList = dal.GetParcels().Where(p => p.SenderId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
+            var p = dal.GetParcels();
+            foreach (var item in p)
+            {
+                var t = item;
+            }
+            var v = (dal.GetParcels().Where(p => p.SenderId == customer.Id));
+            List<ParcelToCustomer> sendedList = new List<ParcelToCustomer>();
+
+            foreach (var parcel in v)
+            {
+                sendedList.Add(mapParcelToParcelToCustomer(parcel));
+            }
             var targerList = dal.GetParcels().Where(p => p.TargetId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
+
+
+
+
+
             return new Customer()
             {
                 Id = customer.Id,
@@ -166,12 +182,33 @@ namespace BL
 
         private ParcelToCustomer mapParcelToParcelToCustomer(DO.Parcel parcel)
         {
-            return new ParcelToCustomer()
+            ParcelToCustomer newParcel = new ParcelToCustomer();
+            newParcel.Id = parcel.Id;
+            newParcel.Weight = (WeightCategories)parcel.Weight;
+            newParcel.Priority = (Priorities)parcel.Priority;
+            CustomerDelivery target = null;
+            CustomerDelivery sender = null;
+
+            try
             {
-                //Id = parcel.Id,
-                //Priority = parcel.Priority,
-                //Status =
-            };
+                newParcel.Status = (Enums.ParcelStatuses)getParcelStatus(parcel);
+                target = mapCustomerInParcel(dal.GetCustomer(parcel.TargetId));
+                sender = mapCustomerInParcel(dal.GetCustomer(parcel.SenderId)); ;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            if (parcel.Delivered == null)
+            {
+                newParcel.Customer = target;
+            }
+            else
+            {
+                newParcel.Customer = sender;
+            }
+            return newParcel;
         }
 
         /// <summary>

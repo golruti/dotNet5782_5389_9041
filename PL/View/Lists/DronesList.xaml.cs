@@ -13,8 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using BO;
+using PO;
 using PL.ViewModel;
+
 
 namespace PL
 {
@@ -22,28 +23,18 @@ namespace PL
     /// Interaction logic for DroneList.xaml
     /// </summary>
     public partial class DronesList
-    {
-        BlApi.IBL bl;
-        Action<TabItem> addTab;
-        Action<object, RoutedEventArgs> RemoveTab;
-        ObservableCollection<DroneForList> droneForLists;
-        ListCollectionView listCollectionView;
+    {      
+        DroneListViewModel droneListViewModel;
+
 
         public DronesList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
-            this.bl = bl;
-            this.addTab = addTab;
-            this.RemoveTab = removeTab;
-
-
-            droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList());
-            listCollectionView = new ListCollectionView(droneForLists);
-            listCollectionView.Filter += FilterDrone;
-            DronesListView.DataContext = listCollectionView;
-
-            DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
-            DroneStatuses.DataContext = Enum.GetValues(typeof(Enums.DroneStatuses));
+            droneListViewModel = new DroneListViewModel(bl, addTab, removeTab);
+            droneListViewModel.ListCollectionView.Filter += FilterDrone;
+            this.DataContext = droneListViewModel;
+            //DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
+            //DroneStatuses.DataContext = Enum.GetValues(typeof(Enums.DroneStatuses));
         }
 
         private bool FilterDrone(object obj)
@@ -79,35 +70,8 @@ namespace PL
         /// </summary>
         private void RefreshDroneList()
         {
-            droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList());
-            listCollectionView = new ListCollectionView(droneForLists);
-            listCollectionView.Filter += FilterDrone;
-            DronesListView.DataContext = listCollectionView;
-
-            //if (DroneStatuses.SelectedItem != null && DroneWeights.SelectedItem != null)
-            //{
-            //    Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-            //    Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-            //    droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(weight,status));
-            //    DronesListView.DataContext = droneForLists;
-            //}
-            //else if (DroneWeights.SelectedItem != null)
-            //{
-            //    Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-            //    droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(weight));
-            //    DronesListView.DataContext = droneForLists;
-            //}
-            //else if (DroneStatuses.SelectedItem != null)
-            //{
-            //    Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-            //    droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList(status));
-            //    DronesListView.DataContext = droneForLists;
-            //}         
-            //else
-            //{
-            //    droneForLists = new ObservableCollection<DroneForList>(bl.GetDroneForList());
-            //    DronesListView.DataContext = droneForLists;
-            //}
+            droneListViewModel.ListCollectionView.Filter += FilterDrone;
+            droneListViewModel.RefreshDroneList();
         }
 
         /// <summary>
@@ -118,29 +82,11 @@ namespace PL
         private void DroneWeights_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RefreshFilter();
-
-            //if (DroneWeights.SelectedItem == null)
-            //{
-            //    DronesListView.DataContext = bl.GetDroneForList();
-            //}
-            //else
-            //{
-            //    if (DroneStatuses.SelectedItem != null)
-            //    {
-            //        Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-            //        Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-            //        DronesListView.DataContext = bl.GetDroneForList(weight,status);
-            //    }
-            //    else { 
-            //        Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-            //        DronesListView.DataContext = bl.GetDroneForList(weight);
-            //    }
-            //}
         }
         private void RefreshFilter()
         {
-            listCollectionView.Filter -= FilterDrone;
-            listCollectionView.Filter += FilterDrone;
+            droneListViewModel.ListCollectionView.Filter -= FilterDrone;
+            droneListViewModel.ListCollectionView.Filter += FilterDrone;
         }
         /// <summary>
         /// Changes the list of skimmers according to the selected status
@@ -150,27 +96,6 @@ namespace PL
         private void DroneDtatuses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RefreshFilter();
-
-            //if (DroneStatuses.SelectedItem == null)
-            //{
-            //    DronesListView.ItemsSource = bl.GetDroneForList();
-            //}
-            //else
-            //{
-            //    if(DroneWeights.SelectedItem != null)
-            //    {
-            //        Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-            //        Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
-
-            //        DronesListView.DataContext = bl.GetDroneForList( weight,status);
-            //    }
-            //    else
-            //    {
-            //        Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
-            //        DronesListView.ItemsSource = bl.GetDroneForList(status);
-            //    }
-            //}
-
         }
 
         /// <summary>
@@ -181,9 +106,9 @@ namespace PL
         private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(bl, RefreshDroneList);
+            tabItem.Content = new Drone(droneListViewModel.Bl, RefreshDroneList);
             tabItem.Header = "Add drone";
-            this.addTab(tabItem);
+            droneListViewModel.AddTab(tabItem);
         }
 
         /// <summary>
@@ -196,10 +121,10 @@ namespace PL
             var selectedDrone = DronesListView.SelectedItem as BO.DroneForList;
            
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(selectedDrone, this.bl, RefreshDroneList);
+            tabItem.Content = new Drone(selectedDrone, droneListViewModel.Bl, RefreshDroneList);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
-            this.addTab(tabItem);
+            this.droneListViewModel.AddTab(tabItem);
 
         }
 

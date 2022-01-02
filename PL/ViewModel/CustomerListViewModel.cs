@@ -14,23 +14,6 @@ namespace PL.ViewModel
 {
     public class CustomerListViewModel : INotifyPropertyChanged
     {
-        public BlApi.IBL Bl { get; private set; }
-        public Action<TabItem> AddTab { get; private set; }
-        public Action<object, RoutedEventArgs> RemoveTab { get; private set; }
-
-        private ObservableCollection<PO.CustomerForList> customersForList;
-        public event PropertyChangedEventHandler PropertyChanged;
-        public ObservableCollection<PO.CustomerForList> CustomersForList
-        {
-            get { return customersForList; }
-            set
-            {
-                customersForList = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CustomersForList)));
-            }
-        }
-
-
         public CustomerListViewModel(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             this.Bl = bl;
@@ -41,6 +24,22 @@ namespace PL.ViewModel
         public void RefreshCustomerList()
         {
             CustomersForList = new ObservableCollection<CustomerForList>(ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()));
+        }
+
+
+        public BlApi.IBL Bl { get; private set; }
+        public Action<TabItem> AddTab { get; private set; }
+        public Action<object, RoutedEventArgs> RemoveTab { get; private set; }
+        private ObservableCollection<PO.CustomerForList> customersForList;
+        public event PropertyChangedEventHandler PropertyChanged;
+        public ObservableCollection<PO.CustomerForList> CustomersForList
+        {
+            get { return customersForList; }
+            set
+            {
+                customersForList = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CustomersForList)));
+            }
         }
     }
 }

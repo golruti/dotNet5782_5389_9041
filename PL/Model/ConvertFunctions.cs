@@ -169,5 +169,25 @@ namespace PO
                 Delivery = BOParcelByTransferToPO(drone.Delivery)
             };
         }
+
+        public static ObservableCollection<DroneForList> BODroneForListToPO(IEnumerable<BO.DroneForList> droneForList)
+        {
+            ObservableCollection<PO.DroneForList> drones = new ObservableCollection<DroneForList>();
+
+            foreach (var drone in droneForList)
+            {
+                drones.Add(new DroneForList()
+                {
+                    Id = drone.Id,
+                    Model = drone.Model,
+                    MaxWeight = BOEnumWeightCategoriesToPO(drone.MaxWeight),
+                    Battery = drone.Battery,
+                    Status = BOEnumDroneStatusesToPO(drone.Status),
+                    Location = BOLocationToPO(drone.Location),
+                    ParcelDeliveredId = drone.ParcelDeliveredId
+                });
+            }
+            return drones;
+        }
     }
 }
