@@ -20,7 +20,6 @@ namespace PO
             return (Enums.DroneStatuses)status;
         }
 
-
         public static Enums.Priorities BOEnumPrioritiesToPO(BO.Enums.Priorities prioruty)
         {
             return (Enums.Priorities)prioruty;
@@ -31,6 +30,32 @@ namespace PO
             return (Enums.ParcelStatuses)parcelStatuses;
         }
 
+        /// <summary>
+        /// /////////////////
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        /// public static Enums.WeightCategories BOEnumWeightCategoriesToPO(BO.Enums.WeightCategories weight)
+
+        public static BO.Enums.WeightCategories POEnumWeightCategoriesToBO(Enums.WeightCategories weight)
+        {
+            return (BO.Enums.WeightCategories)weight;
+        }
+        public static BO.Enums.DroneStatuses POEnumDroneStatusesToBO(Enums.DroneStatuses status)
+        {
+            return (BO.Enums.DroneStatuses)status;
+        }
+
+        public static BO.Enums.Priorities POEnumPrioritiesToBO(Enums.Priorities prioruty)
+        {
+            return (BO.Enums.Priorities)prioruty;
+        }
+
+        public static BO.Enums.ParcelStatuses POEnumParcelStatusToBO(Enums.ParcelStatuses parcelStatuses)
+        {
+            return (BO.Enums.ParcelStatuses)parcelStatuses;
+        }
+
         public static Location BOLocationToPO(BO.Location location)
         {
             return new Location
@@ -39,6 +64,17 @@ namespace PO
                 Latitude = location.Latitude
             };
         }
+
+
+        public static BO.Location POLocationToBO(Location location)
+        {
+            return new BO.Location
+            {
+                Longitude = location.Longitude,
+                Latitude = location.Latitude
+            };
+        }
+
 
         public static DroneInParcel BODroneParceToPO(BO.DroneInParcel droneParcel)
         {
@@ -188,6 +224,20 @@ namespace PO
                 });
             }
             return drones;
+        }
+
+        public static BO.DroneForList PODroneForListToBO(DroneForList drone)
+        {
+            return new BO.DroneForList()
+            {
+                Id = drone.Id,
+                Model = drone.Model,
+                MaxWeight = POEnumWeightCategoriesToBO(drone.MaxWeight),
+                Battery = drone.Battery,
+                Status = POEnumDroneStatusesToBO(drone.Status),
+                Location = POLocationToBO(drone.Location),
+                ParcelDeliveredId = drone.ParcelDeliveredId
+            };
         }
     }
 }

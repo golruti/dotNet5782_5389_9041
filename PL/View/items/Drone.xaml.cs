@@ -193,9 +193,9 @@ namespace PL
             try
             {
                 droneViewModel.Bl.UpdateCharge(droneViewModel.DroneInList.Id);
-                (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
+                    droneViewModel.RefreshDroneInList();
                     droneViewModel.RefreshDronesList();
                 }
             }
@@ -317,8 +317,8 @@ namespace PL
         {
             try
             {
-                droneViewModel.Bl.UpdateDroneModel(droneViewModel.DroneInList.Id, update_model.Text);
-                (sender as Button).IsEnabled = false;
+                droneViewModel.Bl.UpdateDroneModel(droneViewModel.DroneInList.Id, droneViewModel.DroneInList.Model);
+                //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone model has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDronesList();

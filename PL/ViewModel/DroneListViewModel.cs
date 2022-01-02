@@ -21,20 +21,17 @@ namespace PL.ViewModel
             this.RemoveTab = removeTab;
             DronesForList = new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(bl.GetDroneForList()));
             ListCollectionView = new ListCollectionView(DronesForList);
+            DroneWeights = Enum.GetValues(typeof(Enums.WeightCategories));
+            DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses));
         }
         public void RefreshDroneList()
         {
             DronesForList = new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList()));
-            ListCollectionView = new ListCollectionView(DronesForList);
-            DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses));
-            DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses));
+            ListCollectionView = new ListCollectionView(DronesForList);          
         }
 
-        //DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
-        //DroneStatuses.DataContext = Enum.GetValues(typeof(Enums.DroneStatuses));
         public Array DroneStatuses { get; set; }
         public Array DroneWeights { get; set; }
-
         public BlApi.IBL Bl { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
         public Action<object, RoutedEventArgs> RemoveTab { get; private set; }

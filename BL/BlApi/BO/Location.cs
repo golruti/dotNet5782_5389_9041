@@ -16,7 +16,10 @@ namespace BO
             this.Longitude = longitude;
             this.Latitude = latitude;
         }
+        public Location()
+        {
 
+        }
         public override string ToString()
         {
             return $"{Longitude} , {Latitude}";

@@ -111,9 +111,9 @@
             </Grid.ColumnDefinitions >
 
             <Label Grid.Column="0" Content="  Drone weight:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox Grid.Column="1" x:Name="DroneWeights" ItemsSource="{Binding}" SelectionChanged="DroneWeights_SelectionChanged" Grid.RowSpan="2"/>
+            <ComboBox Grid.Column="1" x:Name="DroneWeights" ItemsSource="{Binding DroneWeights}" SelectionChanged="DroneWeights_SelectionChanged" Grid.RowSpan="2"/>
             <Label Grid.Column="2" Content="   Drone status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding}" SelectionChanged="DroneDtatuses_SelectionChanged" Grid.RowSpan="2" />
+            <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding DroneStatuses}" SelectionChanged="DroneDtatuses_SelectionChanged" Grid.RowSpan="2" />
 
         </Grid>
         <ListView x:Name="DronesListView" ItemsSource="{Binding ListCollectionView}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick">

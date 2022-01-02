@@ -23,7 +23,7 @@ namespace PL
     /// Interaction logic for DroneList.xaml
     /// </summary>
     public partial class DronesList
-    {      
+    {
         DroneListViewModel droneListViewModel;
 
 
@@ -33,8 +33,6 @@ namespace PL
             droneListViewModel = new DroneListViewModel(bl, addTab, removeTab);
             droneListViewModel.ListCollectionView.Filter += FilterDrone;
             this.DataContext = droneListViewModel;
-            //DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
-            //DroneStatuses.DataContext = Enum.GetValues(typeof(Enums.DroneStatuses));
         }
 
         private bool FilterDrone(object obj)
@@ -68,7 +66,7 @@ namespace PL
         /// <summary>
         /// Updates the drone list
         /// </summary>
-        private void RefreshDroneList()
+        private void RefreshDroneListt()
         {
             droneListViewModel.ListCollectionView.Filter += FilterDrone;
             droneListViewModel.RefreshDroneList();
@@ -106,7 +104,7 @@ namespace PL
         private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(droneListViewModel.Bl, RefreshDroneList);
+            tabItem.Content = new Drone(droneListViewModel.Bl, RefreshDroneListt);
             tabItem.Header = "Add drone";
             droneListViewModel.AddTab(tabItem);
         }
@@ -118,10 +116,10 @@ namespace PL
         /// <param name="e"></param>
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedDrone = DronesListView.SelectedItem as BO.DroneForList;
-           
+            var selectedDrone = DronesListView.SelectedItem as PO.DroneForList;
+
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(selectedDrone, droneListViewModel.Bl, RefreshDroneList);
+            tabItem.Content = new Drone(ConvertFunctions.PODroneForListToBO(selectedDrone), droneListViewModel.Bl, RefreshDroneListt);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             this.droneListViewModel.AddTab(tabItem);

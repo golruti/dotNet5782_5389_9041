@@ -1,6 +1,7 @@
 ﻿using PO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,18 +9,27 @@ using System.Windows.Controls;
 
 namespace PL.ViewModel
 {
-    public class DroneViewModel
+    public class DroneViewModel : INotifyPropertyChanged
     {
         public BlApi.IBL Bl { get; private set; }
         public Action RefreshDronesList { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
         public Action<TabItem> CloseTab { get; private set; }
         public Random Rand { get; private set; }
-        public PO.Drone DroneInList { get; set; }
+        private PO.Drone droneInList;
+        public PO.Drone DroneInList
+        {
+            get { return droneInList; }
+            set
+            {
+                droneInList = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DroneInList)));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         //StationsId.DataContext = (bl.GetBaseStationForList()).Select(s => s.Id);
-        //DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
-        //Enums.ParcelStatuses parcelStutus = bl.GetParcelStatusByDrone(droneForList.Id);
 
         public DroneViewModel(BlApi.IBL bl, Action refreshDronesList)
         {
@@ -36,5 +46,9 @@ namespace PL.ViewModel
             this.Rand = new Random();
         }
 
+        public void RefreshDroneInList()
+        {
+            droneInList = PO.ConvertFunctions.BODroneToPO(Bl.GetBLDrone(droneInList.Id));
+        }
     }
 }
