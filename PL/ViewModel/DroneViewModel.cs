@@ -48,7 +48,7 @@ namespace PL.ViewModel
 
         public void RefreshDroneInList()
         {
-            droneInList = PO.ConvertFunctions.BODroneToPO(Bl.GetBLDrone(droneInList.Id));
+            DroneInList = PO.ConvertFunctions.BODroneToPO(Bl.GetBLDrone(droneInList.Id));
         }
     }
 }

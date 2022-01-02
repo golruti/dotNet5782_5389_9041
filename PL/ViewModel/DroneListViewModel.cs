@@ -19,15 +19,15 @@ namespace PL.ViewModel
             this.Bl = bl;
             this.AddTab = addTab;
             this.RemoveTab = removeTab;
-            DronesForList = new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(bl.GetDroneForList()));
-            ListCollectionView = new ListCollectionView(DronesForList);
+            //DronesForList = new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(bl.GetDroneForList()));
+            ListCollectionView = new ListCollectionView(new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(bl.GetDroneForList())));
             DroneWeights = Enum.GetValues(typeof(Enums.WeightCategories));
             DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses));
         }
         public void RefreshDroneList()
         {
-            DronesForList = new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList()));
-            ListCollectionView = new ListCollectionView(DronesForList);          
+            //DronesForList = new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList()));
+            ListCollectionView = new ListCollectionView(new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList())));          
         }
 
         public Array DroneStatuses { get; set; }
@@ -35,17 +35,27 @@ namespace PL.ViewModel
         public BlApi.IBL Bl { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
         public Action<object, RoutedEventArgs> RemoveTab { get; private set; }
-        public ListCollectionView ListCollectionView { get; set; }
-        private ObservableCollection<PO.DroneForList> dronesForList;
-        public event PropertyChangedEventHandler PropertyChanged;
-        public ObservableCollection<PO.DroneForList> DronesForList
+        private ListCollectionView listCollectionView;
+        public ListCollectionView ListCollectionView
         {
-            get { return dronesForList; }
+            get { return listCollectionView; }
             set
             {
-                dronesForList = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DronesForList)));
+                listCollectionView = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ListCollectionView)));
             }
         }
+
+        //private ObservableCollection<PO.DroneForList> dronesForList;
+        public event PropertyChangedEventHandler PropertyChanged;
+        //public ObservableCollection<PO.DroneForList> DronesForList
+        //{
+        //    get { return dronesForList; }
+        //    set
+        //    {
+        //        dronesForList = value;
+        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DronesForList)));
+        //    }
+        //}
     }
 }

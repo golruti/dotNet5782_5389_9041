@@ -35,6 +35,7 @@ namespace PL
             this.DataContext = droneListViewModel;
         }
 
+
         private bool FilterDrone(object obj)
         {
             if (obj is DroneForList drone)
@@ -66,21 +67,13 @@ namespace PL
         /// <summary>
         /// Updates the drone list
         /// </summary>
-        private void RefreshDroneListt()
+        private void RefreshDroneList()
         {
-            droneListViewModel.ListCollectionView.Filter += FilterDrone;
             droneListViewModel.RefreshDroneList();
-        }
-
-        /// <summary>
-        /// Changes the list of skimmers according to the weight selected
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DroneWeights_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
             RefreshFilter();
         }
+
+        
         private void RefreshFilter()
         {
             droneListViewModel.ListCollectionView.Filter -= FilterDrone;
@@ -95,6 +88,16 @@ namespace PL
         {
             RefreshFilter();
         }
+        /// <summary>
+        /// Changes the list of skimmers according to the weight selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DroneWeights_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshFilter();
+        }
+
 
         /// <summary>
         /// Opens a window for adding a skimmer
@@ -104,7 +107,7 @@ namespace PL
         private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(droneListViewModel.Bl, RefreshDroneListt);
+            tabItem.Content = new Drone(droneListViewModel.Bl, RefreshDroneList);
             tabItem.Header = "Add drone";
             droneListViewModel.AddTab(tabItem);
         }
@@ -119,11 +122,10 @@ namespace PL
             var selectedDrone = DronesListView.SelectedItem as PO.DroneForList;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(ConvertFunctions.PODroneForListToBO(selectedDrone), droneListViewModel.Bl, RefreshDroneListt);
+            tabItem.Content = new Drone(ConvertFunctions.PODroneForListToBO(selectedDrone), droneListViewModel.Bl, RefreshDroneList);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             this.droneListViewModel.AddTab(tabItem);
-
         }
 
         /// <summary>

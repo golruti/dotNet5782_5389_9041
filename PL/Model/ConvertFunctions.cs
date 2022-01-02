@@ -30,13 +30,6 @@ namespace PO
             return (Enums.ParcelStatuses)parcelStatuses;
         }
 
-        /// <summary>
-        /// /////////////////
-        /// </summary>
-        /// <param name="location"></param>
-        /// <returns></returns>
-        /// public static Enums.WeightCategories BOEnumWeightCategoriesToPO(BO.Enums.WeightCategories weight)
-
         public static BO.Enums.WeightCategories POEnumWeightCategoriesToBO(Enums.WeightCategories weight)
         {
             return (BO.Enums.WeightCategories)weight;

@@ -45,7 +45,7 @@ namespace PL
         private void DeleteDrone(object sender, RoutedEventArgs e)
         {
             droneViewModel.Bl.DeleteBLCustomer(droneViewModel.DroneInList.Id);
-            if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            if (MessageBox.Show("the drone was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
             }
