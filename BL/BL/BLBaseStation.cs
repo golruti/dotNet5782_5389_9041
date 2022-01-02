@@ -31,7 +31,7 @@ namespace BL
         /// The function gets a station ID and tries to delete it
         /// </summary>
         /// <param name="station"></param>
-        private void deleteBLBaseStation(int stationId)
+        public void deleteBLBaseStation(int stationId)
         {
             try
             {
@@ -121,6 +121,7 @@ namespace BL
             return BaseStationsForList;
         }
 
+        
         /// <summary>
         /// The function receives a predicate and returns the list that maintains the predicate
         /// </summary>

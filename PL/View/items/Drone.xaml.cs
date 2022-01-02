@@ -25,7 +25,7 @@ namespace PL
     public partial class Drone
     {
         DroneViewModel droneViewModel;
-
+        
         public Drone(BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
@@ -42,7 +42,14 @@ namespace PL
             Enums.ParcelStatuses parcelStutus = droneViewModel.Bl.GetParcelStatusByDrone(droneForList.Id);
         }
 
-
+        private void DeleteDrone(object sender, RoutedEventArgs e)
+        {
+            droneViewModel.Bl.DeleteBLCustomer(droneViewModel.DroneInList.Id);
+            if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            {
+                Close_Page(sender, e);
+            }
+        }
         /// <summary>
         /// Puts the new Harhan on the list and updates the details
         /// </summary>

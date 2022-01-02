@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:Converters="clr-namespace:Converters" 
         mc:Ignorable="d"
        Height="450" Width="800" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -13,6 +14,10 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
+    <UserControl.Resources>
+        <Converters:AtLleastOneContentConvert x:Key="atLleastOneContentConvert"></Converters:AtLleastOneContentConvert>
+        <Converters:MultyConvert5Items x:Key="multyConvert5Items"></Converters:MultyConvert5Items>
+    </UserControl.Resources>
     <Grid Background="White"   >
         <Grid x:Name="Update_grid"  Visibility="Collapsed">
             <Grid.RowDefinitions>
@@ -73,7 +78,14 @@
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
                 <Button Content="delete customer"  Click="Delete_Click" Height="40" Width="130" Margin="100,0,0,0" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
                 <Button Content="close"  Click="Close_Page" Height="40" Width="130"  Margin="30,0,0,0" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-                <Button Content="update details" Height="40" Width="130" Margin="30,0,0,0" Click="Update_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+                <Button Content="update details" Height="40" Width="130" Margin="30,0,0,0" Click="Update_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource atLleastOneContentConvert}">
+                            <Binding ElementName="name" Path="Text"></Binding>
+                            <Binding ElementName="phone" Path="Text"></Binding>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
             </StackPanel>
 
         </Grid>
@@ -113,7 +125,17 @@
             </Grid>
 
             <Grid Width="200" Height="50" Margin="259,205,145,95">
-                <Button  Content="finish"  Click="Add_Customer_finish_click" Margin="34,15,100,15"  Height="20" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+                <Button  Content="finish"  Click="Add_Customer_finish_click" Margin="34,15,100,15"  Height="20" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource multyConvert5Items}">
+                            <Binding ElementName="ID" Path="Text"></Binding>
+                            <Binding ElementName="name" Path="Text"></Binding>
+                            <Binding ElementName="phone" Path="Text"></Binding>
+                            <Binding ElementName="longg" Path="Text"></Binding>
+                            <Binding ElementName="lat" Path="Text"></Binding>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
                 <Button  Content="cencel" Margin="115,15,22,15" Click="Close_Page"  Height="20" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
 
             </Grid>

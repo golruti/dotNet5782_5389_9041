@@ -49,6 +49,12 @@ namespace BL
             foreach (var drone in drones)
             {
                 drone.Value.Status = findfDroneStatus(drone.Value.Id);
+                if (drone.Value.Status == DroneStatuses.Maintenance)
+                {
+                    //dal.AddDroneCharge(new DO.DroneCharge(drone.Value.Id, rand.Next(1)));
+
+                }
+
             }
 
             foreach (var drone in drones)

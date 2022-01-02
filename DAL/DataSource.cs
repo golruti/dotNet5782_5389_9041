@@ -66,7 +66,8 @@ namespace DAL
                 tempDrone.MaxWeight = (DO.Enum.WeightCategories)Rand.Next(0, 3);
                 drones[tempDrone.Id] = tempDrone;
             }
-
+            
+            
             //parcel
             for (int i = 0; i < 10; ++i)
             {
