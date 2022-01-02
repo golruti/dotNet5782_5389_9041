@@ -62,7 +62,14 @@ namespace PL
             }
             
         }
-
+        private void DeleteParcel(object sender, RoutedEventArgs e)
+        {
+            bl.deleteBLParcel(parcelInList.Id);
+            if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            {
+                Close_Page(sender, e);
+            }
+        }
         private void Finish_Click(object sender, RoutedEventArgs e)
         {
             try

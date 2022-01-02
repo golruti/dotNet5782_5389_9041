@@ -11,12 +11,12 @@ namespace Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            bool isenable = true;
+            
             if (string.IsNullOrEmpty(value.ToString()))
             {
-                isenable = false;
+                return false;
             }
-            return isenable;
+            return true;
         }
 
 

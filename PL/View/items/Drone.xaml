@@ -121,6 +121,7 @@
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
+                <Button Content="delete"   Height="40" Width="130" Background="DarkCyan"  Click="DeleteDrone" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
                 <Button Background="DarkCyan" Content="concel"  Margin="115,15,25,15" Click="Close_Page"  Height="20" Width="60" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
             </Grid>
 

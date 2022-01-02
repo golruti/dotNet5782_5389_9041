@@ -15,8 +15,8 @@ namespace Converters
             if (values.Count() >= 2)
             {
                 if (!string.IsNullOrEmpty(values[0].ToString()) || !string.IsNullOrEmpty(values[1].ToString()))
-                    return false;
-                else return true;
+                    return true;
+                else return false;
             }
             else
                 return false;

@@ -44,6 +44,9 @@ namespace PL
 
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
             DroneStatuses.DataContext = Enum.GetValues(typeof(Enums.DroneStatuses));
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.DataContext);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
         }
 
         private bool FilterDrone(object obj)

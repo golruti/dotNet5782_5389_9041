@@ -37,7 +37,7 @@ namespace BL
         /// The function gets a drone ID and tries to delete it
         /// </summary>
         /// <param name="station"></param>
-        private void deleteBLDrone(int droneId)
+        public void deleteBLDrone(int droneId)
         {
             try
             {

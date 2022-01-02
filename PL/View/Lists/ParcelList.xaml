@@ -75,7 +75,7 @@
         <Style x:Key="myButtonStyle"
            TargetType="Button">
             <Setter Property="FontSize"
-              Value="10" />
+              Value="5" />
             <Setter Property="FontFamily"
               Value="Consolas" />
             <Setter Property="FontWeight"
@@ -97,10 +97,10 @@
             <RowDefinition Height="95*"/>
 
         </Grid.RowDefinitions>
-        <Grid   Name="UpGrid"  Grid.Row="0" Margin="0,13,0,13" Height="30">
+        <Grid   Name="UpGrid"  Grid.Row="0" Margin="0,13,0,13" Height="40">
             <Grid.RowDefinitions>
-                <RowDefinition Height="9*"/>
                 <RowDefinition/>
+                <RowDefinition Height="0*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
@@ -111,34 +111,28 @@
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="40*"/>
                 <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+
             </Grid.ColumnDefinitions >
 
-            <Label Grid.Column="0" Content="  status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox  Grid.Column="1" x:Name="ParcelStatuses" ItemsSource="{Binding}" SelectionChanged="ParcelStatuses_SelectionChanged" Grid.RowSpan="2" />
-            <Label Grid.Column="2" Content=" sender id:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox Grid.Column="3" x:Name="SenderId" ItemsSource="{Binding}" SelectionChanged="SenderId_SelectionChanged" Grid.RowSpan="2"/>
-            <Label Grid.Column="4" Content="receive id:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox  Grid.Column="5" x:Name="ReceiveId" ItemsSource="{Binding}" SelectionChanged="ReceiveId_SelectionChanged" Grid.RowSpan="2" />
-            <Label Grid.Column="6" Content="time :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <Label Grid.Column="7" Content="from :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox  Grid.Column="8" x:Name="YearF" ItemsSource="{Binding}" SelectionChanged="time_from_SelectionChanged" Grid.RowSpan="2" />
-            <ComboBox  Grid.Column="9" x:Name="MonthF" ItemsSource="{Binding}" SelectionChanged="time_from_SelectionChanged" Grid.RowSpan="2" />
-            <ComboBox  Grid.Column="10" x:Name="DayF" ItemsSource="{Binding}" SelectionChanged="time_from_SelectionChanged" Grid.RowSpan="2" />
-            <Label Grid.Column="11" Content="to :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox  Grid.Column="12" x:Name="YearT" ItemsSource="{Binding}" SelectionChanged="time_to_SelectionChanged" Grid.RowSpan="2" />
-            <ComboBox  Grid.Column="13" x:Name="MonthT" ItemsSource="{Binding}" SelectionChanged="time_to_SelectionChanged" Grid.RowSpan="2" />
-            <ComboBox  Grid.Column="14" x:Name="DayT" ItemsSource="{Binding}" SelectionChanged="time_to_SelectionChanged" Grid.RowSpan="2" />
-            <DatePicker Grid.Column="15" x:Name="From" Height="26" HorizontalAlignment="Left" SelectedDateChanged="To_time_selectionChanged" Margin="35,0,0,0"  VerticalAlignment="Top" Width="115" Grid.ColumnSpan="3" />
-            <DatePicker Grid.Column="16" x:Name="To" Height="26" HorizontalAlignment="Left" SelectedDateChanged="From_time_selectionChanged" VerticalAlignment="Top" Width="115" Grid.ColumnSpan="3" />
+            <Label Grid.Column="0" Content="  status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray"/>
+            <ComboBox x:Name="ParcelStatuses" ItemsSource="{Binding}" SelectionChanged="ParcelStatuses_SelectionChanged" Grid.ColumnSpan="3" Margin="53,0,53,0" />
+            <Label Grid.Column="2" Content=" sender id:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray"/>
+            <ComboBox Grid.Column="3" x:Name="SenderId" ItemsSource="{Binding}" SelectionChanged="SenderId_SelectionChanged"/>
+            <Label Grid.Column="3" Content="receive id:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.ColumnSpan="3" Margin="53,0,53,0"/>
+            <ComboBox  Grid.Column="5" x:Name="ReceiveId" ItemsSource="{Binding}" SelectionChanged="ReceiveId_SelectionChanged" />
+            <Label Grid.Column="6" Content="time :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray"/>
+            <Label Grid.Column="7" Content="from :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.ColumnSpan="3" />
+            <DatePicker Grid.Column="8" x:Name="From" Height="26" HorizontalAlignment="Left" SelectedDateChanged="To_time_selectionChanged"    Width="106" Grid.ColumnSpan="2"   />
+            <Label Grid.Column="9" Content="to :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.ColumnSpan="3" />
+            <DatePicker Grid.Column="10" x:Name="To" Height="26" HorizontalAlignment="Center" SelectedDateChanged="From_time_selectionChanged" Width="104" />
+            <!--<StackPanel Grid.Column="11" Grid.ColumnSpan="2" >
+                <RadioButton Content="by sender" IsChecked="True" Click="MoveToSender" />
+                <RadioButton Content="by recived" Click="MoveToRecive" />
+            </StackPanel>-->
         </Grid>
         <ListView x:Name="ParcelesListView"   ItemsSource="{Binding}" Grid.Row="1"  MouseDoubleClick="ParcelListView_MouseDoubleClick">
             <ListView.View >
@@ -154,11 +148,34 @@
                 </GridView>
 
             </ListView.View>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding ItemCount}" FontSize="22" Foreground="DarkCyan" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text=" item(s)" FontSize="22" Foreground="Silver" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
         </ListView>
-        
 
-        <Button Content="close"  HorizontalAlignment="Left" Margin="693,34,0,0" VerticalAlignment="Top"   Click="Close_Page" Grid.Row="2" RenderTransformOrigin="-0.019,0.436" Style="{StaticResource myButtonStyle}"/>
-        <Button  Content="add parcel"  HorizontalAlignment="Left"   Click="ShowAddParcelWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="595,34,0,0"   Grid.Row="2" Style="{StaticResource myButtonStyle}" />
+
+
         <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
         <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddParcelWindow" Content="add parcel" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
 

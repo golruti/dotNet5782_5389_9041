@@ -46,12 +46,22 @@ namespace PL
             ReceiveId.DataContext= bl.GetParcelForList().Select(item => item.ReceiveCustomer);
             
             ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
-            DayF.DataContext= day;
-            DayT.DataContext = day;
-            MonthF.DataContext = month;
-            MonthT.DataContext = month;
-            YearF.DataContext = year;
-            YearT.DataContext = year;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelesListView.DataContext);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("SendCustomer");
+            view.GroupDescriptions.Add(groupDescription);
+        }
+        private void MoveToRecive()
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelesListView.DataContext);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("ReceiveCustomer");
+            view.GroupDescriptions.Add(groupDescription);
+        }
+
+        private void MoveToSender()
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelesListView.DataContext);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("SendCustomer");
+            view.GroupDescriptions.Add(groupDescription);
         }
 
         private void RefreshFilter()
@@ -268,19 +278,19 @@ namespace PL
                     return parcel.Status == status ;
 
                 }
-                else if ( YearT.SelectedItem != null )
+                else if ( To.SelectedDate != null )
                 {
                    
-                    DateTime dateTime = new DateTime(int.Parse(YearT.Text), int.Parse(MonthT.Text), int.Parse(DayT.Text));
                     
-                    return   bl.GetBLParcel(parcel.Id).Requested < dateTime;
+                    
+                    return   bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
-                else if ( YearF.SelectedItem != null&& MonthF.SelectedItem!=null &&DayF.SelectedItem!=null)
+                else if ( From.SelectedDate != null)
                 {
                    
-                    DateTime dateTime = new DateTime(int.Parse(YearF.Text), int.Parse(MonthF.Text), int.Parse(DayF.Text));
-                    return  bl.GetBLParcel(parcel.Id).Requested > dateTime ;
+                    
+                    return  bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
                 else

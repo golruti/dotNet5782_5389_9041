@@ -32,7 +32,7 @@ namespace BL
         /// The function gets a customer ID and tries to delete it
         /// </summary>
         /// <param name="station"></param>
-        private void deleteBLParcel(int parcelId)
+        public void deleteBLParcel(int parcelId)
         {
             try
             {

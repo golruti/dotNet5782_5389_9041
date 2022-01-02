@@ -83,6 +83,7 @@
                     </Button.IsEnabled>
                 </Button>
                 <Button Content="close"   Height="40" Width="130" Background="DarkCyan"  Click="Close_Page" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
+                <Button Content="delete"   Height="40" Width="130" Background="DarkCyan"  Click="DeleteBaseStation" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
             </StackPanel>
 
         </Grid>

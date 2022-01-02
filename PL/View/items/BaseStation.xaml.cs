@@ -62,7 +62,14 @@ namespace PL
             DronesListView.DataContext = dronesInCharging;
 
         }
-
+        private void DeleteBaseStation(object sender, RoutedEventArgs e)
+        {
+            bl.deleteBLBaseStation(baseStation.Id);
+            if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            {
+                Close_Page(sender, e);
+            }
+        }
         private void RefreshDroneList()
         {
             

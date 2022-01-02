@@ -35,7 +35,10 @@ namespace PL
             this.RemoveTab = removeTab;
             BaseStations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationForList());
             BaseStationListView.DataContext = BaseStations;
-            
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(BaseStationListView.DataContext);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargingPorts");
+            view.GroupDescriptions.Add(groupDescription);
+
         }
         private void RefreshBaseStationList()
         {
@@ -87,7 +90,7 @@ namespace PL
 
             TabItem tabItem = new TabItem();
             tabItem.Content = new BaseStation(this.bl,addTab,selectedBaseStation, RefreshBaseStationList);
-            tabItem.Header = "Update drone";
+            tabItem.Header = "Update base station";
             tabItem.Visibility = Visibility.Visible;
             this.addTab(tabItem);
 

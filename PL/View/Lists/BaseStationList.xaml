@@ -56,19 +56,35 @@
                     </GridView>
 
                 </ListView.View>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Expander IsExpanded="True">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="{Binding ItemCount}" FontSize="22" Foreground="DarkCyan" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text=" item(s)" FontSize="22" Foreground="Silver" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
             </ListView>
 
-            <!--<ListView x:Name="BaseStationListView" ItemsSource="{Binding}" Grid.Row="1" Grid.RowSpan="2">
-                <ListView.ItemTemplate>
-                    <ItemContainerTemplate>
-                        <ContentControl Content="{Binding }" MouseDoubleClick="BaseStationListView_MouseDoubleClick" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="4" ></ContentControl>
-                    </ItemContainerTemplate>
-                </ListView.ItemTemplate>
-
-            </ListView>-->
+           
             
-            <!--<Button Content="close"  HorizontalAlignment="Left" Margin="693,34,0,0" VerticalAlignment="Top"   Click="Close_Page" Grid.Row="2" RenderTransformOrigin="-0.019,0.436" FontSize="10" FontFamily="Consolas" FontWeight="Bold" Height="41" Width="100" Background="DarkCyan"/>
-            <Button  Content="add Base Station"  HorizontalAlignment="Left"   Click="ShowAddBaseStationWindow" VerticalAlignment="Top" RenderTransformOrigin="0.815,15.333" Margin="577,34,0,0"   Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold" Height="41" Width="100" Background="DarkCyan"/>-->
+            
             <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
             <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddBaseStationWindow" Content="add base station" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
         </Grid>
