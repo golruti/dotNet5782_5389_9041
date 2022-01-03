@@ -30,7 +30,9 @@ namespace PL
             InitializeComponent();
             customerListViewModel = new CustomerListViewModel(bl, addTab,removeTab);
             this.DataContext = customerListViewModel;
-           
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(CustomersListViewXaml.DataContext);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Name");
+            view.GroupDescriptions.Add(groupDescription);
         }
 
         private void CustomersListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

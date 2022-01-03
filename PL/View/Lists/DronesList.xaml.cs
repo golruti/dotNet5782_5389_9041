@@ -25,14 +25,17 @@ namespace PL
     public partial class DronesList
     {
         DroneListViewModel droneListViewModel;
-
-
+        
         public DronesList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
             droneListViewModel = new DroneListViewModel(bl, addTab, removeTab);
             droneListViewModel.ListCollectionView.Filter += FilterDrone;
             this.DataContext = droneListViewModel;
+            
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.DataContext);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
         }
 
 

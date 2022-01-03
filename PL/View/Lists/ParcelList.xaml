@@ -103,14 +103,14 @@
                 <RowDefinition Height="0*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
                 <ColumnDefinition Width="40*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="40*"/>
@@ -126,9 +126,9 @@
             <ComboBox  Grid.Column="5" x:Name="ReceiveId" ItemsSource="{Binding}" SelectionChanged="ReceiveId_SelectionChanged" />
             <Label Grid.Column="6" Content="time :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray"/>
             <Label Grid.Column="7" Content="from :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.ColumnSpan="3" />
-            <DatePicker Grid.Column="8" x:Name="From" Height="26" HorizontalAlignment="Left" SelectedDateChanged="To_time_selectionChanged"    Width="106" Grid.ColumnSpan="2"   />
+            <DatePicker Grid.Column="8" x:Name="From" Height="26" HorizontalAlignment="Left" SelectedDateChanged="To_time_selectionChanged"    Width="89"   />
             <Label Grid.Column="9" Content="to :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.ColumnSpan="3" />
-            <DatePicker Grid.Column="10" x:Name="To" Height="26" HorizontalAlignment="Center" SelectedDateChanged="From_time_selectionChanged" Width="104" />
+            <DatePicker Grid.Column="10" x:Name="To" Height="26" HorizontalAlignment="Center" SelectedDateChanged="From_time_selectionChanged" Width="94" />
             <!--<StackPanel Grid.Column="11" Grid.ColumnSpan="2" >
                 <RadioButton Content="by sender" IsChecked="True" Click="MoveToSender" />
                 <RadioButton Content="by recived" Click="MoveToRecive" />
