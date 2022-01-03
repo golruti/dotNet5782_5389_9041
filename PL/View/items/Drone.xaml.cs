@@ -39,7 +39,7 @@ namespace PL
             droneViewModel = new DroneViewModel(droneForList, bl, refreshDroneList);
             this.DataContext = droneViewModel;
             Update_grid.Visibility = Visibility.Visible;
-            Enums.ParcelStatuses parcelStutus = droneViewModel.Bl.GetParcelStatusByDrone(droneForList.Id);
+            
         }
 
         private void DeleteDrone(object sender, RoutedEventArgs e)
