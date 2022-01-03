@@ -14,19 +14,16 @@ namespace PL.ViewModel
 {
     public class DroneListViewModel : INotifyPropertyChanged
     {
-        public DroneListViewModel(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
+        public DroneListViewModel(BlApi.IBL bl, Action<TabItem> addTab)
         {
             this.Bl = bl;
-            this.AddTab = addTab;
-            this.RemoveTab = removeTab;
-            //DronesForList = new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(bl.GetDroneForList()));
+            this.AddTab = addTab;       
             ListCollectionView = new ListCollectionView(new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(bl.GetDroneForList())));
             DroneWeights = Enum.GetValues(typeof(Enums.WeightCategories));
             DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses));
         }
         public void RefreshDroneList()
         {
-            //DronesForList = new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList()));
             ListCollectionView = new ListCollectionView(new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList())));          
         }
 
@@ -34,7 +31,6 @@ namespace PL.ViewModel
         public Array DroneWeights { get; set; }
         public BlApi.IBL Bl { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
-        public Action<object, RoutedEventArgs> RemoveTab { get; private set; }
         private ListCollectionView listCollectionView;
         public ListCollectionView ListCollectionView
         {
@@ -45,17 +41,7 @@ namespace PL.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ListCollectionView)));
             }
         }
-
-        //private ObservableCollection<PO.DroneForList> dronesForList;
         public event PropertyChangedEventHandler PropertyChanged;
-        //public ObservableCollection<PO.DroneForList> DronesForList
-        //{
-        //    get { return dronesForList; }
-        //    set
-        //    {
-        //        dronesForList = value;
-        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DronesForList)));
-        //    }
-        //}
+
     }
 }

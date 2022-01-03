@@ -24,63 +24,51 @@ namespace PL
     /// </summary>
     public partial class BaseStation 
     {
-
-        BlApi.IBL bl;
-        Action<TabItem> addTab;
         private string newName;
         private string newNum;
-        private BO.BaseStation baseStation;
-        Action refreshBaseStationList;
-        ObservableCollection<DroneForList> droneList;
         private IEnumerable<BO.DroneInCharging> dronesInCharging;
+        //
+        //
+        //
+
+        BaseStationViewModel baseStationViewModel;
 
         public BaseStation(BlApi.IBL bl, Action refreshBaseStationList)
         {
             InitializeComponent();
-            this.bl = bl;
-            this.refreshBaseStationList = refreshBaseStationList;
+            baseStationViewModel = new BaseStationViewModel(bl,refreshBaseStationList);
+            this.DataContext = baseStationViewModel;
             Add_grid.Visibility = Visibility.Visible;
         }
         
-        public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList/*,Action refreshDroneList*/)
+        public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList)
         {
             InitializeComponent();
-            this.bl = bl;
+            baseStationViewModel = new BaseStationViewModel(bl, addTab, baseStationForList, refreshBaseStationList);
+            this.DataContext = baseStationViewModel;
             Update_grid.Visibility = Visibility.Visible;
-            baseStation = bl.GetBLBaseStation(baseStationForList.Id);
-            DataContext = baseStationForList;
-            droneList = new ObservableCollection<DroneForList>(bl.GetDroneForList());
-            this.refreshBaseStationList = refreshBaseStationList;
-            //this.refreshDroneList = refreshDroneList;
-            this.addTab = addTab;
-            dronesInCharging = bl.DronesInCharging(baseStation.Id);
         }
 
         private void RefreshDroneInChargeList()
         {
-            dronesInCharging = bl.DronesInCharging(baseStation.Id);
+            dronesInCharging = baseStationViewModel.Bl.DronesInCharging(baseStationViewModel.BaseStationInList.Id);
             DronesListView.DataContext = dronesInCharging;
 
         }
         private void DeleteBaseStation(object sender, RoutedEventArgs e)
         {
-            bl.deleteBLBaseStation(baseStation.Id);
+            baseStationViewModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
             if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
             }
         }
-        private void RefreshDroneList()
-        {
-            
-            DronesListView.DataContext = droneList;
 
-        }
         private void Finish_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                bl.AddBaseStation(new BO.BaseStation(int.Parse(Id.Text),Name.Text,double.Parse(longitude.Text), double.Parse(latitude.Text),int.Parse(Num_of_charging_positions.Text)));
+                baseStationViewModel.Bl.AddBaseStation(new BO.BaseStation(int.Parse(Id.Text),Name.Text,double.Parse(longitude.Text), double.Parse(latitude.Text),int.Parse(Num_of_charging_positions.Text)));
 
                 if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -127,10 +115,10 @@ namespace PL
             var selectedDrone = (sender as ContentControl).DataContext as BO.DroneForList;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(selectedDrone, this.bl, RefreshDroneList);
+            tabItem.Content = new Drone(selectedDrone, baseStationViewModel.Bl, baseStationViewModel.DronesList.RefreshDroneList);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
-            this.addTab(tabItem);
+            baseStationViewModel.AddTab(tabItem);
 
         }
       
@@ -148,8 +136,9 @@ namespace PL
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
 
-            this.refreshBaseStationList();
-            
+            baseStationViewModel.RefreshStationsList();
+
+
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)
@@ -158,17 +147,17 @@ namespace PL
             {
                 if (update_name.Text != null && update_num_of_charging_ports.Text != null)
                 {
-                    bl.UpdateBaseStation(baseStation.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
+                    baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
                     (sender as Button).IsEnabled = false;
                 }
                 else if(update_name.Text != null)
                 {
-                    bl.UpdateBaseStation(baseStation.Id, update_name.Text,baseStation.AvailableChargingPorts);
+                    baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, baseStationViewModel.BaseStationInList.AvailableChargingPorts);
                     (sender as Button).IsEnabled = false;
                 }
                 else
                 {
-                    bl.UpdateBaseStation(baseStation.Id, baseStation.Name, int.Parse(update_num_of_charging_ports.Text));
+                    baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, baseStationViewModel.BaseStationInList.Name, int.Parse(update_num_of_charging_ports.Text));
                     (sender as Button).IsEnabled = false;
                 }
                 if (MessageBox.Show("The base station has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)

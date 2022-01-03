@@ -22,21 +22,21 @@ namespace PL
     /// </summary>
     public partial class Customer
     {
-        CustomerViewModel CustomerViewModel;
+        CustomerViewModel customerViewModel;
 
         public Customer(BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
-            CustomerViewModel = new CustomerViewModel(bl, refreshCustomersList);
-            this.DataContext = CustomerViewModel;
+            customerViewModel = new CustomerViewModel(bl, refreshCustomersList);
+            this.DataContext = customerViewModel;
             Add_grid.Visibility = Visibility.Visible;
         }
-
+         
         public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
-            CustomerViewModel = new CustomerViewModel(customerInList, bl, refreshCustomersList);
-            this.DataContext = CustomerViewModel;
+            customerViewModel = new CustomerViewModel(customerInList, bl, refreshCustomersList);
+            this.DataContext = customerViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
 
@@ -52,12 +52,12 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            CustomerViewModel.RefreshCustomersList();
+            customerViewModel.RefreshCustomersList();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            CustomerViewModel.Bl.DeleteBLCustomer(CustomerViewModel.CustomerInList.Id);
+            customerViewModel.Bl.DeleteBLCustomer(customerViewModel.CustomerInList.Id);
             if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -66,7 +66,7 @@ namespace PL
 
         private void Add_Customer_finish_click(object sender, RoutedEventArgs e)
         {
-            CustomerViewModel.Bl.AddCustomer(new BO.Customer(int.Parse(ID.Text), name.Text, phone.Text, double.Parse(longg.Text), double.Parse(longg.Text)));
+            customerViewModel.Bl.AddCustomer(new BO.Customer(int.Parse(ID.Text), name.Text, phone.Text, double.Parse(longg.Text), double.Parse(longg.Text)));
 
             if (MessageBox.Show("the customer was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
@@ -78,7 +78,7 @@ namespace PL
         {
             try
             {
-              CustomerViewModel.Bl.UpdateCustomer(CustomerViewModel.CustomerInList.Id, CustomerViewModel.CustomerInList.Name, CustomerViewModel.CustomerInList.Phone);
+              customerViewModel.Bl.UpdateCustomer(customerViewModel.CustomerInList.Id, customerViewModel.CustomerInList.Name, customerViewModel.CustomerInList.Phone);
             }
             catch (Exception)
             {

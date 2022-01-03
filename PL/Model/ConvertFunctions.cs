@@ -34,6 +34,9 @@ namespace PO
         {
             return (BO.Enums.WeightCategories)weight;
         }
+
+
+
         public static BO.Enums.DroneStatuses POEnumDroneStatusesToBO(Enums.DroneStatuses status)
         {
             return (BO.Enums.DroneStatuses)status;
@@ -232,5 +235,33 @@ namespace PO
                 ParcelDeliveredId = drone.ParcelDeliveredId
             };
         }
+
+        internal static BaseStation BOBaseStationToPO(BO.BaseStation baseStation)
+        {
+            return new BaseStation()
+            {
+                Id = baseStation.Id,
+                Name = baseStation.Name,
+                AvailableChargingPorts = baseStation.AvailableChargingPorts,
+                Location = BOLocationToPO(baseStation.Location),
+                DronesInCharging = BODroneInCharging(baseStation.DronesInCharging)
+            };
+        }
+
+        internal static IEnumerable<DroneInCharging> BODroneInCharging(IEnumerable<BO.DroneInCharging> dronesInCharging)
+        {
+            ObservableCollection<PO.DroneInCharging> dronesCharging = new ObservableCollection<DroneInCharging>();
+            foreach (var droneCharging in dronesInCharging)
+            {
+                dronesCharging.Add(new DroneInCharging()
+                {
+                    Id = droneCharging.Id,
+                    Battery = droneCharging.Battery,
+                    Time = droneCharging.Time
+                });
+            }
+            return dronesCharging;
+        }
+
     }
 }
