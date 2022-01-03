@@ -41,9 +41,9 @@ namespace PL.ViewModel
         public void RefreshStationsList(Predicate<BaseStationForList> predicate)
         {
             BaseStationsForList = (ObservableCollection<PO.BaseStationForList>)((new ObservableCollection<PO.BaseStationForList>(ConvertFunctions.BOBaseStationForListToPO(Bl.GetBaseStationForList()))).Where(s => predicate(s)));
-            var t = ConvertFunctions.BOBaseStationForListToPO(Bl.GetBaseStationForList());
-            var w = t.Filtering(s => predicate(s));
-            var s = new ObservableCollection<BaseStationForList>(w);
+            //var t = ConvertFunctions.BOBaseStationForListToPO(Bl.GetBaseStationForList());
+            ////var w = t.Filtering(s => predicate(s));
+            //var s = new ObservableCollection<BaseStationForList>(w);
         }
 
         public void RefreshStationsList()
