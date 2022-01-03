@@ -28,34 +28,27 @@
      
     </UserControl.Resources>
     <Grid>
-
-
-
         <Grid Background="Gray">
             <Grid.RowDefinitions>
-
                 <RowDefinition Height="56*"/>
                 <RowDefinition Height="299*"/>
                 <RowDefinition Height="95*"/>
-
             </Grid.RowDefinitions>
-            <Grid   Name="UpGrid"  Grid.Row="0" Margin="150,10,150,10" Height="30" Width="600">
-
-                <CheckBox Content="for available base stations"  x:Name="Available" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="123,9,217,-9" RenderTransformOrigin="0.5,0.5"/>
+            
+            <Grid Name="UpGrid" Grid.Row="0" Margin="150,10,150,10" Height="30" Width="600">
+                <CheckBox Content="for available base stations" Checked="Available_Checked_1" x:Name="Available" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="123,9,217,-9" RenderTransformOrigin="0.5,0.5"/>
             </Grid>
-            <ListView x:Name="BaseStationListView" ItemsSource="{Binding}" DisplayMemberPath="" MouseDoubleClick="BaseStationListView_MouseDoubleClick" Grid.Row="1" Grid.RowSpan="2">
-                <ListView.View >
 
+            <ListView x:Name="BaseStationListView" ItemsSource="{Binding BaseStationsForList}" DisplayMemberPath="" MouseDoubleClick="BaseStationListView_MouseDoubleClick" Grid.Row="1" Grid.RowSpan="2">
+                <ListView.View >
                     <GridView>
-                       
                         <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
                         <GridViewColumn  Header="Name" DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn  Header="AvailableChargingPorts" DisplayMemberBinding="{Binding AvailableChargingPorts}" />
                         <GridViewColumn  Header="UsedChargingPorts" DisplayMemberBinding="{Binding UsedChargingPorts}"/>
-                        
                     </GridView>
-
                 </ListView.View>
+                
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>

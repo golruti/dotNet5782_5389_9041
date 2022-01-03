@@ -23,59 +23,40 @@ namespace PL
     /// </summary>
     public partial class BaseStationList : UserControl
     {
-        BlApi.IBL bl;
-        Action<TabItem> addTab;
-        Action<object, RoutedEventArgs> RemoveTab;
-        ObservableCollection<BaseStationForList> BaseStations;
+        BaseStationListViewModel baseStationListViewModel;
+
         public BaseStationList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
-            this.bl = bl;
-            this.addTab = addTab;
-            this.RemoveTab = removeTab;
-            BaseStations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationForList());
-            BaseStationListView.DataContext = BaseStations;
+            baseStationListViewModel = new BaseStationListViewModel(bl, addTab);
+            this.DataContext = baseStationListViewModel;
+            
+
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(BaseStationListView.DataContext);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargingPorts");
-            view.GroupDescriptions.Add(groupDescription);
-
-        }
-        private void RefreshBaseStationList()
-        {
-            if (Available.IsChecked == true)
-            {
-                
-                BaseStations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationForList().Where(item=>item.AvailableChargingPorts>0));
-                BaseStationListView.DataContext = BaseStations;
-            }
-            else 
-            {
-                BaseStations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationForList());
-                BaseStationListView.DataContext = BaseStations;
-            }
-            
+            //view.GroupDescriptions.Add(groupDescription);
         }
 
-        private void AvailableBaseStations_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void Available_Checked_1(object sender, RoutedEventArgs e)
         {
             if (Available.IsChecked == false)
             {
-                BaseStationListView.DataContext = bl.GetBaseStationForList();
+                baseStationListViewModel.RefreshStationsList();
             }
             else
             {
-                BaseStationListView.DataContext = bl.GetBaseStationForList().Where(item => item.AvailableChargingPorts > 0);
-                
+                baseStationListViewModel.RefreshStationsList(station => station.AvailableChargingPorts > 0);
             }
         }
 
-      
+
         private void ShowAddBaseStationWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStation(bl, RefreshBaseStationList);
+            tabItem.Content = new BaseStation(baseStationListViewModel.Bl, baseStationListViewModel.RefreshStationsList);
             tabItem.Header = "Add base station";
-            this.addTab(tabItem);
+            baseStationListViewModel.AddTab(tabItem);
         }
 
         /// <summary>
@@ -85,15 +66,12 @@ namespace PL
         /// <param name="e"></param>
         private void BaseStationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
-            var selectedBaseStation = BaseStationListView.SelectedItem as BO.BaseStationForList;
-
+            var selectedBaseStation = BaseStationListView.SelectedItem as PO.BaseStationForList;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStation(this.bl,addTab,selectedBaseStation, RefreshBaseStationList);
+            tabItem.Content = new BaseStation(baseStationListViewModel.Bl, baseStationListViewModel.AddTab,PO.ConvertFunctions.POStationToBO( selectedBaseStation), baseStationListViewModel.RefreshStationsList);
             tabItem.Header = "Update base station";
             tabItem.Visibility = Visibility.Visible;
-            this.addTab(tabItem);
-
+            baseStationListViewModel.AddTab(tabItem);
         }
 
         /// <summary>
@@ -116,5 +94,5 @@ namespace PL
         }
     }
 }
-    
+
 

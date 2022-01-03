@@ -42,6 +42,8 @@ namespace PO
             return (BO.Enums.DroneStatuses)status;
         }
 
+        
+
         public static BO.Enums.Priorities POEnumPrioritiesToBO(Enums.Priorities prioruty)
         {
             return (BO.Enums.Priorities)prioruty;
@@ -91,6 +93,8 @@ namespace PO
                 Name = customerDelivery.Name,
             };
         }
+
+
         public static Parcel BOParcelToPO(BO.Parcel parcel)
         {
             return new Parcel
@@ -261,6 +265,32 @@ namespace PO
                 });
             }
             return dronesCharging;
+        }
+
+        internal static ObservableCollection<PO.BaseStationForList> BOBaseStationForListToPO(IEnumerable<BO.BaseStationForList> baseStationsForList)
+        {
+            ObservableCollection<PO.BaseStationForList> baseStations = new ObservableCollection<BaseStationForList>();
+            foreach (var station in baseStationsForList)
+            {
+                baseStations.Add(new BaseStationForList()
+                {
+                    Id = station.Id,
+                    Name = station.Name,
+                    AvailableChargingPorts=station.AvailableChargingPorts,
+                    UsedChargingPorts=station.UsedChargingPorts
+                });
+            }
+            return baseStations;
+        }
+        internal static BO.BaseStationForList POStationToBO(BaseStationForList station)
+        {
+            return new BO.BaseStationForList()
+            {
+                Id = station.Id,
+                Name = station.Name,
+                AvailableChargingPorts = station.AvailableChargingPorts,
+                UsedChargingPorts = station.UsedChargingPorts
+            };
         }
 
     }
