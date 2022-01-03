@@ -56,8 +56,12 @@
                 <TextBox x:Name="update_num_of_charging_ports" Grid.Row="4" Grid.Column="1" Text="{Binding BaseStationInList.AvailableChargingPorts}" IsEnabled="True" TextChanged="update_num_of_charging_ports_TextChanged" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="6" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,1,0,12" RenderTransformOrigin="0.5,0.5"/>
-                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding BaseStationInList.Location}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
-                <Label Grid.Row="8" Grid.Column="0" Content="drones in charging: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,0,0,150" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding BaseStationInList.Location.Longitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
+
+                <Label Grid.Row="8" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,1,0,12" RenderTransformOrigin="0.5,0.5"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding BaseStationInList.Location.Latitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
+                
+                <Label Grid.Row="10" Grid.Column="0" Content="drones in charging: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,0,0,150" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
 
                 <ListView x:Name="DronesListView" ItemsSource="{Binding dronesInCharging}" DisplayMemberPath="" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="9" Grid.ColumnSpan="2">
                     <ListView.View >
