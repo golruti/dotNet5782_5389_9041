@@ -63,7 +63,7 @@
                 
                 <Label Grid.Row="10" Grid.Column="0" Content="drones in charging: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,0,0,150" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
 
-                <ListView x:Name="DronesListView" ItemsSource="{Binding dronesInCharging}" DisplayMemberPath="" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="9" Grid.ColumnSpan="2">
+                <ListView x:Name="DronesListView" ItemsSource="{Binding DronesInChargingList}" DisplayMemberPath="" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="9" Grid.ColumnSpan="2">
                     <ListView.View >
                         <GridView>
 
@@ -81,6 +81,8 @@
                         <MultiBinding Converter="{StaticResource atLleastOneContentConvert}">
                             <Binding ElementName="Name" Path="Text"></Binding>
                             <Binding ElementName="Num_of_charging_positions" Path="Text"></Binding>
+                            <Binding ElementName="BaseStationInList.Name" Path="Text"></Binding>
+                            <Binding ElementName="BaseStationInList.availableChargingPorts" Path="Text"></Binding>
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
@@ -131,6 +133,7 @@
                             <Binding ElementName="Num_of_charging_positions" Path="Text"></Binding>
                             <Binding ElementName="longitude" Path="Text"></Binding>
                             <Binding ElementName="latitude" Path="Text"></Binding>
+                            
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>

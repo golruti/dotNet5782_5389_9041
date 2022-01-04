@@ -54,7 +54,7 @@ namespace PO
                 OnPropertyChanged(nameof(Location));
             }
         }
-
+        
         private IEnumerable<DroneInCharging> dronesInCharging;
         public IEnumerable<DroneInCharging> DronesInCharging
         {

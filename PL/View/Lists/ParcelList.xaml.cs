@@ -44,6 +44,7 @@ namespace PL
             ReceiveId.DataContext= bl.GetParcelForList().Select(item => item.ReceiveCustomer);
             
             ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
+            //ParcelesListView.DronesList.GroupDescriptions.Add(new PropertyGroupDescription("Status"));
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelesListView.DataContext);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("SendCustomer");
             view.GroupDescriptions.Add(groupDescription);

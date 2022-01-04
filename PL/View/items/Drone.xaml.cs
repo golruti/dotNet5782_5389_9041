@@ -307,42 +307,6 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        /// <summary>
-        /// update the drone
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Update_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                droneViewModel.Bl.UpdateDroneModel(droneViewModel.DroneInList.Id, droneViewModel.DroneInList.Model);
-                //(sender as Button).IsEnabled = false;
-                if (MessageBox.Show("The drone model has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
-                {
-                    droneViewModel.RefreshDronesList();
-                }
-            }
-            catch (KeyNotFoundException ex)
-            {
-                MessageBox.Show($"The drone model could not be updated, {ex.Message}");
-            }
-            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
-            {
-                MessageBox.Show($"The drone model could not be updated, {ex.Message}");
-            }
-            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
-            {
-                MessageBox.Show($"The drone model could not be updated, {ex.Message}");
-            }
-            catch (ArgumentNullException ex)
-            {
-                MessageBox.Show($"The drone model could not be updated, {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"The drone model could not be updated, {ex.Message}");
-            }
-        }
+      
     }
 }
