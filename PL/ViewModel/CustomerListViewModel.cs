@@ -19,20 +19,20 @@ namespace PL.ViewModel
             this.Bl = bl;
             this.AddTab = addTab;
             this.RemoveTab = removeTab;
-            CustomersForList = new ObservableCollection<CustomerForList>(ConvertFunctions.BOCustomerForListToPO(bl.GetCustomerForList()));
+            CustomersForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOCustomerForListToPO(bl.GetCustomerForList()));
         }
         public void RefreshCustomerList()
         {
-            CustomersForList = new ObservableCollection<CustomerForList>(ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()));
+            CustomersForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()));
         }
 
 
         public BlApi.IBL Bl { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
         public Action<object, RoutedEventArgs> RemoveTab { get; private set; }
-        private ObservableCollection<PO.CustomerForList> customersForList;
+        private ListCollectionView customersForList;
         public event PropertyChangedEventHandler PropertyChanged;
-        public ObservableCollection<PO.CustomerForList> CustomersForList
+        public ListCollectionView CustomersForList
         {
             get { return customersForList; }
             set

@@ -48,13 +48,13 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CustomerInList.Id}"  FontSize="15" FontFamily="Copperplate Gothic" Grid.ColumnSpan="2"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Name="Id" Text="{Binding CustomerInList.Id}"  FontSize="15" FontFamily="Copperplate Gothic" Grid.ColumnSpan="2"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Name: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CustomerInList.Name}" FontSize="15" FontFamily="Copperplate Gothic" Grid.ColumnSpan="2"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Name="Name" Text="{Binding CustomerInList.Name}" FontSize="15" FontFamily="Copperplate Gothic" Grid.ColumnSpan="2"/>
 
                 <Label Grid.Row="3" Grid.Column="0" Content="phone: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
-                <TextBox x:Name="update_model" Grid.Row="3" Grid.Column="1" Text="{Binding CustomerInList.Phone}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Grid.ColumnSpan="2" Margin="0,10,0,10" Grid.RowSpan="3"/>
+                <TextBox x:Name="Phone" Grid.Row="3"  Grid.Column="1" Text="{Binding CustomerInList.Phone}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Grid.ColumnSpan="2" Margin="0,10,0,10" Grid.RowSpan="3"/>
 
                 <Label Grid.Row="6" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding CustomerInList.Location.Longitude}"  FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
@@ -81,8 +81,10 @@
                 <Button Content="update details" Height="40" Width="130" Margin="30,0,0,0" Click="Update_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource atLleastOneContentConvert}">
-                            <Binding ElementName="name" Path="Text"></Binding>
-                            <Binding ElementName="phone" Path="Text"></Binding>
+                            <Binding ElementName="Name" Path="Text"></Binding>
+                            <Binding ElementName="Phone" Path="Text"></Binding>
+                            <Binding ElementName="CustomerInList.Name" Path="Text"></Binding>
+                            <Binding ElementName="CustomerInList.Phone" Path="Text"></Binding>
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
@@ -133,6 +135,7 @@
                             <Binding ElementName="phone" Path="Text"></Binding>
                             <Binding ElementName="longg" Path="Text"></Binding>
                             <Binding ElementName="lat" Path="Text"></Binding>
+                           
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>

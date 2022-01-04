@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BL
 {
-    partial class BL 
+    partial class BL
     {
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         private DO.DroneCharge GetDroneInChargByID(int id)
@@ -24,7 +24,7 @@ namespace BL
         /// </summary>
         /// <param name="stationId">The station ID</param>
         /// <returns>The list of drones in charge</returns>
-        public IEnumerable<DroneInCharging> DronesInCharging(int stationId)
+        public IEnumerable<DroneInCharging> GetDronesInCharging(int stationId)
         {
             List<DO.DroneCharge> list = (List<DO.DroneCharge>)dal.GetDronesCharges(droneCharge => droneCharge.StationId == stationId);
             if (list.Count == 0)

@@ -15,7 +15,7 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
-        <Converters:ContentConvert x:Key="contentConvert"></Converters:ContentConvert>
+        <Converters:MultyConvert1ItemsCompare x:Key="multyConvert1ItemsCompare"></Converters:MultyConvert1ItemsCompare>
         <Converters:DroneAvailableStatusConvert x:Key="droneAvailableStatusConvert"></Converters:DroneAvailableStatusConvert>
         <Converters:DroneDeliveryStatusConvert x:Key="droneDeliveryStatusConvert"></Converters:DroneDeliveryStatusConvert>
         <Converters:DroneMaintenanceStatusConvert x:Key="droneMaintenanceStatusConvert"></Converters:DroneMaintenanceStatusConvert>
@@ -67,9 +67,16 @@
                 <Button Content = "Release drone from charging" Click= "ReleaseDroneFromCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" HorizontalAlignment ="Center" Visibility="{Binding DroneInList.Status,Converter={StaticResource droneMaintenanceStatusConvert}}"/>
                 <Button Content = "Parcel delivery" Click = "ParcelDelivery_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding ParcelStutus,Converter={StaticResource parcelStatusByDroneCollectedConvert}}"/>
                 <Button Content = "Parcel collection" Click = "ParcelCollection_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding ParcelStutus,Converter={StaticResource parcelStatusByDroneAssociatedConvert}}"/>
-                <Button x:Name="finish" Content="Finish" Visibility="Collapsed"  Background="DarkCyan" Height="40" Width="130" HorizontalAlignment = "Center" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+               
                 <Button Content="close"   Height="40" Width="130" Background="DarkCyan"  Click="Close_Page" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-                <Button  Content="Update Model" Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold" IsEnabled="{Binding ElementName=Model,Converter={StaticResource contentConvert}}"/>
+                <Button  Content="Update Model" Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold" >
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource multyConvert1ItemsCompare}">
+                            <Binding ElementName="Model" Path="Text"></Binding>
+                            <Binding ElementName="DroneInList.Model" Path="Text"></Binding>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
             </StackPanel>
         </Grid>
         <Grid x:Name="Add_grid" Visibility="Collapsed" >
@@ -99,7 +106,7 @@
             </Grid>
 
             <Grid Width="200" Height="50" Margin="259,205,145,95">
-                <Button Content = "Update_Click" Click = "Update_Click" Background = "DarkCyan" Height = "40" Width = "130" IsEnabled="{Binding ElementName=Model ,Converter={StaticResource contentConvert}}"></Button>
+                
                 <Button  Content="finish"  Margin="40,15,100,15" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource multyConvert4Items}">

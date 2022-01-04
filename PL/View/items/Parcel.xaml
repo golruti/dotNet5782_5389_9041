@@ -15,7 +15,7 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
-        <Converters:ContentConvert x:Key="contentConvert"></Converters:ContentConvert>
+        <Converters:MultyConvert1ItemsCompare x:Key="contentConvert"></Converters:MultyConvert1ItemsCompare>
         <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
     </UserControl.Resources>
     <Grid Background="White">
@@ -66,10 +66,10 @@
 
             </Grid>
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
-                <Button x:Name="finish" Content="Finish" Visibility="Collapsed"  Background="DarkCyan" Height="40" Width="130" HorizontalAlignment = "Center" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+               
                 <Button Content="close"   Height="40" Width="130" Background="DarkCyan"  Click="Close_Page" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
                 <Button Content="delete"   Height="40" Width="130" Background="DarkCyan"  Click="DeleteParcel" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-                <!--<Button  Content="Update Model" Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>-->
+                <!--<Button  Content="Update" Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>-->
             </StackPanel>
 
         </Grid>
@@ -113,6 +113,7 @@
                             <Binding ElementName="reciverId" Path="Text"></Binding>
                             <Binding ElementName="Weight" Path="Text"></Binding>
                             <Binding ElementName="Priority" Path="Text"></Binding>
+                            
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>

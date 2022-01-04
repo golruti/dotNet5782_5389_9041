@@ -18,27 +18,27 @@ namespace PL.ViewModel
         {
             this.Bl = bl;
             this.AddTab = addTab;       
-            ListCollectionView = new ListCollectionView(new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(bl.GetDroneForList())));
+            DronesList = new ListCollectionView(new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(bl.GetDroneForList())));
             DroneWeights = Enum.GetValues(typeof(Enums.WeightCategories));
             DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses));
         }
         public void RefreshDroneList()
         {
-            ListCollectionView = new ListCollectionView(new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList())));          
+            DronesList = new ListCollectionView(new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList())));          
         }
 
         public Array DroneStatuses { get; set; }
         public Array DroneWeights { get; set; }
         public BlApi.IBL Bl { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
-        private ListCollectionView listCollectionView;
-        public ListCollectionView ListCollectionView
+        private ListCollectionView dronesList;
+        public ListCollectionView DronesList
         {
-            get { return listCollectionView; }
+            get { return dronesList; }
             set
             {
-                listCollectionView = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ListCollectionView)));
+                dronesList = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DronesList)));
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

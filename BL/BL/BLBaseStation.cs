@@ -168,7 +168,7 @@ namespace BL
                 Name = station.Name,
                 Location = new Location(station.Latitude, station.Longitude),
                 AvailableChargingPorts = station.ChargeSlote - countFullChargeSlots(station.Id),
-                DronesInCharging = DronesInCharging(station.Id)
+                DronesInCharging = GetDronesInCharging(station.Id)
             };
         }
 

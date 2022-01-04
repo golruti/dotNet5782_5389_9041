@@ -17,14 +17,14 @@ namespace PL.ViewModel
         public BlApi.IBL Bl { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        private ListCollectionView baseStationsForList;
-        public ListCollectionView BaseStationsForList
+        private ListCollectionView baseStationsList;
+        public ListCollectionView BaseStationsList
         {
-            get { return baseStationsForList; }
+            get { return baseStationsList; }
             set
             {
-                baseStationsForList = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BaseStationsForList)));
+                baseStationsList = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BaseStationsList)));
             }
         }
 
@@ -33,17 +33,17 @@ namespace PL.ViewModel
         {
             Bl = bl;
             AddTab = addTab;
-            baseStationsForList = new ListCollectionView((System.Collections.IList)PO.ConvertFunctions.BOBaseStationForListToPO( bl.GetBaseStationForList()));
+            baseStationsList = new ListCollectionView((System.Collections.IList)PO.ConvertFunctions.BOBaseStationForListToPO( bl.GetBaseStationForList()));
         }
 
         public void RefreshStationsList(Predicate<BaseStationForList> predicate)
         {
-            BaseStationsForList = (new ListCollectionView((System.Collections.IList)ConvertFunctions.BOBaseStationForListToPO(Bl.GetAvaBaseStationForList())));
+            BaseStationsList = (new ListCollectionView((System.Collections.IList)ConvertFunctions.BOBaseStationForListToPO(Bl.GetAvaBaseStationForList())));
         }
 
         public void RefreshStationsList()
         {          
-            BaseStationsForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOBaseStationForListToPO(Bl.GetBaseStationForList()));           
+            BaseStationsList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOBaseStationForListToPO(Bl.GetBaseStationForList()));           
         }
     }
 }
