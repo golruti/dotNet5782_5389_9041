@@ -12,6 +12,8 @@ namespace PL.ViewModel
         public Action<TabItem> AddTab { get; private set; }
         public Action<TabItem> CloseTab { get; private set; }
         public Action RefreshStationsList { get; private set; }
+        public PO.BaseStation SourceBaseStationInList { get; set; }
+
         public PO.BaseStation BaseStationInList { get; set; }
         public DroneListViewModel DronesList { get; set; }
          public DroneInChargeListViewModel DronesInChargingList { get; set; }
@@ -21,10 +23,11 @@ namespace PL.ViewModel
         {
             Bl = bl;
             AddTab = addTab;
+            SourceBaseStationInList = PO.ConvertFunctions.BOBaseStationToPO(Bl.GetBLBaseStation(baseStationForList.Id));
             BaseStationInList = PO.ConvertFunctions.BOBaseStationToPO(Bl.GetBLBaseStation(baseStationForList.Id));
             RefreshStationsList = refreshBaseStationList;
             DronesList = new DroneListViewModel(bl, addTab);
-            DronesInChargingList = new DroneInChargeListViewModel(bl, addTab, BaseStationInList.Id);
+            DronesInChargingList = new DroneInChargeListViewModel(bl, addTab, SourceBaseStationInList.Id);
         }
 
         public BaseStationViewModel(BlApi.IBL bl, Action refreshBaseStationList)

@@ -28,10 +28,15 @@ namespace PO
             get { return name; }
             set
             {
-                name = value;
+                if (name != value)
+                {
+                    name = value;
+                    IsEdit = true;
+                }
                 OnPropertyChanged(nameof(Name));
             }
         }
+        public bool IsEdit { get; private set; }
 
         private int availableChargingPorts;
         public int AvailableChargingPorts

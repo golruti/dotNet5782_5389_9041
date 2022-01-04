@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PL.ViewModel;
-
+using System.Text.RegularExpressions;
 
 namespace PL
 {
@@ -141,6 +141,18 @@ namespace PL
                 Close_Page(sender, e);
             }
         }
+
+        /// <summary>
+        /// Input filter for ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
 
         private void ToCustomerView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

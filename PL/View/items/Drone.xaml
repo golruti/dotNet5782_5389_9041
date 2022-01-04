@@ -85,7 +85,7 @@
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource multyConvert1ItemsCompare}">
                             <Binding ElementName="Model" Path="Text"></Binding>
-                            <Binding ElementName="DroneInList.Model" Path="Text"></Binding>
+                            <Binding Path="DroneInList.Model" ></Binding>
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>

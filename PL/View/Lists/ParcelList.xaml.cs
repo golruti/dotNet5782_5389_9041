@@ -28,8 +28,8 @@ namespace PL
         Action<object, RoutedEventArgs> RemoveTab;
         ListCollectionView listCollectionView;
         ObservableCollection<ParcelForList> parcelForLists;
-        
-        
+        PropertyGroupDescription groupBySender, groupByReceiver;
+
         public ParcelList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
@@ -40,29 +40,29 @@ namespace PL
             listCollectionView = new ListCollectionView(parcelForLists);
             listCollectionView.Filter += FilterParcel;
             ParcelesListView.DataContext = listCollectionView;
-            SenderId.DataContext = bl.GetParcelForList().Select(item=>item.SendCustomer);
-            ReceiveId.DataContext= bl.GetParcelForList().Select(item => item.ReceiveCustomer);
-            
+            SenderId.DataContext = bl.GetParcelForList().Select(item => item.SendCustomer);
+            ReceiveId.DataContext = bl.GetParcelForList().Select(item => item.ReceiveCustomer);
+
             ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
-            //ParcelesListView.DronesList.GroupDescriptions.Add(new PropertyGroupDescription("Status"));
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelesListView.DataContext);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("SendCustomer");
-            view.GroupDescriptions.Add(groupDescription);
-        }
-        private void MoveToRecive()
-        {
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelesListView.DataContext);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("ReceiveCustomer");
-            view.GroupDescriptions.Add(groupDescription);
+
+            groupBySender = new PropertyGroupDescription(nameof(ParcelForList.SendCustomer));
+            groupByReceiver = new PropertyGroupDescription(nameof(ParcelForList.ReceiveCustomer));
+
+            //ParcelesListView.DronesList.GroupDescriptions.Add(new PropertyGroupDescription("SendCustomer"));
+            listCollectionView.GroupDescriptions.Add(groupBySender);
         }
 
-        private void MoveToSender()
+        private void MoveToSender(object sender, RoutedEventArgs e)
         {
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelesListView.DataContext);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("SendCustomer");
-            view.GroupDescriptions.Add(groupDescription);
+            listCollectionView.GroupDescriptions.Remove(groupBySender);
+            listCollectionView.GroupDescriptions.Add(groupBySender);
         }
 
+        private void MoveToRecive(object sender, RoutedEventArgs e)
+        {
+            listCollectionView.GroupDescriptions.Remove(groupByReceiver);
+            listCollectionView.GroupDescriptions.Add(groupByReceiver);
+        }
         private void RefreshFilter()
         {
             listCollectionView.Filter -= FilterParcel;
@@ -73,17 +73,17 @@ namespace PL
         {
             if (obj is ParcelForList parcel)
             {
-                if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate!=null && From.SelectedDate != null)
+                if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
-                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate  && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+
+                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
                 else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
+
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
@@ -91,146 +91,146 @@ namespace PL
                 else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
+
                     return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
                 else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
                 {
 
-                  
+
                     return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
                 else if (ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                   
+
                     return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
                 else if (SenderId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                   
+
                     return parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
                 else if (ParcelStatuses.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
                 {
 
-                    
+
                     return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
-                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null )
+                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
+
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
 
                 }
-                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && To.SelectedDate != null )
+                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && To.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
+
 
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
 
                 }
 
-                else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null )
+                else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                   
+
 
                     return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
 
                 }
-                else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null )
+                else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null)
                 {
 
-                   
+
 
                     return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
 
                 }
-                else if (ReceiveId.SelectedItem != null && To.SelectedDate != null )
+                else if (ReceiveId.SelectedItem != null && To.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
+
 
                     return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
 
                 }
-                else if (SenderId.SelectedItem != null && To.SelectedDate != null )
+                else if (SenderId.SelectedItem != null && To.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
+
                     return parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
 
                 }
-                else if (ParcelStatuses.SelectedItem != null && To.SelectedDate != null )
+                else if (ParcelStatuses.SelectedItem != null && To.SelectedDate != null)
                 {
 
-                   
+
 
                     return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
 
                 }
-                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null  && From.SelectedDate != null)
+                else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
-                    
-                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested> From.SelectedDate;
-                    
+
+
+                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
+
                 }
                 else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
 
-                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem  && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
+
+                    return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
 
-                else if (ParcelStatuses.SelectedItem != null  && ReceiveId.SelectedItem != null && From.SelectedDate != null)
+                else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                   
 
-                    return parcel.Status == status &&  parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
+
+                    return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
-                else if ( SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedDate != null)
+                else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedDate != null)
                 {
-                   
-                    
 
-                    return  parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
+
+
+                    return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
-                else if ( ReceiveId.SelectedItem != null && From.SelectedDate != null)
+                else if (ReceiveId.SelectedItem != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
+
 
                     return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
-                else if ( SenderId.SelectedItem != null && From.SelectedDate != null)
+                else if (SenderId.SelectedItem != null && From.SelectedDate != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    
 
-                    return  parcel.SendCustomer == SenderId.SelectedItem  && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
+
+                    return parcel.SendCustomer == SenderId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
                 else if (ParcelStatuses.SelectedItem != null && From.SelectedDate != null)
                 {
-                    
-                    
+
+
 
                     return parcel.ReceiveCustomer == ReceiveId.SelectedItem && bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
@@ -239,57 +239,57 @@ namespace PL
                 else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                    return parcel.Status == status  && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
+                    return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
                 }
-                else if (ParcelStatuses.SelectedItem != null  && ReceiveId.SelectedItem != null)
+                else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
                 }
-                else if ( SenderId.SelectedItem != null && ReceiveId.SelectedItem != null)
-                {
-                    
-                    return  parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
-                }
-                else if ( To.SelectedDate != null && From.SelectedDate != null)
+                else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null)
                 {
 
-                   
-                    return  bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+                    return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
+                }
+                else if (To.SelectedDate != null && From.SelectedDate != null)
+                {
+
+
+                    return bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
-                else if ( ReceiveId.SelectedItem != null )
+                else if (ReceiveId.SelectedItem != null)
                 {
-                    
-                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem ;
+
+                    return parcel.ReceiveCustomer == ReceiveId.SelectedItem;
 
                 }
-                else if ( SenderId.SelectedItem != null)
+                else if (SenderId.SelectedItem != null)
                 {
-                    
-                    return parcel.SendCustomer == SenderId.SelectedItem ;
+
+                    return parcel.SendCustomer == SenderId.SelectedItem;
 
                 }
                 else if (ParcelStatuses.SelectedItem != null)
                 {
                     Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-                   
-                    return parcel.Status == status ;
+
+                    return parcel.Status == status;
 
                 }
-                else if ( To.SelectedDate != null )
+                else if (To.SelectedDate != null)
                 {
-                   
-                    
-                    
-                    return   bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+
+
+
+                    return bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
-                else if ( From.SelectedDate != null)
+                else if (From.SelectedDate != null)
                 {
-                   
-                    
-                    return  bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
+
+
+                    return bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
                 else
@@ -317,30 +317,30 @@ namespace PL
         /// < param name="e"></param>
         private void ParcelStatuses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshFilter();          
+            RefreshFilter();
         }
 
         private void SenderId_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshFilter();          
+            RefreshFilter();
         }
 
         private void ReceiveId_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshFilter();           
+            RefreshFilter();
         }
 
         private void time_to_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshFilter();           
+            RefreshFilter();
         }
 
         private void time_from_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshFilter();           
+            RefreshFilter();
         }
 
-        
+
         private void To_time_selectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RefreshFilter();
@@ -397,6 +397,6 @@ namespace PL
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
         }
-    }
 
+    }
 }

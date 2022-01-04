@@ -81,8 +81,8 @@
                         <MultiBinding Converter="{StaticResource atLleastOneContentConvert}">
                             <Binding ElementName="Name" Path="Text"></Binding>
                             <Binding ElementName="Phone" Path="Text"></Binding>
-                            <Binding ElementName="CustomerInList.Name" Path="Text"></Binding>
-                            <Binding ElementName="CustomerInList.Phone" Path="Text"></Binding>
+                            <Binding Path="CustomerInList.Name"></Binding>
+                            <Binding Path="CustomerInList.Phone"></Binding>
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
@@ -122,15 +122,15 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0"  Grid.Row="0" Content=" id:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox x:Name="ID" Grid.Row="0"  Background="LightGray"  Grid.Column="1"/>
+                <TextBox x:Name="ID" Grid.Row="0" PreviewTextInput="textID_PreviewTextInput" Background="LightGray"  Grid.Column="1"/>
                 <Label Grid.Column="0"  Grid.Row="1" Content=" name:"   FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
                 <TextBox x:Name="name" Grid.Row="1"  Background="LightGray" Grid.Column="1"  Margin="0,1,0,0" Grid.RowSpan="2"/>
                 <Label Grid.Column="0"  Grid.Row="3" Content="phone:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
                 <TextBox x:Name="phone" Grid.Row="3" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
                 <Label Grid.Column="0"  Grid.Row="4" Content="longitude:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox x:Name="longitude" Grid.Row="4" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
+                <TextBox x:Name="longitude" Grid.Row="4" PreviewTextInput="textID_PreviewTextInput" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
                 <Label Grid.Column="0"  Grid.Row="5" Content="latitude:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox x:Name="latitude" Grid.Row="5" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
+                <TextBox x:Name="latitude" Grid.Row="5" PreviewTextInput="textID_PreviewTextInput" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
             </Grid>
 
             <Grid Width="200" Height="50" Margin="259,205,145,95">
