@@ -19,6 +19,7 @@ namespace PL.ViewModel
             this.Bl = bl;
             this.AddTab = addTab;
             this.RemoveTab = removeTab;
+            //new ObservableCollection<int>()
             CustomersForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOCustomerForListToPO(bl.GetCustomerForList()));
         }
         public void RefreshCustomerList()

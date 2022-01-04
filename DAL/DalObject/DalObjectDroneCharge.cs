@@ -20,6 +20,7 @@ namespace DAL
         {
             if (DataSource.droneCharges.ContainsKey(droneCharge.DroneId))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone - DAL");
+            var t = DataSource.droneCharges;
             DataSource.droneCharges.Add(droneCharge.StationId, droneCharge);
         }
 

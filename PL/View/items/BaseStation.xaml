@@ -15,7 +15,8 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
-        
+        <Converters:AtLleastOneContentConvert x:Key="atLleastOneContentConvert"/>
+        <Converters:MultyConvert5Items x:Key="multyConvert5Items"></Converters:MultyConvert5Items>
     </UserControl.Resources>
     <Grid Background="White" >
         <Grid x:Name="Update_grid" Visibility="Collapsed">
