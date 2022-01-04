@@ -105,6 +105,41 @@ namespace PO
             };
         }
 
+        internal static BO.ParcelForList POParcelForListToBO(ParcelForList parcel)
+        {
+            return new BO.ParcelForList()
+            {
+                Id = parcel.Id,
+                SendCustomer = parcel.SendCustomer,
+                ReceiveCustomer = parcel.ReceiveCustomer,
+                Weight = (BO.Enums.WeightCategories)parcel.Weight,
+                Priority = (BO.Enums.Priorities)parcel.Priority,
+                Status = (BO.Enums.ParcelStatuses)parcel.Status,
+                
+            };
+        }
+
+        internal static IEnumerable<ParcelForList> BOParcelForListToPO(IEnumerable<BO.ParcelForList> parcelForLists)
+        {
+            List<PO.ParcelForList> p = new List<ParcelForList>();
+            foreach (var parcel in parcelForLists)
+            {
+                p.Add(new ParcelForList()
+                {
+                    Id = parcel.Id,
+                    SendCustomer = parcel.SendCustomer,
+                    ReceiveCustomer = parcel.ReceiveCustomer,
+                    Weight = (Enums.WeightCategories)parcel.Weight,
+                    Priority = (Enums.Priorities)parcel.Priority,
+                    Status = (Enums.ParcelStatuses)parcel.Status,
+                });
+            }
+
+            //if (customersForList == null)
+            //    return ObservableCollection.Empty<CustomerForList>();
+            return p;
+        }
+
         internal static IEnumerable<ParcelToCustomer> BOParcelToCustomerToPO(IEnumerable<BO.ParcelToCustomer> parcelsToCustomer)
         {
             if (parcelsToCustomer == null)

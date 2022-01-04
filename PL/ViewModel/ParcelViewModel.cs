@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PO;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,14 +11,26 @@ namespace PL.ViewModel
 {
     public class ParcelViewModel
     {
-        private BlApi.IBL bl;
-        private BO.Parcel parcelInList;
-        private Action refreshParcelList;
-        Action<TabItem> addTab;
-        Action<TabItem> closeTab;
+        public BlApi.IBL Bl { get; private set; }
+        public Action RefreshParcelList { get; private set; }
+        public Action<TabItem> AddTab { get; private set; }
+        public Action<TabItem> CloseTab { get; private set; }
+        public PO.Parcel ParcelInList { get; set; }
+        
 
-
-
-        static int idParcel = 0;
+        public ParcelViewModel(BlApi.IBL bl, Action refreshParcelList)
+        {
+            this.Bl = bl;
+            this.RefreshParcelList = refreshParcelList;
+            this.ParcelInList = new PO.Parcel();
+            
+        }
+        public ParcelViewModel(BO.ParcelForList parcelInList, BlApi.IBL bl, Action refreshParcelList)
+        {
+            this.Bl = bl;
+            this.RefreshParcelList = refreshParcelList;
+            this.ParcelInList = ConvertFunctions.BOParcelToPO(bl.GetBLParcel(parcelInList.Id));
+            
+        }
     }
 }

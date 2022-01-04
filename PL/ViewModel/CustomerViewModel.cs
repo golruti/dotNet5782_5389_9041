@@ -15,18 +15,22 @@ namespace PL.ViewModel
         public Action<TabItem> AddTab { get; private set; }
         public Action<TabItem> CloseTab { get; private set; }
         public PO.Customer CustomerInList { get; set; }
+        public PO.Customer SourceCustomerInList { get; set; }
+        
 
         public CustomerViewModel(BlApi.IBL bl, Action refreshCustomersList)
         {
             this.Bl = bl;
             this.RefreshCustomersList = refreshCustomersList;
             this.CustomerInList = new PO.Customer();
+            this.SourceCustomerInList = new PO.Customer();
         }
         public CustomerViewModel(BO.CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
         {
             this.Bl = bl;
             this.RefreshCustomersList = refreshCustomersList;
             this.CustomerInList = ConvertFunctions.BOCustomerToPO(bl.GetBLCustomer(customerInList.Id));
+            this.SourceCustomerInList= ConvertFunctions.BOCustomerToPO(bl.GetBLCustomer(customerInList.Id));
         }
     }
 }

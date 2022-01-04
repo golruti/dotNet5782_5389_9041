@@ -19,6 +19,16 @@ namespace PL.ViewModel
         public Enums.ParcelStatuses ParcelStutus { get; private set; } 
         public IEnumerable<int> StationsId;
         private PO.Drone droneInList;
+        
+        public PO.Drone SourceDroneInList
+        {
+            get { return droneInList; }
+            set
+            {
+                droneInList = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(droneInList)));
+            }
+        }
         public PO.Drone DroneInList
         {
             get { return droneInList; }
@@ -29,6 +39,8 @@ namespace PL.ViewModel
             }
         }
 
+        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         //StationsId.DataContext = (bl.GetBaseStationForList()).Select(s => s.Id);
@@ -38,6 +50,7 @@ namespace PL.ViewModel
             this.Bl = bl;
             this.RefreshDronesList = refreshDronesList;
             this.DroneInList = new PO.Drone();
+            this.SourceDroneInList = new PO.Drone();
             this.Rand = new Random();
             this.ParcelStutus = (Enums.ParcelStatuses)Bl.GetParcelStatusByDrone(DroneInList.Id);
             StationsId = (bl.GetBaseStationForList()).Select(s => s.Id);
@@ -48,6 +61,7 @@ namespace PL.ViewModel
             this.Bl = bl;
             this.RefreshDronesList = refreshDronesList;
             this.DroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
+            this.SourceDroneInList= ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
             this.Rand = new Random();
         }
 

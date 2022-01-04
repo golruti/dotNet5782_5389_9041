@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,33 +23,26 @@ namespace PL
     /// </summary>
     public partial class Parcel 
     {
-        Action<TabItem> addTab;
-        private BlApi.IBL bl;
-        private BO.Parcel parcelInList;
-        private Action refreshParcelList;
-        
-        static int idParcel = 0;
-        public Parcel(BlApi.IBL bl, Action refreshParcelList)
+
+        ParcelViewModel parcelViewModel;
+        static int idParcel { get; set; } = 0;
+        public Parcel(BlApi.IBL bl, Action refreshParcelsList)
         {
             InitializeComponent();
-            this.bl = bl;
+            parcelViewModel = new ParcelViewModel(bl, refreshParcelsList);
+            this.DataContext = parcelViewModel;
             Add_grid.Visibility = Visibility.Visible;
-            Priority.DataContext = Enum.GetValues(typeof(Enums.Priorities));
-            this.refreshParcelList = refreshParcelList;
             Weight.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
+            Priority.DataContext = Enum.GetValues(typeof(Enums.Priorities));
         }
 
-        public Parcel(ParcelForList parcelForList, BlApi.IBL bl, Action refreshParcelList)
+        public Parcel(ParcelForList parcelInList, BlApi.IBL bl, Action refreshParcelsList)
         {
             InitializeComponent();
+            parcelViewModel = new ParcelViewModel(parcelInList, bl, refreshParcelsList);
+            this.DataContext = parcelViewModel;
             Update_grid.Visibility = Visibility.Visible;
-            
-            this.bl = bl;
-            this.refreshParcelList = refreshParcelList;
-            this.parcelInList = bl.GetBLParcel(parcelForList.Id);
-            this.DataContext = parcelForList;
-
-            if (parcelForList.Status != Enums.ParcelStatuses.Provided )
+            if (parcelInList.Status != Enums.ParcelStatuses.Provided)
             {
                 Button ShowDrone = new Button();
                 ShowDrone.Content = "Details of the parcel";
@@ -58,13 +52,16 @@ namespace PL
                 ShowDrone.Height = 40;
                 ShowDrone.Width = 130;
                 ShowDrone.HorizontalAlignment = HorizontalAlignment.Center;
-                ButtonsGroup.Children.Add(ShowDrone);              
+                ButtonsGroup.Children.Add(ShowDrone);
             }
-            
         }
+
+        
+        
+       
         private void DeleteParcel(object sender, RoutedEventArgs e)
         {
-            bl.deleteBLParcel(parcelInList.Id);
+            parcelViewModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
             if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -75,7 +72,7 @@ namespace PL
             try
             {
 
-                bl.AddParcel(new BO.Parcel(idParcel++, int.Parse(senderId.Text), int.Parse(reciverId.Text), (BO.Enums.WeightCategories)Weight.SelectedItem, (BO.Enums.Priorities)Priority.SelectedItem, new BO.DroneInParcel()));
+                parcelViewModel.Bl.AddParcel(new BO.Parcel(idParcel++, int.Parse(senderId.Text), int.Parse(reciverId.Text), (BO.Enums.WeightCategories)Weight.SelectedItem, (BO.Enums.Priorities)Priority.SelectedItem, new BO.DroneInParcel()));
 
                 if (MessageBox.Show("the parcel was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -121,7 +118,7 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            this.refreshParcelList();
+            this.parcelViewModel.RefreshParcelList();
         }
 
       
@@ -142,7 +139,7 @@ namespace PL
         {
             try
             {
-                bl.UpdateCharge(parcelInList.Id);
+                parcelViewModel.Bl.UpdateCharge(parcelViewModel.ParcelInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -176,10 +173,10 @@ namespace PL
             var selectedCustomer = (sender as ContentControl).DataContext as string;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(bl.GetCustomerForList(selectedCustomer), this.bl, refreshParcelList);
+            tabItem.Content = new Customer(parcelViewModel.Bl.GetCustomerForList(selectedCustomer), this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList);
             tabItem.Header = "parcel";
             tabItem.Visibility = Visibility.Visible;
-            this.addTab(tabItem);
+            this.parcelViewModel.AddTab(tabItem);
 
         }
 

@@ -32,13 +32,16 @@ namespace PL
             droneViewModel = new DroneViewModel(bl, refreshDroneList);
             this.DataContext = droneViewModel;
             Add_grid.Visibility = Visibility.Visible;
+            DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
+            //StationsId=bl.getb
         }
         public Drone(DroneForList droneForList, BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
             droneViewModel = new DroneViewModel(droneForList, bl, refreshDroneList);
             this.DataContext = droneViewModel;
-            Update_grid.Visibility = Visibility.Visible;            
+            Update_grid.Visibility = Visibility.Visible;  
+            
         }
 
         private void DeleteDrone(object sender, RoutedEventArgs e)
