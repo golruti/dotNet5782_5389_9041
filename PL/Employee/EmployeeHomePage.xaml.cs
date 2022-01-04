@@ -48,8 +48,7 @@ namespace PL
         private void ShowParcelListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new ParcelList(bl, addTab, RemoveTab);
-            
+            tabItem.Content = new ParcelList(bl, addTab, RemoveTab);           
             tabItem.Header = "parcel list";
             addTab(tabItem);
         }
@@ -57,9 +56,16 @@ namespace PL
         private void ShowBaseStationListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStationList(bl, addTab, RemoveTab);
-            
+            tabItem.Content = new BaseStationList(bl, addTab, RemoveTab);           
             tabItem.Header = "Base station list";
+            addTab(tabItem);
+        }
+
+        private void showCustomersListWindow(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new CustomersList(bl, addTab, RemoveTab);
+            tabItem.Header = "Customers list";
             addTab(tabItem);
         }
 
@@ -69,15 +75,6 @@ namespace PL
             tabItem.Content = new CustomerEntrance(bl,addTab, RemoveTab);
             tabItem.Header = "Customer entrance";
             addTab(tabItem);
-        }
-
-        private void showCustomersListWindow(object sender, RoutedEventArgs e)
-        {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomersList(bl, addTab, RemoveTab);
-            button.Visibility = Visibility.Collapsed;
-            tabItem.Header = "Customers list";
-            addTab(tabItem);
-        }
+        }     
     }
 }

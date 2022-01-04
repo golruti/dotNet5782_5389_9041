@@ -22,7 +22,7 @@ namespace BlApi
         void AddDrone(Drone tempDrone);
         public void AddCustomer(Customer tempCustomer);
         public void AddParcel(Parcel tempParcel);
-        public IEnumerable<DroneInCharging> DronesInCharging(int id);
+
         public BaseStation GetBLBaseStation(int id);
         public Drone GetBLDrone(int id);
         public Customer GetBLCustomer(int id);
@@ -40,6 +40,7 @@ namespace BlApi
         public IEnumerable<CustomerForList> GetCustomerForList(Predicate<CustomerForList> predicate);
         public IEnumerable<ParcelForList> GetParcelForList();
         public IEnumerable<ParcelForList> GetParcelForList(Predicate<ParcelForList> predicate);
+        public IEnumerable<DroneInCharging> GetDronesInCharging(int droneId);
         public CustomerForList GetCustomerForList(string name);
         public void UpdateBaseStation(int id, string name, int chargeSlote);
         public void UpdateDroneModel(int id, string model);

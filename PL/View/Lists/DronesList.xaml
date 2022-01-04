@@ -116,7 +116,7 @@
             <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding DroneStatuses}" SelectionChanged="DroneDtatuses_SelectionChanged" Grid.RowSpan="2" />
 
         </Grid>
-        <ListView x:Name="DronesListView" ItemsSource="{Binding ListCollectionView}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick">
+        <ListView x:Name="DronesListView" ItemsSource="{Binding DronesList}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick">
             <ListView.View >
 
                 <GridView  >

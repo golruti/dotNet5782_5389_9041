@@ -24,7 +24,7 @@
         <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
     </UserControl.Resources>
     <Grid Background="White">
-        <Grid x:Name="Update_grid" Visibility="Collapsed">
+        <Grid x:Name="Update_grid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="480"/>
                 <RowDefinition Height="100"/>
@@ -45,21 +45,33 @@
                     <RowDefinition Height="Auto" MinHeight="50"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition  MinWidth="80" Width="73*"/>
-                    <ColumnDefinition Width="177*"/>
+                    <ColumnDefinition  MinWidth="80" Width="180*"/>
+                    <ColumnDefinition Width="116*"/>
+                    <ColumnDefinition Width="203*"/>
                 </Grid.ColumnDefinitions>
+
                 <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DroneInList.Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+
                 <Label Grid.Row="2" Grid.Column="0" Content="Model: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
                 <TextBox x:Name="update_model" Grid.Row="2" Grid.Column="1" Text="{Binding DroneInList.Model}"  IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
-                <Label Grid.Row="4" Grid.Column="0" Content="MaxWeight: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding DroneInList.MaxWeight}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
-                <Label Grid.Row="5" Grid.Column="0" Content="Status: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
-                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding DroneInList.Status}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,10" Grid.RowSpan="3"/>
-                <Label Grid.Row="8" Grid.Column="0" Content="Battery: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding DroneInList.Battery}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
-                <Label Grid.Row="9" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,50" Grid.RowSpan="3"/>
-                <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding DroneInList.Location}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,50" Grid.RowSpan="3"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="MaxWeight: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,0" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding DroneInList.MaxWeight}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Status: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,0" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding DroneInList.Status}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
+
+                <Label Grid.Row="7" Grid.Column="0" Content="Battery: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,0" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding DroneInList.Battery}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
+
+
+                <Label Grid.Row="9" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,0" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding DroneInList.Location.Longitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="9" Grid.Column="2" Text="{Binding DroneInList.Location.Latitude }" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
+
+
+
             </Grid>
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
                 <Button Content = "Sending a drone for charging" Click = "SendingDroneForCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding DroneInList.Status, Converter={StaticResource droneAvailableStatusConvert}}"/>
@@ -91,11 +103,13 @@
                 <TextBox x:Name="Id" Grid.Row="0"  Background="LightGray" PreviewTextInput="textID_PreviewTextInput" Grid.Column="1"/>
 
                 <Label  Grid.Row="1" Content="  station id:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" HorizontalAlignment="Center" Width="128" Margin="0,5,0,5" Grid.RowSpan="3"/>
-                <ComboBox x:Name="StationsId"  Grid.Column="1" ItemsSource="{Binding}" Grid.Row="2" Margin="0,0,0,7" Grid.RowSpan="2"  />
+                <ComboBox x:Name="StationsId"  Grid.Column="1" ItemsSource="{Binding StationsId}" Grid.Row="2" Margin="0,0,0,7" Grid.RowSpan="2"  />
+
                 <Label Grid.Column="0"  Grid.Row="4" Content="drone model:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
                 <TextBox x:Name="Model" Grid.Row="4" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
+
                 <Label Grid.Column="0"  Grid.Row="5" Content="drone weight:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,5,0,0" Grid.RowSpan="2"/>
-                <ComboBox x:Name="DroneWeights" Background="White" ItemsSource="{Binding}" Grid.Row="5" Grid.Column="1" Margin="0,5,0,0" Grid.RowSpan="2"  />
+                <ComboBox x:Name="DroneWeights" Background="White" ItemsSource="{Binding DroneWeights}" Grid.Row="5" Grid.Column="1" Margin="0,5,0,0" Grid.RowSpan="2"  />
             </Grid>
 
             <Grid Width="200" Height="50" Margin="259,205,145,95">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,52 +10,46 @@ namespace PO
 {
     public class ConvertFunctions
     {
-
-
-        public static Enums.WeightCategories BOEnumWeightCategoriesToPO(BO.Enums.WeightCategories weight)
+        internal static Enums.WeightCategories BOEnumWeightCategoriesToPO(BO.Enums.WeightCategories weight)
         {
             return (Enums.WeightCategories)weight;
         }
-        public static Enums.DroneStatuses BOEnumDroneStatusesToPO(BO.Enums.DroneStatuses status)
+        internal static Enums.DroneStatuses BOEnumDroneStatusesToPO(BO.Enums.DroneStatuses status)
         {
             return (Enums.DroneStatuses)status;
         }
 
-        public static Enums.Priorities BOEnumPrioritiesToPO(BO.Enums.Priorities prioruty)
+        internal static Enums.Priorities BOEnumPrioritiesToPO(BO.Enums.Priorities prioruty)
         {
             return (Enums.Priorities)prioruty;
         }
 
-        public static Enums.ParcelStatuses BOEnumParcelStatusToPO(BO.Enums.ParcelStatuses parcelStatuses)
+        internal static Enums.ParcelStatuses BOEnumParcelStatusToPO(BO.Enums.ParcelStatuses parcelStatuses)
         {
             return (Enums.ParcelStatuses)parcelStatuses;
         }
 
-        public static BO.Enums.WeightCategories POEnumWeightCategoriesToBO(Enums.WeightCategories weight)
+        internal static BO.Enums.WeightCategories POEnumWeightCategoriesToBO(Enums.WeightCategories weight)
         {
             return (BO.Enums.WeightCategories)weight;
         }
 
-
-
-        public static BO.Enums.DroneStatuses POEnumDroneStatusesToBO(Enums.DroneStatuses status)
+        internal static BO.Enums.DroneStatuses POEnumDroneStatusesToBO(Enums.DroneStatuses status)
         {
             return (BO.Enums.DroneStatuses)status;
         }
 
-        
 
-        public static BO.Enums.Priorities POEnumPrioritiesToBO(Enums.Priorities prioruty)
+        internal static BO.Enums.Priorities POEnumPrioritiesToBO(Enums.Priorities prioruty)
         {
             return (BO.Enums.Priorities)prioruty;
         }
-
-        public static BO.Enums.ParcelStatuses POEnumParcelStatusToBO(Enums.ParcelStatuses parcelStatuses)
+        internal static BO.Enums.ParcelStatuses POEnumParcelStatusToBO(Enums.ParcelStatuses parcelStatuses)
         {
             return (BO.Enums.ParcelStatuses)parcelStatuses;
         }
 
-        public static Location BOLocationToPO(BO.Location location)
+        internal static Location BOLocationToPO(BO.Location location)
         {
             return new Location
             {
@@ -63,8 +58,7 @@ namespace PO
             };
         }
 
-
-        public static BO.Location POLocationToBO(Location location)
+        internal static BO.Location POLocationToBO(Location location)
         {
             return new BO.Location
             {
@@ -73,8 +67,7 @@ namespace PO
             };
         }
 
-
-        public static DroneInParcel BODroneParceToPO(BO.DroneInParcel droneParcel)
+        internal static DroneInParcel BODroneParceToPO(BO.DroneInParcel droneParcel)
         {
             return new DroneInParcel
             {
@@ -83,7 +76,8 @@ namespace PO
                 Location = BOLocationToPO(droneParcel.Location)
             };
         }
-        public static CustomerDelivery BOCustomerDeliveryToPO(BO.CustomerDelivery customerDelivery)
+
+        internal static CustomerDelivery BOCustomerDeliveryToPO(BO.CustomerDelivery customerDelivery)
         {
             if (customerDelivery == null)
                 return null;
@@ -94,8 +88,7 @@ namespace PO
             };
         }
 
-
-        public static Parcel BOParcelToPO(BO.Parcel parcel)
+        internal static Parcel BOParcelToPO(BO.Parcel parcel)
         {
             return new Parcel
             {
@@ -112,7 +105,7 @@ namespace PO
             };
         }
 
-        public static IEnumerable<ParcelToCustomer> BOParcelToCustomerToPO(IEnumerable<BO.ParcelToCustomer> parcelsToCustomer)
+        internal static IEnumerable<ParcelToCustomer> BOParcelToCustomerToPO(IEnumerable<BO.ParcelToCustomer> parcelsToCustomer)
         {
             if (parcelsToCustomer == null)
                 return Enumerable.Empty<ParcelToCustomer>();
@@ -125,7 +118,7 @@ namespace PO
                 Customer = BOCustomerDeliveryToPO(parcel.Customer)
             });
         }
-        public static Customer BOCustomerToPO(BO.Customer customer)
+        internal static Customer BOCustomerToPO(BO.Customer customer)
         {
             return new Customer
             {
@@ -138,11 +131,9 @@ namespace PO
             };
         }
 
-
-        public static ObservableCollection<CustomerForList> BOCustomerForListToPO(IEnumerable<BO.CustomerForList> customersForList)
+        internal static IEnumerable<CustomerForList> BOCustomerForListToPO(IEnumerable<BO.CustomerForList> customersForList)
         {
-            ObservableCollection<PO.CustomerForList> c = new ObservableCollection<CustomerForList>();
-
+            List<PO.CustomerForList> c = new List<CustomerForList>();
             foreach (var customer in customersForList)
             {
                 c.Add(new CustomerForList()
@@ -161,8 +152,7 @@ namespace PO
             //    return ObservableCollection.Empty<CustomerForList>();
             return c;
         }
-
-        public static BO.CustomerForList POCustomerForListToBO(CustomerForList customer)
+        internal static BO.CustomerForList POCustomerForListToBO(CustomerForList customer)
         {
             return new BO.CustomerForList()
             {
@@ -176,7 +166,7 @@ namespace PO
             };
         }
 
-        public static ParcelByTransfer BOParcelByTransferToPO(BO.ParcelByTransfer parcel)
+        internal static ParcelByTransfer BOParcelByTransferToPO(BO.ParcelByTransfer parcel)
         {
             return new ParcelByTransfer
             {
@@ -191,8 +181,7 @@ namespace PO
                 Distance = parcel.Distance
             };
         }
-
-        public static Drone BODroneToPO(BO.Drone drone)
+        internal static Drone BODroneToPO(BO.Drone drone)
         {
             return new Drone()
             {
@@ -206,7 +195,7 @@ namespace PO
             };
         }
 
-        public static ObservableCollection<DroneForList> BODroneForListToPO(IEnumerable<BO.DroneForList> droneForList)
+        internal static ObservableCollection<DroneForList> BODroneForListToPO(IEnumerable<BO.DroneForList> droneForList)
         {
             ObservableCollection<PO.DroneForList> drones = new ObservableCollection<DroneForList>();
 
@@ -225,8 +214,7 @@ namespace PO
             }
             return drones;
         }
-
-        public static BO.DroneForList PODroneForListToBO(DroneForList drone)
+        internal static BO.DroneForList PODroneForListToBO(DroneForList drone)
         {
             return new BO.DroneForList()
             {
@@ -248,13 +236,13 @@ namespace PO
                 Name = baseStation.Name,
                 AvailableChargingPorts = baseStation.AvailableChargingPorts,
                 Location = BOLocationToPO(baseStation.Location),
-                DronesInCharging = BODroneInCharging(baseStation.DronesInCharging)
+                DronesInCharging = BODroneInChargingTOPO(baseStation.DronesInCharging)
             };
         }
 
-        internal static IEnumerable<DroneInCharging> BODroneInCharging(IEnumerable<BO.DroneInCharging> dronesInCharging)
+        internal static IEnumerable<PO.DroneInCharging> BODroneInChargingTOPO(IEnumerable<BO.DroneInCharging> dronesInCharging)
         {
-            ObservableCollection<PO.DroneInCharging> dronesCharging = new ObservableCollection<DroneInCharging>();
+            List<PO.DroneInCharging> dronesCharging = new List<DroneInCharging>();
             foreach (var droneCharging in dronesInCharging)
             {
                 dronesCharging.Add(new DroneInCharging()
@@ -282,6 +270,7 @@ namespace PO
             }
             return baseStations;
         }
+
         internal static BO.BaseStationForList POStationToBO(BaseStationForList station)
         {
             return new BO.BaseStationForList()
@@ -292,6 +281,5 @@ namespace PO
                 UsedChargingPorts = station.UsedChargingPorts
             };
         }
-
     }
 }

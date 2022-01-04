@@ -50,10 +50,10 @@
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding BaseStationInList.Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Name: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
-                <TextBox x:Name="update_name" Grid.Row="1" Grid.Column="1" Text="{Binding BaseStationInList.Name}" TextChanged="update_name_TextChanged" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
+                <TextBox x:Name="update_name" Grid.Row="1" Grid.Column="1" Text="{Binding BaseStationInList.Name}"  IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
 
                 <Label Grid.Row="4" Grid.Column="0" Content="num of charging ports:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox x:Name="update_num_of_charging_ports" Grid.Row="4" Grid.Column="1" Text="{Binding BaseStationInList.AvailableChargingPorts}" IsEnabled="True" TextChanged="update_num_of_charging_ports_TextChanged" FontSize="15" FontFamily="Copperplate Gothic"/>
+                <TextBox x:Name="update_num_of_charging_ports" Grid.Row="4" Grid.Column="1" Text="{Binding BaseStationInList.AvailableChargingPorts}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="6" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,1,0,12" RenderTransformOrigin="0.5,0.5"/>
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding BaseStationInList.Location.Longitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
@@ -123,7 +123,7 @@
             </Grid>
 
             <Grid Width="200" Margin="357,260,243,139">
-                <Button  Content="finish"  Margin="40,15,100,15" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
+                <Button  Content="finish"  Margin="40,15,100,15" Click="add_Station_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource multyConvert5Items}">
                             <Binding ElementName="Id" Path="Text"></Binding>

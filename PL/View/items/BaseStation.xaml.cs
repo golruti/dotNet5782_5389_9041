@@ -22,25 +22,18 @@ namespace PL
     /// <summary>
     /// Interaction logic for BaseStation.xaml
     /// </summary>
-    public partial class BaseStation 
+    public partial class BaseStation
     {
-        private string newName;
-        private string newNum;
-        private IEnumerable<BO.DroneInCharging> dronesInCharging;
-        //
-        //
-        //
-
         BaseStationViewModel baseStationViewModel;
 
         public BaseStation(BlApi.IBL bl, Action refreshBaseStationList)
         {
             InitializeComponent();
-            baseStationViewModel = new BaseStationViewModel(bl,refreshBaseStationList);
+            baseStationViewModel = new BaseStationViewModel(bl, refreshBaseStationList);
             this.DataContext = baseStationViewModel;
             Add_grid.Visibility = Visibility.Visible;
         }
-        
+
         public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList)
         {
             InitializeComponent();
@@ -49,12 +42,13 @@ namespace PL
             Update_grid.Visibility = Visibility.Visible;
         }
 
-        private void RefreshDroneInChargeList()
-        {
-            dronesInCharging = baseStationViewModel.Bl.DronesInCharging(baseStationViewModel.BaseStationInList.Id);
-            DronesListView.DataContext = dronesInCharging;
+        //לבדוק מתי לרפרש רשימת רחפנים בטעינה
+        //private void RefreshDroneInChargeList()
+        //{
+        //    dronesInCharging = baseStationViewModel.Bl.GetDronesInCharging(baseStationViewModel.BaseStationInList.Id);
+        //    DronesListView.DataContext = dronesInCharging;
+        //}
 
-        }
         private void DeleteBaseStation(object sender, RoutedEventArgs e)
         {
             baseStationViewModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
@@ -64,40 +58,45 @@ namespace PL
             }
         }
 
-        private void Finish_Click(object sender, RoutedEventArgs e)
+        private void add_Station_Click(object sender, RoutedEventArgs e)
         {
+            if (double.Parse(longitude.Text) <-90 || double.Parse(longitude.Text)>90|| double.Parse(latitude.Text) < -90 || double.Parse(latitude.Text) > 90)
+            {
+                MessageBox.Show("Location not in the middle");
+                return;
+            }
+
             try
             {
-                baseStationViewModel.Bl.AddBaseStation(new BO.BaseStation(int.Parse(Id.Text),Name.Text,double.Parse(longitude.Text), double.Parse(latitude.Text),int.Parse(Num_of_charging_positions.Text)));
+                baseStationViewModel.Bl.AddBaseStation(new BO.BaseStation(int.Parse(Id.Text), Name.Text, double.Parse(longitude.Text), double.Parse(latitude.Text), int.Parse(Num_of_charging_positions.Text)));
 
-                if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                if (MessageBox.Show("the station was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     Close_Page(sender, e);
                 }
             }
             catch (KeyNotFoundException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The station was not add, {ex.Message}");
             }
             catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"No charge for sending for charging");
             }
             catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"A key already exists");
             }
             catch (ArgumentNullException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The station was not add, {ex.Message}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The station was not add, {ex.Message}");
             }
         }
 
-       
 
         /// <summary>
         /// Input filter for ID
@@ -109,8 +108,8 @@ namespace PL
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-    
-    private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+
+        private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedDrone = (sender as ContentControl).DataContext as BO.DroneForList;
 
@@ -119,9 +118,7 @@ namespace PL
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             baseStationViewModel.AddTab(tabItem);
-
         }
-      
 
         private void Close_Page(object sender, RoutedEventArgs e)
         {
@@ -137,8 +134,6 @@ namespace PL
                 tabControl.Items.Remove(tabItem);
 
             baseStationViewModel.RefreshStationsList();
-
-
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)
@@ -150,7 +145,7 @@ namespace PL
                     baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
                     (sender as Button).IsEnabled = false;
                 }
-                else if(update_name.Text != null)
+                else if (update_name.Text != null)
                 {
                     baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, baseStationViewModel.BaseStationInList.AvailableChargingPorts);
                     (sender as Button).IsEnabled = false;
@@ -185,15 +180,6 @@ namespace PL
             {
                 MessageBox.Show($"The base station could not be updated, {ex.Message}");
             }
-        }
-        private void update_name_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            newName = (sender as TextBox).Text;
-        }
-
-        private void update_num_of_charging_ports_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            newNum = (sender as TextBox).Text;
         }
     }
 }

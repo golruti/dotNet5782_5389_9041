@@ -57,7 +57,23 @@ namespace PL
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            customerViewModel.Bl.DeleteBLCustomer(customerViewModel.CustomerInList.Id);
+            try
+            {
+                customerViewModel.Bl.DeleteBLCustomer(customerViewModel.CustomerInList.Id);
+
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"Customer not exists");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"Customer not exists");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The customer was not deleted, {ex.Message}");
+            }
             if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -66,11 +82,35 @@ namespace PL
 
         private void Add_Customer_finish_click(object sender, RoutedEventArgs e)
         {
-            customerViewModel.Bl.AddCustomer(new BO.Customer(int.Parse(ID.Text), name.Text, phone.Text, double.Parse(longg.Text), double.Parse(longg.Text)));
-
-            if (MessageBox.Show("the customer was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            if (double.Parse(longitude.Text) < -90 || double.Parse(longitude.Text) > 90 || double.Parse(latitude.Text) < -90 || double.Parse(latitude.Text) > 90)
             {
-                Close_Page(sender, e);
+                MessageBox.Show("Location not in the middle");
+                return;
+            }
+
+            try
+            {
+                customerViewModel.Bl.AddCustomer(new BO.Customer(int.Parse(ID.Text), name.Text, phone.Text, double.Parse(longitude.Text), double.Parse(latitude.Text)));
+                if (MessageBox.Show("the customer was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    Close_Page(sender, e);
+                }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The customer was not add, {ex.Message}");
+            }
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                MessageBox.Show($"A key already exists");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"The customer was not add, {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The customer was not add, {ex.Message}");
             }
         }
 
@@ -80,18 +120,38 @@ namespace PL
             {
               customerViewModel.Bl.UpdateCustomer(customerViewModel.CustomerInList.Id, customerViewModel.CustomerInList.Name, customerViewModel.CustomerInList.Phone);
             }
-            catch (Exception)
+            catch (KeyNotFoundException ex)
             {
-                throw;
+                MessageBox.Show($"The customer not updated, {ex.Message}");
             }
-
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                MessageBox.Show($"A key already exists");
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show($"The customer not updated, {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The customer not updated, {ex.Message}");
+            }
             if (MessageBox.Show("the customer was seccessfully updated", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
             }
         }
 
+        private void ToCustomerView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //var selectedCustomer = ToCustomerView.SelectedItem as PO.CustomerForList;
 
+            //TabItem tabItem = new TabItem();
+            //tabItem.Content = new Parcel(customerViewModel.Bl, customerListViewModel.RefreshCustomerList);
+            //tabItem.Header = "Update parcel";
+            //tabItem.Visibility = Visibility.Visible;
+            //customerViewModel.AddTab(tabItem);
+        }
     }
 }
 

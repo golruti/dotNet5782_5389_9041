@@ -30,9 +30,10 @@ namespace PL
         {
             InitializeComponent();
             droneListViewModel = new DroneListViewModel(bl, addTab);
-            droneListViewModel.ListCollectionView.Filter += FilterDrone;
+            droneListViewModel.DronesList.Filter += FilterDrone;
             this.DataContext = droneListViewModel;
             
+
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.DataContext);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
             //view.GroupDescriptions.Add(groupDescription);
@@ -79,8 +80,8 @@ namespace PL
         
         private void RefreshFilter()
         {
-            droneListViewModel.ListCollectionView.Filter -= FilterDrone;
-            droneListViewModel.ListCollectionView.Filter += FilterDrone;
+            droneListViewModel.DronesList.Filter -= FilterDrone;
+            droneListViewModel.DronesList.Filter += FilterDrone;
         }
         /// <summary>
         /// Changes the list of skimmers according to the selected status

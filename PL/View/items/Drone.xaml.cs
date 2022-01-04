@@ -38,8 +38,7 @@ namespace PL
             InitializeComponent();
             droneViewModel = new DroneViewModel(droneForList, bl, refreshDroneList);
             this.DataContext = droneViewModel;
-            Update_grid.Visibility = Visibility.Visible;
-            
+            Update_grid.Visibility = Visibility.Visible;            
         }
 
         private void DeleteDrone(object sender, RoutedEventArgs e)
@@ -50,6 +49,7 @@ namespace PL
                 Close_Page(sender, e);
             }
         }
+
         /// <summary>
         /// Puts the new Harhan on the list and updates the details
         /// </summary>
@@ -88,8 +88,6 @@ namespace PL
                 MessageBox.Show($"The drone was not add, {ex.Message}");
             }
         }
-
-
 
 
         /// <summary>
@@ -131,6 +129,7 @@ namespace PL
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
         }
+
         private void Close_Page(object sender, RoutedEventArgs e)
         {
             object tmp = sender;

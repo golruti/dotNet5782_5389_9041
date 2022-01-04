@@ -17,6 +17,7 @@ namespace PL.ViewModel
         public Action<TabItem> CloseTab { get; private set; }
         public Random Rand { get; private set; }
         public Enums.ParcelStatuses ParcelStutus { get; private set; } 
+        public IEnumerable<int> StationsId;
         private PO.Drone droneInList;
         public PO.Drone DroneInList
         {
@@ -39,7 +40,9 @@ namespace PL.ViewModel
             this.DroneInList = new PO.Drone();
             this.Rand = new Random();
             this.ParcelStutus = (Enums.ParcelStatuses)Bl.GetParcelStatusByDrone(DroneInList.Id);
+            StationsId = (bl.GetBaseStationForList()).Select(s => s.Id);
         }
+
         public DroneViewModel(BO.DroneForList droneInList, BlApi.IBL bl, Action refreshDronesList)
         {
             this.Bl = bl;

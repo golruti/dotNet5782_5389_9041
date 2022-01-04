@@ -39,7 +39,7 @@
                 <CheckBox Content="for available base stations" Click="Available_Checked_1"  x:Name="Available" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="123,9,217,-9" RenderTransformOrigin="0.5,0.5"/>
             </Grid>
 
-            <ListView x:Name="BaseStationListView" ItemsSource="{Binding BaseStationsForList}" DisplayMemberPath="" MouseDoubleClick="BaseStationListView_MouseDoubleClick" Grid.Row="1" Grid.RowSpan="2">
+            <ListView x:Name="BaseStationListView" ItemsSource="{Binding BaseStationsList}" DisplayMemberPath="" MouseDoubleClick="BaseStationListView_MouseDoubleClick" Grid.Row="1" Grid.RowSpan="2">
                 <ListView.View >
                     <GridView>
                         <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />

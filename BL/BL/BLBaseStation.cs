@@ -15,7 +15,7 @@ namespace BL
         /// </summary>
         /// <param name="tempBaseStation">The station for Adding</param>
         public void AddBaseStation(BaseStation tempBaseStation)
-        {
+        {    
             DO.BaseStation baseStation = new DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, tempBaseStation.AvailableChargingPorts);
             try
             {
@@ -168,7 +168,7 @@ namespace BL
                 Name = station.Name,
                 Location = new Location(station.Latitude, station.Longitude),
                 AvailableChargingPorts = station.ChargeSlote - countFullChargeSlots(station.Id),
-                DronesInCharging = DronesInCharging(station.Id)
+                DronesInCharging = GetDronesInCharging(station.Id)
             };
         }
 
