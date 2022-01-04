@@ -30,6 +30,7 @@ namespace BlApi
 
         public IEnumerable<BaseStationForList> GetBaseStationForList();
         public IEnumerable<BaseStationForList> GetBaseStationForList(Predicate<BaseStationForList> predicate);
+        public IEnumerable<BaseStationForList> GetAvaBaseStationForList();
         public IEnumerable<DroneForList> GetDroneForList();
         public IEnumerable<DroneForList> GetDroneForList(Predicate<DroneForList> predicate);
         public IEnumerable<DroneForList> GetDroneForList(Enums.WeightCategories weight, Enums.DroneStatuses status);

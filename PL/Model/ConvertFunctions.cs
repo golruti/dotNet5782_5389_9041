@@ -267,9 +267,9 @@ namespace PO
             return dronesCharging;
         }
 
-        internal static ObservableCollection<PO.BaseStationForList> BOBaseStationForListToPO(IEnumerable<BO.BaseStationForList> baseStationsForList)
+        internal static IEnumerable<PO.BaseStationForList> BOBaseStationForListToPO(IEnumerable<BO.BaseStationForList> baseStationsForList)
         {
-            ObservableCollection<PO.BaseStationForList> baseStations = new ObservableCollection<BaseStationForList>();
+            List<PO.BaseStationForList> baseStations = new List<BaseStationForList>();
             foreach (var station in baseStationsForList)
             {
                 baseStations.Add(new BaseStationForList()

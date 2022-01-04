@@ -14,6 +14,7 @@ namespace DalApi
         public BaseStation GetBaseStation(int idStation);
         public IEnumerable<BaseStation> GetBaseStations();
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate);
+        public IEnumerable<BaseStation> GetAvaBaseStations();
         public void DeleteBaseStation(int id);
         void UpdateRelease(int droneId);
         public void UpdateCharge(int droneId);

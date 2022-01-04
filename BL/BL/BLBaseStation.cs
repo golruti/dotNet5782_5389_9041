@@ -132,6 +132,27 @@ namespace BL
             return GetBaseStationForList().Where(station => predicate(station));
         }
 
+        /// <summary>
+        /// Returns the stations with with free charging stations
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IEnumerable<BaseStationForList> GetAvaBaseStationForList()
+        {
+            List<BaseStationForList> BaseStationsForList = new List<BaseStationForList>();
+            foreach (var baseStation in dal.GetAvaBaseStations())
+            {
+                BaseStationsForList.Add(new BaseStationForList()
+                {
+                    Id = baseStation.Id,
+                    Name = baseStation.Name,
+                    AvailableChargingPorts = (baseStation.ChargeSlote) - countFullChargeSlots(baseStation.Id),
+                    UsedChargingPorts = countFullChargeSlots(baseStation.Id)
+                });
+            }
+            return BaseStationsForList;
+        }
+
         //--------------------------------------------Initialize the parcel list--------------------------------------------------------
 
         /// <summary>

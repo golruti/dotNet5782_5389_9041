@@ -59,5 +59,18 @@ namespace DAL
         {
             return DataSource.stations.Values.Where(station => predicate(station)).ToList();
         }
+
+
+        /// <summary>
+        /// Display base stations with available charging stations
+        /// </summary>
+        /// <returns>array of stations</returns>
+        public IEnumerable<BaseStation> GetAvaBaseStations()
+        {
+            return DataSource.stations.Values
+                         .Where(s => s.ChargeSlote > DataSource.droneCharges.Values.Count(dc => dc.StationId == s.Id))
+                         .ToList();
+        }
+
     }
 }
