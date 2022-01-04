@@ -20,7 +20,7 @@
     </UserControl.Resources>
     <Grid >
 
-        <Grid x:Name="Update_grid" >
+        <Grid x:Name="Update_grid" Visibility="Collapsed" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="480"/>
                 <RowDefinition Height="100"/>

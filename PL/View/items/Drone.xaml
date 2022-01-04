@@ -24,7 +24,7 @@
         <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
     </UserControl.Resources>
     <Grid Background="White">
-        <Grid x:Name="Update_grid">
+        <Grid x:Name="Update_grid" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="480"/>
                 <RowDefinition Height="100"/>
