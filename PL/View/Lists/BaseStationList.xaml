@@ -34,9 +34,9 @@
                 <RowDefinition Height="299*"/>
                 <RowDefinition Height="95*"/>
             </Grid.RowDefinitions>
-            
-            <Grid Name="UpGrid" Grid.Row="0" Margin="150,10,150,10" Height="30" Width="600">
-                <CheckBox Content="for available base stations" Click="Available_Checked_1"  x:Name="Available" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="123,9,217,-9" RenderTransformOrigin="0.5,0.5"/>
+            <Grid   Name="UpGrid"  Grid.Row="0" Margin="150,10,150,10" Height="30" Width="600">
+
+                <CheckBox Content="for available base stations"  x:Name="Available" FontFamily="Copperplate Gothic Bold" FontSize="15" Margin="123,9,217,-9" RenderTransformOrigin="0.5,0.5" />
             </Grid>
 
             <ListView x:Name="BaseStationListView" ItemsSource="{Binding BaseStationsList}" DisplayMemberPath="" MouseDoubleClick="BaseStationListView_MouseDoubleClick" Grid.Row="1" Grid.RowSpan="2">
