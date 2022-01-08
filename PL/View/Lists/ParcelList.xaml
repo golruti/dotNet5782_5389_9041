@@ -134,7 +134,7 @@
                 <RadioButton Content="by recived" Click="MoveToRecive" />
             </StackPanel>
         </Grid>
-        <ListView x:Name="ParcelesListView"   ItemsSource="{Binding}" Grid.Row="1"  MouseDoubleClick="ParcelListView_MouseDoubleClick">
+        <ListView x:Name="ParcelesListView"   ItemsSource="{Binding ParcelsForList}" Grid.Row="1"  MouseDoubleClick="ParcelListView_MouseDoubleClick">
             <ListView.View >
 
                 <GridView  >

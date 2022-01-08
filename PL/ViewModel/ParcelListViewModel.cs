@@ -16,7 +16,7 @@ namespace PL.ViewModel
     {
         
         ListCollectionView listCollectionView;
-        ObservableCollection<ParcelForList> parcelForLists;
+        //ObservableCollection<ParcelForList> parcelForLists;
         
         
         public BlApi.IBL Bl { get; private set; }
