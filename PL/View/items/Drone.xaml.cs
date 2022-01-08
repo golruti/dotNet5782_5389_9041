@@ -199,7 +199,6 @@ namespace PL
                 if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
-                    droneViewModel.RefreshDronesList();
                 }
             }
             catch (KeyNotFoundException ex)

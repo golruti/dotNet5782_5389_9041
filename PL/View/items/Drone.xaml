@@ -51,24 +51,24 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SourceDroneInList.Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DroneInList.Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Model: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox x:Name="update_model" Grid.Row="2" Grid.Column="1" Text="{Binding SourceDroneInList.Model}"  IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
+                <TextBox x:Name="update_model" Grid.Row="2" Grid.Column="1" Text="{Binding DroneInList.Model}"  IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold"/>
 
                 <Label Grid.Row="3" Grid.Column="0" Content="MaxWeight: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,0" Grid.RowSpan="2"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SourceDroneInList.MaxWeight}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding DroneInList.MaxWeight}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
 
                 <Label Grid.Row="5" Grid.Column="0" Content="Status: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,0" Grid.RowSpan="2"/>
-                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SourceDroneInList.Status}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding DroneInList.Status}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
 
                 <Label Grid.Row="7" Grid.Column="0" Content="Battery: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,0" Grid.RowSpan="2"/>
-                <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding SourceDroneInList.Battery}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding DroneInList.Battery}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
 
 
                 <Label Grid.Row="9" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,0" Grid.RowSpan="2"/>
-                <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding SourceDroneInList.Location.Longitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
-                <TextBlock Grid.Row="9" Grid.Column="2" Text="{Binding SourceDroneInList.Location.Latitude }" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding DroneInList.Location.Longitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="9" Grid.Column="2" Text="{Binding DroneInList.Location.Latitude }" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,10,0,0" Grid.RowSpan="2"/>
 
 
 
