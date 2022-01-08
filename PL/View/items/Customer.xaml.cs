@@ -35,7 +35,7 @@ namespace PL
         public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
-            customerViewModel = new CustomerViewModel(customerInList, bl, refreshCustomersList);
+            customerViewModel = new CustomerViewModel( customerInList, bl, refreshCustomersList);
             this.DataContext = customerViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
@@ -156,13 +156,13 @@ namespace PL
 
         private void ToCustomerView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //var selectedCustomer = ToCustomerView.SelectedItem as PO.CustomerForList;
+            var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelForList;
 
-            //TabItem tabItem = new TabItem();
-            //tabItem.Content = new Parcel(customerViewModel.Bl, customerListViewModel.RefreshCustomerList);
-            //tabItem.Header = "Update parcel";
-            //tabItem.Visibility = Visibility.Visible;
-            //customerViewModel.AddTab(tabItem);
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new Parcel(PO.ConvertFunctions.POParcelForListToBO( selectedCustomer), customerViewModel.Bl, customerViewModel.RefreshCustomersList);
+            tabItem.Header = "Update parcel";
+            tabItem.Visibility = Visibility.Visible;
+            customerViewModel.AddTab(tabItem);
         }
     }
 }

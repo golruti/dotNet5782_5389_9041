@@ -77,11 +77,32 @@ namespace PO
             };
         }
 
+        internal static BO.DroneInParcel PODroneParceToBO(DroneInParcel droneParcel)
+        {
+            return new BO.DroneInParcel
+            {
+                Id = droneParcel.Id,
+                Battery = droneParcel.Battery,
+                Location = POLocationToBO(droneParcel.Location)
+            };
+        }
+
         internal static CustomerDelivery BOCustomerDeliveryToPO(BO.CustomerDelivery customerDelivery)
         {
             if (customerDelivery == null)
                 return null;
             return new CustomerDelivery
+            {
+                Id = customerDelivery.Id,
+                Name = customerDelivery.Name,
+            };
+        }
+
+        internal static BO.CustomerDelivery POCustomerDeliveryToBO(CustomerDelivery customerDelivery)
+        {
+            if (customerDelivery == null)
+                return null;
+            return new BO.CustomerDelivery
             {
                 Id = customerDelivery.Id,
                 Name = customerDelivery.Name,
@@ -105,7 +126,41 @@ namespace PO
             };
         }
 
-        internal static BO.ParcelForList POParcelForListToBO(ParcelForList parcel)
+
+        internal static BO.Parcel POCustomerToBO(PO.Parcel parcel)
+        {
+            return new BO.Parcel
+            {
+                Id = parcel.Id,
+                CustomerSender = POCustomerDeliveryToBO(parcel.CustomerSender),
+                CustomerReceives = POCustomerDeliveryToBO(parcel.CustomerReceives),
+                Weight = POEnumWeightCategoriesToBO(parcel.Weight),
+                Priority = POEnumPrioritiesToBO(parcel.Priority),
+                DroneParcel = PODroneParceToBO(parcel.DroneParcel),
+                Requested = parcel.Requested,
+                Scheduled = parcel.Scheduled,
+                PickedUp = parcel.PickedUp,
+                Delivered = parcel.Delivered
+            };
+        }
+
+
+        
+
+        internal static PO.ParcelForList BOParcelForListToPO(BO.ParcelForList parcel)
+        {
+            return new PO.ParcelForList()
+            {
+                Id = parcel.Id,
+                SendCustomer = parcel.SendCustomer,
+                ReceiveCustomer = parcel.ReceiveCustomer,
+                Weight = (PO.Enums.WeightCategories)parcel.Weight,
+                Priority = (PO.Enums.Priorities)parcel.Priority,
+                Status = (PO.Enums.ParcelStatuses)parcel.Status                
+            };
+        }
+
+        internal static BO.ParcelForList POParcelForListToBO(PO.ParcelForList parcel)
         {
             return new BO.ParcelForList()
             {
@@ -114,10 +169,13 @@ namespace PO
                 ReceiveCustomer = parcel.ReceiveCustomer,
                 Weight = (BO.Enums.WeightCategories)parcel.Weight,
                 Priority = (BO.Enums.Priorities)parcel.Priority,
-                Status = (BO.Enums.ParcelStatuses)parcel.Status,
-                
+                Status = (BO.Enums.ParcelStatuses)parcel.Status
             };
         }
+
+
+
+
 
         internal static IEnumerable<ParcelForList> BOParcelForListToPO(IEnumerable<BO.ParcelForList> parcelForLists)
         {

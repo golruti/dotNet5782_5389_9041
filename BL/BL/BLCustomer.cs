@@ -119,7 +119,7 @@ namespace BL
                     Name = customer.Name,
                     Phone = customer.Phone,
                     NumParcelSentDelivered = dal.GetParcels().Count(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(null)),
-                    NumParcelSentNotDelivered = dal.GetParcels().Count(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(null)),
+                    NumParcelSentNotDelivered = dal.GetParcels().Count(parcel => parcel.SenderId == customer.Id && !(parcel.Delivered.Equals(null))),
                     NumParcelReceived = dal.GetParcels().Count(parcel => parcel.TargetId == customer.Id && !parcel.Delivered.Equals(null)),
                     NumParcelWayToCustomer = dal.GetParcels()
                                         .Count(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(null) && !parcel.PickedUp.Equals(null))
@@ -151,22 +151,10 @@ namespace BL
         /// <returns>The converted customer</returns>
         private Customer mapCustomer(DO.Customer customer)
         {
-            var p = dal.GetParcels();
-            foreach (var item in p)
-            {
-                var t = item;
-            }
-            var v = (dal.GetParcels().Where(p => p.SenderId == customer.Id));
             List<ParcelToCustomer> sendedList = new List<ParcelToCustomer>();
-
-            foreach (var parcel in v)
-            {
-                sendedList.Add(mapParcelToParcelToCustomer(parcel));
-            }
-            var targerList = dal.GetParcels().Where(p => p.TargetId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
-
-
-
+            List<ParcelToCustomer> targetedList = new List<ParcelToCustomer>();
+            sendedList= dal.GetParcels().Where(p => p.SenderId == customer.Id).Select(p => mapParcelToParcelToCustomer(p)).ToList();
+            targetedList = dal.GetParcels().Where(p => p.TargetId == customer.Id).Select(p => mapParcelToParcelToCustomer(p)).ToList();
 
 
             return new Customer()
@@ -176,9 +164,10 @@ namespace BL
                 Location = new Location(customer.Latitude, customer.Longitude),
                 Phone = customer.Phone,
                 FromCustomer = sendedList,
-                ToCustomer = targerList,
+                ToCustomer = targetedList,
             };
         }
+
 
         private ParcelToCustomer mapParcelToParcelToCustomer(DO.Parcel parcel)
         {

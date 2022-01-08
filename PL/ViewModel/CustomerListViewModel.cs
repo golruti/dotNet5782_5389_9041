@@ -12,19 +12,22 @@ using System.Windows.Data;
 
 namespace PL.ViewModel
 {
-    public class CustomerListViewModel : INotifyPropertyChanged
+    public class CustomerListViewModel : /*Singleton.Singleton<PL>,*/ INotifyPropertyChanged
     {
         public CustomerListViewModel(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             this.Bl = bl;
             this.AddTab = addTab;
             this.RemoveTab = removeTab;
-            //new ObservableCollection<int>()
-            CustomersForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOCustomerForListToPO(bl.GetCustomerForList()));
+            source = new ObservableCollection<CustomerForList>(ConvertFunctions.BOCustomerForListToPO(bl.GetCustomerForList()));
+            CustomersForList = new ListCollectionView((System.Collections.IList)source);
         }
+
         public void RefreshCustomerList()
         {
-            CustomersForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()));
+            source.Clear();
+            source = new ObservableCollection<CustomerForList>(ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()));
+            CustomersForList.Refresh();
         }
 
 
@@ -32,6 +35,17 @@ namespace PL.ViewModel
         public Action<TabItem> AddTab { get; private set; }
         public Action<object, RoutedEventArgs> RemoveTab { get; private set; }
         private ListCollectionView customersForList;
+        private ObservableCollection<PO.CustomerForList> source;
+        public ObservableCollection<PO.CustomerForList> Source
+        {
+            get { return source; }
+            set
+            {
+                source = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Source)));
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public ListCollectionView CustomersForList
         {
