@@ -128,6 +128,7 @@ namespace PL
             tabItem.Header = "Update Parcel";
             tabItem.Visibility = Visibility.Visible;
             this.parcelListViewModel.AddTab(tabItem);
+
         }
 
         /// <summary>
@@ -164,6 +165,7 @@ namespace PL
         {
             parcelListViewModel.ParcelsForList.Filter -= FilterParcel;
             parcelListViewModel.ParcelsForList.Filter += FilterParcel;
+            parcelListViewModel.ParcelsForList.Refresh();
         }
 
         private bool FilterParcel(object obj)
