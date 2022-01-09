@@ -42,6 +42,7 @@ namespace PL
             parcelViewModel = new ParcelViewModel(parcelInListId, bl, refreshParcelsList);
             this.DataContext = parcelViewModel;
             Update_grid.Visibility = Visibility.Visible;
+           
         }
 
         private void DeleteParcel(object sender, RoutedEventArgs e)

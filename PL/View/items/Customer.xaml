@@ -80,10 +80,11 @@
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource atLleastOneContentConvert}">
 
-                            <Binding Path="SourceCustomerInList.Name"></Binding>
-                            <Binding Path="SourceCustomerInList.Phone"></Binding>
+                            
                             <Binding Path="CustomerInList.Name"></Binding>
                             <Binding Path="CustomerInList.Phone"></Binding>
+                            <Binding Path="SourceCustomerInList.Name"></Binding>
+                            <Binding Path="SourceCustomerInList.Phone"></Binding>
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
