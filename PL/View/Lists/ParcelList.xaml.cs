@@ -122,7 +122,7 @@ namespace PL
         /// <param name="e"></param>
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            BO.ParcelForList selectedParcel = ParcelesListView.SelectedItem as BO.ParcelForList;
+            var selectedParcel = ParcelesListView.SelectedItem as PO.ParcelForList;
             TabItem tabItem = new TabItem();
             tabItem.Content = new Parcel(selectedParcel.Id, this.parcelListViewModel.Bl, RefreshParcelList);
             tabItem.Header = "Update Parcel";
@@ -165,6 +165,7 @@ namespace PL
         {
             parcelListViewModel.ParcelsForList.Filter -= FilterParcel;
             parcelListViewModel.ParcelsForList.Filter += FilterParcel;
+            parcelListViewModel.ParcelsForList.Refresh();
         }
 
         private bool FilterParcel(object obj)
