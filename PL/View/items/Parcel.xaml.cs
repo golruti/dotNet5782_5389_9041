@@ -23,7 +23,6 @@ namespace PL
     /// </summary>
     public partial class Parcel 
     {
-
         ParcelViewModel parcelViewModel;
         static int idParcel { get; set; } = 0;
         public Parcel(BlApi.IBL bl, Action refreshParcelsList)
@@ -36,29 +35,27 @@ namespace PL
             Priority.DataContext = Enum.GetValues(typeof(Enums.Priorities));
         }
 
-        public Parcel(ParcelForList parcelInList, BlApi.IBL bl, Action refreshParcelsList)
+        
+        public Parcel(int parcelInListId, BlApi.IBL bl, Action refreshParcelsList)
         {
             InitializeComponent();
-            parcelViewModel = new ParcelViewModel(parcelInList, bl, refreshParcelsList);
+            parcelViewModel = new ParcelViewModel(parcelInListId, bl, refreshParcelsList);
             this.DataContext = parcelViewModel;
             Update_grid.Visibility = Visibility.Visible;
-            if (parcelInList.Status != Enums.ParcelStatuses.Provided)
-            {
-                Button ShowDrone = new Button();
-                ShowDrone.Content = "Details of the parcel";
-                ShowDrone.Click += ShowDrone_Click;
-                ShowDrone.IsEnabled = true;
-                ShowDrone.Background = Brushes.DarkCyan;
-                ShowDrone.Height = 40;
-                ShowDrone.Width = 130;
-                ShowDrone.HorizontalAlignment = HorizontalAlignment.Center;
-                ButtonsGroup.Children.Add(ShowDrone);
-            }
+            //if (parcelInList.Status != Enums.ParcelStatuses.Provided)
+            //{
+            //    Button ShowDrone = new Button();
+            //    ShowDrone.Content = "Details of the parcel";
+            //    ShowDrone.Click += ShowDrone_Click;
+            //    ShowDrone.IsEnabled = true;
+            //    ShowDrone.Background = Brushes.DarkCyan;
+            //    ShowDrone.Height = 40;
+            //    ShowDrone.Width = 130;
+            //    ShowDrone.HorizontalAlignment = HorizontalAlignment.Center;
+            //    ButtonsGroup.Children.Add(ShowDrone);
+            //}
         }
 
-        
-        
-       
         private void DeleteParcel(object sender, RoutedEventArgs e)
         {
             parcelViewModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
@@ -67,11 +64,11 @@ namespace PL
                 Close_Page(sender, e);
             }
         }
+
         private void Finish_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-
                 parcelViewModel.Bl.AddParcel(new BO.Parcel(idParcel++, int.Parse(senderId.Text), int.Parse(reciverId.Text), (BO.Enums.WeightCategories)Weight.SelectedItem, (BO.Enums.Priorities)Priority.SelectedItem, new BO.DroneInParcel()));
 
                 if (MessageBox.Show("the parcel was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
@@ -173,7 +170,7 @@ namespace PL
             var selectedCustomer = (sender as ContentControl).DataContext as string;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(parcelViewModel.Bl.GetCustomerForList(selectedCustomer), this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList);
+            tabItem.Content = new Customer(parcelViewModel.Bl.GetCustomerForList(selectedCustomer), this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList,parcelViewModel.AddTab);
             tabItem.Header = "parcel";
             tabItem.Visibility = Visibility.Visible;
             this.parcelViewModel.AddTab(tabItem);

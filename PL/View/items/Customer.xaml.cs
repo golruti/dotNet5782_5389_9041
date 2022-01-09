@@ -32,10 +32,10 @@ namespace PL
             Add_grid.Visibility = Visibility.Visible;
         }
          
-        public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList)
+        public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList, Action<TabItem> addTab)
         {
             InitializeComponent();
-            customerViewModel = new CustomerViewModel( customerInList, bl, refreshCustomersList);
+            customerViewModel = new CustomerViewModel( customerInList, bl, refreshCustomersList,addTab);
             this.DataContext = customerViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
@@ -153,16 +153,17 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-
         private void ToCustomerView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelForList;
-
+            var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelToCustomer;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(PO.ConvertFunctions.POParcelForListToBO( selectedCustomer), customerViewModel.Bl, customerViewModel.RefreshCustomersList);
+            tabItem.Content = new Parcel(selectedCustomer.Id, customerViewModel.Bl, customerViewModel.RefreshCustomersList);
             tabItem.Header = "Update parcel";
             tabItem.Visibility = Visibility.Visible;
             customerViewModel.AddTab(tabItem);
+            //אני לא  מוצאת מטען חכי
+            //    חחח מחכה
+            //    ואם באלך לברוח..יכולה:)
         }
     }
 }

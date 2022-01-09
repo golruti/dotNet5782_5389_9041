@@ -124,7 +124,7 @@ namespace PL
         {
             var selectedParcel = ParcelesListView.SelectedItem as BO.ParcelForList;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedParcel, this.parcelListViewModel.Bl, RefreshParcelList);
+            tabItem.Content = new Parcel(selectedParcel.Id, this.parcelListViewModel.Bl, RefreshParcelList);
             tabItem.Header = "Update Parcel";
             tabItem.Visibility = Visibility.Visible;
             this.parcelListViewModel.AddTab(tabItem);

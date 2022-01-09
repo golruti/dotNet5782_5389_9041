@@ -21,6 +21,7 @@
                     <GridViewColumn  Header="Recived parcel" DisplayMemberBinding="{Binding NumParcelReceived}"/>
                 </GridView>
             </ListView.View>
+            
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
