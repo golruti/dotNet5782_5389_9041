@@ -21,7 +21,7 @@ namespace PL.ViewModel
         public IEnumerable<Enums.WeightCategories> DroneWeights {get;set;}
          
         private PO.Drone droneInList;
-        
+
         public PO.Drone SourceDroneInList
         {
             get { return droneInList; }
@@ -42,7 +42,7 @@ namespace PL.ViewModel
             }
         }
 
-        
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -56,7 +56,7 @@ namespace PL.ViewModel
             this.SourceDroneInList = new PO.Drone();
             this.Rand = new Random();
             this.ParcelStutus = (Enums.ParcelStatuses)Bl.GetParcelStatusByDrone(DroneInList.Id);
-            StationsId = (bl.GetBaseStationForList()).Select(s => s.Id);
+            StationsId = ((bl.GetBaseStationForList()).Select(s => s.Id)).ToArray();
         }
 
         public DroneViewModel(BO.DroneForList droneInList, BlApi.IBL bl, Action refreshDronesList)
@@ -64,7 +64,7 @@ namespace PL.ViewModel
             this.Bl = bl;
             this.RefreshDronesList = refreshDronesList;
             this.DroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
-            this.SourceDroneInList= ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
+            this.SourceDroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
             this.Rand = new Random();
             DroneWeights = (IEnumerable<Enums.WeightCategories>)Enum.GetValues(typeof(Enums.WeightCategories));
             StationsId = bl.GetBaseStationForList().Select(item => item.Id);
