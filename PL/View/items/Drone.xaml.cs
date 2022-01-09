@@ -32,8 +32,7 @@ namespace PL
             droneViewModel = new DroneViewModel(bl, refreshDroneList);
             this.DataContext = droneViewModel;
             Add_grid.Visibility = Visibility.Visible;
-            DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
-            StationsId.DataContext = bl.GetBaseStationForList().Select(item=>item.Id);
+            
         }
 
         public Drone(DroneForList droneForList, BlApi.IBL bl, Action refreshDroneList)

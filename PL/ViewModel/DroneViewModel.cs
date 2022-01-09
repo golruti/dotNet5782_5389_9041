@@ -16,8 +16,10 @@ namespace PL.ViewModel
         public Action<TabItem> AddTab { get; private set; }
         public Action<TabItem> CloseTab { get; private set; }
         public Random Rand { get; private set; }
-        public Enums.ParcelStatuses ParcelStutus { get; private set; } 
-        public IEnumerable<int> StationsId;
+        public Enums.ParcelStatuses ParcelStutus { get; private set; }
+        public IEnumerable<int> StationsId { get; set; }
+        public IEnumerable<Enums.WeightCategories> DroneWeights {get;set;}
+         
         private PO.Drone droneInList;
         
         public PO.Drone SourceDroneInList
@@ -34,6 +36,7 @@ namespace PL.ViewModel
             get { return droneInList; }
             set
             {
+
                 droneInList = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DroneInList)));
             }
@@ -63,6 +66,8 @@ namespace PL.ViewModel
             this.DroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
             this.SourceDroneInList= ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
             this.Rand = new Random();
+            DroneWeights = (IEnumerable<Enums.WeightCategories>)Enum.GetValues(typeof(Enums.WeightCategories));
+            StationsId = bl.GetBaseStationForList().Select(item => item.Id);
         }
 
         public void RefreshDroneInList()
