@@ -228,7 +228,7 @@ namespace BL
                         droneForList.Battery -= ((int)minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1);
                         droneForList.Location = location;
                         drones.Add(droneForList.Id, droneForList);
-                        dal.UpdateParcelPickedUp(parcel.Id);
+                        dal.UpdateParcelPickedUp(parcel);
                     }
                     else
                     {

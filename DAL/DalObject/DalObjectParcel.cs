@@ -89,9 +89,9 @@ namespace DAL
         ///Assigning a parcel to a drone
         /// </summary>
         /// <param name="idParcel">Id of the parcel</param>
-        public void UpdateParcelPickedUp(int idParcel)
+        public void UpdateParcelPickedUp(Parcel Parcel)
         {
-            Parcel parcel = DataSource.parcels.Values.FirstOrDefault(parcel => parcel.Id == idParcel);
+            Parcel parcel = DataSource.parcels.Values.FirstOrDefault(parcel => parcel.Id == Parcel.Id);
             if (parcel.Equals(default(Parcel)))
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable customer in data");
@@ -106,9 +106,9 @@ namespace DAL
         /// Delivery of a parcel to the destination
         /// </summary>
         /// <param name="idxParcel">Id of the parcel</param>
-        public void UpdateParcelDelivered(int idParcel)
+        public void UpdateParcelDelivered(Parcel Parcel)
         {
-            Parcel parcel = DataSource.parcels.Values.FirstOrDefault(parcel => parcel.Id == idParcel);
+            Parcel parcel = DataSource.parcels.Values.FirstOrDefault(parcel => parcel.Id == Parcel.Id);
             if (parcel.Equals(default(Parcel)))
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable customer in data");

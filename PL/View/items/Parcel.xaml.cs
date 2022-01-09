@@ -42,18 +42,6 @@ namespace PL
             parcelViewModel = new ParcelViewModel(parcelInListId, bl, refreshParcelsList);
             this.DataContext = parcelViewModel;
             Update_grid.Visibility = Visibility.Visible;
-            //if (parcelInList.Status != Enums.ParcelStatuses.Provided)
-            //{
-            //    Button ShowDrone = new Button();
-            //    ShowDrone.Content = "Details of the parcel";
-            //    ShowDrone.Click += ShowDrone_Click;
-            //    ShowDrone.IsEnabled = true;
-            //    ShowDrone.Background = Brushes.DarkCyan;
-            //    ShowDrone.Height = 40;
-            //    ShowDrone.Width = 130;
-            //    ShowDrone.HorizontalAlignment = HorizontalAlignment.Center;
-            //    ButtonsGroup.Children.Add(ShowDrone);
-            //}
         }
 
         private void DeleteParcel(object sender, RoutedEventArgs e)

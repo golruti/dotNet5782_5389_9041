@@ -122,13 +122,12 @@ namespace PL
         /// <param name="e"></param>
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedParcel = ParcelesListView.SelectedItem as BO.ParcelForList;
+            var selectedParcel = ParcelesListView.SelectedItem as PO.ParcelForList;
             TabItem tabItem = new TabItem();
             tabItem.Content = new Parcel(selectedParcel.Id, this.parcelListViewModel.Bl, RefreshParcelList);
             tabItem.Header = "Update Parcel";
             tabItem.Visibility = Visibility.Visible;
             this.parcelListViewModel.AddTab(tabItem);
-
         }
 
         /// <summary>
