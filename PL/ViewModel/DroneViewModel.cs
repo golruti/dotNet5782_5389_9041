@@ -16,10 +16,10 @@ namespace PL.ViewModel
         public Action<TabItem> AddTab { get; private set; }
         public Action<TabItem> CloseTab { get; private set; }
         public Random Rand { get; private set; }
-        public Enums.ParcelStatuses ParcelStutus { get; private set; } 
-        public IEnumerable<int> StationsId;
+        public Enums.ParcelStatuses ParcelStutus { get; private set; }
+        public Array StationsId { get; set; }
         private PO.Drone droneInList;
-        
+
         public PO.Drone SourceDroneInList
         {
             get { return droneInList; }
@@ -39,7 +39,7 @@ namespace PL.ViewModel
             }
         }
 
-        
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -53,7 +53,7 @@ namespace PL.ViewModel
             this.SourceDroneInList = new PO.Drone();
             this.Rand = new Random();
             this.ParcelStutus = (Enums.ParcelStatuses)Bl.GetParcelStatusByDrone(DroneInList.Id);
-            StationsId = (bl.GetBaseStationForList()).Select(s => s.Id);
+            StationsId = ((bl.GetBaseStationForList()).Select(s => s.Id)).ToArray();
         }
 
         public DroneViewModel(BO.DroneForList droneInList, BlApi.IBL bl, Action refreshDronesList)
@@ -61,7 +61,7 @@ namespace PL.ViewModel
             this.Bl = bl;
             this.RefreshDronesList = refreshDronesList;
             this.DroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
-            this.SourceDroneInList= ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
+            this.SourceDroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
             this.Rand = new Random();
         }
 

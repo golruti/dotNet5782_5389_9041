@@ -15,7 +15,7 @@ namespace Converters
             if (!string.IsNullOrEmpty(values[0].ToString()) && values[0].ToString() != values[2].ToString()
             || !string.IsNullOrEmpty(values[1].ToString()) && values[1].ToString() != values[3].ToString())
                 return true;
-            else return false;
+            return false;
 
         }
 
