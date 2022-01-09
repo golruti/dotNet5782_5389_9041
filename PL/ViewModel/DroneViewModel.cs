@@ -9,6 +9,7 @@ using System.Windows.Controls;
 
 namespace PL.ViewModel
 {
+
     public class DroneViewModel : INotifyPropertyChanged
     {
         public BlApi.IBL Bl { get; private set; }
@@ -18,8 +19,8 @@ namespace PL.ViewModel
         public Random Rand { get; private set; }
         public Enums.ParcelStatuses ParcelStutus { get; private set; }
         public IEnumerable<int> StationsId { get; set; }
-        public IEnumerable<Enums.WeightCategories> DroneWeights {get;set;}
-         
+        public IEnumerable<Enums.WeightCategories> DroneWeights { get; set; }
+
         private PO.Drone droneInList;
 
         public PO.Drone SourceDroneInList
@@ -56,8 +57,12 @@ namespace PL.ViewModel
             this.SourceDroneInList = new PO.Drone();
             this.Rand = new Random();
             this.ParcelStutus = (Enums.ParcelStatuses)Bl.GetParcelStatusByDrone(DroneInList.Id);
-            StationsId = ((bl.GetBaseStationForList()).Select(s => s.Id)).ToArray();
+            StationsId = ((bl.GetBaseStationForList()).Select(s => s.Id)).ToList();
+            DroneWeights = (IEnumerable<Enums.WeightCategories>)Enum.GetValues(typeof(Enums.WeightCategories));
         }
+
+
+
 
         public DroneViewModel(BO.DroneForList droneInList, BlApi.IBL bl, Action refreshDronesList)
         {
