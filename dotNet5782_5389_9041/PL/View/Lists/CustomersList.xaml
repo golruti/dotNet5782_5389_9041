@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="PL.CustomersList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+         Height="450" Width="800">
+    <Grid>
+
+        <ListView x:Name="CustomersListViewXaml" ItemsSource="{Binding CustomersForList}" MouseDoubleClick="CustomersListView_MouseLeftButtonDown">
+           
+            <ListView.View >
+                <GridView>
+                    <GridViewColumn  Header="ID" DisplayMemberBinding="{Binding Id }"/>
+                    <GridViewColumn  Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn  Header="Phone number" DisplayMemberBinding="{Binding Phone}"/>
+                    <GridViewColumn  Header="send parcel" DisplayMemberBinding="{Binding NumParcelSentDelivered}"/>
+                    <GridViewColumn  Header="parcel in process" DisplayMemberBinding="{Binding NumParcelSentNotDelivered}"/>
+                    <GridViewColumn Header="parcel on way" DisplayMemberBinding="{Binding NumParcelWayToCustomer}"/>
+                    <GridViewColumn  Header="Recived parcel" DisplayMemberBinding="{Binding NumParcelReceived}"/>
+                </GridView>
+            </ListView.View>
+            
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding ItemCount}" FontSize="22" Foreground="DarkCyan" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text=" item(s)" FontSize="22" Foreground="Silver" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </ListView>
+
+        <StackPanel>
+            <Button x:Name="add_customer" Margin="500,410,0,0" Content="add customer" Height="40" Width="130" Background="DarkCyan"  Click="add_customer_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

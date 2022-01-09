@@ -1,0 +1,168 @@
+﻿<UserControl x:Class="PL.ParcelList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PL"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}">
+    <UserControl.Resources>
+        <Style x:Key="RoundCorner" TargetType="{x:Type Button}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="8" BorderBrush="Black" BorderThickness="2">
+                                <Border.Background>
+                                    <RadialGradientBrush GradientOrigin="0.496,1.052">
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform CenterX="0.5" CenterY="0.5" 
+                                                        ScaleX="1.5" ScaleY="1.5"/>
+                                                <TranslateTransform X="0.02" Y="0.3"/>
+                                            </TransformGroup>
+                                        </RadialGradientBrush.RelativeTransform>
+                                        <GradientStop Offset="1" Color="#00000000"/>
+                                        <GradientStop Offset="0.3" Color="#FFFFFFFF"/>
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                                <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          TextElement.FontWeight="Bold">
+                                </ContentPresenter>
+                            </Border>
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border">
+                                    <Setter.Value>
+                                        <RadialGradientBrush GradientOrigin="0.496,1.052">
+                                            <RadialGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.5" ScaleY="1.5"/>
+                                                    <TranslateTransform X="0.02" Y="0.3"/>
+                                                </TransformGroup>
+                                            </RadialGradientBrush.RelativeTransform>
+                                            <GradientStop Color="#00000000" Offset="1"/>
+                                            <GradientStop Color="#FF303030" Offset="0.3"/>
+                                        </RadialGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF303030"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" TargetName="grid" Value="0.25"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="myButtonStyle"
+           TargetType="Button">
+            <Setter Property="FontSize"
+              Value="5" />
+            <Setter Property="FontFamily"
+              Value="Consolas" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Height"
+                    Value="41"/>
+            <Setter Property="Width"
+                    Value="72"/>
+            <Setter Property="Background"
+                    Value="DarkCyan"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="Gray">
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="56*"/>
+            <RowDefinition Height="299*"/>
+            <RowDefinition Height="95*"/>
+
+        </Grid.RowDefinitions>
+        <Grid   Name="UpGrid"  Grid.Row="0" Margin="0,13,0,13" Height="40">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+
+            </Grid.ColumnDefinitions >
+
+            <Label Grid.Column="0" Content="  status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray"/>
+            <ComboBox x:Name="ParcelStatuses" ItemsSource="{Binding}" SelectionChanged="ParcelStatuses_SelectionChanged" Grid.ColumnSpan="3" Margin="53,0,53,0" />
+            <Label Grid.Column="2" Content=" sender id:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray"/>
+            <ComboBox Grid.Column="3" x:Name="SenderId" ItemsSource="{Binding}" SelectionChanged="SenderId_SelectionChanged"/>
+            <Label Grid.Column="3" Content="receive id:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.ColumnSpan="3" Margin="53,0,53,0"/>
+            <ComboBox  Grid.Column="5" x:Name="ReceiveId" ItemsSource="{Binding}" SelectionChanged="ReceiveId_SelectionChanged" />
+            <Label Grid.Column="6" Content="time :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray"/>
+            <Label Grid.Column="7" Content="from :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.ColumnSpan="3" />
+            <DatePicker Grid.Column="8" x:Name="From" Height="26" HorizontalAlignment="Left" SelectedDateChanged="To_time_selectionChanged"    Width="89"   />
+            <Label Grid.Column="9" Content="to :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.ColumnSpan="3" />
+            <DatePicker Grid.Column="10" x:Name="To" Height="26" HorizontalAlignment="Center" SelectedDateChanged="From_time_selectionChanged" Width="94" />
+            <StackPanel Grid.Column="11" Grid.ColumnSpan="2" >
+                <RadioButton Content="by sender" IsChecked="True" Click="MoveToSender" />
+                <RadioButton Content="by recived" Click="MoveToRecive" />
+            </StackPanel>
+        </Grid>
+        <ListView x:Name="ParcelesListView"   ItemsSource="{Binding ParcelsForList}" Grid.Row="1"  MouseDoubleClick="ParcelListView_MouseDoubleClick">
+            <ListView.View >
+
+                <GridView  >
+                    <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
+                    <GridViewColumn  Header="Sender" DisplayMemberBinding="{Binding SendCustomer}" />
+                    <GridViewColumn  Header="Receiver" DisplayMemberBinding="{Binding ReceiveCustomer}" />
+                    <GridViewColumn  Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
+                    <GridViewColumn  Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
+                    <GridViewColumn  Header="Status" DisplayMemberBinding="{Binding Status}"/>
+                </GridView>
+
+            </ListView.View>
+
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </ListView>
+
+
+
+        <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+        <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddParcelWindow" Content="add parcel" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+
+    </Grid>
+</UserControl>
