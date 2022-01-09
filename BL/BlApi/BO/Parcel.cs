@@ -10,7 +10,6 @@ namespace BO
 {
     public class Parcel
     {
-
         public int Id { get; set; }
         public CustomerDelivery CustomerSender { get; set; }
         public CustomerDelivery CustomerReceives { get; set; }

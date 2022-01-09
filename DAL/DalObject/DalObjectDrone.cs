@@ -16,8 +16,9 @@ namespace DAL
         /// <param name="drone">struct of drone</param>
         public void AddDrone(Drone drone)
         {
-            if (DataSource.drones.ContainsKey(drone.Id))
+            if (!GetDrone(drone.Id).GetType().Equals(default))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone - DAL");
+            drone.IsDeleted = false;
             DataSource.drones.Add(drone.Id, drone);
         }
 
@@ -27,11 +28,12 @@ namespace DAL
         /// </summary>
         /// <param name="idxDrone">struct of drone</param>
         /// <returns>drone</returns>
-        public Drone GetDrone(int id)
+        public Drone GetDrone(int droneId)
         {
-            if (!DataSource.drones.ContainsKey(id))
-                throw new KeyNotFoundException("Get customer -DAL-: There is no suitable customer in data");
-            return DataSource.drones[id];
+            var drone = DataSource.drones.Values.FirstOrDefault(drone => drone.Id == droneId && !(drone.IsDeleted));
+            if (drone.GetType().Equals(default))
+                throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data");
+            return DataSource.drones[droneId];
         }
 
         //--------------------------------------------Show list-------------------------------------------------------------------------------------------
@@ -41,7 +43,7 @@ namespace DAL
         /// <returns>array of drones</returns>
         public IEnumerable<Drone> GetDrones()
         {
-            return DataSource.drones.Values.ToList();
+            return DataSource.drones.Values.Where(drone => !(drone.IsDeleted)).ToList();
         }
 
         /// <summary>
@@ -51,7 +53,7 @@ namespace DAL
         /// <returns>List of Drone that maintain the predicate</returns>
         public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate)
         {
-            return DataSource.drones.Values.Where(drone => predicate(drone)).ToList();
+            return DataSource.drones.Values.Where(drone => predicate(drone) && !(drone.IsDeleted)).ToList();
         }
 
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------
@@ -63,6 +65,11 @@ namespace DAL
         {
             if (!DataSource.drones.Remove(id))
                 throw new KeyNotFoundException("Delete drone -DAL-: There is no suitable customer in data");
+
+            var deletedDrone = GetDrone(id);
+            DataSource.drones.Remove(deletedDrone.Id);
+            deletedDrone.IsDeleted = true;
+            DataSource.drones.Add(deletedDrone.Id, deletedDrone);
         }
     }
 }
