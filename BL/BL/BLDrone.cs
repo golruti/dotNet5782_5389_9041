@@ -17,12 +17,12 @@ namespace BL
         /// <param name="tempDrone">The customer for Adding</param>
         public void AddDrone(Drone tempDrone)
         {
-             
+
             DO.Drone drone = new DO.Drone(tempDrone.Id, tempDrone.Model, (DO.Enum.WeightCategories)tempDrone.MaxWeight);
             try
             {
                 dal.AddDrone(drone);
-               
+
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -78,7 +78,7 @@ namespace BL
         private Drone mapDrone(int id)
         {
             DroneForList droneToList = drones.Values.FirstOrDefault(drone => drone.Id == id);
-            if (droneToList.Equals(default))
+            if (droneToList.GetType().Equals(default))
                 throw new ArgumentNullException("Map drone -BL-:There is not drone with same id i data");
             return new Drone()
             {
@@ -204,7 +204,7 @@ namespace BL
         public void PackageCollection(int id)
         {
 
-            if (!(drones.Values.FirstOrDefault(drone => drone.Id == id)).Equals(default(DroneForList)))
+            if (!(drones.Values.FirstOrDefault(drone => drone.Id == id)).GetType().Equals(default))
             {
                 DroneForList droneForList = drones.Values.FirstOrDefault(drone => drone.Id == id);
                 if (droneForList.Status == DroneStatuses.Delivery)
@@ -228,7 +228,7 @@ namespace BL
                         droneForList.Battery -= ((int)minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1);
                         droneForList.Location = location;
                         drones.Add(droneForList.Id, droneForList);
-                        dal.UpdateParcelPickedUp(parcel.Id);
+                        dal.UpdateParcelPickedUp(parcel);
                     }
                     else
                     {
@@ -350,7 +350,7 @@ namespace BL
         {
             DroneInCharging droneInCharging = new DroneInCharging();
             DroneForList drone = drones.Values.FirstOrDefault(drone => drone.Id == droneId);
-            if (! drone.Equals(default))
+            if (!drone.GetType().Equals(default))
             {
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
@@ -359,7 +359,7 @@ namespace BL
                     droneInCharging.Battery = drone.Battery + batteryCalculationInCharging(time.Hours);
                     drone.Battery = droneInCharging.Battery;
                     drone.Status = (DroneStatuses)0;
-                    drones.Add(drone.Id,drone);
+                    drones.Add(drone.Id, drone);
                     try
                     {
                         dal.UpdateRelease(droneId);
@@ -395,7 +395,7 @@ namespace BL
                 }
             }
             DroneForList droneForList = drones.Values.FirstOrDefault(drone => drone.Id == id);
-            if ((! drone.Equals(default)) && drone.Status == DroneStatuses.Available)
+            if ((!drone.GetType().Equals(default)) && drone.Status == DroneStatuses.Available)
             {
                 int parcelId = 0;
                 bool isExist = false;
@@ -547,7 +547,8 @@ namespace BL
             foreach (var parcel in dal.GetParcels())
             {
                 if (parcel.Droneld == droneId &&
-                    !(parcel.Requested.Equals(null)) && parcel.Delivered.Equals(default(DateTime)))
+                    !(parcel.Requested.GetType().Equals(null)) &&
+                    parcel.Delivered == null)
                 {
                     return true;
                 }
@@ -632,7 +633,7 @@ namespace BL
                     nearestBaseStation = BaseStation;
                 }
             }
-            if (nearestBaseStation.Equals(default(DO.BaseStation)))
+            if (nearestBaseStation.GetType().Equals(default))
             {
                 throw new ArgumentNullException("Get nearst base station -BL-");
             }

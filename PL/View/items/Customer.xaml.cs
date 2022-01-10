@@ -157,13 +157,10 @@ namespace PL
         {
             var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelToCustomer;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedCustomer.Id, customerViewModel.Bl, customerViewModel.RefreshCustomersList,customerViewModel.AddTab);
+            tabItem.Content = new Parcel(selectedCustomer.Id, customerViewModel.Bl, customerViewModel.RefreshCustomersList);
             tabItem.Header = "Update parcel";
             tabItem.Visibility = Visibility.Visible;
             customerViewModel.AddTab(tabItem);
-            //אני לא  מוצאת מטען חכי
-            //    חחח מחכה
-            //    ואם באלך לברוח..יכולה:)
         }
     }
 }

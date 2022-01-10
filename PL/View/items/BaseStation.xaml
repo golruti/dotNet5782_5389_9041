@@ -47,19 +47,19 @@
 
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding BaseStationInList.Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SourceBaseStationInList.Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Name: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
-                <TextBox x:Name="update_name" Grid.Row="1" Grid.Column="1" Text="{Binding BaseStationInList.Name}"  IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
+                <TextBox x:Name="update_name" Grid.Row="1" Grid.Column="1" Text="{Binding SourceBaseStationInList.Name}"  IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
 
                 <Label Grid.Row="4" Grid.Column="0" Content="num of charging ports:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox x:Name="update_num_of_charging_ports" Grid.Row="4" Grid.Column="1" Text="{Binding BaseStationInList.AvailableChargingPorts}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic"/>
+                <TextBox x:Name="update_num_of_charging_ports" Grid.Row="4" Grid.Column="1" Text="{Binding SourceBaseStationInList.AvailableChargingPorts}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="6" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,1,0,12" RenderTransformOrigin="0.5,0.5"/>
-                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding BaseStationInList.Location.Longitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
+                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding SourceBaseStationInList.Location.Longitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
 
                 <Label Grid.Row="8" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,1,0,12" RenderTransformOrigin="0.5,0.5"/>
-                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding BaseStationInList.Location.Latitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding SourceBaseStationInList.Location.Latitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
                 
                 <Label Grid.Row="10" Grid.Column="0" Content="drones in charging: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,0,0,150" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
 
@@ -80,11 +80,10 @@
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource atLleastOneContentConvert}">
                            
-                            
-                            <Binding Path="BaseStationInList.Name" ></Binding>
-                            <Binding Path="BaseStationInList.AvailableChargingPorts"></Binding>
                             <Binding Path="SourceBaseStationInList.Name" ></Binding>
-                            <Binding Path="SourceBaseStationInList.AvailableChargingPorts"></Binding>
+                            <Binding Path="SourceBaseStationInList.availableChargingPorts"></Binding>
+                            <Binding Path="BaseStationInList.Name" ></Binding>
+                            <Binding Path="BaseStationInList.availableChargingPorts"></Binding>
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
