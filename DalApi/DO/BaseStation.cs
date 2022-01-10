@@ -9,7 +9,6 @@ namespace DO
     public struct BaseStation
     {
         #region properties
-        public bool IsDeleted { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
         public double Longitude { get; set; }
@@ -32,7 +31,6 @@ namespace DO
         #region ctor
         public BaseStation(int id, string name, double longitude, double lattitude, int chargeSlote)
         {
-            IsDeleted = false;
             Id = id;
             Name = name;
             Longitude = longitude;

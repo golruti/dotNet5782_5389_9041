@@ -143,7 +143,6 @@
                     <GridViewColumn  Header="Receiver" DisplayMemberBinding="{Binding ReceiveCustomer}" />
                     <GridViewColumn  Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
                     <GridViewColumn  Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
-                    
                     <GridViewColumn  Header="Status" DisplayMemberBinding="{Binding Status}"/>
                 </GridView>
 

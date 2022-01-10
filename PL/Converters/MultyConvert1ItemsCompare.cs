@@ -12,12 +12,13 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            
-            if (values[0].ToString()!= values[1].ToString()&& string.IsNullOrEmpty(values[0].ToString()))
+            if (values[0] == null) return false;
+
+            if (values[0].ToString() != values[1].ToString() && string.IsNullOrEmpty(values[0].ToString()))
             {
                 return true;
             }
-            return true;
+            return false;
         }
 
         

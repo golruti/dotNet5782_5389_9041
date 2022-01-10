@@ -12,10 +12,10 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (!string.IsNullOrEmpty(values[0].ToString()) && values[0].ToString() != values[2].ToString()
-            || !string.IsNullOrEmpty(values[1].ToString()) && values[1].ToString() != values[3].ToString())
+            if (values[0] == null) return false;
+            if (!string.IsNullOrEmpty(values[0].ToString()) && values[0].ToString() != values[2].ToString()|| !string.IsNullOrEmpty(values[1].ToString()) && values[1].ToString() != values[3].ToString())
                 return true;
-            else return false;
+            return false;
 
         }
 

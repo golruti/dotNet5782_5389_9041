@@ -42,9 +42,7 @@ namespace DAL
                 tempStation.ChargeSlote = Rand.Next(50);
                 tempStation.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
-                tempStation.IsDeleted = false;
                 stations[tempStation.Id] = tempStation;
-
             }
 
             //customers
@@ -56,7 +54,6 @@ namespace DAL
                 tempCustomer.Phone = $"05{Rand.Next(10000000, 100000000)}";
                 tempCustomer.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempCustomer.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
-                tempCustomer.IsDeleted = false;
                 customers[tempCustomer.Id] = tempCustomer;
             }
 
@@ -67,7 +64,6 @@ namespace DAL
                 tempDrone.Id = i;
                 tempDrone.Model = $"drone {i}";
                 tempDrone.MaxWeight = (DO.Enum.WeightCategories)Rand.Next(0, 3);
-                tempDrone.IsDeleted = false;
                 drones[tempDrone.Id] = tempDrone;
             }
             
@@ -107,7 +103,6 @@ namespace DAL
                     tempParcel.Droneld = i;
                     tempParcel.Scheduled = DateTime.Now.AddDays(2);
                 }
-                tempParcel.IsDeleted = false;
                 parcels[tempParcel.Id] = tempParcel;
             }
         }

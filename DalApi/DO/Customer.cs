@@ -13,7 +13,6 @@ namespace DO
     public struct Customer
     {
         #region properties
-        public bool IsDeleted { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
@@ -36,7 +35,6 @@ namespace DO
         #region ctor
         public Customer(int id, string name, string phone, double longitude, double lattitude)
         {
-            IsDeleted = false;
             Id = id;
             Name = name;
             Phone = phone;

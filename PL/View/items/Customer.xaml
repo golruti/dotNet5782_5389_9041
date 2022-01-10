@@ -15,8 +15,8 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
-        <Converters:AtLleastOneContentConvert x:Key="atLleastOneContentConvert"></Converters:AtLleastOneContentConvert>
         <Converters:MultyConvert5Items x:Key="multyConvert5Items"></Converters:MultyConvert5Items>
+        <Converters:AtLleastOneContentConvert x:Key="atLleastOneContentConvert"></Converters:AtLleastOneContentConvert>
     </UserControl.Resources>
     <Grid >
 
@@ -79,11 +79,10 @@
                 <Button Content="update details" Height="40" Width="130" Margin="30,0,0,0" Click="Update_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource atLleastOneContentConvert}">
-
-                            <Binding Path="SourceCustomerInList.Name"></Binding>
-                            <Binding Path="SourceCustomerInList.Phone"></Binding>
                             <Binding Path="CustomerInList.Name"></Binding>
                             <Binding Path="CustomerInList.Phone"></Binding>
+                            <Binding Path="SourceCustomerInList.Name"></Binding>
+                            <Binding Path="SourceCustomerInList.Phone"></Binding>
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>

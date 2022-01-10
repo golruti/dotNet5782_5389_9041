@@ -244,7 +244,7 @@ namespace BL
                 Id = id,
                 Weight = (Enums.WeightCategories)parcel.Weight,
                 Priority = (Enums.Priorities)parcel.Priority,
-                IsDestinationParcel = !parcel.PickedUp.GetType().Equals(default),
+                IsDestinationParcel = !parcel.PickedUp.Equals(default),
                 SenderLocation = new Location(sender.Longitude, sender.Latitude),
                 TargetLocation = new Location(target.Longitude, target.Latitude),
                 Distance = distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
@@ -317,7 +317,7 @@ namespace BL
         /// <returns>The name of the sending customer</returns>
         private string getSendCustomerName(DO.Parcel parcel)
         {
-            if ((dal.GetCustomers().First(customer => customer.Id == parcel.SenderId)).Name.GetType().Equals(default))
+            if ((dal.GetCustomers().First(customer => customer.Id == parcel.SenderId)).Name.Equals(default(string)))
             {
                 throw new ArgumentNullException("Get sender customer  -BL-");
             }
@@ -331,7 +331,7 @@ namespace BL
         /// <returns>The name of the receiving customer</returns>
         private string getReceiveCustomer(DO.Parcel parcel)
         {
-            if ((dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId)).Name.GetType().Equals(default))
+            if ((dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId)).Name.Equals(default(string)))
             {
                 throw new ArgumentNullException("Get recieve customer  -BL-");
             }

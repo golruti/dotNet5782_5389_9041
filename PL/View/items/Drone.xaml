@@ -79,19 +79,21 @@
                 <Button Content = "Release drone from charging" Click= "ReleaseDroneFromCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" HorizontalAlignment ="Center" Visibility="{Binding SourceDroneInList.Status,Converter={StaticResource droneMaintenanceStatusConvert}}"/>
                 <Button Content = "Parcel delivery" Click = "ParcelDelivery_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding ParcelStutus,Converter={StaticResource parcelStatusByDroneCollectedConvert}}"/>
                 <Button Content = "Parcel collection" Click = "ParcelCollection_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding ParcelStutus,Converter={StaticResource parcelStatusByDroneAssociatedConvert}}"/>
-               
+
                 <Button Content="close"   Height="40" Width="130" Background="DarkCyan"  Click="Close_Page" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
                 <Button  Content="Update Model" Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold" >
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource multyConvert1ItemsCompare}">
-                            <Binding Path="SourceDroneInList.Model"></Binding>
+                            
                             <Binding Path="DroneInList.Model" ></Binding>
+                            <Binding Path="SourceDroneInList.Model"></Binding>
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
             </StackPanel>
         </Grid>
-        <Grid x:Name="Add_grid" Visibility="Collapsed" >
+        
+        <Grid x:Name="Add_grid"  Visibility="Collapsed">
             <Grid Grid.Row="0"  Name="UpGrid"  Margin="176,50,176,150" Height="170" Width="252" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="126"/>
@@ -121,7 +123,7 @@
 
             <Grid Width="200" Height="50" Margin="259,205,145,95">
                 
-                <Button  Content="finish"  Margin="40,15,100,15" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
+                <Button  Content="finish"  Margin="0,15,140,15" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource multyConvert4Items}">
                             <Binding ElementName="Id" Path="Text"></Binding>
@@ -131,8 +133,8 @@
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
-                <Button Content="delete"   Height="40" Width="130" Background="DarkCyan"  Click="DeleteDrone" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-                <Button Background="DarkCyan" Content="concel"  Margin="115,15,25,15" Click="Close_Page"  Height="20" Width="60" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
+                <Button Content="delete"   Height="20" Width="60" Background="DarkCyan"  Click="DeleteDrone" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold" Margin="0,15,0,15"/>
+                <Button Background="DarkCyan" Content="concel"  Margin="140,15,0,15" Click="Close_Page"  Height="20" Width="60" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
             </Grid>
 
 
