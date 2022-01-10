@@ -14,6 +14,7 @@ namespace DO
     /// </summary>
     public struct Parcel
     {
+        public bool IsDeleted { get; set; }
         public int Id { get; set; }
         public int SenderId { get; set; }
         public int TargetId { get; set; }

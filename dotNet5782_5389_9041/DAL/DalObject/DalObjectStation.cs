@@ -16,12 +16,13 @@ namespace DAL
         /// <param name="station">struct of station</param>
         public void AddBaseStation(BaseStation station)
         {
-            if (DataSource.stations.ContainsKey(station.Id))
+            if (!GetBaseStation(station.Id).GetType().Equals(default))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a station - DAL");
+            station.IsDeleted = false;
             DataSource.stations.Add(station.Id, station);
         }
 
-        //---------------------------------------------Update--------------------------------------------------------------------------------------------
+        //---------------------------------------------Delete--------------------------------------------------------------------------------------------
         /// delete base station from list
         /// </summary>
         /// <param name="id"></param>
@@ -29,6 +30,11 @@ namespace DAL
         {
             if (!DataSource.stations.Remove(id))
                 throw new KeyNotFoundException("Delete station -DAL-: There is no suitable station in data");
+
+            var deletedStation = GetBaseStation(id);
+            DataSource.stations.Remove(deletedStation.Id);
+            deletedStation.IsDeleted = true;
+            DataSource.stations.Add(deletedStation.Id, deletedStation);
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------
@@ -39,8 +45,8 @@ namespace DAL
         /// <returns>station id</returns>
         public BaseStation GetBaseStation(int idStation)
         {
-            BaseStation station = DataSource.stations.Values.FirstOrDefault(station => station.Id == idStation);
-            if (station.GetType().Equals(default))
+            BaseStation station = DataSource.stations.Values.FirstOrDefault(station => station.Id == idStation && !(station.IsDeleted));
+            if (station.GetType().GetType().Equals(default))
                 throw new KeyNotFoundException("Get station -DAL-: There is no suitable customer in data");
             return station;
         }
@@ -52,14 +58,14 @@ namespace DAL
         /// <returns>array of station</returns>
         public IEnumerable<BaseStation> GetBaseStations()
         {
-            return DataSource.stations.Values.ToList();
+            return DataSource.stations.Values.Where(station => !(station.IsDeleted)).ToList();
         }
 
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)
         {
-            return DataSource.stations.Values.Where(station => predicate(station)).ToList();
+            return DataSource.stations.Values.Where
+                (station => predicate(station) && !(station.IsDeleted)).ToList();
         }
-
 
         /// <summary>
         /// Display base stations with available charging stations
@@ -68,7 +74,7 @@ namespace DAL
         public IEnumerable<BaseStation> GetAvaBaseStations()
         {
             return DataSource.stations.Values
-                         .Where(s => s.ChargeSlote > DataSource.droneCharges.Values.Count(dc => dc.StationId == s.Id))
+                         .Where(station => station.ChargeSlote > DataSource.droneCharges.Values.Count(dc => dc.StationId == station.Id && !(station.IsDeleted)))
                          .ToList();
         }
 

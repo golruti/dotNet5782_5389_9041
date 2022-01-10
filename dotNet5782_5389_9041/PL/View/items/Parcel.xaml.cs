@@ -36,13 +36,12 @@ namespace PL
         }
 
         
-        public Parcel(int parcelInListId, BlApi.IBL bl, Action refreshParcelsList, Action<TabItem> addTab)
+        public Parcel(int parcelInListId, BlApi.IBL bl, Action refreshParcelsList)
         {
             InitializeComponent();
-            parcelViewModel = new ParcelViewModel(parcelInListId, bl, refreshParcelsList,addTab );
+            parcelViewModel = new ParcelViewModel(parcelInListId, bl, refreshParcelsList);
             this.DataContext = parcelViewModel;
             Update_grid.Visibility = Visibility.Visible;
-           
         }
 
         private void DeleteParcel(object sender, RoutedEventArgs e)
@@ -154,38 +153,19 @@ namespace PL
             }
         }
 
-        private void CustomerSender(object sender, RoutedEventArgs e)
+        private void CustomerView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault (c=>c.Id == parcelViewModel.ParcelInList.CustomerSender.Id)),
-                this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList,parcelViewModel.AddTab);
-            tabItem.Header = "update Sender Customer";
-            tabItem.Visibility = Visibility.Visible;
-            parcelViewModel.AddTab(tabItem);
-
-        }
-
-        private void CustomerReceives(object sender, RoutedEventArgs e)
-        {
-
+            var selectedCustomer = (sender as ContentControl).DataContext as string;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id)),
-                this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList, parcelViewModel.AddTab);
-            tabItem.Header = "update Receives Customer";
+            tabItem.Content = new Customer(parcelViewModel.Bl.GetCustomerForList(selectedCustomer), this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList,parcelViewModel.AddTab);
+            tabItem.Header = "parcel";
             tabItem.Visibility = Visibility.Visible;
             this.parcelViewModel.AddTab(tabItem);
+
         }
 
-        private void Drone(object sender, RoutedEventArgs e)
-        {
-
-
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(parcelViewModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id),this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList);
-            tabItem.Header = "update  drone";
-            tabItem.Visibility = Visibility.Visible;
-            this.parcelViewModel.AddTab(tabItem);
-        }
+    
+       
     }
 }

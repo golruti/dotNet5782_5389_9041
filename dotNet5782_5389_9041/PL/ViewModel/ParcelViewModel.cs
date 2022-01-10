@@ -25,12 +25,11 @@ namespace PL.ViewModel
             this.ParcelInList = new PO.Parcel();
             
         }
-        public ParcelViewModel(int parcelInListId, BlApi.IBL bl, Action refreshParcelList, Action<TabItem> addTab)
+        public ParcelViewModel(int parcelInListId, BlApi.IBL bl, Action refreshParcelList)
         {
             this.Bl = bl;
             this.RefreshParcelList = refreshParcelList;
             this.ParcelInList = ConvertFunctions.BOParcelToPO(bl.GetBLParcel(parcelInListId));
-            this.AddTab = addTab;
             
         }
     }

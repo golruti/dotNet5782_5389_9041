@@ -14,7 +14,7 @@ namespace Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return (DroneStatuses)value == DroneStatuses.Maintenance ? Visibility.Visible : Visibility.Collapsed;
+            return (DroneStatuses)value == DroneStatuses.Delivery ? Visibility.Visible : Visibility.Collapsed;
         }
 
 
@@ -23,6 +23,4 @@ namespace Converters
             throw new NotImplementedException();
         }
     }
-
-    
 }

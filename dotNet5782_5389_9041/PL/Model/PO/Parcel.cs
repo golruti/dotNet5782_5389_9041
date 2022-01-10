@@ -33,7 +33,7 @@ namespace PO
         }
 
         private CustomerDelivery customerReceives;
-        public CustomerDelivery CustomerReceives 
+        public CustomerDelivery CustomerReceives
         {
             get { return customerReceives; }
             set
