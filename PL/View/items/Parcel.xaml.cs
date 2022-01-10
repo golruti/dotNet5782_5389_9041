@@ -153,19 +153,41 @@ namespace PL
             }
         }
 
-        private void CustomerView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void CustomerSender(object sender, RoutedEventArgs e)
         {
-            var selectedCustomer = (sender as ContentControl).DataContext as string;
-
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(parcelViewModel.Bl.GetCustomerForList(selectedCustomer), this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList,parcelViewModel.AddTab);
-            tabItem.Header = "parcel";
+            tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id)),
+                this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList, parcelViewModel.AddTab);
+            tabItem.Header = "update Sender Customer";
             tabItem.Visibility = Visibility.Visible;
-            this.parcelViewModel.AddTab(tabItem);
+            parcelViewModel.AddTab(tabItem);
 
         }
 
-    
-       
+        private void CustomerReceives(object sender, RoutedEventArgs e)
+        {
+
+
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id)),
+                this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList, parcelViewModel.AddTab);
+            tabItem.Header = "update Receives Customer";
+            tabItem.Visibility = Visibility.Visible;
+            this.parcelViewModel.AddTab(tabItem);
+        }
+
+        private void Drone(object sender, RoutedEventArgs e)
+        {
+
+
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new Drone(parcelViewModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id), this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList);
+            tabItem.Header = "update  drone";
+            tabItem.Visibility = Visibility.Visible;
+            this.parcelViewModel.AddTab(tabItem);
+        }
+
+
+
     }
 }
