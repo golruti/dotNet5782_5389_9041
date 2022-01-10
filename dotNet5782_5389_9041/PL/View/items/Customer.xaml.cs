@@ -23,7 +23,6 @@ namespace PL
     public partial class Customer
     {
         CustomerViewModel customerViewModel;
-
         public Customer(BlApi.IBL bl, Action refreshCustomersList)
         {
             InitializeComponent();
