@@ -16,7 +16,7 @@ namespace PL.ViewModel
 
         public PO.BaseStation BaseStationInList { get; set; }
         public DroneListViewModel DronesList { get; set; }
-        public IEnumerable<DroneInCharging> DronesInChargingList { get; set; }
+         public DroneInChargeListViewModel DronesInChargingList { get; set; }
 
 
         public BaseStationViewModel(BlApi.IBL bl, Action<TabItem> addTab, BO.BaseStationForList baseStationForList, Action refreshBaseStationList)
@@ -27,8 +27,7 @@ namespace PL.ViewModel
             BaseStationInList = PO.ConvertFunctions.BOBaseStationToPO(Bl.GetBLBaseStation(baseStationForList.Id));
             RefreshStationsList = refreshBaseStationList;
             DronesList = new DroneListViewModel(bl, addTab);
-            //DronesInChargingList = new DroneInChargeListViewModel(bl, addTab, SourceBaseStationInList.Id);
-            DronesInChargingList = BaseStationInList.DronesInCharging;
+            DronesInChargingList = new DroneInChargeListViewModel(bl, addTab, SourceBaseStationInList.Id);
         }
 
         public BaseStationViewModel(BlApi.IBL bl, Action refreshBaseStationList)

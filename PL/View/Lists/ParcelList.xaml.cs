@@ -23,7 +23,11 @@ namespace PL
     /// </summary>
     public partial class ParcelList : UserControl
     {
-        
+        //BlApi.IBL bl;
+        //Action<TabItem> addTab;
+        //Action<object, RoutedEventArgs> RemoveTab;
+        //ListCollectionView listCollectionView;
+        //ObservableCollection<ParcelForList> parcelForLists;
         PropertyGroupDescription groupBySender, groupByReceiver;
 
         ParcelListViewModel parcelListViewModel;
@@ -34,9 +38,7 @@ namespace PL
             groupBySender = new PropertyGroupDescription(nameof(ParcelForList.SendCustomer));
             groupByReceiver = new PropertyGroupDescription(nameof(ParcelForList.ReceiveCustomer));
             parcelListViewModel = new ParcelListViewModel(bl, addTab, removeTab);
-            parcelListViewModel.ParcelsForList.Filter = FilterParcel;
             this.DataContext = parcelListViewModel;
-            
             parcelListViewModel.ParcelsForList.GroupDescriptions.Add(groupBySender);
             SenderId.DataContext = bl.GetParcelForList().Select(item => item.SendCustomer);
             ReceiveId.DataContext = bl.GetParcelForList().Select(item => item.ReceiveCustomer);
@@ -122,11 +124,10 @@ namespace PL
         {
             var selectedParcel = ParcelesListView.SelectedItem as PO.ParcelForList;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedParcel.Id, this.parcelListViewModel.Bl, RefreshParcelList,parcelListViewModel.AddTab);
+            tabItem.Content = new Parcel(selectedParcel.Id, this.parcelListViewModel.Bl, RefreshParcelList);
             tabItem.Header = "Update Parcel";
             tabItem.Visibility = Visibility.Visible;
             this.parcelListViewModel.AddTab(tabItem);
-
         }
 
         /// <summary>
@@ -161,26 +162,24 @@ namespace PL
         }
         private void RefreshFilter()
         {
-            parcelListViewModel.ParcelsForList.Refresh();
-            //parcelListViewModel.ParcelsForList.Filter -= FilterParcel;
-            //parcelListViewModel.ParcelsForList.Filter += FilterParcel;
-            //parcelListViewModel.ParcelsForList.Refresh();
+            parcelListViewModel.ParcelsForList.Filter -= FilterParcel;
+            parcelListViewModel.ParcelsForList.Filter += FilterParcel;
         }
 
         private bool FilterParcel(object obj)
         {
-            if (obj is PO.ParcelForList parcel)
+            if (obj is ParcelForList parcel)
             {
                 if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
 
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
                 }
                 else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
 
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
@@ -188,7 +187,7 @@ namespace PL
 
                 else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
 
                     return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
 
@@ -223,14 +222,15 @@ namespace PL
                 }
                 else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
 
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
 
                 }
                 else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && To.SelectedDate != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+
 
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
 
@@ -238,7 +238,8 @@ namespace PL
 
                 else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+
 
                     return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
 
@@ -276,21 +277,26 @@ namespace PL
                 }
                 else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedDate != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+
 
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
                 else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && From.SelectedDate != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+
+
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
 
                 else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedDate != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+
+
                     return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
 
                 }
@@ -329,12 +335,12 @@ namespace PL
 
                 else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
                     return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
                 }
                 else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
                     return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
                 }
                 else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null)
@@ -363,14 +369,18 @@ namespace PL
                 }
                 else if (ParcelStatuses.SelectedItem != null)
                 {
-                    PO.Enums.ParcelStatuses status = (PO.Enums.ParcelStatuses)(Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+                    Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
+
                     return parcel.Status == status;
 
                 }
                 else if (To.SelectedDate != null)
                 {
 
+
+
                     return parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
+
                 }
                 else if (From.SelectedDate != null)
                 {
