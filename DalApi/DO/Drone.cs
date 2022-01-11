@@ -14,7 +14,7 @@ namespace DO
     /// </summary>
     public struct Drone
     {
-
+        public bool IsDeleted { get; set; }
         public int Id { get; set; }
         public string Model { get; set; }
         public WeightCategories MaxWeight { get; set; }
@@ -31,6 +31,7 @@ namespace DO
 
         public Drone(int id, string model, WeightCategories maxWeight)
         {
+            IsDeleted = false;
             Id = id;
             Model = model;
             MaxWeight = maxWeight;
