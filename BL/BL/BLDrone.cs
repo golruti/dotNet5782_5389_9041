@@ -37,7 +37,7 @@ namespace BL
         /// The function gets a drone ID and tries to delete it
         /// </summary>
         /// <param name="station"></param>
-        public void deleteBLDrone(int droneId)
+        public void DeleteBLDrone(int droneId)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace BL
         public void UpdateDroneModel(int id, string model)
         {
             DroneForList tempDroneForList = drones.Values.First(drone => drone.Id == id);
-            deleteBLDrone(tempDroneForList.Id);
+            DeleteBLDrone(tempDroneForList.Id);
             tempDroneForList.Model = model;
             drones.Add(tempDroneForList.Id, tempDroneForList);
 
@@ -592,7 +592,7 @@ namespace BL
                     throw new KeyNotFoundException("Drone battery -BL-" + ex.Message);
                 }
 
-                return rand.Next((int)(minDroneTarget + minTargetBaseStation), 101);
+                return rand.Next((int)(minDroneTarget + minTargetBaseStation), 100);
             }
             else if (drone.Status == Enums.DroneStatuses.Maintenance)
             {

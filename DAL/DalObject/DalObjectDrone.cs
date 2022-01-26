@@ -16,10 +16,14 @@ namespace DAL
         /// <param name="drone">struct of drone</param>
         public void AddDrone(Drone drone)
         {
-            if (!GetDrone(drone.Id).GetType().Equals(default))
+            var t = (DataSource.drones.TryGetValue(drone.Id, out drone) && !drone.IsDeleted);
+            if (DataSource.drones.TryGetValue(drone.Id, out drone) && !drone.IsDeleted)
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone - DAL");
-            drone.IsDeleted = false;
-            DataSource.drones.Add(drone.Id, drone);
+            else
+            {
+                drone.IsDeleted = false;
+                DataSource.drones[drone.Id] = drone;
+            }
         }
 
         //--------------------------------------------Show item-------------------------------------------------------------------------------------------
@@ -30,10 +34,10 @@ namespace DAL
         /// <returns>drone</returns>
         public Drone GetDrone(int droneId)
         {
-            var drone = DataSource.drones.Values.FirstOrDefault(drone => drone.Id == droneId && !(drone.IsDeleted));
-            if (drone.GetType().Equals(default))
-                throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data");
-            return DataSource.drones[droneId];
+            if (DataSource.drones.TryGetValue(droneId, out Drone drone) && !drone.IsDeleted)
+                return drone;
+            else
+                throw new KeyNotFoundException("Get drone -DAL-: There is no suitable drone in data");
         }
 
         //--------------------------------------------Show list-------------------------------------------------------------------------------------------
@@ -63,8 +67,8 @@ namespace DAL
         /// <param name="droneId">drone ID</param>
         public void DeleteDrone(int id)
         {
-            if (!DataSource.drones.Remove(id))
-                throw new KeyNotFoundException("Delete drone -DAL-: There is no suitable customer in data");
+            //if (!DataSource.drones.Remove(id))
+            //    throw new KeyNotFoundException("Delete drone -DAL-: There is no suitable customer in data");
 
             var deletedDrone = GetDrone(id);
             DataSource.drones.Remove(deletedDrone.Id);

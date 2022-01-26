@@ -16,7 +16,7 @@ namespace BlApi
     public interface IBL
     {
         public void deleteBLParcel(int parcelId);
-        public void deleteBLDrone(int droneId);
+        public void DeleteBLDrone(int droneId);
         public void deleteBLBaseStation(int stationId);
         public void AddBaseStation(BaseStation tempBaseStation);
         void AddDrone(Drone tempDrone);
