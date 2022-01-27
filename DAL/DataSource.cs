@@ -12,11 +12,11 @@ namespace DAL
     {
         public static Random Rand = new Random();
 
-        static internal Dictionary<int, Drone> drones = new();
-        static internal Dictionary<int, BaseStation> stations = new();
-        static internal Dictionary<int, Customer> customers = new();
-        static internal Dictionary<int, Parcel> parcels = new();
-        static internal Dictionary<int, DroneCharge> droneCharges = new();
+        static internal List<Drone> drones = new List<Drone>();
+        static internal List<BaseStation> stations = new List<BaseStation>();
+        static internal List<Customer> customers = new List<Customer>();
+        static internal List< Parcel> parcels = new List<Parcel>();
+        static internal List<DroneCharge> droneCharges = new List<DroneCharge>();
 
         internal class Config
         {
@@ -43,7 +43,7 @@ namespace DAL
                 tempStation.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.IsDeleted = false;
-                stations[tempStation.Id] = tempStation;
+                stations.Add(tempStation);
 
             }
 
@@ -57,7 +57,7 @@ namespace DAL
                 tempCustomer.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempCustomer.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempCustomer.IsDeleted = false;
-                customers[tempCustomer.Id] = tempCustomer;
+                customers.Add(tempCustomer);
             }
 
             //drones
@@ -68,7 +68,7 @@ namespace DAL
                 tempDrone.Model = $"drone {i}";
                 tempDrone.MaxWeight = (DO.Enum.WeightCategories)Rand.Next(0, 3);
                 tempDrone.IsDeleted = false;
-                drones[tempDrone.Id] = tempDrone;
+                drones.Add(tempDrone);
             }
             
             
@@ -108,7 +108,7 @@ namespace DAL
                     tempParcel.Scheduled = DateTime.Now.AddDays(2);
                 }
                 tempParcel.IsDeleted = false;
-                parcels[tempParcel.Id] = tempParcel;
+                parcels.Add(tempParcel);
             }
         }
     }

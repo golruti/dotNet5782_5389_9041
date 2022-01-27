@@ -18,10 +18,10 @@ namespace DAL
         /// <param name="droneCharge">The drone charge for Adding</param>
         public void AddDroneCharge(DroneCharge droneCharge)
         {
-            if (!GetDroneCharge(droneCharge.DroneId).GetType().Equals(default))
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone - DAL");
+            if (!GetDroneCharge(droneCharge.DroneId).Equals(default(DroneCharge)))
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone charge - DAL");
             droneCharge.IsDeleted = false;
-            DataSource.droneCharges.Add(droneCharge.StationId, droneCharge);
+            DataSource.droneCharges.Add( droneCharge);
         }
 
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
@@ -33,31 +33,14 @@ namespace DAL
         public void UpdateCharge(int droneId)
         {
             var drone = GetDrone(droneId);
-            if (drone.GetType().Equals(default))
-                throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data"); ;
+            if (drone.Equals(default(DroneCharge)))
+                throw new KeyNotFoundException("Get drone charge -DAL-: There is no suitable drone charge in data"); ;
             var station = GetBaseStations().FirstOrDefault(s => s.ChargeSlote > GetDronesCharges().Count(dc => dc.StationId == s.Id));
-            if (station.GetType().Equals(default))
-                throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data");
+            if (station.Equals(default(BaseStation)))
+                throw new KeyNotFoundException("Get station -DAL-: There is no suitable station in data");
 
             DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
             AddDroneCharge(droneCharge);
-        }
-
-        //--------------------------------------------Delete-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Release drone from charging at base station
-        /// </summary>
-        /// <param name="droneId">Id of the drone</param>
-        /// <returns>Returns the mother drone released from charging</returns>
-        public void DeleteDroneCharge(int droneId)
-        {
-            if (!DataSource.droneCharges.Remove(droneId))
-                throw new KeyNotFoundException("Delete drone charge -DAL-: There is no suitable drone charge in data");
-
-            var deletedDroneCharge = GetDroneCharge(droneId);
-            DataSource.droneCharges.Remove(deletedDroneCharge.DroneId);
-            deletedDroneCharge.IsDeleted = true;
-            DataSource.droneCharges.Add(deletedDroneCharge.DroneId, deletedDroneCharge);
         }
 
         /// <summary>
@@ -76,7 +59,7 @@ namespace DAL
         /// <returns>The specific drone charge</returns>
         public DroneCharge GetDroneCharge(int droneId)
         {
-            var droneCharge = DataSource.droneCharges.Values.FirstOrDefault(dc => dc.DroneId == droneId && !(dc.IsDeleted));
+            var droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId && !(dc.IsDeleted));
             if (droneCharge.GetType().Equals(default))
                 throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data");
             return droneCharge;
@@ -89,7 +72,9 @@ namespace DAL
         /// <returns>The drones charge list</returns>
         public IEnumerable<DroneCharge> GetDronesCharges()
         {
-            return DataSource.droneCharges.Values.Where(droneCharge => !(droneCharge.IsDeleted)).ToList();
+            IEnumerable<DroneCharge> droneCharges = new List<DroneCharge>();
+            droneCharges = DataSource.droneCharges.Where(droneCharge => !(droneCharge.IsDeleted)).ToList();
+            return droneCharges;
         }
 
         /// <summary>
@@ -99,8 +84,31 @@ namespace DAL
         /// <returns>List of DroneCharge that maintain the predicate</returns>
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate)
         {
-            return DataSource.droneCharges.Values.Where
+
+            IEnumerable<DroneCharge> droneCharges = new List<DroneCharge>();
+            droneCharges = DataSource.droneCharges.Where
                 (droneCharge => predicate(droneCharge) && !(droneCharge.IsDeleted)).ToList();
+            return droneCharges;
+        }
+
+
+        //--------------------------------------------Delete-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Release drone from charging at base station
+        /// </summary>
+        /// <param name="droneId">Id of the drone</param>
+        /// <returns>Returns the mother drone released from charging</returns>
+        public void DeleteDroneCharge(int droneId)
+        {
+            DroneCharge deletedDroneCharge = GetDroneCharge(droneId);
+            if (deletedDroneCharge.Equals(default(DroneCharge)))
+                throw new KeyNotFoundException("Delete drone charge -DAL-: There is no suitable drone charge in data");
+            else
+            {
+                DataSource.droneCharges.Remove(deletedDroneCharge);
+                deletedDroneCharge.IsDeleted = true;
+                DataSource.droneCharges.Add(deletedDroneCharge);
+            }
         }
     }
 }

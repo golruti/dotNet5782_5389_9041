@@ -18,14 +18,14 @@ namespace DAL
         {
             parcel.Id = RunNumberForParcel();
 
-            if (GetParcel(parcel.SenderId).GetType().Equals(default))
+            if (GetCustomer(parcel.SenderId).Equals(default(Customer)))
                 throw new KeyNotFoundException("Add parcel -DAL-:Sender not exist");
-            if (GetParcel(parcel.TargetId).GetType().Equals(default))
+            if (GetCustomer(parcel.TargetId).Equals(default(Customer)))
                 throw new KeyNotFoundException("Add parcel -DAL-:Target not exist");
-            if (!GetParcel(parcel.Id).GetType().Equals(default))
+            if (!GetParcel(parcel.Id).Equals(default(Parcel)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a parcel - DAL");
             parcel.IsDeleted = false;
-            DataSource.parcels.Add(parcel.Id, parcel);
+            DataSource.parcels.Add(parcel);
         }
 
         //--------------------------------------------Show item-------------------------------------------------------------------------------------------
@@ -36,9 +36,7 @@ namespace DAL
         /// <returns>parcel</returns>
         public Parcel GetParcel(int idParcel)
         {
-            Parcel parcel = DataSource.parcels.Values.FirstOrDefault(parcel => parcel.Id == idParcel);
-            if (parcel.GetType().Equals(default))
-                throw new KeyNotFoundException("Get parcel -DAL-: There is no suitable customer in data");
+            Parcel parcel = DataSource.parcels.FirstOrDefault(parcel => parcel.Id == idParcel);
             return parcel;
         }
         /// <summary>
@@ -49,9 +47,7 @@ namespace DAL
         /// <returns></returns>
         public Parcel GetParcel(Predicate<Parcel> predicate)
         {
-            Parcel parcel = DataSource.parcels.Values.FirstOrDefault(parcel => predicate(parcel) && !(parcel.IsDeleted));
-            if (parcel.GetType().Equals(default))
-                throw new KeyNotFoundException("Get parcel -DAL-: There is no suitable customer in data");
+            Parcel parcel = DataSource.parcels.FirstOrDefault(parcel => predicate(parcel) && !(parcel.IsDeleted));
             return parcel;
         }
 
@@ -62,7 +58,9 @@ namespace DAL
         /// <returns>array of parceles</returns>
         public IEnumerable<Parcel> GetParcels()
         {
-            return DataSource.parcels.Values.Where(parcel => !(parcel.IsDeleted)).ToList();
+            IEnumerable<Parcel> parcels = new List<Parcel>();
+            parcels = DataSource.parcels.Where(parcel => !(parcel.IsDeleted)).ToList();
+            return parcels;
         }
 
         /// <summary>
@@ -72,23 +70,23 @@ namespace DAL
         /// <returns>List of Parsel that maintain the predicate</returns>
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
         {
-            return DataSource.parcels.Values.Where
-                (parcel => predicate(parcel) && !(parcel.IsDeleted)).ToList();
+            IEnumerable<Parcel> parcels = new List<Parcel>();
+            parcels = DataSource.parcels.Where(parcel => predicate(parcel) && !(parcel.IsDeleted)).ToList();
+            return parcels;
         }
 
 
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
-        
         /// <summary>
         ///Assigning a parcel to a drone
         /// </summary>
         /// <param name="idParcel">Id of the parcel</param>
         public void UpdateParcelPickedUp(Parcel Parcel)
         {
-            Parcel parcel = GetParcels().FirstOrDefault(parcel => parcel.Id == Parcel.Id);
-            if (parcel.GetType().Equals(default))
+            Parcel parcel = GetParcel(Parcel.Id);
+            if (parcel.Equals(default(Parcel)))
             {
-                throw new KeyNotFoundException("Update parcel-DAL-There is no suitable customer in data");
+                throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
             }
             parcel.PickedUp = DateTime.Now;
 
@@ -102,8 +100,8 @@ namespace DAL
         /// <param name="idxParcel">Id of the parcel</param>
         public void UpdateParcelDelivered(Parcel Parcel)
         {
-            Parcel parcel = GetParcels().FirstOrDefault(parcel => parcel.Id == Parcel.Id);
-            if (parcel.GetType().Equals(default(Parcel)))
+            Parcel parcel = GetParcel(Parcel.Id);
+            if (parcel.Equals(default(Parcel)))
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable customer in data");
             }
@@ -130,15 +128,16 @@ namespace DAL
         /// <param name="id"></param>
         public void DeleteParcel(int id)
         {
-            if (!DataSource.parcels.Remove(id))
+            Parcel deletedParcel = GetParcel(id);
+            if (deletedParcel.Equals(default(Parcel)))
                 throw new KeyNotFoundException("Delete parcel -DAL-: There is no suitable parcel in data");
-
-            var deletedParcel = GetParcel(id);
-            DataSource.parcels.Remove(deletedParcel.Id);
-            deletedParcel.IsDeleted = true;
-            DataSource.parcels.Add(deletedParcel.Id, deletedParcel);
+            else
+            {
+                DataSource.parcels.Remove(deletedParcel);
+                deletedParcel.IsDeleted = true;
+                DataSource.parcels.Add(deletedParcel);
+            }
         }
-
 
         //------------------------------------------Private auxiliary functions--------------
         /// <summary>

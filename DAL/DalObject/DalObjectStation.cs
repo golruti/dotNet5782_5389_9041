@@ -16,26 +16,12 @@ namespace DAL
         /// <param name="station">struct of station</param>
         public void AddBaseStation(BaseStation station)
         {
-            if (!GetBaseStation(station.Id).GetType().Equals(default))
+            if (!GetBaseStation(station.Id).Equals(default(BaseStation)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a station - DAL");
             station.IsDeleted = false;
-            DataSource.stations.Add(station.Id, station);
+            DataSource.stations.Add(station);
         }
 
-        //---------------------------------------------Delete--------------------------------------------------------------------------------------------
-        /// delete base station from list
-        /// </summary>
-        /// <param name="id"></param>
-        public void DeleteBaseStation(int id)
-        {
-            if (!DataSource.stations.Remove(id))
-                throw new KeyNotFoundException("Delete station -DAL-: There is no suitable station in data");
-
-            var deletedStation = GetBaseStation(id);
-            DataSource.stations.Remove(deletedStation.Id);
-            deletedStation.IsDeleted = true;
-            DataSource.stations.Add(deletedStation.Id, deletedStation);
-        }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------
         /// <summary>
@@ -45,9 +31,7 @@ namespace DAL
         /// <returns>station id</returns>
         public BaseStation GetBaseStation(int idStation)
         {
-            BaseStation station = DataSource.stations.Values.FirstOrDefault(station => station.Id == idStation && !(station.IsDeleted));
-            if (station.GetType().GetType().Equals(default))
-                throw new KeyNotFoundException("Get station -DAL-: There is no suitable customer in data");
+            BaseStation station = DataSource.stations.FirstOrDefault(station => station.Id == idStation && !(station.IsDeleted));
             return station;
         }
 
@@ -58,13 +42,17 @@ namespace DAL
         /// <returns>array of station</returns>
         public IEnumerable<BaseStation> GetBaseStations()
         {
-            return DataSource.stations.Values.Where(station => !(station.IsDeleted)).ToList();
+            IEnumerable<BaseStation> baseStations = new List<BaseStation>();
+            baseStations = DataSource.stations.Where(station => !(station.IsDeleted)).ToList();
+            return baseStations;
         }
 
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)
         {
-            return DataSource.stations.Values.Where
+            IEnumerable<BaseStation> baseStations = new List<BaseStation>();
+            baseStations = DataSource.stations.Where
                 (station => predicate(station) && !(station.IsDeleted)).ToList();
+            return baseStations;
         }
 
         /// <summary>
@@ -73,10 +61,27 @@ namespace DAL
         /// <returns>array of stations</returns>
         public IEnumerable<BaseStation> GetAvaBaseStations()
         {
-            return DataSource.stations.Values
-                         .Where(station => station.ChargeSlote > DataSource.droneCharges.Values.Count(dc => dc.StationId == station.Id && !(station.IsDeleted)))
+            IEnumerable<BaseStation> baseStations = new List<BaseStation>();
+            baseStations = DataSource.stations
+                         .Where(station => station.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == station.Id && !(station.IsDeleted)))
                          .ToList();
+            return baseStations;
         }
-
+        //---------------------------------------------Delete--------------------------------------------------------------------------------------------
+        /// delete base station from list
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteBaseStation(int id)
+        {
+            BaseStation deletedStation = GetBaseStation(id);
+            if (deletedStation.Equals(default(BaseStation)))
+                throw new KeyNotFoundException("Delete station -DAL-: There is no suitable station in data");
+            else
+            {
+                DataSource.stations.Remove(deletedStation);
+                deletedStation.IsDeleted = true;
+                DataSource.stations.Add(deletedStation);
+            }
+        }
     }
 }
