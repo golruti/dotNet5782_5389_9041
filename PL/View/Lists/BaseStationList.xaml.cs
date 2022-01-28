@@ -33,20 +33,6 @@ namespace PL
             baseStationListViewModel.BaseStationsList.GroupDescriptions.Add(new PropertyGroupDescription("AvailableChargingPorts"));
         }
 
-
-        private void Available_Checked_1(object sender, RoutedEventArgs e)
-        {
-            if (Available.IsChecked == false)
-            {
-                baseStationListViewModel.RefreshStationsList();
-            }
-            else
-            {
-                baseStationListViewModel.RefreshStationsList(station => station.AvailableChargingPorts > 0);
-            }
-        }
-
-
         private void ShowAddBaseStationWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
@@ -87,6 +73,15 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
+        }
+
+        private void Available_Checked(object sender, RoutedEventArgs e)
+        {
+            baseStationListViewModel.RefreshStationsList(station => station.AvailableChargingPorts > 0);
+        }
+        private void Available_Unchecked(object sender, RoutedEventArgs e)
+        {
+            baseStationListViewModel.RefreshStationsList();
         }
     }
 }
