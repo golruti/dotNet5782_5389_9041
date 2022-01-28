@@ -63,10 +63,9 @@
                 
                 <Label Grid.Row="10" Grid.Column="0" Content="drones in charging: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,0,0,150" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
 
-                <ListView x:Name="DronesListView" ItemsSource="{Binding DronesInChargingList}" DisplayMemberPath="" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="9" Grid.ColumnSpan="2">
+                <ListView x:Name="DronesListView" ItemsSource="{Binding DronesInChargingList.DronesInChargeList}" DisplayMemberPath="" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="9" Grid.ColumnSpan="2">
                     <ListView.View >
                         <GridView>
-
                             <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
                             <GridViewColumn  Header="Battery" DisplayMemberBinding="{Binding Battery}" />
                         </GridView>

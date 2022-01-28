@@ -34,7 +34,7 @@ namespace BL
             foreach (var drone in list)
             {
                 droneToList = drones.FirstOrDefault(d => (d.Id == drone.DroneId));
-                if (droneToList != default)
+                if (droneToList != default(DroneForList))
                 {
                     droneInChargings.Add(new DroneInCharging() { Id = drone.DroneId, Battery = droneToList.Battery });
                 }

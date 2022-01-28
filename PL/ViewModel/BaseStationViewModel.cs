@@ -16,7 +16,7 @@ namespace PL.ViewModel
 
         public PO.BaseStation BaseStationInList { get; set; }
         public DroneListViewModel DronesList { get; set; }
-         public DroneInChargeListViewModel DronesInChargingList { get; set; }
+        public DroneInChargeListViewModel DronesInChargingList { get; set; }
 
 
         public BaseStationViewModel(BlApi.IBL bl, Action<TabItem> addTab, BO.BaseStationForList baseStationForList, Action refreshBaseStationList)

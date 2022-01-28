@@ -20,6 +20,7 @@ namespace PL.ViewModel
             this.stationId = stationId;
         }
 
+
         public void RefreshDronesinChargeList()
         {
             DronesInChargeList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging(stationId)));
