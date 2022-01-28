@@ -137,10 +137,11 @@ namespace BL
         /// Retrieves the list of parcels from the data and converts it to BL parcel 
         /// </summaryparfcel
         /// <returns>A list of parcels to print</returns>
-        private IEnumerable<Parcel> getAllParcels()
+        public IEnumerable<Parcel> GetAllParcels()
         {
             return (dal.GetParcels()).Select(Parcel => GetBLParcel(Parcel.Id));
         }
+
 
         /// <summary>
         /// The function receives a predicate and returns the list that maintains the predicate
@@ -149,7 +150,7 @@ namespace BL
         /// <returns>List of BaseStationForList that maintain the predicate</returns>
         public IEnumerable<Parcel> GetAllParcels(Predicate<Parcel> predicate)
         {
-            return getAllParcels().Where(parcel => predicate(parcel));
+            return GetAllParcels().Where(parcel => predicate(parcel));
         }
 
 

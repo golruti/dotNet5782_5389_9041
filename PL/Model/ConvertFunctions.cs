@@ -240,11 +240,34 @@ namespace PO
                     NumParcelWayToCustomer = customer.NumParcelWayToCustomer
                 });
             }
-
             //if (customersForList == null)
             //    return ObservableCollection.Empty<CustomerForList>();
             return c;
         }
+
+        internal static IEnumerable<Parcel> BOParcelToPO(IEnumerable<BO.Parcel> parcels)
+        {
+
+            List<PO.Parcel> p = new List<Parcel>();
+            foreach (var parcel in parcels)
+            {
+                p.Add(new PO.Parcel()
+                {
+                    Id = parcel.Id,
+                    CustomerSender = BOCustomerDeliveryToPO(parcel.CustomerSender),
+                    CustomerReceives = BOCustomerDeliveryToPO(parcel.CustomerReceives),
+                    Weight = BOEnumWeightCategoriesToPO(parcel.Weight),
+                    Priority = BOEnumPrioritiesToPO(parcel.Priority),
+                    DroneParcel = BODroneParceToPO(parcel.DroneParcel),
+                    Requested = parcel.Requested,
+                    Scheduled = parcel.Scheduled,
+                    PickedUp = parcel.PickedUp,
+                    Delivered = parcel.Delivered
+                });
+            }
+            return p;
+        }
+
         internal static BO.CustomerForList POCustomerForListToBO(CustomerForList customer)
         {
             return new BO.CustomerForList()

@@ -19,8 +19,8 @@ namespace PL.ViewModel
         public Enums.ParcelStatuses ParcelStutus { get; private set; }
         public IEnumerable<int> StationsId { get; set; }
         public IEnumerable<Enums.WeightCategories> DroneWeights { get; set; }
-
         private PO.Drone droneInList;
+        public PO.ParcelByTransfer parcelsByDrone { get; set; }
 
 
         public PO.Drone SourceDroneInList
@@ -42,7 +42,7 @@ namespace PL.ViewModel
             }
         }
 
-        
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -65,8 +65,12 @@ namespace PL.ViewModel
             this.Bl = bl;
             this.RefreshDronesList = refreshDronesList;
             this.DroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
-            this.SourceDroneInList= ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
+            this.SourceDroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
             this.Rand = new Random();
+
+            BO.Drone tempDrone = bl.GetBLDrone(droneInList.Id);
+            if (tempDrone.Status == BO.Enums.DroneStatuses.Delivery)
+                this.parcelsByDrone =ConvertFunctions.BOParcelByTransferToPO( tempDrone.Delivery);
         }
 
         public void RefreshDroneInList()

@@ -15,8 +15,6 @@ namespace PL.ViewModel
         public Action<TabItem> AddTab { get; private set; }
         public Action<TabItem> CloseTab { get; private set; }
         public PO.Customer CustomerInList { get; set; }
-        //public PO.Parcel parcelsTemp { get; set; }
-
 
         public CustomerViewModel(BlApi.IBL bl, Action refreshCustomersList)
         {
@@ -30,8 +28,6 @@ namespace PL.ViewModel
             this.RefreshCustomersList = refreshCustomersList;
             this.CustomerInList = ConvertFunctions.BOCustomerToPO(bl.GetBLCustomer(customerInList.Id));
             this.AddTab = addTab;
-
-            //parcelsTemp = ConvertFunctions.BOParcelToPO(bl.GetBLParcel(pp.Id));
         }
     }
 }

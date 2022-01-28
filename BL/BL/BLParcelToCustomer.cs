@@ -15,7 +15,7 @@ namespace BL
         /// <returns>list of Parcels at a customer</returns>
         private IEnumerable<ParcelToCustomer> findFromCustomer()
         {
-            return getAllParcels().Select(parcel => parcelToParcelAtCustomer(parcel, "sender")).ToList();
+            return GetAllParcels().Select(parcel => parcelToParcelAtCustomer(parcel, "sender")).ToList();
         }
         /// <summary>
         /// The function returns the list of packages at the customer - to the customer
@@ -23,7 +23,7 @@ namespace BL
         /// <returns>list of Parcels at a customer</returns>
         private IEnumerable<ParcelToCustomer> findToCustomer()
         {
-            return getAllParcels().Select(parcel => parcelToParcelAtCustomer(parcel, "Recive")).ToList();
+            return GetAllParcels().Select(parcel => parcelToParcelAtCustomer(parcel, "Recive")).ToList();
         }
     }
 }

@@ -23,5 +23,7 @@ namespace BL
                 Location = drone.Location
             };
         }
+
+
     }
 }
