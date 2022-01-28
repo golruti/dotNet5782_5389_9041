@@ -12,7 +12,7 @@ namespace BL
     sealed partial class BL : Singleton.Singleton<BL>, BlApi.IBL
     {
         private static DalApi.IDal dal;
-        static private Dictionary<int, DroneForList> drones = new();
+        static private List<DroneForList> drones = new List<DroneForList>();
         private static Random rand = new Random();
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
 
@@ -38,7 +38,7 @@ namespace BL
         {
             foreach (var drone in dal.GetDrones())
             {
-                drones.Add(drone.Id, new DroneForList
+                drones.Add(new DroneForList
                 {
                     Id = drone.Id,
                     Model = drone.Model,
@@ -48,28 +48,27 @@ namespace BL
 
             foreach (var drone in drones)
             {
-                drone.Value.Status = findfDroneStatus(drone.Value.Id);
-                if (drone.Value.Status == DroneStatuses.Maintenance)
+                drone.Status = findfDroneStatus(drone.Id);
+                if (drone.Status == DroneStatuses.Maintenance)
                 {
-                    //dal.AddDroneCharge(new DO.DroneCharge(drone.Value.Id, rand.Next(1)));
-
+                    dal.AddDroneCharge(new DO.DroneCharge(drone.Id, rand.Next(1)));
                 }
 
             }
 
             foreach (var drone in drones)
             {
-                drone.Value.ParcelDeliveredId = findParceDeliveredlId(drone.Value.Id);
+                drone.ParcelDeliveredId = findParceDeliveredlId(drone.Id);
             }
 
             foreach (var drone in drones)
             {
-                drone.Value.Location = findDroneLocation(drone.Value);
+                drone.Location = findDroneLocation(drone);
             }
 
             foreach (var drone in drones)
             {
-                drone.Value.Battery = findDroneBattery(drone.Value);
+                drone.Battery = findDroneBattery(drone);
             }
         }
 

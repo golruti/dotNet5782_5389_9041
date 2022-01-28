@@ -188,7 +188,7 @@ namespace BL
         /// <returns>The converted parcel</returns>
         private Parcel mapParcel(DO.Parcel parcel)
         {
-            var tmpDrone = drones.Values.FirstOrDefault(drone => drone.Id == parcel.Droneld);
+            var tmpDrone = drones.FirstOrDefault(drone => drone.Id == parcel.Droneld);
             try
             {
                 return new Parcel()

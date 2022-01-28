@@ -26,6 +26,7 @@ namespace PL
     {
         DroneViewModel droneViewModel;
         
+
         public Drone(BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
@@ -47,7 +48,7 @@ namespace PL
 
         private void DeleteDrone(object sender, RoutedEventArgs e)
         {
-            droneViewModel.Bl.DeleteBLCustomer(droneViewModel.DroneInList.Id);
+            droneViewModel.Bl.DeleteBLDrone(droneViewModel.DroneInList.Id);
             if (MessageBox.Show("the drone was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -68,7 +69,7 @@ namespace PL
 
                 if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    droneViewModel.RefreshDronesList();
+                    Close_Page(sender, e);
                 }
             }
             catch (KeyNotFoundException ex)
@@ -107,7 +108,7 @@ namespace PL
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    droneViewModel.RefreshDronesList();
+                    droneViewModel.RefreshDroneInList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -146,6 +147,7 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
+            droneViewModel.RefreshDroneInList();
         }
 
         /// <summary>
@@ -161,7 +163,7 @@ namespace PL
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    droneViewModel.RefreshDronesList();
+                    droneViewModel.RefreshDroneInList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -236,7 +238,7 @@ namespace PL
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    droneViewModel.RefreshDronesList();
+                    droneViewModel.RefreshDroneInList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -274,7 +276,7 @@ namespace PL
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("he parcel was successfully delivered", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    droneViewModel.RefreshDronesList();
+                    droneViewModel.RefreshDroneInList();
                 }
             }
             catch (KeyNotFoundException ex)
@@ -313,7 +315,7 @@ namespace PL
                 //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone model has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    droneViewModel.RefreshDronesList();
+                    droneViewModel.RefreshDroneInList();
                 }
             }
             catch (KeyNotFoundException ex)

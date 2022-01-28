@@ -29,7 +29,7 @@ namespace BL
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
             DroneForList droneForList = new DroneForList(tempDrone.Id, tempDrone.Model, tempDrone.MaxWeight, tempDrone.Battery, tempDrone.Status, tempDrone.Location.Longitude, tempDrone.Location.Latitude);
-            drones.Add(droneForList.Id, droneForList);
+            drones.Add( droneForList);
         }
 
         //---------------------------------------------Delete ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -39,6 +39,9 @@ namespace BL
         /// <param name="station"></param>
         public void DeleteBLDrone(int droneId)
         {
+            var deleteDrone = GetBLDroneInList(droneId);
+            if(deleteDrone.Equals(default(DroneForList)))
+                  throw new ArgumentNullException("delete drone -BL-:There is not drone with same id i data");
             try
             {
                 dal.DeleteDrone(droneId);
@@ -47,8 +50,8 @@ namespace BL
             {
                 throw new KeyNotFoundException("Delete drone -BL-" + ex.Message);
             }
-            if (!drones.Remove(droneId))
-                throw new KeyNotFoundException("Delete drone -BL- ");
+            drones.Remove(deleteDrone);
+
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -69,6 +72,12 @@ namespace BL
             }
         }
 
+        private DroneForList GetBLDroneInList(int id)
+        {
+            var drone = drones.FirstOrDefault(d => d.Id == id);           
+            return drone;
+        }
+
         //??????לבדוק מה פשר הפונקציה הזאת ומה היא ממירה ומה היא עושה דחוףףףףףף
         /// <summary>
         /// Convert a DAL drone to BL drone
@@ -77,8 +86,8 @@ namespace BL
         /// <returns>The converted drone</returns>
         private Drone mapDrone(int id)
         {
-            DroneForList droneToList = drones.Values.FirstOrDefault(drone => drone.Id == id);
-            if (droneToList.GetType().Equals(default))
+            DroneForList droneToList = drones.FirstOrDefault(drone => drone.Id == id);
+            if (droneToList.Equals(default(DroneForList)))
                 throw new ArgumentNullException("Map drone -BL-:There is not drone with same id i data");
             return new Drone()
             {
@@ -99,7 +108,7 @@ namespace BL
         /// <returns>A list of drones to print</returns
         public IEnumerable<DroneForList> GetDroneForList()
         {
-            return drones.Values;
+            return drones;
         }
 
         /// <summary>
@@ -112,34 +121,34 @@ namespace BL
             return GetDroneForList().Where(s => predicate(s));
         }
 
-        /// <summary>
-        /// The function returns all the drones that maintain the status and weight
-        /// </summary>
-        /// <param name="weight"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
-        public IEnumerable<DroneForList> GetDroneForList(WeightCategories weight, DroneStatuses status)
-        {
-            return GetDroneForList(drone => drone.MaxWeight == weight && drone.Status == status);
-        }
-        /// <summary>
-        /// The function returns all the drones that maintain the weight
-        /// </summary>
-        /// <param name="weight"></param>
-        /// <returns></returns>
-        public IEnumerable<DroneForList> GetDroneForList(WeightCategories weight)
-        {
-            return GetDroneForList(drone => drone.MaxWeight == weight);
-        }
-        /// <summary>
-        /// The function returns all the drones that maintain the status and weight
-        /// </summary>
-        /// <param name="status"></param>
-        /// <returns></returns>
-        public IEnumerable<DroneForList> GetDroneForList(DroneStatuses status)
-        {
-            return GetDroneForList(drone => drone.Status == status);
-        }
+        ///// <summary>
+        ///// The function returns all the drones that maintain the status and weight
+        ///// </summary>
+        ///// <param name="weight"></param>
+        ///// <param name="status"></param>
+        ///// <returns></returns>
+        //public IEnumerable<DroneForList> GetDroneForList(WeightCategories weight, DroneStatuses status)
+        //{
+        //    return GetDroneForList(drone => drone.MaxWeight == weight && drone.Status == status);
+        //}
+        ///// <summary>
+        ///// The function returns all the drones that maintain the weight
+        ///// </summary>
+        ///// <param name="weight"></param>
+        ///// <returns></returns>
+        //public IEnumerable<DroneForList> GetDroneForList(WeightCategories weight)
+        //{
+        //    return GetDroneForList(drone => drone.MaxWeight == weight);
+        //}
+        ///// <summary>
+        ///// The function returns all the drones that maintain the status and weight
+        ///// </summary>
+        ///// <param name="status"></param>
+        ///// <returns></returns>
+        //public IEnumerable<DroneForList> GetDroneForList(DroneStatuses status)
+        //{
+        //    return GetDroneForList(drone => drone.Status == status);
+        //}
 
         //--------------------------------------------Update------------------------------------------------------------------------------------------
         /// <summary>
@@ -149,10 +158,10 @@ namespace BL
         /// <param name="model">the new model</param>
         public void UpdateDroneModel(int id, string model)
         {
-            DroneForList tempDroneForList = drones.Values.First(drone => drone.Id == id);
+            DroneForList tempDroneForList = drones.First(drone => drone.Id == id);
             DeleteBLDrone(tempDroneForList.Id);
             tempDroneForList.Model = model;
-            drones.Add(tempDroneForList.Id, tempDroneForList);
+            drones.Add(tempDroneForList);
 
             DO.Drone drone = new DO.Drone(tempDroneForList.Id, tempDroneForList.Model, (DO.Enum.WeightCategories)tempDroneForList.MaxWeight);
             try
@@ -175,26 +184,26 @@ namespace BL
         /// <param name="latitude"></param>
         public void UpdateDroneStatus(int id, DroneStatuses status, double battery, int parcelIdDeliverd, double longitude, double latitude)
         {
-            DroneForList tempDroneForList = drones.Values.First(drone => drone.Id == id);
-            drones.Remove(tempDroneForList.Id);
+            DroneForList tempDroneForList = drones.First(drone => drone.Id == id);
+            drones.Remove(tempDroneForList);
             tempDroneForList.Status = status;
             tempDroneForList.Battery = battery;
             tempDroneForList.ParcelDeliveredId = parcelIdDeliverd;
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
 
-            drones.Add(tempDroneForList.Id, tempDroneForList);
+            drones.Add( tempDroneForList);
         }
 
         public void UpdateDroneStatus(int id, DroneStatuses status, double battery, double longitude, double latitude)
         {
-            DroneForList tempDroneForList = drones.Values.First(drone => drone.Id == id);
-            drones.Remove(tempDroneForList.Id);
+            DroneForList tempDroneForList = drones.First(drone => drone.Id == id);
+            drones.Remove(tempDroneForList);
             tempDroneForList.Status = status;
             tempDroneForList.Battery = battery;
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
-            drones.Add(tempDroneForList.Id, tempDroneForList);
+            drones.Add(tempDroneForList);
         }
 
         /// <summary>
@@ -204,9 +213,9 @@ namespace BL
         public void PackageCollection(int id)
         {
 
-            if (!(drones.Values.FirstOrDefault(drone => drone.Id == id)).GetType().Equals(default))
+            if (!(drones.FirstOrDefault(drone => drone.Id == id)).Equals(default(DroneForList)))
             {
-                DroneForList droneForList = drones.Values.FirstOrDefault(drone => drone.Id == id);
+                DroneForList droneForList = drones.FirstOrDefault(drone => drone.Id == id);
                 if (droneForList.Status == DroneStatuses.Delivery)
                 {
                     int parcelId = -1;
@@ -227,7 +236,7 @@ namespace BL
                         Location location = new Location(customer.Longitude, customer.Latitude);
                         droneForList.Battery -= ((int)minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1);
                         droneForList.Location = location;
-                        drones.Add(droneForList.Id, droneForList);
+                        drones.Add(droneForList);
                         dal.UpdateParcelPickedUp(parcel);
                     }
                     else
@@ -255,7 +264,7 @@ namespace BL
         {
             DroneForList drone = new DroneForList();
             int index = 0;
-            foreach (DroneForList d in drones.Values)
+            foreach (DroneForList d in drones)
             {
                 if (d.Id == id)
                 {
@@ -300,7 +309,7 @@ namespace BL
         /// <param name="droneId">id of drone</param>
         public void UpdateCharge(int droneId)
         {
-            DroneForList tempDroneForList = drones.Values.FirstOrDefault(drone => drone.Id == droneId);
+            DroneForList tempDroneForList = drones.FirstOrDefault(drone => drone.Id == droneId);
             Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
             int baseStationId = -1;
             Location location = new Location(-1, -1);
@@ -349,17 +358,17 @@ namespace BL
         public void UpdateRelease(int droneId)
         {
             DroneInCharging droneInCharging = new DroneInCharging();
-            DroneForList drone = drones.Values.FirstOrDefault(drone => drone.Id == droneId);
-            if (!drone.GetType().Equals(default))
+            DroneForList drone = drones.FirstOrDefault(drone => drone.Id == droneId);
+            if (!drone.Equals(default(DroneForList)))
             {
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
                     TimeSpan time = (TimeSpan)(DateTime.Now - GetDroneInChargByID(droneId).Time);
-                    drones.Remove(drone.Id);
+                    drones.Remove(drone);
                     droneInCharging.Battery = drone.Battery + batteryCalculationInCharging(time.Hours);
                     drone.Battery = droneInCharging.Battery;
                     drone.Status = (DroneStatuses)0;
-                    drones.Add(drone.Id, drone);
+                    drones.Add(drone);
                     try
                     {
                         dal.UpdateRelease(droneId);
@@ -387,14 +396,14 @@ namespace BL
         public void AssignParcelToDrone(int id)
         {
             Drone drone = new Drone();
-            foreach (DroneForList d in drones.Values)
+            foreach (DroneForList d in drones)
             {
                 if (d.Id == id)
                 {
                     drone = new Drone(id, d.Model, d.MaxWeight, d.Status, d.Battery, d.Location.Longitude, d.Location.Latitude);
                 }
             }
-            DroneForList droneForList = drones.Values.FirstOrDefault(drone => drone.Id == id);
+            DroneForList droneForList = drones.FirstOrDefault(drone => drone.Id == id);
             if ((!drone.GetType().Equals(default)) && drone.Status == DroneStatuses.Available)
             {
                 int parcelId = 0;
@@ -592,7 +601,7 @@ namespace BL
                     throw new KeyNotFoundException("Drone battery -BL-" + ex.Message);
                 }
 
-                return rand.Next((int)(minDroneTarget + minTargetBaseStation), 100);
+                return rand.Next((int)(minDroneTarget + minTargetBaseStation), 101);
             }
             else if (drone.Status == Enums.DroneStatuses.Maintenance)
             {

@@ -33,9 +33,9 @@ namespace BlApi
         public IEnumerable<BaseStationForList> GetAvaBaseStationForList();
         public IEnumerable<DroneForList> GetDroneForList();
         public IEnumerable<DroneForList> GetDroneForList(Predicate<DroneForList> predicate);
-        public IEnumerable<DroneForList> GetDroneForList(Enums.WeightCategories weight, Enums.DroneStatuses status);
-        public IEnumerable<DroneForList> GetDroneForList(Enums.WeightCategories weight);
-        public IEnumerable<DroneForList> GetDroneForList(Enums.DroneStatuses status);
+        //public IEnumerable<DroneForList> GetDroneForList(Enums.WeightCategories weight, Enums.DroneStatuses status);
+        //public IEnumerable<DroneForList> GetDroneForList(Enums.WeightCategories weight);
+        //public IEnumerable<DroneForList> GetDroneForList(Enums.DroneStatuses status);
         public IEnumerable<CustomerForList> GetCustomerForList();
         public IEnumerable<CustomerForList> GetCustomerForList(Predicate<CustomerForList> predicate);
         public IEnumerable<ParcelForList> GetParcelForList();

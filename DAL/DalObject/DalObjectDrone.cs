@@ -30,7 +30,7 @@ namespace DAL
         /// <returns>drone</returns>
         public Drone GetDrone(int droneId)
         {
-            Drone drone = DataSource.drones.FirstOrDefault(drone => drone.Id == droneId && !(drone.IsDeleted));
+            Drone drone = DataSource.drones.FirstOrDefault(drone => (drone.Id == droneId) && !(drone.IsDeleted));
             return drone;
         }
 

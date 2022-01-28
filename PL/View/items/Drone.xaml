@@ -110,13 +110,13 @@
                 <TextBox x:Name="Id" Grid.Row="0"  Background="LightGray" PreviewTextInput="textID_PreviewTextInput" Grid.Column="1"/>
 
                 <Label  Grid.Row="1" Content="  station id:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" HorizontalAlignment="Center" Width="128" Margin="0,5,0,5" Grid.RowSpan="3"/>
-                <ComboBox x:Name="StationsId"  Grid.Column="1" ItemsSource="{Binding StationsId}" Grid.Row="2" Margin="0,0,0,7" Grid.RowSpan="2"  />
+                <ComboBox x:Name="StationsId"  Grid.Column="1" ItemsSource="{Binding }" Grid.Row="2" Margin="0,0,0,7" Grid.RowSpan="2"  />
 
                 <Label Grid.Column="0"  Grid.Row="4" Content="drone model:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
                 <TextBox x:Name="Model" Grid.Row="4" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
 
                 <Label Grid.Column="0"  Grid.Row="5" Content="drone weight:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,5,0,0" Grid.RowSpan="2"/>
-                <ComboBox x:Name="DroneWeights" Background="White" ItemsSource="{Binding DroneWeights}" Grid.Row="5" Grid.Column="1" Margin="0,5,0,0" Grid.RowSpan="2"  />
+                <ComboBox x:Name="DroneWeights" Background="White" ItemsSource="{Binding }" Grid.Row="5" Grid.Column="1" Margin="0,5,0,0" Grid.RowSpan="2"  />
             </Grid>
 
             <Grid Width="200" Height="50" Margin="259,205,145,95">

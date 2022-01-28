@@ -59,9 +59,7 @@ namespace DAL
         /// <returns>The specific drone charge</returns>
         public DroneCharge GetDroneCharge(int droneId)
         {
-            var droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId && !(dc.IsDeleted));
-            if (droneCharge.GetType().Equals(default))
-                throw new KeyNotFoundException("Get drone -DAL-: There is no suitable customer in data");
+            DroneCharge droneCharge = DataSource.droneCharges.FirstOrDefault(dc => dc.DroneId == droneId && !(dc.IsDeleted));
             return droneCharge;
         }
 

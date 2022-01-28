@@ -33,9 +33,6 @@ namespace PL
             droneListViewModel.DronesList.Filter = FilterDrone;
             this.DataContext = droneListViewModel;
             droneListViewModel.DronesList.GroupDescriptions.Add(new PropertyGroupDescription("Status"));
-            //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.DataContext);
-            //PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
-            ////view.GroupDescriptions.Add(groupDescription);
         }
 
 
