@@ -73,6 +73,19 @@ namespace PL.ViewModel
                 this.parcelsByDrone =ConvertFunctions.BOParcelByTransferToPO( tempDrone.Delivery);
         }
 
+        public DroneViewModel(BO.Drone droneInList, BlApi.IBL bl, Action refreshDronesList)
+        {
+            this.Bl = bl;
+            this.RefreshDronesList = refreshDronesList;
+            this.DroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
+            this.SourceDroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
+            this.Rand = new Random();
+
+
+            if (droneInList.Status == BO.Enums.DroneStatuses.Delivery)
+                this.parcelsByDrone = ConvertFunctions.BOParcelByTransferToPO(droneInList.Delivery);
+        }
+
         public void RefreshDroneInList()
         {
             DroneInList = PO.ConvertFunctions.BODroneToPO(Bl.GetBLDrone(droneInList.Id));

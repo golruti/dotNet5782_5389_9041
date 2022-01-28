@@ -37,15 +37,23 @@ namespace PL
             StationsId.DataContext = bl.GetBaseStationForList().Select(item=>item.Id);
         }
 
+
+
         public Drone(DroneForList droneForList, BlApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
             droneViewModel = new DroneViewModel(droneForList, bl, refreshDroneList);
             this.DataContext = droneViewModel;
-            Update_grid.Visibility = Visibility.Visible;  
-            
+            Update_grid.Visibility = Visibility.Visible;              
         }
 
+        public Drone(BO.Drone droneForList, BlApi.IBL bl, Action refreshDroneList)
+        {
+            InitializeComponent();
+            droneViewModel = new DroneViewModel(droneForList, bl, refreshDroneList);
+            this.DataContext = droneViewModel;
+            Update_grid.Visibility = Visibility.Visible;
+        }
         private void DeleteDrone(object sender, RoutedEventArgs e)
         {
             droneViewModel.Bl.DeleteBLDrone(droneViewModel.DroneInList.Id);

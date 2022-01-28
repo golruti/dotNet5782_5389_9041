@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlApi;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -144,9 +145,15 @@ namespace PO
             };
         }
 
-
-        
-
+        internal static BO.DroneInCharging PODroneInChargingToBO(PO.DroneInCharging droneCharge)
+        {
+            return new BO.DroneInCharging
+            {
+                Id = droneCharge.Id,
+                Battery= droneCharge.Battery,
+                Time= droneCharge.Time
+            };
+        }
         internal static PO.ParcelForList BOParcelForListToPO(BO.ParcelForList parcel)
         {
             return new PO.ParcelForList()

@@ -111,13 +111,23 @@ namespace PL
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedDrone = (sender as ContentControl).DataContext as BO.DroneForList;
+            var selectedDrone = DronesListView.SelectedItem as PO.DroneInCharging;
 
+            var drone = baseStationViewModel.Bl.GetBLDrone(selectedDrone.Id);
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(selectedDrone, baseStationViewModel.Bl, baseStationViewModel.DronesList.RefreshDroneList);
+            tabItem.Content = new Drone(drone, baseStationViewModel.Bl, baseStationViewModel.DronesList.RefreshDroneList);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             baseStationViewModel.AddTab(tabItem);
+
+
+            //var selectedDrone = DronesListView.SelectedItem as PO.DroneForList;
+
+            //TabItem tabItem = new TabItem();
+            //tabItem.Content = new Drone(ConvertFunctions.PODroneForListToBO(selectedDrone), droneListViewModel.Bl, RefreshDroneList);
+            //tabItem.Header = "Update drone";
+            //tabItem.Visibility = Visibility.Visible;
+            //this.droneListViewModel.AddTab(tabItem);
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
