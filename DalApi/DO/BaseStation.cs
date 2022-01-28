@@ -15,6 +15,7 @@ namespace DO
         public double Longitude { get; set; }
         public double Latitude { get; set; }
         public int ChargeSlote { get; set; }
+        public int AvailableChargingPorts { get; set; }
         #endregion
 
         #region ToString
@@ -38,6 +39,7 @@ namespace DO
             Longitude = longitude;
             Latitude = lattitude;
             ChargeSlote = chargeSlote;
+            AvailableChargingPorts = chargeSlote;
         }
         #endregion
     }
