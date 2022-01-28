@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 
 namespace BO
-
 {
     public class CustomerDelivery
     {
@@ -23,7 +22,5 @@ namespace BO
 
         }
     }
-
-
 }
 

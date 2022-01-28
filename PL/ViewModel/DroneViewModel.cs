@@ -46,8 +46,6 @@ namespace PL.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //StationsId.DataContext = (bl.GetBaseStationForList()).Select(s => s.Id);
-
         public DroneViewModel(BlApi.IBL bl, Action refreshDronesList)
         {
             this.Bl = bl;

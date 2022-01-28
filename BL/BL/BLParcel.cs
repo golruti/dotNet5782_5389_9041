@@ -17,7 +17,9 @@ namespace BL
         /// <param name="tempParcel">The parcel for Adding</param>
         public void AddParcel(Parcel tempParcel)
         {
-            DO.Parcel parcel = new DO.Parcel(tempParcel.CustomerSender.Id, tempParcel.CustomerReceives.Id, (DO.Enum.WeightCategories)tempParcel.Weight, (DO.Enum.Priorities)tempParcel.Priority, tempParcel.DroneParcel.Id, DateTime.Now, null, null, null);
+            DO.Parcel parcel = new DO.Parcel(tempParcel.CustomerSender.Id, tempParcel.CustomerReceives.Id, 
+                (DO.Enum.WeightCategories)tempParcel.Weight, (DO.Enum.Priorities)tempParcel.Priority, 
+                tempParcel.DroneParcel.Id, DateTime.Now, null, null, null);
             try
             {
                 dal.AddParcel(parcel);

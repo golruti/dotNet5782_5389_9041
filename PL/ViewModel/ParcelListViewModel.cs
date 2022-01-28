@@ -25,21 +25,24 @@ namespace PL.ViewModel
         public Action<object, RoutedEventArgs> RemoveTab { get; private set; }
         private ListCollectionView parcelsForList;
         public event PropertyChangedEventHandler PropertyChanged;
+        public ObservableCollection<ParcelForList> Items { get; set; }
         public ParcelListViewModel(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             this.Bl = bl;
             this.AddTab = addTab;
             this.RemoveTab = removeTab;
-            //new ObservableCollection<int>()
             parcelsForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOParcelForListToPO(bl.GetParcelForList()));
+            Items = new ObservableCollection<ParcelForList>(ConvertFunctions.BOParcelForListToPO(bl.GetParcelForList()));
+            parcelsForList = new ListCollectionView(Items);
         }
         public void RefreshParcelList()
         {
-            parcelsForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOParcelForListToPO(Bl.GetParcelForList()));
+            Items.Clear();
+            foreach (var item in ConvertFunctions.BOParcelForListToPO(Bl.GetParcelForList()))
+                Items.Add(item);
         }
 
-
-       
+   
         public ListCollectionView ParcelsForList
         {
             get { return parcelsForList; }

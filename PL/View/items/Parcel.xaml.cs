@@ -24,15 +24,15 @@ namespace PL
     public partial class Parcel 
     {
         ParcelViewModel parcelViewModel;
-        static int idParcel { get; set; } = 0;
+        
+        static int idParcel { get; set; } = 10;
         public Parcel(BlApi.IBL bl, Action refreshParcelsList)
         {
             InitializeComponent();
             parcelViewModel = new ParcelViewModel(bl, refreshParcelsList);
             this.DataContext = parcelViewModel;
             Add_grid.Visibility = Visibility.Visible;
-            Weight.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
-            Priority.DataContext = Enum.GetValues(typeof(Enums.Priorities));
+           
         }
 
         
@@ -57,7 +57,12 @@ namespace PL
         {
             try
             {
-                parcelViewModel.Bl.AddParcel(new BO.Parcel(idParcel++, int.Parse(senderId.Text), int.Parse(reciverId.Text), (BO.Enums.WeightCategories)Weight.SelectedItem, (BO.Enums.Priorities)Priority.SelectedItem, new BO.DroneInParcel()));
+                BO.Customer senderCustomer= parcelViewModel.Bl.GetBLCustomer(int.Parse(senderId.Text));
+                BO.Customer recieveCustomer = parcelViewModel.Bl.GetBLCustomer(int.Parse(reciverId.Text));
+
+                parcelViewModel.Bl.AddParcel(new BO.Parcel(idParcel++, (BO.Enums.WeightCategories)Weight.SelectedItem, (BO.Enums.Priorities)Priority.SelectedItem, new BO.DroneInParcel(),
+                    new BO.CustomerDelivery ( senderCustomer.Id, senderCustomer.Name),
+                    new BO.CustomerDelivery(recieveCustomer.Id, recieveCustomer.Name)));
 
                 if (MessageBox.Show("the parcel was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -103,7 +108,7 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            this.parcelViewModel.RefreshParcelList();
+            parcelViewModel.RefreshParcelInList();
         }
 
       
