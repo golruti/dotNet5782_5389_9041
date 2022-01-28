@@ -36,10 +36,10 @@ namespace PL
         }
 
         
-        public Parcel(int parcelInListId, BlApi.IBL bl, Action refreshParcelsList)
+        public Parcel(int parcelInListId, BlApi.IBL bl, Action refreshParcelsList, Action<TabItem> addTab)
         {
             InitializeComponent();
-            parcelViewModel = new ParcelViewModel(parcelInListId, bl, refreshParcelsList);
+            parcelViewModel = new ParcelViewModel(parcelInListId, bl, refreshParcelsList,addTab);
             this.DataContext = parcelViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
@@ -166,8 +166,6 @@ namespace PL
 
         private void CustomerReceives(object sender, RoutedEventArgs e)
         {
-
-
             TabItem tabItem = new TabItem();
             tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id)),
                 this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList, parcelViewModel.AddTab);
@@ -178,16 +176,11 @@ namespace PL
 
         private void Drone(object sender, RoutedEventArgs e)
         {
-
-
             TabItem tabItem = new TabItem();
             tabItem.Content = new Drone(parcelViewModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id), this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList);
             tabItem.Header = "update  drone";
             tabItem.Visibility = Visibility.Visible;
             this.parcelViewModel.AddTab(tabItem);
         }
-
-
-
     }
 }
