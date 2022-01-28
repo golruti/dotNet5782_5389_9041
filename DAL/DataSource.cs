@@ -39,7 +39,7 @@ namespace DAL
                 BaseStation tempStation = new BaseStation();
                 tempStation.Id = i;
                 tempStation.Name = $"station {i}";
-                tempStation.ChargeSlote = Rand.Next(50);
+                tempStation.ChargeSlote = Rand.Next(10,50);
                 tempStation.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.IsDeleted = false;

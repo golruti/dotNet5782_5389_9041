@@ -31,9 +31,6 @@ namespace PL
             baseStationListViewModel = new BaseStationListViewModel(bl, addTab);
             this.DataContext = baseStationListViewModel;
             baseStationListViewModel.BaseStationsList.GroupDescriptions.Add(new PropertyGroupDescription("AvailableChargingPorts"));
-            //baseStationListViewModel.BaseStationsList= (ListCollectionView)CollectionViewSource.GetDefaultView(BaseStationListView.DataContext);
-            //PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargingPorts");
-            //baseStationListViewModel.BaseStationsList.GroupDescriptions.Add(groupDescription);
         }
 
 

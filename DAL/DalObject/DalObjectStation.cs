@@ -63,7 +63,7 @@ namespace DAL
         {
             IEnumerable<BaseStation> baseStations = new List<BaseStation>();
             baseStations = DataSource.stations
-                         .Where(station => station.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == station.Id && !(station.IsDeleted)))
+                         .Where(station => station.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == station.Id ) && !(station.IsDeleted))
                          .ToList();
             return baseStations;
         }

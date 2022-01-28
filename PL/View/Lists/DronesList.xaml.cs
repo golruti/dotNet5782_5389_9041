@@ -22,10 +22,10 @@ namespace PL
     /// <summary>
     /// Interaction logic for DroneList.xaml
     /// </summary>
-    public partial class DronesList
+    public partial class DronesList : UserControl
     {
         DroneListViewModel droneListViewModel;
-        
+
         public DronesList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
@@ -73,7 +73,7 @@ namespace PL
             RefreshFilter();
         }
 
-        
+
         private void RefreshFilter()
         {
             droneListViewModel.DronesList.Refresh();

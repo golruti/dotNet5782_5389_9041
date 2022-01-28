@@ -15,7 +15,7 @@ namespace BL
         /// </summary>
         /// <param name="tempBaseStation">The station for Adding</param>
         public void AddBaseStation(BaseStation tempBaseStation)
-        {    
+        {
             DO.BaseStation baseStation = new DO.BaseStation(tempBaseStation.Id, tempBaseStation.Name, tempBaseStation.Location.Longitude, tempBaseStation.Location.Latitude, tempBaseStation.AvailableChargingPorts);
             try
             {
@@ -62,7 +62,7 @@ namespace BL
                 throw new KeyNotFoundException("Get base station -BL-" + ex.Message);
             }
 
-            deleteBLBaseStation(id);
+
             if (name == "-1")
             {
                 name = tempBaseStation.Name;
@@ -71,6 +71,12 @@ namespace BL
             {
                 chargeSlote = tempBaseStation.ChargeSlote;
             }
+            else
+            {
+                if (chargeSlote < countFullChargeSlots(id))
+                    throw new ArithmeticException("Excess number of stations -BL-");
+            }
+            deleteBLBaseStation(id);
             DO.BaseStation station = new DO.BaseStation(id, name, tempBaseStation.Longitude, tempBaseStation.Latitude, chargeSlote);
             try
             {
@@ -121,7 +127,7 @@ namespace BL
             return BaseStationsForList;
         }
 
-        
+
         /// <summary>
         /// The function receives a predicate and returns the list that maintains the predicate
         /// </summary>

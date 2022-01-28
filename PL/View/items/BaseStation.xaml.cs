@@ -42,13 +42,6 @@ namespace PL
             Update_grid.Visibility = Visibility.Visible;
         }
 
-        //לבדוק מתי לרפרש רשימת רחפנים בטעינה
-        //private void RefreshDroneInChargeList()
-        //{
-        //    dronesInCharging = baseStationViewModel.Bl.GetDronesInCharging(baseStationViewModel.BaseStationInList.Id);
-        //    DronesListView.DataContext = dronesInCharging;
-        //}
-
         private void DeleteBaseStation(object sender, RoutedEventArgs e)
         {
             baseStationViewModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
@@ -60,7 +53,7 @@ namespace PL
 
         private void add_Station_Click(object sender, RoutedEventArgs e)
         {
-            if (double.Parse(longitude.Text) <-90 || double.Parse(longitude.Text)>90|| double.Parse(latitude.Text) < -90 || double.Parse(latitude.Text) > 90)
+            if (double.Parse(longitude.Text) < -90 || double.Parse(longitude.Text) > 90 || double.Parse(latitude.Text) < -90 || double.Parse(latitude.Text) > 90)
             {
                 MessageBox.Show("Location not in the middle");
                 return;
@@ -119,15 +112,6 @@ namespace PL
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             baseStationViewModel.AddTab(tabItem);
-
-
-            //var selectedDrone = DronesListView.SelectedItem as PO.DroneForList;
-
-            //TabItem tabItem = new TabItem();
-            //tabItem.Content = new Drone(ConvertFunctions.PODroneForListToBO(selectedDrone), droneListViewModel.Bl, RefreshDroneList);
-            //tabItem.Header = "Update drone";
-            //tabItem.Visibility = Visibility.Visible;
-            //this.droneListViewModel.AddTab(tabItem);
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
@@ -171,6 +155,10 @@ namespace PL
                 }
             }
             catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The base station could not be updated, {ex.Message}");
+            }
+            catch (ArithmeticException ex)
             {
                 MessageBox.Show($"The base station could not be updated, {ex.Message}");
             }
