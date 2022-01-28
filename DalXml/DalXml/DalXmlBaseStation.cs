@@ -102,7 +102,27 @@ namespace DAL
        
          public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)
         {
-            throw new NotImplementedException();
+            XElement baseStationsXML;
+            try
+            {
+                baseStationsXML = XMLTools.LoadListFromXmlElement(baseStationsPath);
+            }
+            catch (XMLFileLoadCreateException e)
+            {
+                throw e;
+            }
+            List<BaseStation> baseStations = new();
+            baseStations = ((List<BaseStation>)(from b in baseStationsXML.Elements()
+                                                where bool.Parse(b.Element("IsDeleted").Value) == false /*&& bool.Parse(predicate(b))*/
+                                                select new BaseStation()
+                                                {
+                                                    Id = int.Parse(b.Element("Id").Value),
+                                                    ChargeSlote = int.Parse(b.Element("ChargeSlots").Value),
+                                                    Name = b.Element("Name").Value,
+                                                    Latitude = double.Parse(b.Element("Latitude").Value),
+                                                    Longitude = double.Parse(b.Element("Longitude").Value),
+                                                })).ToList();
+            return baseStations;
         }
 
         /// <summary>
@@ -159,7 +179,27 @@ namespace DAL
 
         public IEnumerable<BaseStation> GetAvaBaseStations()
         {
-            throw new NotImplementedException();
+            XElement baseStationsXML;
+            try
+            {
+                baseStationsXML = XMLTools.LoadListFromXmlElement(baseStationsPath);
+            }
+            catch (XMLFileLoadCreateException e)
+            {
+                throw e;
+            }
+            List<BaseStation> baseStations = new();
+            baseStations = ((List<BaseStation>)(from b in baseStationsXML.Elements()
+                                                where bool.Parse(b.Element("IsDeleted").Value) == false && int.Parse(b.Element("AvailableChargingPorts").Value)>0
+                                                select new BaseStation()
+                                                {
+                                                    Id = int.Parse(b.Element("Id").Value),
+                                                    ChargeSlote = int.Parse(b.Element("ChargeSlots").Value),
+                                                    Name = b.Element("Name").Value,
+                                                    Latitude = double.Parse(b.Element("Latitude").Value),
+                                                    Longitude = double.Parse(b.Element("Longitude").Value),
+                                                })).ToList();
+            return baseStations;
         }
 
         public IEnumerable<BaseStation> GetBaseStations()
