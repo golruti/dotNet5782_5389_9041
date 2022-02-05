@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace DAL
 {
-    internal partial class DalXML
+    internal partial class DalXml
     {
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>

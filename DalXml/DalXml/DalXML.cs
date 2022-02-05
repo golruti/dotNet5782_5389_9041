@@ -10,15 +10,15 @@ using DO;
 
 namespace DAL
 {
-    internal partial class DalXML : Singleton.Singleton<DalXML>, IDal
+    internal sealed partial class DalXml : Singleton.Singleton<DalXml>, IDal
     {
-        private readonly string realtivePath = "../../XmlFiles";
+        private readonly string realtivePath = "../../../../XmlFiles";
         private string baseStationsPath => $"{realtivePath}/BaseStations.xml";
         private string dronesPath => $"{realtivePath}/Drones.xml";
         private string parcelsPath => $"{realtivePath}/Parcels.xml";
         private string customersPath => $"{realtivePath}/Customers.xml";
         private string droneChargesPath => $"{realtivePath}/DroneCharges.xml";
-        private string ConfigPath => $"{realtivePath}/DroneCharges.xml";
+        private string ConfigPath => $"{realtivePath}/Config.xml";
 
         public double[] GetElectricityUse()
         {
@@ -32,8 +32,18 @@ namespace DAL
                 double.Parse(electricity.Element("CarriesHeavyWeight").Value),
                 double.Parse(electricity.Element("ChargingRate").Value),
             };
-        }      
-        
+        }
+
+        static DalXml() { }
+
+        private DalXml()
+        {
+            XDocument document = XDocument.Load(droneChargesPath);
+            document.Root.RemoveAll();
+
+            document.Save(droneChargesPath);
+        }
+
         private void AddItem(string path, object item)
         {
             XDocument document = XDocument.Load(path);

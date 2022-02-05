@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace DAL
 {
-    internal partial class DalXML
+    internal partial class DalXml
     {
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
@@ -74,3 +74,4 @@ namespace DAL
             UpdateItem(baseStationsPath, id, nameof(BaseStation.IsDeleted), true);
         }
     }
+}

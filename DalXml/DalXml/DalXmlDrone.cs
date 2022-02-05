@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace DAL
 {
-    internal partial class DalXML
+    internal partial class DalXml
     {
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
@@ -34,7 +34,7 @@ namespace DAL
         /// <returns>drone</returns>
         public Drone GetDrone(int droneId)
         {
-            return GetItem<Drone>(dronesPath, dr);
+            return GetItem<Drone>(dronesPath, droneId);
         }
 
         //--------------------------------------------Show list-------------------------------------------------------------------------------------------

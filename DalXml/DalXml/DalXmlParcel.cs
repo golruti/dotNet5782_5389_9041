@@ -10,7 +10,7 @@ using Enum = System.Enum;
 
 namespace DAL
 {
-    internal partial class DalXML
+    internal partial class DalXml
     {
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>

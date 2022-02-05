@@ -18,7 +18,7 @@ namespace DalApi
             if (dalPkg == null) throw new DalConfigException($"Package {dalType} is not found in packages list in dal-config.xml");
             try
             {
-                Assembly.LoadFrom($@"{Directory.GetCurrentDirectory()}\..\..\..\..\DAL\bin\Debug\net5.0\{dalPkg}.dll");
+                Assembly.LoadFrom($@"{Directory.GetCurrentDirectory()}\..\..\..\..\{dalPkg}\bin\Debug\net5.0\{dalPkg}.dll");
             }
             catch (Exception) { throw new DalConfigException("Failed to load the dal-config.xml file"); }
 
