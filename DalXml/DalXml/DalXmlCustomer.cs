@@ -2,68 +2,77 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace DAL
 {
     internal partial class DalXML
     {
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
-        /// CreateCustomer is a method in the DalXml class.
-        /// the method adds a new customer
+        /// Add a customer to the array of existing customers
         /// </summary>
-        /// <param name="customer">the first Customer value</param>
+        /// <param name="customer">struct of customer</param>
         public void AddCustomer(Customer customer)
         {
+            if (!GetCustomer(customer.Id).Equals(default(Customer)))
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a customer - DAL");
             customer.IsDeleted = false;
-            List<Customer> customersXml;
-            try
-            {
-                customersXml = XMLTools.LoadListFromXmlSerializer<Customer>(customersPath);
-            }
-            catch(XMLFileLoadCreateException e) { throw e; }
-            foreach (var item in customersXml)
-            {
-                if(item.Id == customer.Id && item.IsDeleted == false)
-                {
-                    throw new Exception();
-                }
-            }
-            customersXml.Add(customer);
-            try
-            {
-                XMLTools.SaveListToXmlSerializer<Customer>(customersXml, customersPath);
-            }
-            catch(XMLFileLoadCreateException e) { throw e; }
+
+            AddItem(customersPath, customer);
         }
 
-        public Customer GetCustomer(int requestedId)
+        //--------------------------------------------Show item-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Removes a customer from an array of customers by id
+        /// </summary>
+        /// <param name="idxCustomer">struct of customer</param>
+        /// <returns>customer</returns>
+        public Customer GetCustomer(int idCustomer)
         {
-            return XMLTools.LoadListFromXmlSerializer<Customer>(customersPath).Find(customer => customer.Id == requestedId);
+            return GetItem<Customer>(customersPath, idCustomer);
         }
 
-        public IEnumerable<Customer> GetCustomers()
-        {
-            return XMLTools.LoadListFromXmlSerializer<Customer>(customersPath);
-        }
+        /// <summary>
+        /// The function accepts a condition in the predicate and returns the customer who satisfies the condition
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         public Customer GetCustomer(Predicate<Customer> predicate)
         {
-            Customer customer = XMLTools.LoadListFromXmlSerializer<Customer>(customersPath).FirstOrDefault(customer => predicate(customer) && !(customer.IsDeleted));
-            return customer;
+            return GetCustomers().FirstOrDefault(item => predicate(item));
         }
 
+        //--------------------------------------------Show list-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function prepares a new array of all existing customers
+        /// </summary>
+        /// <returns>array of customer</returns>
+        public IEnumerable<Customer> GetCustomers()
+        {
+            return GetList<Customer>(customersPath);
+        }
+
+        /// <summary>
+        /// The function receives a predicate and returns the list that maintains the predicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>List of customers that maintain the predicate</returns>
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate)
         {
-            IEnumerable<Customer> customers = XMLTools.LoadListFromXmlSerializer<Customer>(customersPath).Where(customer => predicate(customer) && !(customer.IsDeleted));
-            return customers;
-            
+            return GetCustomers().Where(item => predicate(item));
         }
 
+        //--------------------------------------------Delete-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function deletes a specific customer
+        /// </summary>
+        /// <param name="id">customer ID</param>
         public void DeleteCustomer(int id)
         {
-            throw new NotImplementedException();
+            if (GetCustomer(id).Equals(default(Customer)))
+                throw new KeyNotFoundException("Delete customer -DAL: There is no suitable customer in data");
+
+            UpdateItem(customersPath, id, nameof(Customer.IsDeleted), true);
         }
     }
 }

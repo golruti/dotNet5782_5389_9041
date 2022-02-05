@@ -12,130 +12,139 @@ namespace DAL
 {
     internal partial class DalXML
     {
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
-        /// CreateParcel is a method in the DalXml class.
-        /// the method adds a new parcel
+        /// Receipt of parcel for shipment.
         /// </summary>
-        /// <param name="parcel">the first Parcel value</param>
+        /// <param name="parcel">struct of parcel</param>
         public void AddParcel(Parcel parcel)
         {
+            parcel.Id = RunNumberForParcel();
+
+            if (GetCustomer(parcel.SenderId).Equals(default(Customer)))
+                throw new KeyNotFoundException("Add parcel -DAL-:Sender not exist");
+            if (GetCustomer(parcel.TargetId).Equals(default(Customer)))
+                throw new KeyNotFoundException("Add parcel -DAL-:Target not exist");
+            if (!GetParcel(parcel.Id).Equals(default(Parcel)))
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a parcel - DAL");
+
             parcel.IsDeleted = false;
-            List<Parcel> parcelsXml;
-            try
-            {
-                parcelsXml = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
-            }
-            catch (XMLFileLoadCreateException e) { throw e; }
-            foreach (var item in parcelsXml)
-            {
-                if (item.Id == parcel.Id && item.IsDeleted == false)
-                {
-                    throw new Exception();
-                }
-            }
-            parcel.Id = 100000000 + parcelsXml.Count;
-            parcelsXml.Add(parcel);
-            try
-            {
-                XMLTools.SaveListToXmlSerializer<Parcel>(parcelsXml, parcelsPath);
-            }
-            catch (XMLFileLoadCreateException e) { throw e; }
+            AddItem(parcelsPath, parcel);
         }
 
+        //--------------------------------------------Show item-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Exits a parcel from an array of parcels by id
+        /// </summary>
+        /// <param name="idxParcel">struct ofo parcel</param>
+        /// <returns>parcel</returns>
+        public Parcel GetParcel(int idParcel)
+        {
+            return GetItem<Parcel>(parcelsPath, idParcel);
+        }
+        /// <summary>
+        /// The function accepts a condition in the predicate and returns 
+        /// the parcel that satisfies the condition
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         public Parcel GetParcel(Predicate<Parcel> predicate)
         {
-            throw new NotImplementedException();
+            return GetParcels().FirstOrDefault(item => predicate(item));
         }
 
+        //--------------------------------------------Show list---------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function prepares a new array of all existing parcels
+        /// </summary>
+        /// <returns>array of parceles</returns>
         public IEnumerable<Parcel> GetParcels()
         {
-            throw new NotImplementedException();
+            return GetList<Parcel>(parcelsPath);
         }
 
+        /// <summary>
+        /// The function receives a predicate and returns the list that maintains the predicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>List of Parsel that maintain the predicate</returns>
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
         {
-            throw new NotImplementedException();
+            return GetParcels().Where(item => predicate(item));
         }
 
-        public void UpdateParcelPickedUp(Parcel Parcel)
+
+        //--------------------------------------------Update-------------------------------------------------------------------------------------------
+        /// <summary>
+        ///Assigning a parcel to a drone
+        /// </summary>
+        /// <param name="idParcel">Id of the parcel</param>
+        public void UpdateParcelPickedUp(Parcel parcel)
         {
-            XElement parcels = XMLTools.LoadListFromXmlElement(parcelsPath);
-            XElement parcel = (from p in parcels.Elements()
-                               where Convert.ToInt32(p.Element("Id").Value) == Parcel.Id
-                               select p).FirstOrDefault();
-            parcel.Element("PickedUp").Value = DateTime.Now.ToString("O"); // datetime iso-8601 format
-
-            XMLTools.SaveListToXmlElement(parcels, parcelsPath);
-        }
-
-        public void UpdateParcelDelivered(Parcel Parcel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateSupply(Parcel parcel)
-        {
-
-            XElement parcels = XMLTools.LoadListFromXmlElement(parcelsPath);
-            XElement tempParcel = (from p in parcels.Elements()
-                               where Convert.ToInt32(p.Element("Id").Value) == parcel.Id
-                               select p).FirstOrDefault();
-            tempParcel.Element("DroneId").Value = parcel.Droneld.ToString();
-
-            XMLTools.SaveListToXmlElement(parcels, parcelsPath);
-        }
-
-        public void DeleteParcel(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ParcelSchedule(int parcelId, int droneId)
-        {
-            XElement parcels = XMLTools.LoadListFromXmlElement(parcelsPath);
-            XElement parcel = (from p in parcels.Elements()
-                               where Convert.ToInt32(p.Element("Id").Value) == parcelId
-                               select p).FirstOrDefault();
-            parcel.Element("DroneId").Value = droneId.ToString();
-
-            XMLTools.SaveListToXmlElement(parcels, parcelsPath);
-        }
-
-        public Parcel GetParcel(int requestedId)
-        {
-            return XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath).Find(parcel => parcel.Id == requestedId);
-            //return GetNewParcel();
-        }
-
-        public Parcel GetNewParcel()
-        {
-            Parcel parcel = new();
-            XElement xmlParcel = XElement.Load("http://ygoldsht.jct.ac.il/dronesproject/getnewparcel.php");
-
-            parcel.Id = int.Parse(xmlParcel.Element("Id").Value);
-            parcel.SenderId = int.Parse(xmlParcel.Element("SenderId").Value);
-            parcel.TargetId = int.Parse(xmlParcel.Element("TargetId").Value);
-            parcel.Priority = (Priorities)Enum.Parse(typeof(Priorities), xmlParcel.Element("Priority").Value);
-
-            double weight = double.Parse(xmlParcel.Element("Weight").Value);
-            if (weight < 5)
-                parcel.Weight = WeightCategories.Light;
-            else if (weight < 10)
-                parcel.Weight = WeightCategories.Medium;
-            else
+            if (GetParcel(parcel.Id).Equals(default(Parcel)))
             {
-                parcel.Weight = WeightCategories.Heavy;
+                throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
             }
 
-            parcel.Requested = DateTime.Now;
-            return parcel;
+            UpdateItem(parcelsPath, parcel.Id, nameof(Parcel.PickedUp), DateTime.Now);
         }
 
-        public IEnumerable<Parcel?> GetParcels(Func<Parcel?, bool> predicate = null) =>
-           predicate == null ?
-               XMLTools.LoadListFromXmlSerializer<Parcel?>(parcelsPath) :
-               XMLTools.LoadListFromXmlSerializer<Parcel?>(parcelsPath).Where(predicate);
+        /// <summary>
+        /// Delivery of a parcel to the destination
+        /// </summary>
+        /// <param name="idxParcel">Id of the parcel</param>
+        public void UpdateParcelDelivered(Parcel parcel)
+        {
+            if (GetParcel(parcel.Id).Equals(default(Parcel)))
+            {
+                throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
+            }
 
+            UpdateItem(parcelsPath, parcel.Id, nameof(Parcel.Delivered), DateTime.Now);
+        }
 
+        /// <summary>
+        /// update parcel assembly by drone
+        /// </summary>
+        /// <param name="parcel">the parcel to update</param>
+        public void UpdateSupply(Parcel parcel)
+        {
+            if (GetParcel(parcel.Id).Equals(default(Parcel)))
+            {
+                throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
+            }
+
+            UpdateItem(parcelsPath, parcel.Id, nameof(Parcel.Scheduled), DateTime.Now);
+        }
+
+        //--------------------------------------------Delete-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function deletes a particular parcel
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteParcel(int id)
+        {
+            Parcel deletedParcel = GetParcel(id);
+            if (deletedParcel.Equals(default(Parcel)))
+                throw new KeyNotFoundException("Delete parcel -DAL-: There is no suitable parcel in data");
+
+            UpdateItem(parcelsPath, id, nameof(Parcel.IsDeleted), true);
+        }
+
+        //------------------------------------------Private auxiliary functions--------------
+        /// <summary>
+        /// Auxiliary function that returns the running number and advances it.
+        /// </summary>
+        /// <returns></returns>
+        private int RunNumberForParcel()
+        {
+            XDocument document = XDocument.Load(ConfigPath);
+
+            XElement indexElement = document.Root.Element("Index");
+            int index  = int.Parse(indexElement.Value);
+            indexElement.SetValue(index + 1);
+
+            return index;
+        }
     }
 }

@@ -10,56 +10,64 @@ namespace DAL
 {
     internal partial class DalXML
     {
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
-        /// AddDrone is a method in the DalXml class.
-        /// the method adds a new drone
+        /// Add a drone to the array of existing drones
         /// </summary>
+        /// <param name="drone">struct of drone</param>
         public void AddDrone(Drone drone)
         {
+            if (!GetDrone(drone.Id).Equals(default(Drone)))
+            {
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone - DAL");
+            }
+
             drone.IsDeleted = false;
-            List<Drone> dronesXml;
-            try
-            {
-                dronesXml = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
-            }
-            catch (XMLFileLoadCreateException e) { throw e; }
-            foreach (var item in dronesXml)
-            {
-                if (item.Id == drone.Id && item.IsDeleted == false)
-                {
-                    throw new Exception();
-                }
-            }
-            dronesXml.Add(drone);
-            try
-            {
-                XMLTools.SaveListToXmlSerializer<Drone>(dronesXml, dronesPath);
-            }
-            catch (XMLFileLoadCreateException e) { throw e; }
-        }
-        public void UpdateCharge(int droneId)
-        {
-            throw new NotImplementedException();
-        }
-        public Drone GetDrone(int requestedId)
-        {
-            return XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath).Find(drone => drone.Id == requestedId);
-            //return DalFactory.GetDal("List").GetDrone(requestedId);
+            AddItem(dronesPath, drone);
         }
 
+        //--------------------------------------------Show item-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Removes a drone from an array of drones by id
+        /// </summary>
+        /// <param name="idxDrone">struct of drone</param>
+        /// <returns>drone</returns>
+        public Drone GetDrone(int droneId)
+        {
+            return GetItem<Drone>(dronesPath, dr);
+        }
+
+        //--------------------------------------------Show list-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function prepares a new array of all existing drones
+        /// </summary>
+        /// <returns>array of drones</returns>
         public IEnumerable<Drone> GetDrones()
         {
-            return XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
-        }
-        public void DeleteDrone(int droneId)
-        {
-            throw new NotImplementedException();
+            return GetList<Drone>(dronesPath);
         }
 
-        public void UpdateRelease(int droneId)
+        /// <summary>
+        /// The function receives a predicate and returns the list that maintains the predicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>List of Drone that maintain the predicate</returns>
+        public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate)
         {
-            throw new NotImplementedException();
+            return GetDrones().Where(item => predicate(item));
         }
 
+        //--------------------------------------------Delete-------------------------------------------------------------------------------------------
+        /// <summary>
+        /// The function deletes a specific drone
+        /// </summary>
+        /// <param name="droneId">drone ID</param>
+        public void DeleteDrone(int id)
+        {
+            if (GetDrone(id).Equals(default(Drone)))
+                throw new KeyNotFoundException("Delete drone -DAL: There is no suitable drone in data");
+
+            UpdateItem(dronesPath, id, nameof(Drone.IsDeleted), true);
+        }
     }
 }

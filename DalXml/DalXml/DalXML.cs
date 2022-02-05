@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -9,31 +10,75 @@ using DO;
 
 namespace DAL
 {
-    internal partial class DalXML : IDal
+    internal partial class DalXML : Singleton.Singleton<DalXML>, IDal
     {
-        private readonly string baseStationsPath = "BaseStations.xml";
-        private readonly string dronesPath = "Drones.xml";
-        private readonly string parcelsPath = "Parcels.xml";
-        private readonly string customersPath = "Customers.xml";
-        private readonly string droneChargesPath = "DroneCharges.xml";
-        public static IDal Instance { get; } = new DalXML();
+        private readonly string realtivePath = "../../XmlFiles";
+        private string baseStationsPath => $"{realtivePath}/BaseStations.xml";
+        private string dronesPath => $"{realtivePath}/Drones.xml";
+        private string parcelsPath => $"{realtivePath}/Parcels.xml";
+        private string customersPath => $"{realtivePath}/Customers.xml";
+        private string droneChargesPath => $"{realtivePath}/DroneCharges.xml";
+        private string ConfigPath => $"{realtivePath}/DroneCharges.xml";
 
-        private DalXML()
-        {
-            //XMLTools.SaveListToXmlSerializer(DalFactory.GetDal("List").GetDrones(),dronesPath); 
-            //XMLTools.SaveListToXmlSerializer(DalFactory.GetDal("List").GetBaseStations(), baseStationsPath);
-            //XMLTools.SaveListToXmlSerializer(DalFactory.GetDal("List").GetParcels(), parcelsPath);
-            //XMLTools.SaveListToXmlSerializer(DalFactory.GetDal("List").GetCustomers(), customersPath);
-        }     
-
-        //public double[] BatteryUsages()
-        //{
-        //    //return DalFactory.GetDal().BatteryUsages();
-        //}
         public double[] GetElectricityUse()
         {
-            throw new NotImplementedException();
+            XElement electricity = XDocument.Load(ConfigPath).Root;
+
+            return new double[]
+            {
+                double.Parse(electricity.Element("Free").Value),
+                double.Parse(electricity.Element("CarriesLightWeight").Value),
+                double.Parse(electricity.Element("CarriesMediumWeight").Value),
+                double.Parse(electricity.Element("CarriesHeavyWeight").Value),
+                double.Parse(electricity.Element("ChargingRate").Value),
+            };
         }      
         
+        private void AddItem(string path, object item)
+        {
+            XDocument document = XDocument.Load(path);
+            document.Root.Add(item.Serialize());
+
+            document.Save(path);
+        }
+
+        private T GetItem<T>(string path, int id) 
+        {
+            XDocument document = XDocument.Load(path);
+            XElement item = document.Root
+                                    .Elements()
+                                    .FirstOrDefault(element => !bool.Parse(element.Element("IsDeleted").Value) 
+                                                               && id == int.Parse(element.Element("Id").Value));
+            return item == null? default: item.Deserialize<T>();
+        }
+
+        private IEnumerable<T> GetList<T>(string path)
+        {
+            XDocument document = XDocument.Load(path);
+            return document.Root
+                           .Elements()
+                           .Where(element => !bool.Parse(element.Element("IsDeleted").Value))
+                           .Select(element => element.Deserialize<T>());
+        }
+
+        private void UpdateItem(string path, int id, string propertyName, object propertyValue)
+        {
+            XDocument document = XDocument.Load(path);
+            XElement root = document.Root;
+            XElement item = document.Root
+                                    .Elements()
+                                    .FirstOrDefault(element => !bool.Parse(element.Element("IsDeleted").Value)
+                                                               && id == int.Parse(element.Element("Id").Value));
+
+            if (item == default(XElement))
+            {
+                throw new KeyNotFoundException($"Update item - Dal (object in path: {path}");
+            }
+
+            item.Element(propertyName).RemoveAttributes();
+            item.SetElementValue(propertyName, propertyValue);
+
+            document.Save(path);
+        }
     }
 }
