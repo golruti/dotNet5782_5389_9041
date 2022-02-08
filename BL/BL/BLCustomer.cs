@@ -18,7 +18,17 @@ namespace BL
         /// <param name="tempCustomer">The customer for Adding</param>
         public void AddCustomer(Customer tempCustomer)
         {
-            DO.Customer customer = new DO.Customer(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
+            DO.Customer customer = new DO.Customer()
+            {
+                Id = tempCustomer.Id,
+                Name = tempCustomer.Name,
+                Phone = tempCustomer.Phone,
+                Longitude = tempCustomer.Location.Longitude,
+                Latitude = tempCustomer.Location.Latitude,
+                IsDeleted=false
+            };
+
+            //(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
             try
             {
                 dal.AddCustomer(customer);
@@ -39,7 +49,7 @@ namespace BL
             try
             {
                 dal.DeleteCustomer(customerId);
-               
+
             }
             catch (KeyNotFoundException ex)
             {
@@ -57,7 +67,7 @@ namespace BL
         public void UpdateCustomer(int id, string name = "-1", string phone = "-1")
         {
             DO.Customer tempCustomer;
-            
+
             try
             {
                 tempCustomer = dal.GetCustomer(id);
@@ -73,11 +83,20 @@ namespace BL
             if (phone == "-1")
                 phone = tempCustomer.Phone;
             DeleteBLCustomer(id);
-            DO.Customer customer = new DO.Customer(id, name, phone, tempCustomer.Longitude, tempCustomer.Latitude);
+
+            DO.Customer customer = new DO.Customer()
+            {
+                Id = id,
+                Name = name,
+                Phone = phone,
+                Longitude = tempCustomer.Longitude,
+                Latitude = tempCustomer.Latitude,
+                IsDeleted=false
+            }; 
             try
             {
                 dal.AddCustomer(customer);
-                
+
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -141,7 +160,7 @@ namespace BL
 
         public CustomerForList GetCustomerForList(string name)
         {
-            return GetCustomerForList().FirstOrDefault(customer => customer.Name==name);
+            return GetCustomerForList().FirstOrDefault(customer => customer.Name == name);
         }
 
         //--------------------------------------------Initialize the parcel list--------------------------------------------------------
@@ -154,7 +173,7 @@ namespace BL
         {
             IEnumerable<ParcelToCustomer> sendedList = new List<ParcelToCustomer>();
             IEnumerable<ParcelToCustomer> targetedList = new List<ParcelToCustomer>();
-            sendedList= dal.GetParcels().Where(p => p.SenderId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
+            sendedList = dal.GetParcels().Where(p => p.SenderId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
             targetedList = dal.GetParcels().Where(p => p.TargetId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
 
 
@@ -162,7 +181,7 @@ namespace BL
             {
                 Id = customer.Id,
                 Name = customer.Name,
-                Location = new Location(customer.Latitude, customer.Longitude),
+                Location = new Location() { Latitude = customer.Latitude, Longitude = customer.Longitude },
                 Phone = customer.Phone,
                 FromCustomer = sendedList,
                 ToCustomer = targetedList,

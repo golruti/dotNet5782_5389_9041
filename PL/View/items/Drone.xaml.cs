@@ -25,7 +25,7 @@ namespace PL
     public partial class Drone
     {
         DroneViewModel droneViewModel;
-        
+
 
         public Drone(BlApi.IBL bl/*, Action refreshDroneList*/)
         {
@@ -34,7 +34,7 @@ namespace PL
             this.DataContext = droneViewModel;
             Add_grid.Visibility = Visibility.Visible;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
-            StationsId.DataContext = bl.GetBaseStationForList().Select(item=>item.Id);
+            StationsId.DataContext = bl.GetBaseStationForList().Select(item => item.Id);
         }
 
 
@@ -44,7 +44,7 @@ namespace PL
             InitializeComponent();
             droneViewModel = new DroneViewModel(droneForList, bl/*, refreshDroneList*/);
             this.DataContext = droneViewModel;
-            Update_grid.Visibility = Visibility.Visible;              
+            Update_grid.Visibility = Visibility.Visible;
         }
 
         public Drone(BO.Drone droneForList, BlApi.IBL bl/*, Action refreshDroneList*/)
@@ -72,8 +72,21 @@ namespace PL
         {
             try
             {
-                droneViewModel.Bl.AddDrone(new BO.Drone(int.Parse(Id.Text), Model.Text, (BO.Enums.WeightCategories)DroneWeights.SelectedItem, BO.Enums.DroneStatuses.Maintenance, droneViewModel.Rand.Next(20, 41),
-                    droneViewModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude, droneViewModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude));
+                droneViewModel.Bl.AddDrone( new BO.Drone()
+                {
+                    Id = int.Parse(Id.Text),
+                    Model = Model.Text,
+                    MaxWeight = (BO.Enums.WeightCategories)DroneWeights.SelectedItem,
+                    Status = BO.Enums.DroneStatuses.Maintenance,
+                    Battery = droneViewModel.Rand.Next(20, 40),
+                    Delivery = null,
+                    Location = new Location()
+                    {
+                        Longitude = droneViewModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude,
+                        Latitude = droneViewModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude
+                    }
+                   
+                });
 
                 if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -155,7 +168,7 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-          //  droneViewModel.RefreshDroneInList();
+            //  droneViewModel.RefreshDroneInList();
             PO.ListsModel.RefreshDrones();
         }
 
@@ -374,6 +387,6 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-      
+
     }
 }

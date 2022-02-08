@@ -22,22 +22,6 @@ namespace BO
                 $"Num Parcel SentN ot Delivered = {NumParcelSentNotDelivered}, Num Parcel Received = {NumParcelReceived}, " +
                 $" NumP arcel Way To Customer = {NumParcelWayToCustomer}";
         }
-
-        public CustomerForList(int id, string name, string phone, int parcelSentDelivered, int parcelSentNotDelivered, int recievedParcel, int parcelOnWayToCustomer)
-        {
-            Id = id;
-            Name = name;
-            Phone = phone;
-            NumParcelSentDelivered = parcelSentDelivered;
-            NumParcelSentNotDelivered = parcelSentNotDelivered;
-            NumParcelReceived = recievedParcel;
-            NumParcelWayToCustomer = parcelOnWayToCustomer;
-        }
-
-        public CustomerForList()
-        {
-
-        }
     }
 }
 

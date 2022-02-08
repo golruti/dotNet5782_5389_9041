@@ -33,18 +33,6 @@ namespace BO
                 "\nWeight: " + Weight + "\nPriority: " + Priority + "\nRequested: " + Requested + "\nDroneld: "
                 + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n------\n");
         }
-        public Parcel(int id, WeightCategories weight, Priorities priority, DroneInParcel droneParcel, CustomerDelivery CustomerSender, CustomerDelivery CustomerReceives)
-        {
-            Id = id;
-            Weight = weight;
-            Priority = priority;
-            DroneParcel = droneParcel;
-            this.CustomerSender = CustomerSender;
-            this.CustomerReceives = CustomerReceives;
-        }
-
-        public Parcel()
-        { }
     }
 }
 

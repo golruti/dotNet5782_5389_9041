@@ -29,19 +29,6 @@ namespace DO
                 "\nLattitude: " + Latitude + "\nChargeSlote: " + ChargeSlote + "\n");
         }
         #endregion
-
-        #region ctor
-        public BaseStation(int id, string name, double longitude, double lattitude, int chargeSlote)
-        {
-            IsDeleted = false;
-            Id = id;
-            Name = name;
-            Longitude = longitude;
-            Latitude = lattitude;
-            ChargeSlote = chargeSlote;
-            AvailableChargingPorts = chargeSlote;
-        }
-        #endregion
     }
 }
 

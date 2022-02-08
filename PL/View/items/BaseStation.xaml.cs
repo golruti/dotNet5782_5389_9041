@@ -30,7 +30,7 @@ namespace PL
         public BaseStation(BlApi.IBL bl/*, Action refreshBaseStationList*/)
         {
             InitializeComponent();
-            //baseStationViewModel = new BaseStationViewModel(bl, refreshBaseStationList);
+            baseStationViewModel = new BaseStationViewModel(bl/*, refreshBaseStationList*/);
             this.DataContext = baseStationViewModel;
             Add_grid.Visibility = Visibility.Visible;
         }
@@ -62,7 +62,16 @@ namespace PL
 
             try
             {
-                baseStationViewModel.Bl.AddBaseStation(new BO.BaseStation(int.Parse(Id.Text), Name.Text, double.Parse(longitude.Text), double.Parse(latitude.Text), int.Parse(Num_of_charging_positions.Text)));
+                baseStationViewModel.Bl.AddBaseStation(new BO.BaseStation()
+                {
+                    Id = int.Parse(Id.Text),
+                    AvailableChargingPorts = int.Parse(Num_of_charging_positions.Text),
+                    DronesInCharging = new List<DroneInCharging>(),
+                    Location = new Location() { Longitude = double.Parse(longitude.Text), Latitude = double.Parse(latitude.Text) },
+                    Name = Name.Text
+                }); ;
+
+                //int.Parse(Id.Text), Name.Text, double.Parse(longitude.Text), double.Parse(latitude.Text), int.Parse(Num_of_charging_positions.Text)));
 
                 if (MessageBox.Show("the station was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -129,7 +138,7 @@ namespace PL
                 tabControl.Items.Remove(tabItem);
 
             PO.ListsModel.RefreshStations();
-           // baseStationViewModel.RefreshStationsList();
+            // baseStationViewModel.RefreshStationsList();
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)

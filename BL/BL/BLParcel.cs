@@ -17,9 +17,24 @@ namespace BL
         /// <param name="tempParcel">The parcel for Adding</param>
         public void AddParcel(Parcel tempParcel)
         {
-            DO.Parcel parcel = new DO.Parcel(tempParcel.CustomerSender.Id, tempParcel.CustomerReceives.Id, 
-                (DO.Enum.WeightCategories)tempParcel.Weight, (DO.Enum.Priorities)tempParcel.Priority, 
-                tempParcel.DroneParcel.Id, DateTime.Now, null, null, null);
+            DO.Parcel parcel = new DO.Parcel()
+            {
+                Id=tempParcel.Id,
+                SenderId = tempParcel.CustomerSender.Id,
+                TargetId = tempParcel.CustomerReceives.Id,
+                Weight = (DO.Enum.WeightCategories)tempParcel.Weight,
+                Priority = (DO.Enum.Priorities)tempParcel.Priority,
+                Droneld = -1,
+                Requested = tempParcel.Requested,
+                Scheduled = null,
+                PickedUp = null,
+                Delivered = null,
+                IsDeleted=false
+                
+            };
+            //(tempParcel.CustomerSender.Id, tempParcel.CustomerReceives.Id, 
+            //(DO.Enum.WeightCategories) tempParcel.Weight, (DO.Enum.Priorities) tempParcel.Priority,
+            // tempParcel.DroneParcel.Id, DateTime.Now, null, null, null);
             try
             {
                 dal.AddParcel(parcel);
@@ -58,13 +73,13 @@ namespace BL
             DO.Parcel parcel;
             try
             {
-               parcel = dal.GetParcel(parcelId);
+                parcel = dal.GetParcel(parcelId);
             }
             catch (KeyNotFoundException ex)
             {
                 throw new KeyNotFoundException("Delete parcel -BL-" + ex.Message);
             }
-            
+
             dal.DeleteParcel(parcelId);
             parcel.Droneld = droneId;
             parcel.Scheduled = dateTime;
@@ -96,7 +111,7 @@ namespace BL
                 throw new KeyNotFoundException("Get parcel by id -BL-" + ex.Message);
             }
         }
-        
+
         //--------------------------------------------Show list--------------------------------------------------------------------            
         /// <summary>
         /// he function returns the parcel list from DAL to the ParcelForList list
@@ -126,13 +141,13 @@ namespace BL
             }
             return ParcelsForList;
         }
-        
+
         public IEnumerable<ParcelForList> GetParcelForList(Predicate<ParcelForList> predicate)
         {
             return GetParcelForList().Where(parcel => predicate(parcel));
         }
 
-    
+
 
 
         /// <summary>
@@ -248,11 +263,11 @@ namespace BL
                 Weight = (Enums.WeightCategories)parcel.Weight,
                 Priority = (Enums.Priorities)parcel.Priority,
                 IsDestinationParcel = !parcel.PickedUp.GetType().Equals(null),
-                SenderLocation = new Location(sender.Longitude, sender.Latitude),
-                TargetLocation = new Location(target.Longitude, target.Latitude),
+                SenderLocation = new Location() { Longitude = sender.Longitude, Latitude = sender.Latitude },
+                TargetLocation = new Location() { Longitude = target.Longitude, Latitude = target.Latitude },
                 Distance = distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
-                Sender = new CustomerDelivery(sender.Id, sender.Name),
-                Target = new CustomerDelivery(target.Id, target.Name)
+                Sender = new CustomerDelivery() { Id = sender.Id, Name = sender.Name },
+                Target = new CustomerDelivery() { Id = target.Id, Name = target.Name } 
             };
         }
 

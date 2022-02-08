@@ -23,16 +23,6 @@ namespace BO
         {
             return $"Drone #{Id}: model={Model}, {Status}, {MaxWeight}, location = {Location.Latitude}, {Location.Longitude}, battery={(int)(Battery)} ";
         }
-        public DroneForList(int id, string model, WeightCategories maxWeight, double battery, DroneStatuses status, double longitude, double latitude)
-        {
-            Id = id;
-            Model = model;
-            MaxWeight = maxWeight;
-            Battery = battery;
-            Status = status;
-            Location = new Location(longitude, latitude);
-        }
 
-        public DroneForList() { }
     }
 }

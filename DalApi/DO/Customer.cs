@@ -32,18 +32,6 @@ namespace DO
                 "\nLongitude: " + Longitude + "\nLattitude: " + Latitude + "\n");
         }
         #endregion
-
-        #region ctor
-        public Customer(int id, string name, string phone, double longitude, double lattitude)
-        {
-            IsDeleted = false;
-            Id = id;
-            Name = name;
-            Phone = phone;
-            Longitude = longitude;
-            Latitude = lattitude;
-        }
-        #endregion
     }
 }
 

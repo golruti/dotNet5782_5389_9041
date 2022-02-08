@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace BO
 {
-    public class CustomerDelivery
+    public class Employee
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int Password { get; set; }
+        public string Username { get; set; }
     }
 }
-

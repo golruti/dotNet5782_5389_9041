@@ -21,10 +21,10 @@ namespace PL
     /// <summary>
     /// Interaction logic for Parcel.xaml
     /// </summary>
-    public partial class Parcel 
+    public partial class Parcel
     {
         ParcelViewModel parcelViewModel;
-        
+
         static int idParcel { get; set; } = 10;
         public Parcel(BlApi.IBL bl/*, Action refreshParcelsList*/)
         {
@@ -32,10 +32,10 @@ namespace PL
             parcelViewModel = new ParcelViewModel(bl/*, refreshParcelsList*/);
             this.DataContext = parcelViewModel;
             Add_grid.Visibility = Visibility.Visible;
-           
+
         }
 
-        
+
         public Parcel(int parcelInListId, BlApi.IBL bl/*, Action refreshParcelsList*/, Action<TabItem> addTab)
         {
             InitializeComponent();
@@ -57,12 +57,22 @@ namespace PL
         {
             try
             {
-                BO.Customer senderCustomer= parcelViewModel.Bl.GetBLCustomer(int.Parse(senderId.Text));
+                BO.Customer senderCustomer = parcelViewModel.Bl.GetBLCustomer(int.Parse(senderId.Text));
                 BO.Customer recieveCustomer = parcelViewModel.Bl.GetBLCustomer(int.Parse(reciverId.Text));
 
-                parcelViewModel.Bl.AddParcel(new BO.Parcel(idParcel++, (BO.Enums.WeightCategories)Weight.SelectedItem, (BO.Enums.Priorities)Priority.SelectedItem, new BO.DroneInParcel(),
-                    new BO.CustomerDelivery ( senderCustomer.Id, senderCustomer.Name),
-                    new BO.CustomerDelivery(recieveCustomer.Id, recieveCustomer.Name)));
+                parcelViewModel.Bl.AddParcel(new BO.Parcel()
+                {
+                    Id = idParcel++,
+                    Weight = (BO.Enums.WeightCategories)Weight.SelectedItem,
+                    Priority = (BO.Enums.Priorities)Priority.SelectedItem,
+                    CustomerReceives = new BO.CustomerDelivery() { Id = senderCustomer.Id, Name = senderCustomer.Name },
+                    CustomerSender = new BO.CustomerDelivery() { Id = recieveCustomer.Id, Name = recieveCustomer.Name },
+                    Requested = DateTime.Now,
+                    Delivered = null,
+                    PickedUp = null,
+                    Scheduled = null,
+                    DroneParcel = null
+                });
 
                 if (MessageBox.Show("the parcel was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -111,7 +121,7 @@ namespace PL
             parcelViewModel.RefreshParcelInList();
         }
 
-      
+
 
         /// <summary>
         /// Input filter for ID

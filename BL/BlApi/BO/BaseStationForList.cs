@@ -17,20 +17,6 @@ namespace BO
         {
             return $"Station #{Id}: {Name}, Available Charging Ports = {AvailableChargingPorts}, Used Charging Ports = {UsedChargingPorts}";
         }
-
-        public BaseStationForList(int id, string name, int availableChargingPorts, int usedChargingPorts)
-        {
-            Id = id;
-            Name = name;
-            AvailableChargingPorts = availableChargingPorts;
-            UsedChargingPorts = usedChargingPorts;
-
-        }
-
-        public BaseStationForList()
-        {
-
-        }
     }
 }
 

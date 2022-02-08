@@ -31,11 +31,11 @@ namespace PL
             this.DataContext = customerViewModel;
             Add_grid.Visibility = Visibility.Visible;
         }
-         
+
         public Customer(CustomerForList customerInList, BlApi.IBL bl/*, Action refreshCustomersList*/, Action<TabItem> addTab)
         {
             InitializeComponent();
-            customerViewModel = new CustomerViewModel( customerInList, bl/*, refreshCustomersList,addTab*/, addTab);
+            customerViewModel = new CustomerViewModel(customerInList, bl/*, refreshCustomersList,addTab*/, addTab);
             this.DataContext = customerViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
@@ -91,7 +91,15 @@ namespace PL
 
             try
             {
-                customerViewModel.Bl.AddCustomer(new BO.Customer(int.Parse(ID.Text), name.Text, phone.Text, double.Parse(longitude.Text), double.Parse(latitude.Text)));
+                customerViewModel.Bl.AddCustomer(new BO.Customer()
+                {
+                    Id = int.Parse(ID.Text),
+                    Name = name.Text,
+                    Phone = phone.Text,
+                    Location = new Location() { Longitude = double.Parse(longitude.Text), Latitude = double.Parse(latitude.Text) },
+                    FromCustomer = new List<ParcelToCustomer>(),
+                    ToCustomer = new List<ParcelToCustomer>()
+                });
                 if (MessageBox.Show("the customer was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     Close_Page(sender, e);
@@ -119,7 +127,7 @@ namespace PL
         {
             try
             {
-              customerViewModel.Bl.UpdateCustomer(customerViewModel.CustomerInList.Id, customerViewModel.CustomerInList.Name, customerViewModel.CustomerInList.Phone);
+                customerViewModel.Bl.UpdateCustomer(customerViewModel.CustomerInList.Id, customerViewModel.CustomerInList.Name, customerViewModel.CustomerInList.Phone);
             }
             catch (KeyNotFoundException ex)
             {

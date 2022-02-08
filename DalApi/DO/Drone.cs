@@ -28,16 +28,6 @@ namespace DO
             return ("\nId: " + Id + "\nModel: " + Model + "\nMaxWeight: " + MaxWeight +
                 "\n\nStatus: " + "%\n");
         }
-
-        public Drone(int id, string model, WeightCategories maxWeight)
-        {
-            IsDeleted = false;
-            Id = id;
-            Model = model;
-            MaxWeight = maxWeight;
-        }
-
-
     }
 }
 

@@ -18,7 +18,13 @@ namespace BL
         public void AddDrone(Drone tempDrone)
         {
 
-            DO.Drone drone = new DO.Drone(tempDrone.Id, tempDrone.Model, (DO.Enum.WeightCategories)tempDrone.MaxWeight);
+            DO.Drone drone = new DO.Drone()
+            {
+                Id = tempDrone.Id,
+                MaxWeight = (DO.Enum.WeightCategories)tempDrone.MaxWeight,
+                Model = tempDrone.Model,
+                IsDeleted = false
+            };
             try
             {
                 dal.AddDrone(drone);
@@ -28,8 +34,25 @@ namespace BL
             {
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
-            DroneForList droneForList = new DroneForList(tempDrone.Id, tempDrone.Model, tempDrone.MaxWeight, tempDrone.Battery, tempDrone.Status, tempDrone.Location.Longitude, tempDrone.Location.Latitude);
-            drones.Add(droneForList);
+
+            DroneForList droneForList = new DroneForList()
+            {Id=tempDrone.Id,
+            Model=tempDrone.Model,
+            MaxWeight=tempDrone.MaxWeight,
+            Battery=tempDrone.Battery,
+            Status=tempDrone.Status,
+            Location=new Location() { Latitude= tempDrone.Location.Longitude, Longitude= tempDrone.Location.Latitude },
+            ParcelDeliveredId=-1
+            };
+            try
+            {
+                drones.Add(droneForList);
+
+            }
+            catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            {
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+            }
         }
 
         //---------------------------------------------Delete ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -121,34 +144,7 @@ namespace BL
             return GetDroneForList().Where(s => predicate(s));
         }
 
-        ///// <summary>
-        ///// The function returns all the drones that maintain the status and weight
-        ///// </summary>
-        ///// <param name="weight"></param>
-        ///// <param name="status"></param>
-        ///// <returns></returns>
-        //public IEnumerable<DroneForList> GetDroneForList(WeightCategories weight, DroneStatuses status)
-        //{
-        //    return GetDroneForList(drone => drone.MaxWeight == weight && drone.Status == status);
-        //}
-        ///// <summary>
-        ///// The function returns all the drones that maintain the weight
-        ///// </summary>
-        ///// <param name="weight"></param>
-        ///// <returns></returns>
-        //public IEnumerable<DroneForList> GetDroneForList(WeightCategories weight)
-        //{
-        //    return GetDroneForList(drone => drone.MaxWeight == weight);
-        //}
-        ///// <summary>
-        ///// The function returns all the drones that maintain the status and weight
-        ///// </summary>
-        ///// <param name="status"></param>
-        ///// <returns></returns>
-        //public IEnumerable<DroneForList> GetDroneForList(DroneStatuses status)
-        //{
-        //    return GetDroneForList(drone => drone.Status == status);
-        //}
+
 
         //--------------------------------------------Update------------------------------------------------------------------------------------------
         /// <summary>
@@ -163,7 +159,13 @@ namespace BL
             tempDroneForList.Model = model;
             drones.Add(tempDroneForList);
 
-            DO.Drone drone = new DO.Drone(tempDroneForList.Id, tempDroneForList.Model, (DO.Enum.WeightCategories)tempDroneForList.MaxWeight);
+            DO.Drone drone = new DO.Drone()
+            {
+                Id = tempDroneForList.Id,
+                MaxWeight = (DO.Enum.WeightCategories)tempDroneForList.MaxWeight,
+                Model = tempDroneForList.Model,
+                IsDeleted = false
+            };
             try
             {
                 dal.AddDrone(drone);
@@ -233,7 +235,7 @@ namespace BL
                         DO.Parcel parcel = dal.GetParcel(parcelId);
                         DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                         double distance = this.distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
-                        Location location = new Location(customer.Longitude, customer.Latitude);
+                        Location location = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
                         droneForList.Battery -= ((int)minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1);
                         droneForList.Location = location;
                         drones.Add(droneForList);
@@ -310,9 +312,10 @@ namespace BL
         public void UpdateCharge(int droneId)
         {
             DroneForList tempDroneForList = drones.FirstOrDefault(drone => drone.Id == droneId);
-            Drone tempDrone = new Drone(tempDroneForList.Id, tempDroneForList.Model, tempDroneForList.MaxWeight, tempDroneForList.Status, tempDroneForList.Battery, tempDroneForList.Location.Longitude, tempDroneForList.Location.Latitude);
+            Drone tempDrone = GetBLDrone(droneId);
+
             int baseStationId = -1;
-            Location location = new Location(-1, -1);
+            Location location = new Location() { };
             double distance = double.MaxValue;
             if ((int)tempDrone.Status == 0)
             {
@@ -324,7 +327,7 @@ namespace BL
                     {
                         baseStationId = item.Id;
                         distance = tempDistance;
-                        location = new Location(item.Longitude, item.Latitude);
+                        location = new Location() { Longitude = item.Longitude, Latitude = item.Latitude };
                     }
                 }
                 if (minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight) < tempDrone.Battery)
@@ -395,16 +398,10 @@ namespace BL
         /// <param name="id">id of drone</param>
         public void AssignParcelToDrone(int id)
         {
-            Drone drone = new Drone();
-            foreach (DroneForList d in drones)
-            {
-                if (d.Id == id)
-                {
-                    drone = new Drone(id, d.Model, d.MaxWeight, d.Status, d.Battery, d.Location.Longitude, d.Location.Latitude);
-                }
-            }
+            Drone drone = GetBLDrone(id);
+
             DroneForList droneForList = drones.FirstOrDefault(drone => drone.Id == id);
-            if ((!drone.GetType().Equals(default)) && drone.Status == DroneStatuses.Available)
+            if ((!drone.Equals(null)) && drone.Status == DroneStatuses.Available)
             {
                 int parcelId = 0;
                 bool isExist = false;
@@ -494,8 +491,8 @@ namespace BL
                         throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message);
                     }
 
-                    DO.BaseStation soonStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
-                    return new Location(soonStation.Longitude, soonStation.Latitude);
+                    DO.BaseStation nearStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
+                    return new Location() { Longitude = nearStation.Longitude, Latitude = nearStation.Latitude };
                 }
                 else if (findParcelState(drone.Id) == parcelState.collectedNotDelivered)
                 {
@@ -509,7 +506,7 @@ namespace BL
                         throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message);
                     }
                     senderCustomer = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
-                    return new Location(senderCustomer.Longitude, senderCustomer.Latitude);
+                    return new Location() { Longitude = senderCustomer.Longitude, Latitude = senderCustomer.Latitude };
                 }
             }
             else
@@ -518,7 +515,7 @@ namespace BL
                 {
                     int randNumber1 = rand.Next(dal.GetBaseStations().Count());
                     var randomBaseStation = (dal.GetBaseStations().ToList())[randNumber1];
-                    return new Location(randomBaseStation.Longitude, randomBaseStation.Latitude);
+                    return new Location() { Longitude = randomBaseStation.Longitude, Latitude = randomBaseStation.Latitude };
                 }
             }
             var x =
@@ -532,7 +529,7 @@ namespace BL
             else
             {
                 var randomCustomerProvided = x.ToList()[randNumber];
-                return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
+                return new Location() { Longitude = randomCustomerProvided.Longitude, Latitude = randomCustomerProvided.Latitude };
             }
         }
 
@@ -585,7 +582,11 @@ namespace BL
                 try
                 {
                     minDroneTarget = minBattery(drone.Location,
-                        new Location(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude),
+                        new Location()
+                        {
+                            Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
+                            Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude
+                        },
                          drone.Status, drone.MaxWeight);
                 }
                 catch (KeyNotFoundException ex)
@@ -596,9 +597,17 @@ namespace BL
                 try
                 {
                     minTargetBaseStation = minBattery(
-                     new Location(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude),
-                    new Location(nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
-                    nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude),
+                     new Location()
+                     {
+                         Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
+                         Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude
+                     },
+                    new Location()
+                    {
+                        Latitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
+
+                        Longitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
+                    },
                     Enums.DroneStatuses.Available, drone.MaxWeight);
                 }
                 catch (KeyNotFoundException ex)
@@ -617,9 +626,16 @@ namespace BL
             try
             {
                 minDroneBaseStation = minBattery(
-                    new Location(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude),
-                   new Location(nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
-                   nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude),
+                    new Location()
+                    {
+                        Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
+                        Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude
+                    },
+                   new Location()
+                   {
+                       Latitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
+                       Longitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
+                   },
                    Enums.DroneStatuses.Available, drone.MaxWeight);
                 return rand.Next((int)(minDroneBaseStation), 101);
             }

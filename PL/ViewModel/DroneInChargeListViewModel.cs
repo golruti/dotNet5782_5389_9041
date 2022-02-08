@@ -43,6 +43,5 @@ namespace PL.ViewModel
             DronesInChargeList = new ListCollectionView(PO.ListsModel.dronesCharging);
             this.stationId = stationId;
         }
-
     }
 }

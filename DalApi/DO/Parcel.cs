@@ -38,20 +38,6 @@ namespace DO
                 "\nWeight: " + Weight + "\nRequested: " + Requested + "\nDroneld: " + Droneld
                 + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n");
         }
-
-
-        public Parcel(int senderId, int targetId, WeightCategories weight, Priorities priority, int droneld, DateTime? requested, DateTime? scheduled, DateTime? pickedUp, DateTime? delivered):this()
-        {
-            SenderId = senderId;
-            TargetId = targetId;
-            Weight = weight;
-            Priority = priority;
-            Droneld = droneld;
-            Requested = requested;
-            Scheduled = scheduled;
-            PickedUp = pickedUp;
-            Delivered = delivered;
-        }
     }
 }
 

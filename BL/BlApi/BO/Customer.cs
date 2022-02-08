@@ -20,19 +20,6 @@ namespace BO
         {
             return $"------\nCustomer #{Id}: {Name}\ntel={Phone}\nlocation={Location.Latitude},{Location.Latitude}\n------\n";
         }
-
-        public Customer(int id, string name, string phone, double longitude, double latitude)
-        {
-            Id = id;
-            Name = name;
-            Phone = phone;
-            Location = new Location(longitude, latitude);
-            FromCustomer = new List<ParcelToCustomer>();
-            ToCustomer = new List<ParcelToCustomer>();
-        }
-        public Customer()
-        {
-        }
     }
 }
 
