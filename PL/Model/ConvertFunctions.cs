@@ -306,6 +306,12 @@ namespace PO
         }
         internal static Drone BODroneToPO(BO.Drone drone)
         {
+            var tempDelivery = new ParcelByTransfer();
+            if(drone.Delivery !=null)
+            {
+                tempDelivery = BOParcelByTransferToPO(drone.Delivery);
+            }
+   
             return new Drone()
             {
                 Id = drone.Id,
@@ -314,7 +320,7 @@ namespace PO
                 Status = BOEnumDroneStatusesToPO(drone.Status),
                 Battery = drone.Battery,
                 Location = BOLocationToPO(drone.Location),
-                Delivery = BOParcelByTransferToPO(drone.Delivery)
+                Delivery = tempDelivery
             };
         }
 

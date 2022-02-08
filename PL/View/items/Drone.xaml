@@ -141,7 +141,7 @@
                     </Button.IsEnabled>
                 </Button>
 
-                <Button Background="DarkCyan" Content="concel"  Margin="115,15,25,15" Click="Close_Page"  Height="20" Width="60" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
+                <Button Background="DarkCyan" Content="cencel"  Margin="115,15,25,15" Click="Close_Page_notDo"  Height="20" Width="60" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
             </Grid>
 
 

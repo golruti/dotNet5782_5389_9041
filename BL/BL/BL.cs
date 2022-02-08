@@ -52,8 +52,7 @@ namespace BL
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
                     dal.AddDroneCharge(new DO.DroneCharge(drone.Id, rand.Next(1)));
-                }
-
+                }              
             }
 
             foreach (var drone in drones)

@@ -380,7 +380,7 @@ namespace BL
                     return parcel.Id;
                 }
             }
-            return default(int);
+            return -1;
         }
     }
 }

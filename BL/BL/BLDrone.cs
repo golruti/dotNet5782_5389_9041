@@ -29,7 +29,7 @@ namespace BL
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
             DroneForList droneForList = new DroneForList(tempDrone.Id, tempDrone.Model, tempDrone.MaxWeight, tempDrone.Battery, tempDrone.Status, tempDrone.Location.Longitude, tempDrone.Location.Latitude);
-            drones.Add( droneForList);
+            drones.Add(droneForList);
         }
 
         //---------------------------------------------Delete ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -40,8 +40,8 @@ namespace BL
         public void DeleteBLDrone(int droneId)
         {
             var deleteDrone = GetBLDroneInList(droneId);
-            if(deleteDrone.Equals(default(DroneForList)))
-                  throw new ArgumentNullException("delete drone -BL-:There is not drone with same id i data");
+            if (deleteDrone.Equals(default(DroneForList)))
+                throw new ArgumentNullException("delete drone -BL-:There is not drone with same id i data");
             try
             {
                 dal.DeleteDrone(droneId);
@@ -74,7 +74,7 @@ namespace BL
 
         private DroneForList GetBLDroneInList(int id)
         {
-            var drone = drones.FirstOrDefault(d => d.Id == id);           
+            var drone = drones.FirstOrDefault(d => d.Id == id);
             return drone;
         }
 
@@ -87,7 +87,7 @@ namespace BL
         private Drone mapDrone(int id)
         {
             DroneForList droneToList = drones.FirstOrDefault(drone => drone.Id == id);
-            if (droneToList.Equals(default(DroneForList)))
+            if (droneToList == null)
                 throw new ArgumentNullException("Map drone -BL-:There is not drone with same id i data");
             return new Drone()
             {
@@ -97,7 +97,7 @@ namespace BL
                 Status = droneToList.Status,
                 Battery = droneToList.Battery,
                 Location = droneToList.Location,
-                Delivery = droneToList.ParcelDeliveredId != -1 ? createParcelInTransfer((int)droneToList.ParcelDeliveredId) : default
+                Delivery = (droneToList.ParcelDeliveredId != -1 ? createParcelInTransfer((int)droneToList.ParcelDeliveredId) : default)
             };
         }
 
@@ -192,7 +192,7 @@ namespace BL
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
 
-            drones.Add( tempDroneForList);
+            drones.Add(tempDroneForList);
         }
 
         public void UpdateDroneStatus(int id, DroneStatuses status, double battery, double longitude, double latitude)
@@ -523,12 +523,17 @@ namespace BL
             }
             var x =
                 dal.GetCustomers((customer) => (
-               (dal.GetParcels(parcel => (parcel.Delivered != null) && (customer.Id == parcel.TargetId))).Any()
-               )
-                );
+               (dal.GetParcels(parcel => (parcel.Delivered != null) && (customer.Id == parcel.TargetId))).Any())).ToList();
             int randNumber = rand.Next(x.Count());
-            var randomCustomerProvided = x.ToList()[randNumber];
-            return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
+            if (x.Count() == 0)
+            {
+                return new Location() { Latitude = 10, Longitude = 20 };
+            }
+            else
+            {
+                var randomCustomerProvided = x.ToList()[randNumber];
+                return new Location(randomCustomerProvided.Longitude, randomCustomerProvided.Latitude);
+            }
         }
 
         /// <summary>

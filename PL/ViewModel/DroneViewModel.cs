@@ -68,7 +68,7 @@ namespace PL.ViewModel
 
             BO.Drone tempDrone = bl.GetBLDrone(droneInList.Id);
             if (tempDrone.Status == BO.Enums.DroneStatuses.Delivery)
-                this.parcelsByDrone =ConvertFunctions.BOParcelByTransferToPO( tempDrone.Delivery);
+                this.parcelsByDrone = ConvertFunctions.BOParcelByTransferToPO(tempDrone.Delivery);
         }
 
         public DroneViewModel(BO.Drone droneInList, BlApi.IBL bl, Action refreshDronesList)
@@ -86,8 +86,12 @@ namespace PL.ViewModel
 
         public void RefreshDroneInList()
         {
-            DroneInList = PO.ConvertFunctions.BODroneToPO(Bl.GetBLDrone(droneInList.Id));
-            RefreshDronesList();
+            var blDrones = Bl.GetDroneForList();
+            if (blDrones.Count() != 0)
+            {
+                DroneInList = PO.ConvertFunctions.BODroneToPO(Bl.GetBLDrone(droneInList.Id));
+                RefreshDronesList();
+            }
         }
     }
 }

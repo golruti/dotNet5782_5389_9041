@@ -158,6 +158,20 @@ namespace PL
             droneViewModel.RefreshDroneInList();
         }
 
+        private void Close_Page_notDo(object sender, RoutedEventArgs e)
+        {
+            object tmp = sender;
+            TabItem tabItem = null;
+            while (tmp.GetType() != typeof(TabControl))
+            {
+                if (tmp.GetType() == typeof(TabItem))
+                    tabItem = (tmp as TabItem);
+                tmp = ((FrameworkElement)tmp).Parent;
+            }
+            if (tmp is TabControl tabControl)
+                tabControl.Items.Remove(tabItem);
+        }
+
         /// <summary>
         /// release drone from charging
         /// </summary>

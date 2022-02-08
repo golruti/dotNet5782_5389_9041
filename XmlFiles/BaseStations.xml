@@ -18,4 +18,13 @@
     <ChargeSlote>10</ChargeSlote>
     <AvailableChargingPorts>10</AvailableChargingPorts>
   </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>1</Id>
+    <Name>hi</Name>
+    <Longitude>20</Longitude>
+    <Latitude>30</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>10</AvailableChargingPorts>
+  </BaseStation>
 </ArrayOfBaseStation>
