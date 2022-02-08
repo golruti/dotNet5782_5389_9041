@@ -59,7 +59,7 @@ namespace DAL
         public IEnumerable<Parcel> GetParcels()
         {
             IEnumerable<Parcel> parcels = new List<Parcel>();
-            parcels = DataSource.parcels.Where(parcel => !(parcel.IsDeleted)).ToList();
+            parcels = DataSource.parcels.Where(parcel => !(parcel.IsDeleted));
             return parcels;
         }
 
@@ -71,7 +71,7 @@ namespace DAL
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
         {
             IEnumerable<Parcel> parcels = new List<Parcel>();
-            parcels = DataSource.parcels.Where(parcel => predicate(parcel) && !(parcel.IsDeleted)).ToList();
+            parcels = DataSource.parcels.Where(parcel => predicate(parcel) && !(parcel.IsDeleted));
             return parcels;
         }
 

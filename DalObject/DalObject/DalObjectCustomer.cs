@@ -53,7 +53,7 @@ namespace DAL
         public IEnumerable<Customer> GetCustomers()
         {
             IEnumerable<Customer> customers = new List<Customer>();
-            customers= DataSource.customers.Where(customer => !(customer.IsDeleted)).ToList();
+            customers= DataSource.customers.Where(customer => !(customer.IsDeleted));
             return customers;
         }
 
@@ -66,7 +66,7 @@ namespace DAL
         {
             IEnumerable<Customer> customers = new List<Customer>(); 
             customers = DataSource.customers.Where
-                (customer => predicate(customer) && !(customer.IsDeleted)).ToList();
+                (customer => predicate(customer) && !(customer.IsDeleted));
             return customers;
         }
 

@@ -110,7 +110,7 @@ namespace BL
         public IEnumerable<CustomerForList> GetCustomerForList()
         {
             List<CustomerForList> CustomerForList = new List<CustomerForList>();
-            List<DO.Parcel> parcels = (List<DO.Parcel>)dal.GetParcels();
+            IEnumerable<DO.Parcel> parcels = dal.GetParcels();
             foreach (var customer in dal.GetCustomers())
             {
                 CustomerForList.Add(new CustomerForList()
@@ -151,10 +151,10 @@ namespace BL
         /// <returns>The converted customer</returns>
         private Customer mapCustomer(DO.Customer customer)
         {
-            List<ParcelToCustomer> sendedList = new List<ParcelToCustomer>();
-            List<ParcelToCustomer> targetedList = new List<ParcelToCustomer>();
-            sendedList= dal.GetParcels().Where(p => p.SenderId == customer.Id).Select(p => mapParcelToParcelToCustomer(p)).ToList();
-            targetedList = dal.GetParcels().Where(p => p.TargetId == customer.Id).Select(p => mapParcelToParcelToCustomer(p)).ToList();
+            IEnumerable<ParcelToCustomer> sendedList = new List<ParcelToCustomer>();
+            IEnumerable<ParcelToCustomer> targetedList = new List<ParcelToCustomer>();
+            sendedList= dal.GetParcels().Where(p => p.SenderId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
+            targetedList = dal.GetParcels().Where(p => p.TargetId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
 
 
             return new Customer()

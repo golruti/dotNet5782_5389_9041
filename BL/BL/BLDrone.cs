@@ -78,7 +78,7 @@ namespace BL
             return drone;
         }
 
-        //??????לבדוק מה פשר הפונקציה הזאת ומה היא ממירה ומה היא עושה דחוףףףףףף
+
         /// <summary>
         /// Convert a DAL drone to BL drone
         /// </summary>

@@ -26,8 +26,8 @@ namespace BL
         /// <returns>The list of drones in charge</returns>
         public IEnumerable<DroneInCharging> GetDronesInCharging(int stationId)
         {
-            List<DO.DroneCharge> list = (List<DO.DroneCharge>)dal.GetDronesCharges(droneCharge => droneCharge.StationId == stationId);
-            if (list.Count == 0)
+            IEnumerable<DO.DroneCharge> list = dal.GetDronesCharges(droneCharge => droneCharge.StationId == stationId);
+            if (list.Count() == 0)
                 return Enumerable.Empty<DroneInCharging>();
             List<DroneInCharging> droneInChargings = new();
             DroneForList droneToList;

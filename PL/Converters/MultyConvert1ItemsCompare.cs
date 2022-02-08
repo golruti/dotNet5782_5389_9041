@@ -18,7 +18,6 @@ namespace Converters
                 {
                     return true;
                 }
-                return true;
             }
             return false;
         }

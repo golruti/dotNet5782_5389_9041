@@ -54,7 +54,7 @@ namespace PL.ViewModel
             this.SourceDroneInList = new PO.Drone();
             this.Rand = new Random();
             this.ParcelStutus = (Enums.ParcelStatuses)Bl.GetParcelStatusByDrone(DroneInList.Id);
-            StationsId = ((bl.GetBaseStationForList()).Select(s => s.Id)).ToList();
+            StationsId = ((bl.GetBaseStationForList()).Select(s => s.Id));
             DroneWeights = (IEnumerable<Enums.WeightCategories>)Enum.GetValues(typeof(Enums.WeightCategories));
         }
 

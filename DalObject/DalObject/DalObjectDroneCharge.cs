@@ -71,7 +71,7 @@ namespace DAL
         public IEnumerable<DroneCharge> GetDronesCharges()
         {
             IEnumerable<DroneCharge> droneCharges = new List<DroneCharge>();
-            droneCharges = DataSource.droneCharges.Where(droneCharge => !(droneCharge.IsDeleted)).ToList();
+            droneCharges = DataSource.droneCharges.Where(droneCharge => !(droneCharge.IsDeleted));
             return droneCharges;
         }
 
@@ -82,10 +82,9 @@ namespace DAL
         /// <returns>List of DroneCharge that maintain the predicate</returns>
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate)
         {
-
             IEnumerable<DroneCharge> droneCharges = new List<DroneCharge>();
             droneCharges = DataSource.droneCharges.Where
-                (droneCharge => predicate(droneCharge) && !(droneCharge.IsDeleted)).ToList();
+                (droneCharge => predicate(droneCharge) && !(droneCharge.IsDeleted));
             return droneCharges;
         }
 
