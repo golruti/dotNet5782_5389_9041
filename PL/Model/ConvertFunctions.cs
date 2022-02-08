@@ -112,6 +112,12 @@ namespace PO
 
         internal static Parcel BOParcelToPO(BO.Parcel parcel)
         {
+            PO.DroneInParcel tempDrone =null;
+            if(parcel.DroneParcel != null)
+            {
+                tempDrone = BODroneParceToPO(parcel.DroneParcel);
+            }
+
             return new Parcel
             {
                 Id = parcel.Id,
@@ -119,7 +125,7 @@ namespace PO
                 CustomerReceives = BOCustomerDeliveryToPO(parcel.CustomerReceives),
                 Weight = BOEnumWeightCategoriesToPO(parcel.Weight),
                 Priority = BOEnumPrioritiesToPO(parcel.Priority),
-                DroneParcel = BODroneParceToPO(parcel.DroneParcel),
+                DroneParcel = tempDrone,
                 Requested = parcel.Requested,
                 Scheduled = parcel.Scheduled,
                 PickedUp = parcel.PickedUp,
@@ -184,9 +190,9 @@ namespace PO
 
 
 
-        internal static IEnumerable<ParcelForList> BOParcelForListToPO(IEnumerable<BO.ParcelForList> parcelForLists)
+        internal static ObservableCollection<ParcelForList> BOParcelForListToPO(IEnumerable<BO.ParcelForList> parcelForLists)
         {
-            List<PO.ParcelForList> p = new List<ParcelForList>();
+            ObservableCollection<PO.ParcelForList> p = new ObservableCollection<ParcelForList>();
             foreach (var parcel in parcelForLists)
             {
                 p.Add(new ParcelForList()
@@ -231,9 +237,9 @@ namespace PO
             };
         }
 
-        internal static IEnumerable<CustomerForList> BOCustomerForListToPO(IEnumerable<BO.CustomerForList> customersForList)
+        internal static ObservableCollection<CustomerForList> BOCustomerForListToPO(IEnumerable<BO.CustomerForList> customersForList)
         {
-            List<PO.CustomerForList> c = new List<CustomerForList>();
+            ObservableCollection<PO.CustomerForList> c = new ObservableCollection<CustomerForList>();
             foreach (var customer in customersForList)
             {
                 c.Add(new CustomerForList()
@@ -369,9 +375,9 @@ namespace PO
             };
         }
 
-        internal static IEnumerable<PO.DroneInCharging> BODroneInChargingTOPO(IEnumerable<BO.DroneInCharging> dronesInCharging)
+        internal static ObservableCollection<PO.DroneInCharging> BODroneInChargingTOPO(IEnumerable<BO.DroneInCharging> dronesInCharging)
         {
-            List<PO.DroneInCharging> dronesCharging = new List<DroneInCharging>();
+            ObservableCollection<PO.DroneInCharging> dronesCharging = new ObservableCollection<DroneInCharging>();
             foreach (var droneCharging in dronesInCharging)
             {
                 dronesCharging.Add(new DroneInCharging()
@@ -384,9 +390,9 @@ namespace PO
             return dronesCharging;
         }
 
-        internal static IEnumerable<PO.BaseStationForList> BOBaseStationForListToPO(IEnumerable<BO.BaseStationForList> baseStationsForList)
+        internal static ObservableCollection<PO.BaseStationForList> BOBaseStationForListToPO(IEnumerable<BO.BaseStationForList> baseStationsForList)
         {
-            List<PO.BaseStationForList> baseStations = new List<BaseStationForList>();
+            ObservableCollection<PO.BaseStationForList> baseStations = new ObservableCollection<BaseStationForList>();
             foreach (var station in baseStationsForList)
             {
                 baseStations.Add(new BaseStationForList()

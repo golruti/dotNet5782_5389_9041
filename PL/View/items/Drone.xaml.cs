@@ -27,10 +27,10 @@ namespace PL
         DroneViewModel droneViewModel;
         
 
-        public Drone(BlApi.IBL bl, Action refreshDroneList)
+        public Drone(BlApi.IBL bl/*, Action refreshDroneList*/)
         {
             InitializeComponent();
-            droneViewModel = new DroneViewModel(bl, refreshDroneList);
+            droneViewModel = new DroneViewModel(bl/*, refreshDroneList*/);
             this.DataContext = droneViewModel;
             Add_grid.Visibility = Visibility.Visible;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
@@ -39,18 +39,18 @@ namespace PL
 
 
 
-        public Drone(DroneForList droneForList, BlApi.IBL bl, Action refreshDroneList)
+        public Drone(DroneForList droneForList, BlApi.IBL bl/*, Action refreshDroneList*/)
         {
             InitializeComponent();
-            droneViewModel = new DroneViewModel(droneForList, bl, refreshDroneList);
+            droneViewModel = new DroneViewModel(droneForList, bl/*, refreshDroneList*/);
             this.DataContext = droneViewModel;
             Update_grid.Visibility = Visibility.Visible;              
         }
 
-        public Drone(BO.Drone droneForList, BlApi.IBL bl, Action refreshDroneList)
+        public Drone(BO.Drone droneForList, BlApi.IBL bl/*, Action refreshDroneList*/)
         {
             InitializeComponent();
-            droneViewModel = new DroneViewModel(droneForList, bl, refreshDroneList);
+            droneViewModel = new DroneViewModel(droneForList, bl/*, refreshDroneList*/);
             this.DataContext = droneViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
@@ -155,7 +155,8 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            droneViewModel.RefreshDroneInList();
+          //  droneViewModel.RefreshDroneInList();
+            PO.ListsModel.RefreshDrones();
         }
 
         private void Close_Page_notDo(object sender, RoutedEventArgs e)

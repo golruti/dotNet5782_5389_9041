@@ -36,7 +36,7 @@ namespace PL
         private void ShowAddBaseStationWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStation(baseStationListViewModel.Bl, baseStationListViewModel.RefreshStationsList);
+            tabItem.Content = new BaseStation(baseStationListViewModel.Bl);
             tabItem.Header = "Add base station";
             baseStationListViewModel.AddTab(tabItem);
         }
@@ -50,7 +50,7 @@ namespace PL
         {
             var selectedBaseStation = BaseStationListView.SelectedItem as PO.BaseStationForList;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStation(baseStationListViewModel.Bl, baseStationListViewModel.AddTab,PO.ConvertFunctions.POStationToBO( selectedBaseStation), baseStationListViewModel.RefreshStationsList);
+            tabItem.Content = new BaseStation(baseStationListViewModel.Bl, baseStationListViewModel.AddTab,PO.ConvertFunctions.POStationToBO( selectedBaseStation)/*, baseStationListViewModel.RefreshStationsList*/);
             tabItem.Header = "Update base station";
             tabItem.Visibility = Visibility.Visible;
             baseStationListViewModel.AddTab(tabItem);
@@ -77,11 +77,11 @@ namespace PL
 
         private void Available_Checked(object sender, RoutedEventArgs e)
         {
-            baseStationListViewModel.RefreshStationsList(station => station.AvailableChargingPorts > 0);
+            //baseStationListViewModel.RefreshStationsList(station => station.AvailableChargingPorts > 0);
         }
         private void Available_Unchecked(object sender, RoutedEventArgs e)
         {
-            baseStationListViewModel.RefreshStationsList();
+            //baseStationListViewModel.RefreshStationsList();
         }
     }
 }

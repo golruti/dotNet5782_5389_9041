@@ -41,7 +41,7 @@ namespace PL
             var selectedCustomer = CustomersListViewXaml.SelectedItem as PO.CustomerForList;
             
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(PO.ConvertFunctions.POCustomerForListToBO( selectedCustomer), customerListViewModel.Bl, customerListViewModel.RefreshCustomerList, customerListViewModel.AddTab);
+            tabItem.Content = new Customer(PO.ConvertFunctions.POCustomerForListToBO( selectedCustomer), customerListViewModel.Bl/*, customerListViewModel.RefreshCustomerList*/, customerListViewModel.AddTab);
             tabItem.Header = "Update customer";
             tabItem.Visibility = Visibility.Visible;
             customerListViewModel.AddTab(tabItem);
@@ -50,7 +50,7 @@ namespace PL
         private void add_customer_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(customerListViewModel.Bl, customerListViewModel.RefreshCustomerList);
+            tabItem.Content = new Customer(customerListViewModel.Bl/*, customerListViewModel.RefreshCustomerList*/);
             tabItem.Header = "Add customer";
             customerListViewModel.AddTab(tabItem);
         }

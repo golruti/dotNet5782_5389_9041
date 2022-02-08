@@ -42,5 +42,24 @@ namespace BL
             return droneInChargings;
         }
 
+
+        public IEnumerable<DroneInCharging> GetDronesInCharging()
+        {
+            IEnumerable<DO.DroneCharge> list = dal.GetDronesCharges();
+            if (list.Count() == 0)
+                return Enumerable.Empty<DroneInCharging>();
+            List<DroneInCharging> droneInChargings = new();
+            DroneForList droneToList;
+            foreach (var drone in list)
+            {
+                droneToList = drones.FirstOrDefault(d => (d.Id == drone.DroneId));
+                if (droneToList != default(DroneForList))
+                {
+                    droneInChargings.Add(new DroneInCharging() { Id = drone.DroneId, Battery = droneToList.Battery });
+                }
+            }
+            return droneInChargings;
+
+        }
     }
 }

@@ -19,14 +19,14 @@ namespace PL.ViewModel
             this.Bl = bl;
             this.AddTab = addTab;
             this.RemoveTab = removeTab;
-            CustomersForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOCustomerForListToPO(bl.GetCustomerForList()));
+            CustomersForList = new ListCollectionView(PO.ListsModel.customers);
         }
 
-        public void RefreshCustomerList()
-        {
-            CustomersForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()));
-            //CustomersForList.Refresh();
-        }
+        //public void RefreshCustomerList()
+        //{
+        //    CustomersForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()));
+        //    //CustomersForList.Refresh();
+        //}
 
 
         public BlApi.IBL Bl { get; private set; }

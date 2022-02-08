@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PL.ViewModel;
 
+
 namespace PL
 {
     /// <summary>
@@ -26,18 +27,18 @@ namespace PL
     {
         BaseStationViewModel baseStationViewModel;
 
-        public BaseStation(BlApi.IBL bl, Action refreshBaseStationList)
+        public BaseStation(BlApi.IBL bl/*, Action refreshBaseStationList*/)
         {
             InitializeComponent();
-            baseStationViewModel = new BaseStationViewModel(bl, refreshBaseStationList);
+            //baseStationViewModel = new BaseStationViewModel(bl, refreshBaseStationList);
             this.DataContext = baseStationViewModel;
             Add_grid.Visibility = Visibility.Visible;
         }
 
-        public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList)
+        public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList/*, Action refreshBaseStationList*/)
         {
             InitializeComponent();
-            baseStationViewModel = new BaseStationViewModel(bl, addTab, baseStationForList, refreshBaseStationList);
+            baseStationViewModel = new BaseStationViewModel(bl, addTab, baseStationForList/*, refreshBaseStationList*/);
             this.DataContext = baseStationViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
@@ -108,7 +109,7 @@ namespace PL
 
             var drone = baseStationViewModel.Bl.GetBLDrone(selectedDrone.Id);
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(drone, baseStationViewModel.Bl, baseStationViewModel.DronesList.RefreshDroneList);
+            tabItem.Content = new Drone(drone, baseStationViewModel.Bl/*, baseStationViewModel.DronesList.RefreshDroneList*/);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             baseStationViewModel.AddTab(tabItem);
@@ -127,7 +128,8 @@ namespace PL
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
 
-            baseStationViewModel.RefreshStationsList();
+            PO.ListsModel.RefreshStations();
+           // baseStationViewModel.RefreshStationsList();
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)

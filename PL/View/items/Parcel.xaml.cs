@@ -26,20 +26,20 @@ namespace PL
         ParcelViewModel parcelViewModel;
         
         static int idParcel { get; set; } = 10;
-        public Parcel(BlApi.IBL bl, Action refreshParcelsList)
+        public Parcel(BlApi.IBL bl/*, Action refreshParcelsList*/)
         {
             InitializeComponent();
-            parcelViewModel = new ParcelViewModel(bl, refreshParcelsList);
+            parcelViewModel = new ParcelViewModel(bl/*, refreshParcelsList*/);
             this.DataContext = parcelViewModel;
             Add_grid.Visibility = Visibility.Visible;
            
         }
 
         
-        public Parcel(int parcelInListId, BlApi.IBL bl, Action refreshParcelsList, Action<TabItem> addTab)
+        public Parcel(int parcelInListId, BlApi.IBL bl/*, Action refreshParcelsList*/, Action<TabItem> addTab)
         {
             InitializeComponent();
-            parcelViewModel = new ParcelViewModel(parcelInListId, bl, refreshParcelsList,addTab);
+            parcelViewModel = new ParcelViewModel(parcelInListId, bl, /*refreshParcelsList,*/addTab);
             this.DataContext = parcelViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
@@ -162,7 +162,7 @@ namespace PL
         {
             TabItem tabItem = new TabItem();
             tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id)),
-                this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList, parcelViewModel.AddTab);
+                this.parcelViewModel.Bl/*,  PO.ListsModel.RefreshParcels*/, parcelViewModel.AddTab);
             tabItem.Header = "update Sender Customer";
             tabItem.Visibility = Visibility.Visible;
             parcelViewModel.AddTab(tabItem);
@@ -173,7 +173,7 @@ namespace PL
         {
             TabItem tabItem = new TabItem();
             tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id)),
-                this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList, parcelViewModel.AddTab);
+                this.parcelViewModel.Bl,/* PO.ListsModel.RefreshParcels,*/ parcelViewModel.AddTab);
             tabItem.Header = "update Receives Customer";
             tabItem.Visibility = Visibility.Visible;
             this.parcelViewModel.AddTab(tabItem);
@@ -182,7 +182,7 @@ namespace PL
         private void Drone(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(parcelViewModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id), this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList);
+            tabItem.Content = new Drone(parcelViewModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id), this.parcelViewModel.Bl/*, PO.ListsModel.RefreshParcels*/);
             tabItem.Header = "update  drone";
             tabItem.Visibility = Visibility.Visible;
             this.parcelViewModel.AddTab(tabItem);

@@ -10,7 +10,7 @@ namespace PL.ViewModel
     public class ParcelViewModel : INotifyPropertyChanged
     {
         public BlApi.IBL Bl { get; private set; }
-        public Action RefreshParcelList { get; private set; }
+        //public Action RefreshParcelList { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
         public Action<TabItem> CloseTab { get; private set; }
         public IEnumerable<int> CustomersIds { get; set; }
@@ -34,16 +34,16 @@ namespace PL.ViewModel
 
 
 
-        public ParcelViewModel(int parcelInListId, BlApi.IBL bl, Action refreshParcelList, Action<TabItem> addTab)
-            : this(bl, refreshParcelList)
+        public ParcelViewModel(int parcelInListId, BlApi.IBL bl/*, Action refreshParcelList*/, Action<TabItem> addTab)
+            : this(bl/*, refreshParcelList*/)
         {
             this.ParcelInList = ConvertFunctions.BOParcelToPO(bl.GetBLParcel(parcelInListId));
             this.AddTab = addTab;
         }
-        public ParcelViewModel(BlApi.IBL bl, Action refreshParcelList)
+        public ParcelViewModel(BlApi.IBL bl/*, Action refreshParcelList*/)
         {
             this.Bl = bl;
-            this.RefreshParcelList = refreshParcelList;
+           // this.RefreshParcelList = refreshParcelList;
             this.ParcelInList = new PO.Parcel();
             this.CustomersIds = bl.GetCustomerForList().Select(c => c.Id);
             Weights = (IEnumerable<Enums.WeightCategories>)Enum.GetValues(typeof(Enums.WeightCategories));
@@ -53,7 +53,7 @@ namespace PL.ViewModel
         public void RefreshParcelInList()
         {
             ParcelInList = ConvertFunctions.BOParcelToPO(Bl.GetBLParcel(parcelInList.Id));
-            RefreshParcelList();
+            PO.ListsModel.RefreshParcels();
         }
     }
 }

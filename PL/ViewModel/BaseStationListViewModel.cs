@@ -17,6 +17,8 @@ namespace PL.ViewModel
         public BlApi.IBL Bl { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
+
+
         private ListCollectionView baseStationsList;
         public ListCollectionView BaseStationsList
         {
@@ -33,18 +35,20 @@ namespace PL.ViewModel
         {
             Bl = bl;
             AddTab = addTab;
-            baseStationsList = new ListCollectionView((System.Collections.IList)PO.ConvertFunctions.BOBaseStationForListToPO( bl.GetBaseStationForList()));
+            baseStationsList = new ListCollectionView(ListsModel.stations);
+
+            //baseStationsList = new ListCollectionView((System.Collections.IList)PO.ConvertFunctions.BOBaseStationForListToPO( bl.GetBaseStationForList()));
         }
 
-        public void RefreshStationsList(Predicate<BaseStationForList> predicate)
-        {
-            BaseStationsList = (new ListCollectionView((System.Collections.IList)ConvertFunctions.BOBaseStationForListToPO(Bl.GetAvaBaseStationForList())));
-        }
+        //public void RefreshStationsList(Predicate<BaseStationForList> predicate)
+        //{
+        //    BaseStationsList = (new ListCollectionView((System.Collections.IList)ConvertFunctions.BOBaseStationForListToPO(Bl.GetAvaBaseStationForList())));
+        //}
 
-        public void RefreshStationsList()
-        {          
-            BaseStationsList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOBaseStationForListToPO(Bl.GetBaseStationForList()));           
-        }
+        //public void RefreshStationsList()
+        //{          
+        //    BaseStationsList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOBaseStationForListToPO(Bl.GetBaseStationForList()));           
+        //}
     }
 }
 

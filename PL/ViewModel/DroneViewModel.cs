@@ -12,7 +12,7 @@ namespace PL.ViewModel
     public class DroneViewModel : INotifyPropertyChanged
     {
         public BlApi.IBL Bl { get; private set; }
-        public Action RefreshDronesList { get; private set; }
+       // public Action RefreshDronesList { get; private set; }
         public Action<TabItem> AddTab { get; private set; }
         public Action<TabItem> CloseTab { get; private set; }
         public Random Rand { get; private set; }
@@ -46,10 +46,10 @@ namespace PL.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public DroneViewModel(BlApi.IBL bl, Action refreshDronesList)
+        public DroneViewModel(BlApi.IBL bl/*, Action refreshDronesList*/)
         {
             this.Bl = bl;
-            this.RefreshDronesList = refreshDronesList;
+            //this.RefreshDronesList = refreshDronesList;
             this.DroneInList = new PO.Drone();
             this.SourceDroneInList = new PO.Drone();
             this.Rand = new Random();
@@ -58,10 +58,10 @@ namespace PL.ViewModel
             DroneWeights = (IEnumerable<Enums.WeightCategories>)Enum.GetValues(typeof(Enums.WeightCategories));
         }
 
-        public DroneViewModel(BO.DroneForList droneInList, BlApi.IBL bl, Action refreshDronesList)
+        public DroneViewModel(BO.DroneForList droneInList, BlApi.IBL bl/*, Action refreshDronesList*/)
         {
             this.Bl = bl;
-            this.RefreshDronesList = refreshDronesList;
+           // this.RefreshDronesList = refreshDronesList;
             this.DroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
             this.SourceDroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
             this.Rand = new Random();
@@ -71,10 +71,10 @@ namespace PL.ViewModel
                 this.parcelsByDrone = ConvertFunctions.BOParcelByTransferToPO(tempDrone.Delivery);
         }
 
-        public DroneViewModel(BO.Drone droneInList, BlApi.IBL bl, Action refreshDronesList)
+        public DroneViewModel(BO.Drone droneInList, BlApi.IBL bl/*, Action refreshDronesList*/)
         {
             this.Bl = bl;
-            this.RefreshDronesList = refreshDronesList;
+            //this.RefreshDronesList = refreshDronesList;
             this.DroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
             this.SourceDroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
             this.Rand = new Random();
@@ -90,7 +90,8 @@ namespace PL.ViewModel
             if (blDrones.Count() != 0)
             {
                 DroneInList = PO.ConvertFunctions.BODroneToPO(Bl.GetBLDrone(droneInList.Id));
-                RefreshDronesList();
+                PO.ListsModel.RefreshDrones();
+                //RefreshDronesList();
             }
         }
     }

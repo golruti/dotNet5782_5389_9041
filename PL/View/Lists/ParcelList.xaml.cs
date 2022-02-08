@@ -48,7 +48,8 @@ namespace PL
         /// </summary>
         private void RefreshParcelList()
         {
-            parcelListViewModel.RefreshParcelList();
+           // parcelListViewModel.RefreshParcelList();
+            PO.ListsModel.RefreshParcels();
             RefreshFilter();
         }
 
@@ -100,7 +101,7 @@ namespace PL
         private void ShowAddParcelWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(parcelListViewModel.Bl, RefreshParcelList);
+            tabItem.Content = new Parcel(parcelListViewModel.Bl/*, RefreshParcelList*/);
             tabItem.Header = "Add parcel";
             this.parcelListViewModel.AddTab(tabItem);
         }
@@ -114,7 +115,7 @@ namespace PL
         {
             var selectedParcel = ParcelesListView.SelectedItem as PO.ParcelForList;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedParcel.Id, this.parcelListViewModel.Bl, RefreshParcelList, parcelListViewModel.AddTab);
+            tabItem.Content = new Parcel(selectedParcel.Id, this.parcelListViewModel.Bl, /*RefreshParcelList,*/ parcelListViewModel.AddTab);
             tabItem.Header = "Update Parcel";
             tabItem.Visibility = Visibility.Visible;
             this.parcelListViewModel.AddTab(tabItem);

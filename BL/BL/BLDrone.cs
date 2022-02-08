@@ -606,7 +606,7 @@ namespace BL
                     throw new KeyNotFoundException("Drone battery -BL-" + ex.Message);
                 }
 
-                return rand.Next((int)(minDroneTarget + minTargetBaseStation), 101);
+                return rand.Next((int)(minDroneTarget + minTargetBaseStation), 100);
             }
             else if (drone.Status == Enums.DroneStatuses.Maintenance)
             {

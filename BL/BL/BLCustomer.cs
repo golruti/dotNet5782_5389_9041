@@ -39,6 +39,7 @@ namespace BL
             try
             {
                 dal.DeleteCustomer(customerId);
+               
             }
             catch (KeyNotFoundException ex)
             {

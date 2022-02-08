@@ -12,19 +12,12 @@ namespace PL.ViewModel
 {
     public class DroneInChargeListViewModel : INotifyPropertyChanged
     {
-        public DroneInChargeListViewModel(BlApi.IBL bl, Action<TabItem> addTab, int stationId)
-        {
-            this.Bl = bl;
-            this.AddTab = addTab;
-            DronesInChargeList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BODroneInChargingTOPO(bl.GetDronesInCharging(stationId)));
-            this.stationId = stationId;
-        }
+      
 
-
-        public void RefreshDronesinChargeList()
-        {
-            DronesInChargeList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging(stationId)));
-        }
+        //public void RefreshDronesinChargeList()
+        //{
+        //    DronesInChargeList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging(stationId)));
+        //}
 
 
         public BlApi.IBL Bl { get; private set; }
@@ -41,5 +34,15 @@ namespace PL.ViewModel
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
+
+
+        public DroneInChargeListViewModel(BlApi.IBL bl, Action<TabItem> addTab, int stationId)
+        {
+            this.Bl = bl;
+            this.AddTab = addTab;
+            DronesInChargeList = new ListCollectionView(PO.ListsModel.dronesCharging);
+            this.stationId = stationId;
+        }
+
     }
 }

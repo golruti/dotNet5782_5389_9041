@@ -24,18 +24,18 @@ namespace PL
     {
         CustomerViewModel customerViewModel;
 
-        public Customer(BlApi.IBL bl, Action refreshCustomersList)
+        public Customer(BlApi.IBL bl/*, Action refreshCustomersList*/)
         {
             InitializeComponent();
-            customerViewModel = new CustomerViewModel(bl, refreshCustomersList);
+            customerViewModel = new CustomerViewModel(bl/*, refreshCustomersList*/);
             this.DataContext = customerViewModel;
             Add_grid.Visibility = Visibility.Visible;
         }
          
-        public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList, Action<TabItem> addTab)
+        public Customer(CustomerForList customerInList, BlApi.IBL bl/*, Action refreshCustomersList*/, Action<TabItem> addTab)
         {
             InitializeComponent();
-            customerViewModel = new CustomerViewModel( customerInList, bl, refreshCustomersList,addTab);
+            customerViewModel = new CustomerViewModel( customerInList, bl/*, refreshCustomersList,addTab*/, addTab);
             this.DataContext = customerViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
@@ -52,7 +52,8 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            customerViewModel.RefreshCustomersList();
+            PO.ListsModel.RefreshCustomers();
+            //customerViewModel.RefreshCustomersList();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -157,7 +158,7 @@ namespace PL
         {
             var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelToCustomer;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedCustomer.Id, customerViewModel.Bl, customerViewModel.RefreshCustomersList, customerViewModel.AddTab);
+            tabItem.Content = new Parcel(selectedCustomer.Id, customerViewModel.Bl/*, customerViewModel.RefreshCustomersList*/, customerViewModel.AddTab);
             tabItem.Header = "Update parcel";
             tabItem.Visibility = Visibility.Visible;
             customerViewModel.AddTab(tabItem);

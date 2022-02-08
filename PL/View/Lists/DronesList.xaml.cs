@@ -69,7 +69,8 @@ namespace PL
         /// </summary>
         private void RefreshDroneList()
         {
-            droneListViewModel.RefreshDroneList();
+            //droneListViewModel.RefreshDroneList();
+            PO.ListsModel.RefreshDrones();
             RefreshFilter();
         }
 
@@ -106,7 +107,7 @@ namespace PL
         private void ShowAddDroneWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(droneListViewModel.Bl, RefreshDroneList);
+            tabItem.Content = new Drone(droneListViewModel.Bl/*, RefreshDroneList*/);
             tabItem.Header = "Add drone";
             droneListViewModel.AddTab(tabItem);
         }
@@ -121,7 +122,7 @@ namespace PL
             var selectedDrone = DronesListView.SelectedItem as PO.DroneForList;
 
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(ConvertFunctions.PODroneForListToBO(selectedDrone), droneListViewModel.Bl, RefreshDroneList);
+            tabItem.Content = new Drone(ConvertFunctions.PODroneForListToBO(selectedDrone), droneListViewModel.Bl/*, RefreshDroneList*/);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             this.droneListViewModel.AddTab(tabItem);
