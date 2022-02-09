@@ -8,7 +8,9 @@ namespace DO
 {
     public struct Employee
     {
+        #region properties
         public int Password { get; set; }
         public string Username { get; set; }
+        #endregion
     }
 }

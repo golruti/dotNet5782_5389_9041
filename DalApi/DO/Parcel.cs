@@ -14,11 +14,11 @@ namespace DO
     /// </summary>
     public struct Parcel
     {
+        #region properties
         public bool IsDeleted { get; set; }
         public int Id { get; set; }
         public int SenderId { get; set; }
         public int TargetId { get; set; }
-        //לעשות ערך של -1
         public int Droneld { get; set; } 
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
@@ -26,18 +26,16 @@ namespace DO
         public DateTime? Scheduled { get; set; }
         public DateTime? PickedUp { get; set; }
         public DateTime? Delivered { get; set; }
+        #endregion
 
-
-        /// <summary>
-        /// String of details for parsel
-        /// </summary>
-        /// <returns>String of details for parsel</returns>
+        #region ToString
         public override string ToString()
         {
             return ("\nid: " + Id + "\nSenderId: " + SenderId + "\nTargetId: " + TargetId +
                 "\nWeight: " + Weight + "\nRequested: " + Requested + "\nDroneld: " + Droneld
                 + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n");
         }
+        #endregion
     }
 }
 

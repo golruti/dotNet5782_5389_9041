@@ -71,8 +71,6 @@ namespace PL
                     Name = Name.Text
                 }); ;
 
-                //int.Parse(Id.Text), Name.Text, double.Parse(longitude.Text), double.Parse(latitude.Text), int.Parse(Num_of_charging_positions.Text)));
-
                 if (MessageBox.Show("the station was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     Close_Page(sender, e);

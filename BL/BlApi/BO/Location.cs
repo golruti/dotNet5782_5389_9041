@@ -8,12 +8,16 @@ namespace BO
 {
     public class Location
     {
+        #region properties
         public double Longitude { get; set; }
         public double Latitude { get; set; }
+        #endregion
 
+        #region ToString
         public override string ToString()
         {
             return $"{Longitude} , {Latitude}";
         }
+        #endregion
     }
 }

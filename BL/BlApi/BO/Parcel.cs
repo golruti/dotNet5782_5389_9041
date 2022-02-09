@@ -10,6 +10,7 @@ namespace BO
 {
     public class Parcel
     {
+        #region properties
         public int Id { get; set; }
         public CustomerDelivery CustomerSender { get; set; }
         public CustomerDelivery CustomerReceives { get; set; }
@@ -20,19 +21,16 @@ namespace BO
         public DateTime? Scheduled { get; set; } = null;
         public DateTime? PickedUp { get; set; } = null;
         public DateTime? Delivered { get; set; } = null;
+        #endregion
 
-
-
-        /// <summary>
-        /// String of details for parsel
-        /// </summary>
-        /// <returns>String of details for parsel</returns>
+        #region ToString 
         public override string ToString()
         {
             return ("------\nid: " + Id +
                 "\nWeight: " + Weight + "\nPriority: " + Priority + "\nRequested: " + Requested + "\nDroneld: "
                 + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n------\n");
         }
+        #endregion
     }
 }
 

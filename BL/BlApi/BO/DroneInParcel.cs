@@ -8,8 +8,10 @@ namespace BO
 {
     public class DroneInParcel
     {
+        #region properties
         public int Id { get; set; }
         public double Battery { get; set; }
         public Location Location { get; set; }
+        #endregion
     }
 }

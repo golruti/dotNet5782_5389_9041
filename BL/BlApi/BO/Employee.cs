@@ -8,7 +8,9 @@ namespace BO
 {
     public class Employee
     {
+        #region properties
         public int Password { get; set; }
         public string Username { get; set; }
+        #endregion
     }
 }

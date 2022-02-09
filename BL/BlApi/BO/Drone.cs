@@ -1,5 +1,4 @@
-﻿//using BL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +9,7 @@ namespace BO
 {
     public class Drone
     {
+        #region properties
         public int Id { get; set; }
         public string Model { get; set; }
         public WeightCategories MaxWeight { get; set; }
@@ -17,11 +17,14 @@ namespace BO
         public double Battery { get; set; }
         public Location Location { get; set; }
         public ParcelByTransfer Delivery { get; set; }
+        #endregion
 
+        #region ToString
         public override string ToString()
         {
             return $"------\nDrone {Id} : {Model}\n{Status}\n{MaxWeight}\nlocation = {Location.Latitude},{Location.Latitude}/nbattery = {(int)(Battery)}%\n------\n ";
         }
+        #endregion
     }
 }
 
