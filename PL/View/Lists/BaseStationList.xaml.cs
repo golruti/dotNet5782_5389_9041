@@ -75,7 +75,6 @@ namespace PL
 
         private void Available_Checked(object sender, RoutedEventArgs e)
         {
-            //baseStationListViewModel.RefreshStationsList(station => station.AvailableChargingPorts > 0);
             baseStationListViewModel.BaseStationsList.Refresh();
         }
         private void Available_Unchecked(object sender, RoutedEventArgs e)

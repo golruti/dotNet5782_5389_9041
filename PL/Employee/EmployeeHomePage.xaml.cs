@@ -40,7 +40,7 @@ namespace PL
         private void ShowDroneListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new DronesList(bl, addTab, RemoveTab);
+            tabItem.Content = new DronesList();
             tabItem.Header = "Drone list";
             addTab(tabItem);
         }

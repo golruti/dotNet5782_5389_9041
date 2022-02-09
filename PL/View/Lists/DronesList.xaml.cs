@@ -26,7 +26,7 @@ namespace PL
     {
         DroneListViewModel droneListViewModel;
 
-        public DronesList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
+        public DronesList()
         {
             InitializeComponent();
             droneListViewModel = new DroneListViewModel();
