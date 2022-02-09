@@ -81,23 +81,23 @@ namespace PL
             }
             catch (KeyNotFoundException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The parcel was not add, {ex.Message}");
             }
             catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The parcel was not add, {ex.Message}");
             }
             catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The parcel was not add, {ex.Message}");
             }
             catch (ArgumentNullException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The parcel was not add, {ex.Message}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The parcel was not add, {ex.Message}");
             }
         }
 
@@ -135,67 +135,87 @@ namespace PL
         }
 
 
-        private void ShowDrone_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                parcelViewModel.Bl.UpdateCharge(parcelViewModel.ParcelInList.Id);
-                (sender as Button).IsEnabled = false;
-                if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
-                {
-                    Close_Page(sender, e);
-                }
-            }
-            catch (KeyNotFoundException ex)
-            {
-                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
-            }
-            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
-            {
-                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
-            }
-            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
-            {
-                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
-            }
-            catch (ArgumentNullException ex)
-            {
-                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
-            }
-        }
+        //private void ShowDrone_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        parcelViewModel.Bl.UpdateCharge(parcelViewModel.ParcelInList.Id);
+        //        (sender as Button).IsEnabled = false;
+        //        if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+        //        {
+        //            Close_Page(sender, e);
+        //        }
+        //    }
+        //    catch (KeyNotFoundException ex)
+        //    {
+        //        MessageBox.Show($"The parcel could not be found in the database, {ex.Message}");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        MessageBox.Show($"The parcel can not be displayed");
+        //    }
+        //}
 
         private void CustomerSender(object sender, RoutedEventArgs e)
         {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id)),
-                this.parcelViewModel.Bl/*,  PO.ListsModel.RefreshParcels*/, parcelViewModel.AddTab);
-            tabItem.Header = "update Sender Customer";
-            tabItem.Visibility = Visibility.Visible;
-            parcelViewModel.AddTab(tabItem);
-
+            try
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id)),
+                    this.parcelViewModel.Bl/*,  PO.ListsModel.RefreshParcels*/, parcelViewModel.AddTab);
+                tabItem.Header = "update Sender Customer";
+                tabItem.Visibility = Visibility.Visible;
+                parcelViewModel.AddTab(tabItem);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The station could not be found in the database, {ex.Message}");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"The station can not be displayed");
+            }
         }
 
         private void CustomerReceives(object sender, RoutedEventArgs e)
         {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id)),
-                this.parcelViewModel.Bl,/* PO.ListsModel.RefreshParcels,*/ parcelViewModel.AddTab);
-            tabItem.Header = "update Receives Customer";
-            tabItem.Visibility = Visibility.Visible;
-            this.parcelViewModel.AddTab(tabItem);
+            try
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id)),
+                    this.parcelViewModel.Bl,/* PO.ListsModel.RefreshParcels,*/ parcelViewModel.AddTab);
+                tabItem.Header = "update Receives Customer";
+                tabItem.Visibility = Visibility.Visible;
+                this.parcelViewModel.AddTab(tabItem);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The station could not be found in the database, {ex.Message}");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"The station can not be displayed");
+            }
         }
 
         private void Drone(object sender, RoutedEventArgs e)
         {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(parcelViewModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id), this.parcelViewModel.Bl/*, PO.ListsModel.RefreshParcels*/);
-            tabItem.Header = "update  drone";
-            tabItem.Visibility = Visibility.Visible;
-            this.parcelViewModel.AddTab(tabItem);
+            try
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Drone(parcelViewModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id), this.parcelViewModel.Bl/*, PO.ListsModel.RefreshParcels*/);
+                tabItem.Header = "update  drone";
+                tabItem.Visibility = Visibility.Visible;
+                this.parcelViewModel.AddTab(tabItem);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The station could not be found in the database, {ex.Message}");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"The station can not be displayed");
+            }
         }
     }
 }

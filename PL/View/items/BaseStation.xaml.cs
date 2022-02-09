@@ -45,8 +45,19 @@ namespace PL
 
         private void DeleteBaseStation(object sender, RoutedEventArgs e)
         {
-            baseStationViewModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
-            if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            try
+            {
+                baseStationViewModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
+            }
+            catch (KeyNotFoundException)
+            {
+                MessageBox.Show($"The station does not exist and could not be deleted");
+            }
+            catch (Exception )
+            {
+                MessageBox.Show($"The station was not delete.");
+            }
+            if (MessageBox.Show("the station was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
             }
@@ -92,9 +103,9 @@ namespace PL
             {
                 MessageBox.Show($"The station was not add, {ex.Message}");
             }
-            catch (Exception ex)
+            catch (Exception )
             {
-                MessageBox.Show($"The station was not add, {ex.Message}");
+                MessageBox.Show($"The station was not add");
             }
         }
 
@@ -112,14 +123,23 @@ namespace PL
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            try
+            {
             var selectedDrone = DronesListView.SelectedItem as PO.DroneInCharging;
-
-            var drone = baseStationViewModel.Bl.GetBLDrone(selectedDrone.Id);
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(drone, baseStationViewModel.Bl/*, baseStationViewModel.DronesList.RefreshDroneList*/);
+            tabItem.Content = new Drone(baseStationViewModel.Bl.GetBLDrone(selectedDrone.Id), baseStationViewModel.Bl/*, baseStationViewModel.DronesList.RefreshDroneList*/);
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
             baseStationViewModel.AddTab(tabItem);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The station could not be found in the database, {ex.Message}");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"The station can not be displayed");
+            }
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
@@ -183,9 +203,9 @@ namespace PL
             {
                 MessageBox.Show($"The base station could not be updated, {ex.Message}");
             }
-            catch (Exception ex)
+            catch (Exception )
             {
-                MessageBox.Show($"The base station could not be updated, {ex.Message}");
+                MessageBox.Show($"The base station could not be updated");
             }
         }
     }
