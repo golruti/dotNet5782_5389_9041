@@ -36,13 +36,14 @@ namespace BL
             }
 
             DroneForList droneForList = new DroneForList()
-            {Id=tempDrone.Id,
-            Model=tempDrone.Model,
-            MaxWeight=tempDrone.MaxWeight,
-            Battery=tempDrone.Battery,
-            Status=tempDrone.Status,
-            Location=new Location() { Latitude= tempDrone.Location.Longitude, Longitude= tempDrone.Location.Latitude },
-            ParcelDeliveredId=-1
+            {
+                Id = tempDrone.Id,
+                Model = tempDrone.Model,
+                MaxWeight = tempDrone.MaxWeight,
+                Battery = tempDrone.Battery,
+                Status = tempDrone.Status,
+                Location = new Location() { Latitude = Math.Round(tempDrone.Location.Longitude), Longitude = Math.Round(tempDrone.Location.Latitude) },
+                ParcelDeliveredId = -1
             };
             try
             {
@@ -120,7 +121,7 @@ namespace BL
                 Status = droneToList.Status,
                 Battery = droneToList.Battery,
                 Location = droneToList.Location,
-                Delivery = (droneToList.ParcelDeliveredId != -1 ? createParcelInTransfer((int)droneToList.ParcelDeliveredId) : default)
+                Delivery = droneToList.ParcelDeliveredId != -1 ? createParcelInTransfer((int)droneToList.ParcelDeliveredId) : null
             };
         }
 
@@ -491,7 +492,7 @@ namespace BL
                     }
 
                     DO.BaseStation nearStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
-                    return new Location() { Longitude = nearStation.Longitude, Latitude = nearStation.Latitude };
+                    return new Location() { Longitude = Math.Round(nearStation.Longitude), Latitude = Math.Round(nearStation.Latitude) };
                 }
                 else if (findParcelState(drone.Id) == parcelState.collectedNotDelivered)
                 {
@@ -505,7 +506,7 @@ namespace BL
                         throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message);
                     }
                     senderCustomer = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
-                    return new Location() { Longitude = senderCustomer.Longitude, Latitude = senderCustomer.Latitude };
+                    return new Location() { Longitude = Math.Round(senderCustomer.Longitude), Latitude = Math.Round(senderCustomer.Latitude) };
                 }
             }
             else
@@ -514,7 +515,7 @@ namespace BL
                 {
                     int randNumber1 = rand.Next(dal.GetBaseStations().Count());
                     var randomBaseStation = (dal.GetBaseStations().ToList())[randNumber1];
-                    return new Location() { Longitude = randomBaseStation.Longitude, Latitude = randomBaseStation.Latitude };
+                    return new Location() { Longitude = Math.Round(randomBaseStation.Longitude), Latitude = Math.Round(randomBaseStation.Latitude) };
                 }
             }
             var x =
@@ -528,7 +529,7 @@ namespace BL
             else
             {
                 var randomCustomerProvided = x.ToList()[randNumber];
-                return new Location() { Longitude = randomCustomerProvided.Longitude, Latitude = randomCustomerProvided.Latitude };
+                return new Location() { Longitude = Math.Round(randomCustomerProvided.Longitude), Latitude = Math.Round(randomCustomerProvided.Latitude) };
             }
         }
 

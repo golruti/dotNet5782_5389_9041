@@ -20,8 +20,8 @@ namespace BL
             {
                 Id = tempBaseStation.Id,
                 Name = tempBaseStation.Name,
-                Longitude = tempBaseStation.Location.Longitude,
-                Latitude = tempBaseStation.Location.Latitude,
+                Longitude = Math.Round(tempBaseStation.Location.Longitude),
+                Latitude = Math.Round(tempBaseStation.Location.Latitude),
                 ChargeSlote = tempBaseStation.AvailableChargingPorts,
                 AvailableChargingPorts = (GetDronesInCharging(tempBaseStation.Id)).Count() + tempBaseStation.AvailableChargingPorts,
                 IsDeleted = false
@@ -191,7 +191,7 @@ namespace BL
             {
                 Id = station.Id,
                 Name = station.Name,
-                Location = new Location() { Latitude = station.Latitude, Longitude = station.Longitude },
+                Location = new Location() { Latitude = Math.Round(station.Latitude), Longitude = Math.Round(station.Longitude) },
                 AvailableChargingPorts = station.ChargeSlote - countFullChargeSlots(station.Id),
                 DronesInCharging = GetDronesInCharging(station.Id)
             };

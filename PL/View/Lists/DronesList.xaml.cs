@@ -64,15 +64,15 @@ namespace PL
             return false;
         }
 
-        /// <summary>
-        /// Updates the drone list
-        /// </summary>
-        private void RefreshDroneList()
-        {
-            //droneListViewModel.RefreshDroneList();
-            PO.ListsModel.RefreshDrones();
-            RefreshFilter();
-        }
+        ///// <summary>
+        ///// Updates the drone list
+        ///// </summary>
+        //private void RefreshDroneList()
+        //{
+        //    //droneListViewModel.RefreshDroneList();
+        //    PO.ListsModel.RefreshDrones();
+        //    RefreshFilter();
+        //}
 
 
         private void RefreshFilter()

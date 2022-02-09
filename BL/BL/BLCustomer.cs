@@ -23,8 +23,8 @@ namespace BL
                 Id = tempCustomer.Id,
                 Name = tempCustomer.Name,
                 Phone = tempCustomer.Phone,
-                Longitude = tempCustomer.Location.Longitude,
-                Latitude = tempCustomer.Location.Latitude,
+                Longitude = Math.Round(tempCustomer.Location.Longitude),
+                Latitude = Math.Round(tempCustomer.Location.Latitude),
                 IsDeleted=false
             };
 
@@ -181,7 +181,7 @@ namespace BL
             {
                 Id = customer.Id,
                 Name = customer.Name,
-                Location = new Location() { Latitude = customer.Latitude, Longitude = customer.Longitude },
+                Location = new Location() { Latitude = Math.Round(customer.Latitude), Longitude = Math.Round(customer.Longitude) },
                 Phone = customer.Phone,
                 FromCustomer = sendedList,
                 ToCustomer = targetedList,

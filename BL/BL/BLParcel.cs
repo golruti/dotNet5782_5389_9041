@@ -262,7 +262,7 @@ namespace BL
                 Id = id,
                 Weight = (Enums.WeightCategories)parcel.Weight,
                 Priority = (Enums.Priorities)parcel.Priority,
-                IsDestinationParcel = !parcel.PickedUp.GetType().Equals(null),
+                IsDestinationParcel = !parcel.PickedUp.Equals(null),
                 SenderLocation = new Location() { Longitude = sender.Longitude, Latitude = sender.Latitude },
                 TargetLocation = new Location() { Longitude = target.Longitude, Latitude = target.Latitude },
                 Distance = distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
