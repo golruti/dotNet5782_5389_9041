@@ -42,7 +42,10 @@ namespace BL
             return droneInChargings;
         }
 
-
+        /// <summary>
+        /// The function returns the list drone charges
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<DroneInCharging> GetDronesInCharging()
         {
             IEnumerable<DO.DroneCharge> list = dal.GetDronesCharges();
@@ -59,7 +62,6 @@ namespace BL
                 }
             }
             return droneInChargings;
-
         }
     }
 }

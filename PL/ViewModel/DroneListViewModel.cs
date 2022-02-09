@@ -14,26 +14,16 @@ namespace PL.ViewModel
 {
     public class DroneListViewModel : INotifyPropertyChanged
     {
-        public DroneListViewModel(BlApi.IBL bl, Action<TabItem> addTab)
+        public DroneListViewModel()
         {
-            this.Bl = bl;
-            this.AddTab = addTab;
-           // Items = new ObservableCollection<DroneForList>(ConvertFunctions.BODroneForListToPO(bl.GetDroneForList()));
             DronesList = new ListCollectionView(PO.ListsModel.drones);
             DroneWeights = Enum.GetValues(typeof(Enums.WeightCategories));
             DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses));
         }
-        //public void RefreshDroneList()
-        //{
-        //    Items.Clear();
-        //    foreach (var item in ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList()))
-        //        Items.Add(item);
-        //}
-        //public ObservableCollection<DroneForList> Items { get; set; }
+
+
         public Array DroneStatuses { get; set; }
         public Array DroneWeights { get; set; }
-        public BlApi.IBL Bl { get; private set; }
-        public Action<TabItem> AddTab { get; private set; }
         private ListCollectionView dronesList;
         public ListCollectionView DronesList
         {

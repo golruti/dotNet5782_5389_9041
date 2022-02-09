@@ -28,6 +28,7 @@ namespace PL
         {
             bl = BlApi.BlFactory.GetBl();
             InitializeComponent();
+            Tabs.SetAddTab(AddTab);
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace PL
         private void showCustomerOfCompanyWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerEntrance(bl, AddTab,RemoveTab);
+            tabItem.Content = new CustomerEntrance();
             tabItem.Header = "Customer of company";
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);

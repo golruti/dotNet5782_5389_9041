@@ -27,18 +27,18 @@ namespace PL
     {
         BaseStationViewModel baseStationViewModel;
 
-        public BaseStation(BlApi.IBL bl/*, Action refreshBaseStationList*/)
+        public BaseStation()
         {
             InitializeComponent();
-            baseStationViewModel = new BaseStationViewModel(bl/*, refreshBaseStationList*/);
+            baseStationViewModel = new BaseStationViewModel();
             this.DataContext = baseStationViewModel;
             Add_grid.Visibility = Visibility.Visible;
         }
 
-        public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList/*, Action refreshBaseStationList*/)
+        public BaseStation( BaseStationForList baseStationForList)
         {
             InitializeComponent();
-            baseStationViewModel = new BaseStationViewModel(bl, addTab, baseStationForList/*, refreshBaseStationList*/);
+            baseStationViewModel = new BaseStationViewModel( baseStationForList);
             this.DataContext = baseStationViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
@@ -47,7 +47,7 @@ namespace PL
         {
             try
             {
-                baseStationViewModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
+                PO.ListsModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
             }
             catch (KeyNotFoundException)
             {
@@ -73,7 +73,7 @@ namespace PL
 
             try
             {
-                baseStationViewModel.Bl.AddBaseStation(new BO.BaseStation()
+                PO.ListsModel.Bl.AddBaseStation(new BO.BaseStation()
                 {
                     Id = int.Parse(Id.Text),
                     AvailableChargingPorts = int.Parse(Num_of_charging_positions.Text),
@@ -127,10 +127,10 @@ namespace PL
             {
             var selectedDrone = DronesListView.SelectedItem as PO.DroneInCharging;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(baseStationViewModel.Bl.GetBLDrone(selectedDrone.Id), baseStationViewModel.Bl/*, baseStationViewModel.DronesList.RefreshDroneList*/);
+            tabItem.Content = new Drone(PO.ListsModel.Bl.GetBLDrone(selectedDrone.Id));
             tabItem.Header = "Update drone";
             tabItem.Visibility = Visibility.Visible;
-            baseStationViewModel.AddTab(tabItem);
+            Tabs.AddTab(tabItem);
             }
             catch (KeyNotFoundException ex)
             {
@@ -165,17 +165,17 @@ namespace PL
             {
                 if (update_name.Text != null && update_num_of_charging_ports.Text != null)
                 {
-                    baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
+                    PO.ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
                     (sender as Button).IsEnabled = false;
                 }
                 else if (update_name.Text != null)
                 {
-                    baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, baseStationViewModel.BaseStationInList.AvailableChargingPorts);
+                    PO.ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, baseStationViewModel.BaseStationInList.AvailableChargingPorts);
                     (sender as Button).IsEnabled = false;
                 }
                 else
                 {
-                    baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, baseStationViewModel.BaseStationInList.Name, int.Parse(update_num_of_charging_ports.Text));
+                    PO.ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, baseStationViewModel.BaseStationInList.Name, int.Parse(update_num_of_charging_ports.Text));
                     (sender as Button).IsEnabled = false;
                 }
                 if (MessageBox.Show("The base station has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)

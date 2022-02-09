@@ -125,7 +125,8 @@
                     <GridViewColumn  Header="MaxWeight" DisplayMemberBinding="{Binding MaxWeight}" />
                     <GridViewColumn  Header="Battery" DisplayMemberBinding="{Binding Battery}"/>
                     <GridViewColumn  Header="Status" DisplayMemberBinding="{Binding Status}"/>
-                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}"/>
+                    <GridViewColumn Header="Location-Long" DisplayMemberBinding="{Binding Location.Longitude}"/>
+                    <GridViewColumn Header="Location-Lat" DisplayMemberBinding="{Binding Location.Latitude}"/>
                     <GridViewColumn  Header="ParcelDeliveredId" DisplayMemberBinding="{Binding ParcelDeliveredId}"/>
                 </GridView>
 

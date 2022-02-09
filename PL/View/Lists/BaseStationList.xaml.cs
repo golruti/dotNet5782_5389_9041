@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PL.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-using PL.ViewModel;
-using BO;
 
 namespace PL
 {
@@ -25,20 +13,30 @@ namespace PL
     {
         BaseStationListViewModel baseStationListViewModel;
 
-        public BaseStationList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
+        public BaseStationList()
         {
             InitializeComponent();
-            baseStationListViewModel = new BaseStationListViewModel(bl, addTab);
+            baseStationListViewModel = new BaseStationListViewModel();
             this.DataContext = baseStationListViewModel;
             baseStationListViewModel.BaseStationsList.GroupDescriptions.Add(new PropertyGroupDescription("AvailableChargingPorts"));
+            baseStationListViewModel.BaseStationsList.Filter = FilterBaseStation;
+        }
+
+        private bool FilterBaseStation(object obj)
+        {
+            if (obj is PO.BaseStationForList station)
+            {
+                return (this.Available.IsChecked ?? false) ? station.AvailableChargingPorts > 0 : true;
+            }
+            return false;
         }
 
         private void ShowAddBaseStationWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStation(baseStationListViewModel.Bl);
+            tabItem.Content = new BaseStation();
             tabItem.Header = "Add base station";
-            baseStationListViewModel.AddTab(tabItem);
+            Tabs.AddTab(tabItem);
         }
 
         /// <summary>
@@ -50,10 +48,10 @@ namespace PL
         {
             var selectedBaseStation = BaseStationListView.SelectedItem as PO.BaseStationForList;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStation(baseStationListViewModel.Bl, baseStationListViewModel.AddTab,PO.ConvertFunctions.POStationToBO( selectedBaseStation)/*, baseStationListViewModel.RefreshStationsList*/);
+            tabItem.Content = new BaseStation(PO.ConvertFunctions.POStationToBO(selectedBaseStation));
             tabItem.Header = "Update base station";
             tabItem.Visibility = Visibility.Visible;
-            baseStationListViewModel.AddTab(tabItem);
+            Tabs.AddTab(tabItem);
         }
 
         /// <summary>
@@ -78,10 +76,11 @@ namespace PL
         private void Available_Checked(object sender, RoutedEventArgs e)
         {
             //baseStationListViewModel.RefreshStationsList(station => station.AvailableChargingPorts > 0);
+            baseStationListViewModel.BaseStationsList.Refresh();
         }
         private void Available_Unchecked(object sender, RoutedEventArgs e)
         {
-            //baseStationListViewModel.RefreshStationsList();
+            baseStationListViewModel.BaseStationsList.Refresh();
         }
     }
 }

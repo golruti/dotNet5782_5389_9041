@@ -41,7 +41,7 @@ namespace DAL
             if (station.Equals(default(BaseStation)))
                 throw new KeyNotFoundException("Get station -DAL-: There is no suitable station in data");
 
-            DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
+            DroneCharge droneCharge = new DroneCharge() { DroneId = droneId, StationId = station.Id, Time = DateTime.Now, IsDeleted = false };
             AddDroneCharge(droneCharge);
         }
 
