@@ -46,6 +46,9 @@ namespace BL
         /// <param name="station"></param>
         public void deleteBLParcel(int parcelId)
         {
+            var parcel = GetBLParcel(parcelId);
+            if (parcel.Scheduled != null)
+                throw new TheParcelIsAssociatedAndCannotBeDeleted();
             try
             {
                 dal.DeleteParcel(parcelId);

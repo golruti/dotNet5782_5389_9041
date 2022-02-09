@@ -37,6 +37,23 @@ namespace BO
         }
     }
 
+
+    [Serializable]
+    
+    public class TheParcelIsAssociatedAndCannotBeDeleted : Exception
+    {
+        public TheParcelIsAssociatedAndCannotBeDeleted() : base() { }
+        public TheParcelIsAssociatedAndCannotBeDeleted(string message) : base(message) { }
+        public TheParcelIsAssociatedAndCannotBeDeleted(string message, Exception inner) : base(message, inner) { }
+        protected TheParcelIsAssociatedAndCannotBeDeleted(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
+        public override string ToString()
+        {
+            return Message + "The parcel is associated with a drone and cannot be deleted";
+        }
+    }
+
+
     public class BLConfigException : Exception
     {
         public BLConfigException(string msg) : base(msg) { }
