@@ -12,7 +12,7 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (values != null)
+            if (values.Count() >=1)
             {
                 if (values[0].ToString() != values[1].ToString() && string.IsNullOrEmpty(values[0].ToString()))
                 {
