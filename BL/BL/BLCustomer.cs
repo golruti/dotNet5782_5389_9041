@@ -18,20 +18,17 @@ namespace BL
         /// <param name="tempCustomer">The customer for Adding</param>
         public void AddCustomer(Customer tempCustomer)
         {
-            DO.Customer customer = new DO.Customer()
-            {
-                Id = tempCustomer.Id,
-                Name = tempCustomer.Name,
-                Phone = tempCustomer.Phone,
-                Longitude = Math.Round(tempCustomer.Location.Longitude),
-                Latitude = Math.Round(tempCustomer.Location.Latitude),
-                IsDeleted=false
-            };
-
-            //(tempCustomer.Id, tempCustomer.Name, tempCustomer.Phone, tempCustomer.Location.Longitude, tempCustomer.Location.Latitude);
             try
             {
-                dal.AddCustomer(customer);
+                dal.AddCustomer(new DO.Customer()
+                {
+                    Id = tempCustomer.Id,
+                    Name = tempCustomer.Name,
+                    Phone = tempCustomer.Phone,
+                    Longitude = Math.Round(tempCustomer.Location.Longitude),
+                    Latitude = Math.Round(tempCustomer.Location.Latitude),
+                    IsDeleted = false
+                });
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -91,8 +88,8 @@ namespace BL
                 Phone = phone,
                 Longitude = tempCustomer.Longitude,
                 Latitude = tempCustomer.Latitude,
-                IsDeleted=false
-            }; 
+                IsDeleted = false
+            };
             try
             {
                 dal.AddCustomer(customer);
@@ -145,6 +142,8 @@ namespace BL
                                         .Count(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(null) && !parcel.PickedUp.Equals(null))
                 });
             }
+            if (CustomerForList.Count() == 0)
+                return Enumerable.Empty<CustomerForList>();
             return CustomerForList;
         }
 
@@ -176,7 +175,6 @@ namespace BL
             sendedList = dal.GetParcels().Where(p => p.SenderId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
             targetedList = dal.GetParcels().Where(p => p.TargetId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
 
-
             return new Customer()
             {
                 Id = customer.Id,
@@ -189,25 +187,24 @@ namespace BL
         }
 
 
+        /// <summary>
+        /// Convert a DAL ParcelToCustomer to BL ParcelToCustomer
+        /// </summary>
+        /// <param name="parcel"></param>
+        /// <returns>The converted ParcelToCustomer</returns>
         private ParcelToCustomer mapParcelToParcelToCustomer(DO.Parcel parcel)
         {
             ParcelToCustomer newParcel = new ParcelToCustomer();
             newParcel.Id = parcel.Id;
             newParcel.Weight = (WeightCategories)parcel.Weight;
             newParcel.Priority = (Priorities)parcel.Priority;
-            CustomerDelivery target = null;
-            CustomerDelivery sender = null;
+            newParcel.Status = getParcelStatus(parcel);
 
-            try
-            {
-                newParcel.Status = (Enums.ParcelStatuses)getParcelStatus(parcel);
-                target = mapCustomerInParcel(dal.GetCustomer(parcel.TargetId));
-                sender = mapCustomerInParcel(dal.GetCustomer(parcel.SenderId)); ;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            CustomerDelivery target = mapCustomerInParcel(dal.GetCustomer(parcel.TargetId));
+            CustomerDelivery sender = mapCustomerInParcel(dal.GetCustomer(parcel.SenderId)); ;
+
+            if (target == null || sender == null)
+                throw new KeyNotFoundException("parcel to customer, not found customer customer -BL-");
 
             if (parcel.Delivered == null)
             {

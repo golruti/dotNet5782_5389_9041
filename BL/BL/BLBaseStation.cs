@@ -16,20 +16,18 @@ namespace BL
         /// <param name="tempBaseStation">The station for Adding</param>
         public void AddBaseStation(BaseStation tempBaseStation)
         {
-            DO.BaseStation baseStation = new DO.BaseStation()
-            {
-                Id = tempBaseStation.Id,
-                Name = tempBaseStation.Name,
-                Longitude = Math.Round(tempBaseStation.Location.Longitude),
-                Latitude = Math.Round(tempBaseStation.Location.Latitude),
-                ChargeSlote = tempBaseStation.AvailableChargingPorts,
-                AvailableChargingPorts = (GetDronesInCharging(tempBaseStation.Id)).Count() + tempBaseStation.AvailableChargingPorts,
-                IsDeleted = false
-            };
-
             try
             {
-                dal.AddBaseStation(baseStation);
+                dal.AddBaseStation(new DO.BaseStation()
+                {
+                    Id = tempBaseStation.Id,
+                    Name = tempBaseStation.Name,
+                    Longitude = Math.Round(tempBaseStation.Location.Longitude),
+                    Latitude = Math.Round(tempBaseStation.Location.Latitude),
+                    ChargeSlote = tempBaseStation.AvailableChargingPorts,
+                    AvailableChargingPorts = (GetDronesInCharging(tempBaseStation.Id)).Count() + tempBaseStation.AvailableChargingPorts,
+                    IsDeleted = false
+                });
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -94,7 +92,7 @@ namespace BL
                 Longitude = tempBaseStation.Longitude,
                 Latitude = tempBaseStation.Latitude,
                 ChargeSlote = chargeSlote,
-                AvailableChargingPorts = (GetDronesInCharging(tempBaseStation.Id)).Count() + tempBaseStation.AvailableChargingPorts,
+                AvailableChargingPorts = GetDronesInCharging(tempBaseStation.Id).Count() + tempBaseStation.AvailableChargingPorts,
                 IsDeleted = false
             };
             try
@@ -127,7 +125,7 @@ namespace BL
 
         //---------------------------------------------Show list ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// The function returns the base station list from DAL to the BaseStationForList list
+        /// The function returns the base station list from DAL converts it to BL base station list
         /// </summary>
         /// <returns> The list of BaseStationForList stations </returns>
         public IEnumerable<BaseStationForList> GetBaseStationForList()
@@ -143,6 +141,8 @@ namespace BL
                     UsedChargingPorts = countFullChargeSlots(baseStation.Id)
                 });
             }
+            if (BaseStationsForList.Count() == 0)
+                return Enumerable.Empty<BaseStationForList>();
             return BaseStationsForList;
         }
 
@@ -156,6 +156,7 @@ namespace BL
         {
             return GetBaseStationForList().Where(station => predicate(station));
         }
+
 
         /// <summary>
         /// Returns the stations with with free charging stations
@@ -175,6 +176,8 @@ namespace BL
                     UsedChargingPorts = countFullChargeSlots(baseStation.Id)
                 });
             }
+            if (BaseStationsForList.Count() == 0)
+                return Enumerable.Empty<BaseStationForList>();
             return BaseStationsForList;
         }
 
@@ -207,6 +210,7 @@ namespace BL
             IEnumerable<DO.DroneCharge> droneCharges = dal.GetDronesCharges(droneCharge => droneCharge.StationId == stationId);
             return droneCharges.Count();
         }
+
         /// <summary>
         /// The function returns a single ID of a lottery station from among the existing stations
         /// </summary>

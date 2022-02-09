@@ -90,15 +90,17 @@
                     </Button.IsEnabled>
                 </Button>
             </StackPanel>
-            <Label Content="Parcel by transfer:
+          
+            <Grid x:Name="parcelByDrone" MouseDown="parcelByDrone_MouseDoubleClick">
+                <Label Content="Parcel by transfer:
                    " Margin="151,269,412,177"/>
-            <Label Content="ID:" Margin="151,286,614,168" RenderTransformOrigin="0.798,0.568"/>
-            <TextBlock Text="{Binding parcelsByDrone.Id }" HorizontalAlignment="Left" Margin="186,291,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.645,0.929"/>
-            <Label Content="priority:" Margin="151,299,591,155" RenderTransformOrigin="0.798,0.568"/>
-            <TextBlock Text="{Binding parcelsByDrone.Priority}" HorizontalAlignment="Left" Margin="219,308,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.645,0.929" Height="17"/>
-            <Label Content="Weight:" Margin="151,317,591,137" RenderTransformOrigin="0.798,0.568"/>
-            <TextBlock Text="{Binding parcelsByDrone.Weight}" HorizontalAlignment="Left" Margin="209,321,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.018,0.699"/>
-
+                <Label Content="ID:" Margin="151,286,614,168" RenderTransformOrigin="0.798,0.568"/>
+                <TextBlock Text="{Binding parcelsByDrone.Id }" HorizontalAlignment="Left" Margin="186,291,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.645,0.929"/>
+                <Label Content="priority:" Margin="151,299,591,155" RenderTransformOrigin="0.798,0.568"/>
+                <TextBlock Text="{Binding parcelsByDrone.Priority}" HorizontalAlignment="Left" Margin="219,308,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.645,0.929" Height="17"/>
+                <Label Content="Weight:" Margin="151,317,591,137" RenderTransformOrigin="0.798,0.568"/>
+                <TextBlock Text="{Binding parcelsByDrone.Weight}" HorizontalAlignment="Left" Margin="209,321,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.018,0.699"/>
+            </Grid>
         </Grid>
         <Grid x:Name="Add_grid" Visibility="Collapsed" >
             <Grid Grid.Row="0"  Name="UpGrid"  Margin="176,50,176,150" Height="170" Width="252" >

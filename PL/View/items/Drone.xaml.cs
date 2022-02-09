@@ -387,14 +387,14 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        //private void parcelByDrone_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    var selectedParcel = parcelByDrone.SelectedItem as PO.ParcelByTransfer;
-        //    TabItem tabItem = new TabItem();
-        //    tabItem.Content = new Parcel(selectedParcel.Id, this.droneViewModel.Bl, /*RefreshParcelList,*/ droneViewModel.AddTab);
-        //    tabItem.Header = "Update Parcel";
-        //    tabItem.Visibility = Visibility.Visible;
-        //    this.droneViewModel.AddTab(tabItem);
-        //}
+        private void parcelByDrone_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //var selectedParcel = parcelByDrone.SelectedItem as PO.ParcelByTransfer;
+            //TabItem tabItem = new TabItem();
+            //tabItem.Content = new Parcel(selectedParcel.Id, this.droneViewModel.Bl, /*RefreshParcelList,*/ droneViewModel.AddTab);
+            //tabItem.Header = "Update Parcel";
+            //tabItem.Visibility = Visibility.Visible;
+            //this.droneViewModel.AddTab(tabItem);
+        }
     }
 }

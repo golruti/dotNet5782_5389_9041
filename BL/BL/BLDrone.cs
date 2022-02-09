@@ -12,43 +12,40 @@ namespace BL
     {
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         /// <summary>
-        /// Add a drone to the list of drones
+        /// Add a drone to the list of drones(DAL list and local list)
         /// </summary>
         /// <param name="tempDrone">The customer for Adding</param>
         public void AddDrone(Drone tempDrone)
         {
-
-            DO.Drone drone = new DO.Drone()
-            {
-                Id = tempDrone.Id,
-                MaxWeight = (DO.Enum.WeightCategories)tempDrone.MaxWeight,
-                Model = tempDrone.Model,
-                IsDeleted = false
-            };
+            //dal list
             try
             {
-                dal.AddDrone(drone);
-
+                dal.AddDrone(new DO.Drone()
+                {
+                    Id = tempDrone.Id,
+                    MaxWeight = (DO.Enum.WeightCategories)tempDrone.MaxWeight,
+                    Model = tempDrone.Model,
+                    IsDeleted = false
+                });
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
 
-            DroneForList droneForList = new DroneForList()
-            {
-                Id = tempDrone.Id,
-                Model = tempDrone.Model,
-                MaxWeight = tempDrone.MaxWeight,
-                Battery = tempDrone.Battery,
-                Status = tempDrone.Status,
-                Location = new Location() { Latitude = Math.Round(tempDrone.Location.Longitude), Longitude = Math.Round(tempDrone.Location.Latitude) },
-                ParcelDeliveredId = -1
-            };
+            //local list
             try
             {
-                drones.Add(droneForList);
-
+                drones.Add(new DroneForList()
+                {
+                    Id = tempDrone.Id,
+                    Model = tempDrone.Model,
+                    MaxWeight = tempDrone.MaxWeight,
+                    Battery = tempDrone.Battery,
+                    Status = tempDrone.Status,
+                    Location = new Location() { Latitude = Math.Round(tempDrone.Location.Longitude), Longitude = Math.Round(tempDrone.Location.Latitude) },
+                    ParcelDeliveredId = -1
+                });
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -58,11 +55,12 @@ namespace BL
 
         //---------------------------------------------Delete ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// The function gets a drone ID and tries to delete it
+        /// The function gets a drone ID and tries to delete it( from DAL list and local list)
         /// </summary>
         /// <param name="station"></param>
         public void DeleteBLDrone(int droneId)
         {
+            //DAL list
             var deleteDrone = GetBLDroneInList(droneId);
             if (deleteDrone.Equals(default(DroneForList)))
                 throw new ArgumentNullException("delete drone -BL-:There is not drone with same id i data");
@@ -74,6 +72,7 @@ namespace BL
             {
                 throw new KeyNotFoundException("Delete drone -BL-" + ex.Message);
             }
+            //local list
             drones.Remove(deleteDrone);
 
         }
@@ -94,12 +93,6 @@ namespace BL
             {
                 throw new KeyNotFoundException("Get drone -BL-" + ex.Message);
             }
-        }
-
-        private DroneForList GetBLDroneInList(int id)
-        {
-            var drone = drones.FirstOrDefault(d => d.Id == id);
-            return drone;
         }
 
 
@@ -154,76 +147,49 @@ namespace BL
         /// <param name="model">the new model</param>
         public void UpdateDroneModel(int id, string model)
         {
-            DroneForList tempDroneForList = drones.First(drone => drone.Id == id);
-            DeleteBLDrone(tempDroneForList.Id);
-            tempDroneForList.Model = model;
-            drones.Add(tempDroneForList);
+            DroneForList tempDroneForList = drones.FirstOrDefault(drone => drone.Id == id);
+            if (tempDroneForList == null)
+                throw new ArgumentNullException("update drone -BL-:There is not drone with same id i data");
 
-            DO.Drone drone = new DO.Drone()
-            {
-                Id = tempDroneForList.Id,
-                MaxWeight = (DO.Enum.WeightCategories)tempDroneForList.MaxWeight,
-                Model = tempDroneForList.Model,
-                IsDeleted = false
-            };
+            //update DAL list
             try
             {
-                dal.AddDrone(drone);
+                dal.AddDrone(new DO.Drone()
+                {
+                    Id = tempDroneForList.Id,
+                    MaxWeight = (DO.Enum.WeightCategories)tempDroneForList.MaxWeight,
+                    Model = tempDroneForList.Model,
+                    IsDeleted = false
+                });
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
-        }
 
-        /// <summary>
-        /// update status of drone
-        /// </summary>
-        /// <param name="id">id of the drone</param>
-        /// <param name="status">the new status</param>
-        /// <param name="battery">battery of the drone</param>
-        /// <param name="longitude"></param>
-        /// <param name="latitude"></param>
-        public void UpdateDroneStatus(int id, DroneStatuses status, double battery, int parcelIdDeliverd, double longitude, double latitude)
-        {
-            DroneForList tempDroneForList = drones.First(drone => drone.Id == id);
-            drones.Remove(tempDroneForList);
-            tempDroneForList.Status = status;
-            tempDroneForList.Battery = battery;
-            tempDroneForList.ParcelDeliveredId = parcelIdDeliverd;
-            tempDroneForList.Location.Longitude = longitude;
-            tempDroneForList.Location.Latitude = latitude;
-
+            //update local list
+            DeleteBLDrone(tempDroneForList.Id);
+            tempDroneForList.Model = model;
             drones.Add(tempDroneForList);
         }
 
-        public void UpdateDroneStatus(int id, DroneStatuses status, double battery, double longitude, double latitude)
-        {
-            DroneForList tempDroneForList = drones.First(drone => drone.Id == id);
-            drones.Remove(tempDroneForList);
-            tempDroneForList.Status = status;
-            tempDroneForList.Battery = battery;
-            tempDroneForList.Location.Longitude = longitude;
-            tempDroneForList.Location.Latitude = latitude;
-            drones.Add(tempDroneForList);
-        }
 
         /// <summary>
-        /// Collection of a package by skimmer
+        /// Collection of a parcel by drone
         /// </summary>
-        /// <param name="id">id of drone</param>
-        public void PackageCollection(int id)
+        /// <param name="droneID">id of drone</param>
+        public void PackageCollection(int droneID)
         {
+            DroneForList droneForList = drones.FirstOrDefault(drone => drone.Id == droneID);
 
-            if (!(drones.FirstOrDefault(drone => drone.Id == id)).Equals(default(DroneForList)))
+            if (droneForList != null)
             {
-                DroneForList droneForList = drones.FirstOrDefault(drone => drone.Id == id);
                 if (droneForList.Status == DroneStatuses.Delivery)
                 {
                     int parcelId = -1;
                     foreach (var tempParcel in dal.GetParcels())
                     {
-                        if (tempParcel.Droneld == id)
+                        if (tempParcel.Droneld == droneID)
                         {
                             parcelId = tempParcel.Id;
                             break;
@@ -245,7 +211,6 @@ namespace BL
                     {
                         throw new ArgumentNullException("not find the parcel -BL-");
                     }
-
                 }
                 else
                 {
@@ -259,16 +224,16 @@ namespace BL
         }
 
         /// <summary>
-        /// update the parcel status to package in delivery
+        /// update the parcel status to parcel in delivery
         /// </summary>
-        /// <param name="id"></param>
-        public void PackageDelivery(int id)
+        /// <param name="droneId"></param>
+        public void PackageDelivery(int droneId)
         {
             DroneForList drone = new DroneForList();
             int index = 0;
             foreach (DroneForList d in drones)
             {
-                if (d.Id == id)
+                if (d.Id == droneId)
                 {
                     drone = d;
                     break;
@@ -306,14 +271,12 @@ namespace BL
         }
 
         /// <summary>
-        /// Sending a skimmer for charging
+        /// Sending a drone for charging
         /// </summary>
         /// <param name="droneId">id of drone</param>
         public void UpdateCharge(int droneId)
         {
-            DroneForList tempDroneForList = drones.FirstOrDefault(drone => drone.Id == droneId);
-            Drone tempDrone = GetBLDrone(droneId);
-
+            Drone tempDrone = GetBLDrone(droneId);          
             int baseStationId = -1;
             Location location = new Location() { };
             double distance = double.MaxValue;
@@ -354,7 +317,7 @@ namespace BL
         }
 
         /// <summary>
-        /// Release skimmer from charging
+        /// Release drone from charging
         /// </summary>
         /// <param name="droneId">id of drone</param>
         /// <param name="time">the time the drone was in charge</param>
@@ -393,14 +356,13 @@ namespace BL
         }
 
         /// <summary>
-        /// Assign a package to a skimmer
+        /// Assign a parcel to a drone
         /// </summary>
         /// <param name="id">id of drone</param>
         public void AssignParcelToDrone(int id)
         {
             Drone drone = GetBLDrone(id);
 
-            DroneForList droneForList = drones.FirstOrDefault(drone => drone.Id == id);
             if ((!drone.Equals(null)) && drone.Status == DroneStatuses.Available)
             {
                 int parcelId = 0;
@@ -468,221 +430,61 @@ namespace BL
             }
         }
 
+
         //--------------------------------------------Initialize the drone list--------------------------------------------------------
-        /// <summary>
-        /// The function initialize the location of the drone in the list saved in the BL as required
-        /// </summary>
-        /// <param name="drone">specific drone</param>
-        /// <returns>location of the drone </returns>
-        private Location findDroneLocation(DroneForList drone)
-        {
-            if (isDroneMakesDelivery(drone.Id))
-            {
-                if (findParcelState(drone.Id) == parcelState.associatedNotCollected)
-                {
-                    DO.Customer senderCustomer2 = new DO.Customer();
-                    try
-                    {
-                        senderCustomer2 = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
-
-                    }
-                    catch (KeyNotFoundException ex)
-                    {
-                        throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message);
-                    }
-
-                    DO.BaseStation nearStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
-                    return new Location() { Longitude = Math.Round(nearStation.Longitude), Latitude = Math.Round(nearStation.Latitude) };
-                }
-                else if (findParcelState(drone.Id) == parcelState.collectedNotDelivered)
-                {
-                    DO.Customer senderCustomer = new DO.Customer();
-                    try
-                    {
-                        senderCustomer = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
-                    }
-                    catch (KeyNotFoundException ex)
-                    {
-                        throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message);
-                    }
-                    senderCustomer = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
-                    return new Location() { Longitude = Math.Round(senderCustomer.Longitude), Latitude = Math.Round(senderCustomer.Latitude) };
-                }
-            }
-            else
-            {
-                if (drone.Status == Enums.DroneStatuses.Maintenance)
-                {
-                    int randNumber1 = rand.Next(dal.GetBaseStations().Count());
-                    var randomBaseStation = (dal.GetBaseStations().ToList())[randNumber1];
-                    return new Location() { Longitude = Math.Round(randomBaseStation.Longitude), Latitude = Math.Round(randomBaseStation.Latitude) };
-                }
-            }
-            var x =
-                dal.GetCustomers((customer) => (
-               (dal.GetParcels(parcel => (parcel.Delivered != null) && (customer.Id == parcel.TargetId))).Any())).ToList();
-            int randNumber = rand.Next(x.Count());
-            if (x.Count() == 0)
-            {
-                return new Location() { Latitude = 10, Longitude = 20 };
-            }
-            else
-            {
-                var randomCustomerProvided = x.ToList()[randNumber];
-                return new Location() { Longitude = Math.Round(randomCustomerProvided.Longitude), Latitude = Math.Round(randomCustomerProvided.Latitude) };
-            }
-        }
 
         /// <summary>
-        /// The function initialize the status of the drone in the list saved in the BL as required
+        /// etrieves the requested drone from the data and converts it to BL drone
         /// </summary>
-        /// <param name="droneId"></param>
-        /// <returns>status of the drone</returns>
-        private Enums.DroneStatuses findfDroneStatus(int droneId)
+        /// <param name="id">The requested dron</param>
+        /// <returns>A Bl drone for list</returns>
+        private DroneForList GetBLDroneInList(int id)
         {
-            if (isDroneMakesDelivery(droneId))
-            {
-                return BO.Enums.DroneStatuses.Delivery;
-            }
-
-            return (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length - 1);
-        }
-
-        /// <summary>
-        /// Boolean function that returns if the drone makes a delivery
-        /// </summary>
-        /// <param name="droneId"></param>
-        /// <returns>If the drone makes a delivery</returns>
-        private bool isDroneMakesDelivery(int droneId)
-        {
-            foreach (var parcel in dal.GetParcels())
-            {
-                if (parcel.Droneld == droneId &&
-                    !(parcel.Requested.GetType().Equals(null)) &&
-                    parcel.Delivered == null)
-                {
-                    return true;
-                }
-            }
-            return false;
+            var drone = drones.FirstOrDefault(d => d.Id == id);
+            return drone;
         }
 
 
         /// <summary>
-        /// The function initialize the battery of the drone in the list saved in the BL as required
+        /// update status of drone(Only from the local list)
         /// </summary>
-        /// <param name="drone"></param>
-        /// <returns>battery of the drone</returns>
-        private double findDroneBattery(DroneForList drone)
+        /// <param name="id">id of the drone</param>
+        /// <param name="status">the new status</param>
+        /// <param name="battery">battery of the drone</param>
+        /// <param name="longitude"></param>
+        /// <param name="latitude"></param>
+        private void UpdateDroneStatus(int id, DroneStatuses status, double battery, int parcelIdDeliverd, double longitude, double latitude)
         {
-            if (isDroneMakesDelivery(drone.Id))
-            {
-                double minDroneTarget;
-                double minTargetBaseStation;
-                try
-                {
-                    minDroneTarget = minBattery(drone.Location,
-                        new Location()
-                        {
-                            Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
-                            Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude
-                        },
-                         drone.Status, drone.MaxWeight);
-                }
-                catch (KeyNotFoundException ex)
-                {
-                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message);
-                }
+            DroneForList tempDroneForList = drones.First(drone => drone.Id == id);
+            if (tempDroneForList == null)
+                throw new ArgumentNullException("update drone -BL-:There is not drone with same id i data");
 
-                try
-                {
-                    minTargetBaseStation = minBattery(
-                     new Location()
-                     {
-                         Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
-                         Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude
-                     },
-                    new Location()
-                    {
-                        Latitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
-
-                        Longitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
-                    },
-                    Enums.DroneStatuses.Available, drone.MaxWeight);
-                }
-                catch (KeyNotFoundException ex)
-                {
-                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message);
-                }
-
-                return rand.Next((int)(minDroneTarget + minTargetBaseStation), 100);
-            }
-            else if (drone.Status == Enums.DroneStatuses.Maintenance)
-            {
-                return rand.Next(0, 20);
-            }
-
-            double minDroneBaseStation;
-            try
-            {
-                minDroneBaseStation = minBattery(
-                    new Location()
-                    {
-                        Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
-                        Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude
-                    },
-                   new Location()
-                   {
-                       Latitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
-                       Longitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
-                   },
-                   Enums.DroneStatuses.Available, drone.MaxWeight);
-                return rand.Next((int)(minDroneBaseStation), 101);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                throw new KeyNotFoundException("Drone battery -BL-" + ex.Message);
-            }
+            drones.Remove(tempDroneForList);
+            tempDroneForList.Status = status;
+            tempDroneForList.Battery = battery;
+            tempDroneForList.ParcelDeliveredId = parcelIdDeliverd;
+            tempDroneForList.Location.Longitude = longitude;
+            tempDroneForList.Location.Latitude = latitude;
+            drones.Add(tempDroneForList);
         }
 
         /// <summary>
-        /// The function receives the location of a drone and returns the nearest base station to it
+        /// update status of drone(Only from the local list)
         /// </summary>
-        /// <param name="LongitudeSenderCustomer">Location of the drone</param>
-        /// <param name="LatitudeSenderCustomer">Location of the drone</param>
-        /// <returns> The nearest base station</returns>
-        private DO.BaseStation nearestBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
+        /// <param name="id">id of the drone</param>
+        /// <param name="status">the new status</param>
+        /// <param name="battery">battery of the drone</param>
+        /// <param name="longitude"></param>
+        /// <param name="latitude"></param>
+        private void UpdateDroneStatus(int id, DroneStatuses status, double battery, double longitude, double latitude)
         {
-            var minDistance = double.MaxValue;
-            var nearestBaseStation = default(DO.BaseStation);
-            foreach (var BaseStation in dal.GetBaseStations())
-            {
-                if (distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude) < minDistance)
-                {
-                    minDistance = distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude);
-                    nearestBaseStation = BaseStation;
-                }
-            }
-            if (nearestBaseStation.GetType().Equals(default))
-            {
-                throw new ArgumentNullException("Get nearst base station -BL-");
-            }
-            return nearestBaseStation;
-        }
-
-        /// <summary>
-        /// calculate the battary of the drone after charge
-        /// </summary>
-        /// <param name="time">how much time the drone was in charge</param>
-        /// <returns>sum of battary after charge</returns>
-        private double batteryCalculationInCharging(int time)
-        {
-            double battery = time * 0.05;
-            if (battery < 100)
-            {
-                return battery;
-            }
-            return 100;
+            DroneForList tempDroneForList = drones.First(drone => drone.Id == id);
+            drones.Remove(tempDroneForList);
+            tempDroneForList.Status = status;
+            tempDroneForList.Battery = battery;
+            tempDroneForList.Location.Longitude = longitude;
+            tempDroneForList.Location.Latitude = latitude;
+            drones.Add(tempDroneForList);
         }
     }
 }
