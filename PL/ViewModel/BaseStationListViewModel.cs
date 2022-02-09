@@ -16,8 +16,13 @@ namespace PL.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        ListCollectionView baseStationsList;
 
-        private ListCollectionView baseStationsList;
+        public BaseStationListViewModel()
+        {
+            baseStationsList = new ListCollectionView(ListsModel.stations);
+        }
+
         public ListCollectionView BaseStationsList
         {
             get { return baseStationsList; }
@@ -26,12 +31,6 @@ namespace PL.ViewModel
                 baseStationsList = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BaseStationsList)));
             }
-        }
-
-
-        public BaseStationListViewModel(BlApi.IBL bl, Action<TabItem> addTab)
-        {
-            baseStationsList = new ListCollectionView(ListsModel.stations);
         }
     }
 }

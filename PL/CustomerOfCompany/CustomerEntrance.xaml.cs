@@ -21,18 +21,9 @@ namespace PL
     /// </summary>
     public partial class CustomerEntrance : UserControl
     {
-        Action<TabItem> addTab;
-        Action<object, RoutedEventArgs> RemoveTab;
-        Action<object, RoutedEventArgs> closeTab;
-        private BlApi.IBL bl;
-
-
-        public CustomerEntrance(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab )
+        public CustomerEntrance( )
         {
             InitializeComponent();
-            this.addTab = addTab;
-            this.RemoveTab = removeTab;
-            this.bl = bl;
         }
 
         private void sign_in_show_CustomerPageHome(object sender, RoutedEventArgs e)
@@ -40,7 +31,7 @@ namespace PL
             TabItem tabItem = new TabItem();
             tabItem.Content = new CustomerHomePage();
             tabItem.Header = "Customer Home Page";
-            this.addTab(tabItem);
+            Tabs.AddTab(tabItem);
             Close_Page(sender, e);
         }
 
@@ -49,7 +40,7 @@ namespace PL
             TabItem tabItem = new TabItem();
             tabItem.Content = new CustomerHomePage();
             tabItem.Header = "Customer Home Page";
-            this.addTab(tabItem);
+            Tabs.AddTab(tabItem);
             Close_Page(sender, e);
         }
 

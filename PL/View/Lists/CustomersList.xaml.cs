@@ -25,7 +25,7 @@ namespace PL
     {
         CustomerListViewModel customerListViewModel;
 
-        public CustomersList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
+        public CustomersList()
         {
             InitializeComponent();
             customerListViewModel = new CustomerListViewModel();
