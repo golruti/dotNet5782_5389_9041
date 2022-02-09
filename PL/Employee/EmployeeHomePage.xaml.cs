@@ -48,7 +48,7 @@ namespace PL
         private void ShowParcelListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new ParcelList(bl, addTab, RemoveTab);           
+            tabItem.Content = new ParcelList();           
             tabItem.Header = "parcel list";
             addTab(tabItem);
         }

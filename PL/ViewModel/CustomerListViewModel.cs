@@ -14,24 +14,12 @@ namespace PL.ViewModel
 {
     public class CustomerListViewModel : /*Singleton.Singleton<PL>,*/ INotifyPropertyChanged
     {
-        public CustomerListViewModel(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
+        public CustomerListViewModel()
         {
-            this.Bl = bl;
-            this.AddTab = addTab;
-            this.RemoveTab = removeTab;
             CustomersForList = new ListCollectionView(PO.ListsModel.customers);
         }
 
-        //public void RefreshCustomerList()
-        //{
-        //    CustomersForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()));
-        //    //CustomersForList.Refresh();
-        //}
 
-
-        public BlApi.IBL Bl { get; private set; }
-        public Action<TabItem> AddTab { get; private set; }
-        public Action<object, RoutedEventArgs> RemoveTab { get; private set; }
         private ListCollectionView customersForList;
 
 

@@ -14,32 +14,14 @@ namespace PL.ViewModel
 {
     public class ParcelListViewModel
     {
-        public BlApi.IBL Bl { get; private set; }
-        public Action<TabItem> AddTab { get; private set; }
-        public Action<object, RoutedEventArgs> RemoveTab { get; private set; }
-
         private ListCollectionView parcelsForList;
-       // public ObservableCollection<ParcelForList> Items { get; set; }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ParcelListViewModel(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
+        public ParcelListViewModel()
         {
-            this.Bl = bl;
-            this.AddTab = addTab;
-            this.RemoveTab = removeTab;
-           // parcelsForList = new ListCollectionView((System.Collections.IList)ConvertFunctions.BOParcelForListToPO(bl.GetParcelForList()));
-           // Items = new ObservableCollection<ParcelForList>(ConvertFunctions.BOParcelForListToPO(bl.GetParcelForList()));
             parcelsForList = new ListCollectionView(ListsModel.parcels);
         }
-        //public void RefreshParcelList()
-        //{
-        //    Items.Clear();
-        //    foreach (var item in ConvertFunctions.BOParcelForListToPO(Bl.GetParcelForList()))
-        //        Items.Add(item);
-        //}
 
-   
         public ListCollectionView ParcelsForList
         {
             get { return parcelsForList; }

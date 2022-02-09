@@ -17,6 +17,7 @@ namespace BL
         /// <param name="tempDrone">The customer for Adding</param>
         public void AddDrone(Drone tempDrone)
         {
+
             //dal list
             try
             {
@@ -154,6 +155,7 @@ namespace BL
             //update DAL list
             try
             {
+                dal.DeleteDrone(id);
                 dal.AddDrone(new DO.Drone()
                 {
                     Id = tempDroneForList.Id,
@@ -166,6 +168,11 @@ namespace BL
             {
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException(ex.Message);
+            }
+            
 
             //update local list
             DeleteBLDrone(tempDroneForList.Id);
@@ -276,7 +283,7 @@ namespace BL
         /// <param name="droneId">id of drone</param>
         public void UpdateCharge(int droneId)
         {
-            Drone tempDrone = GetBLDrone(droneId);          
+            Drone tempDrone = GetBLDrone(droneId);
             int baseStationId = -1;
             Location location = new Location() { };
             double distance = double.MaxValue;

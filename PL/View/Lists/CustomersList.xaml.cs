@@ -28,12 +28,9 @@ namespace PL
         public CustomersList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
         {
             InitializeComponent();
-            customerListViewModel = new CustomerListViewModel(bl, addTab,removeTab);
+            customerListViewModel = new CustomerListViewModel();
             this.DataContext = customerListViewModel;
             customerListViewModel.CustomersForList.GroupDescriptions.Add(new PropertyGroupDescription("Name"));
-            //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(CustomersListViewXaml.DataContext);
-            //PropertyGroupDescription groupDescription = new PropertyGroupDescription("Name");
-            ////view.GroupDescriptions.Add(groupDescription);
         }
 
         private void CustomersListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -41,18 +38,18 @@ namespace PL
             var selectedCustomer = CustomersListViewXaml.SelectedItem as PO.CustomerForList;
             
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(PO.ConvertFunctions.POCustomerForListToBO( selectedCustomer), customerListViewModel.Bl/*, customerListViewModel.RefreshCustomerList*/, customerListViewModel.AddTab);
+            tabItem.Content = new Customer(PO.ConvertFunctions.POCustomerForListToBO( selectedCustomer));
             tabItem.Header = "Update customer";
             tabItem.Visibility = Visibility.Visible;
-            customerListViewModel.AddTab(tabItem);
+            Tabs.AddTab(tabItem);
         }
 
         private void add_customer_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(customerListViewModel.Bl/*, customerListViewModel.RefreshCustomerList*/);
+            tabItem.Content = new Customer();
             tabItem.Header = "Add customer";
-            customerListViewModel.AddTab(tabItem);
+            Tabs.AddTab(tabItem);
         }
     }
 }

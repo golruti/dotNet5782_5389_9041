@@ -36,9 +36,9 @@ namespace PL
         private void ShowAddBaseStationWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStation(baseStationListViewModel.Bl);
+            tabItem.Content = new BaseStation();
             tabItem.Header = "Add base station";
-            baseStationListViewModel.AddTab(tabItem);
+            Tabs.AddTab(tabItem);
         }
 
         /// <summary>
@@ -50,10 +50,10 @@ namespace PL
         {
             var selectedBaseStation = BaseStationListView.SelectedItem as PO.BaseStationForList;
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStation(baseStationListViewModel.Bl, baseStationListViewModel.AddTab,PO.ConvertFunctions.POStationToBO( selectedBaseStation)/*, baseStationListViewModel.RefreshStationsList*/);
+            tabItem.Content = new BaseStation(PO.ConvertFunctions.POStationToBO( selectedBaseStation));
             tabItem.Header = "Update base station";
             tabItem.Visibility = Visibility.Visible;
-            baseStationListViewModel.AddTab(tabItem);
+            Tabs.AddTab(tabItem);
         }
 
         /// <summary>

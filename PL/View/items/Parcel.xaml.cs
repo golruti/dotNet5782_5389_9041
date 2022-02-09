@@ -26,27 +26,27 @@ namespace PL
         ParcelViewModel parcelViewModel;
 
         static int idParcel { get; set; } = 10;
-        public Parcel(BlApi.IBL bl/*, Action refreshParcelsList*/)
+        public Parcel()
         {
             InitializeComponent();
-            parcelViewModel = new ParcelViewModel(bl/*, refreshParcelsList*/);
+            parcelViewModel = new ParcelViewModel();
             this.DataContext = parcelViewModel;
             Add_grid.Visibility = Visibility.Visible;
 
         }
 
 
-        public Parcel(int parcelInListId, BlApi.IBL bl/*, Action refreshParcelsList*/, Action<TabItem> addTab)
+        public Parcel(int parcelInListId)
         {
             InitializeComponent();
-            parcelViewModel = new ParcelViewModel(parcelInListId, bl, /*refreshParcelsList,*/addTab);
+            parcelViewModel = new ParcelViewModel(parcelInListId);
             this.DataContext = parcelViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
 
         private void DeleteParcel(object sender, RoutedEventArgs e)
         {
-            parcelViewModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
+            PO.ListsModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
             if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -57,10 +57,10 @@ namespace PL
         {
             try
             {
-                BO.Customer senderCustomer = parcelViewModel.Bl.GetBLCustomer(int.Parse(senderId.Text));
-                BO.Customer recieveCustomer = parcelViewModel.Bl.GetBLCustomer(int.Parse(reciverId.Text));
+                BO.Customer senderCustomer = PO.ListsModel.Bl.GetBLCustomer(int.Parse(senderId.Text));
+                BO.Customer recieveCustomer = PO.ListsModel.Bl.GetBLCustomer(int.Parse(reciverId.Text));
 
-                parcelViewModel.Bl.AddParcel(new BO.Parcel()
+                PO.ListsModel.Bl.AddParcel(new BO.Parcel()
                 {
                     Id = idParcel++,
                     Weight = (BO.Enums.WeightCategories)Weight.SelectedItem,
@@ -135,37 +135,15 @@ namespace PL
         }
 
 
-        //private void ShowDrone_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        parcelViewModel.Bl.UpdateCharge(parcelViewModel.ParcelInList.Id);
-        //        (sender as Button).IsEnabled = false;
-        //        if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
-        //        {
-        //            Close_Page(sender, e);
-        //        }
-        //    }
-        //    catch (KeyNotFoundException ex)
-        //    {
-        //        MessageBox.Show($"The parcel could not be found in the database, {ex.Message}");
-        //    }
-        //    catch (Exception)
-        //    {
-        //        MessageBox.Show($"The parcel can not be displayed");
-        //    }
-        //}
-
         private void CustomerSender(object sender, RoutedEventArgs e)
         {
             try
             {
                 TabItem tabItem = new TabItem();
-                tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id)),
-                    this.parcelViewModel.Bl/*,  PO.ListsModel.RefreshParcels*/, parcelViewModel.AddTab);
+                tabItem.Content = new Customer(PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id));
                 tabItem.Header = "update Sender Customer";
                 tabItem.Visibility = Visibility.Visible;
-                parcelViewModel.AddTab(tabItem);
+                Tabs.AddTab(tabItem);
             }
             catch (KeyNotFoundException ex)
             {
@@ -182,11 +160,10 @@ namespace PL
             try
             {
                 TabItem tabItem = new TabItem();
-                tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id)),
-                    this.parcelViewModel.Bl,/* PO.ListsModel.RefreshParcels,*/ parcelViewModel.AddTab);
+                tabItem.Content = new Customer(PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id));
                 tabItem.Header = "update Receives Customer";
                 tabItem.Visibility = Visibility.Visible;
-                this.parcelViewModel.AddTab(tabItem);
+                Tabs.AddTab(tabItem);
             }
             catch (KeyNotFoundException ex)
             {
@@ -203,10 +180,10 @@ namespace PL
             try
             {
                 TabItem tabItem = new TabItem();
-                tabItem.Content = new Drone(parcelViewModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id), this.parcelViewModel.Bl/*, PO.ListsModel.RefreshParcels*/);
+                tabItem.Content = new Drone(PO.ListsModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id));
                 tabItem.Header = "update  drone";
                 tabItem.Visibility = Visibility.Visible;
-                this.parcelViewModel.AddTab(tabItem);
+               Tabs.AddTab(tabItem);
             }
             catch (KeyNotFoundException ex)
             {

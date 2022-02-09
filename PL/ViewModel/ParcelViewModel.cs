@@ -9,10 +9,6 @@ namespace PL.ViewModel
 {
     public class ParcelViewModel : INotifyPropertyChanged
     {
-        public BlApi.IBL Bl { get; private set; }
-        //public Action RefreshParcelList { get; private set; }
-        public Action<TabItem> AddTab { get; private set; }
-        public Action<TabItem> CloseTab { get; private set; }
         public IEnumerable<int> CustomersIds { get; set; }
         public IEnumerable<Enums.WeightCategories> Weights { get; set; }
         public IEnumerable<Enums.Priorities> Prioritys { get; set; }
@@ -30,29 +26,21 @@ namespace PL.ViewModel
 
 
 
-
-
-
-
-        public ParcelViewModel(int parcelInListId, BlApi.IBL bl/*, Action refreshParcelList*/, Action<TabItem> addTab)
-            : this(bl/*, refreshParcelList*/)
+        public ParcelViewModel(int parcelInListId)
         {
-            this.ParcelInList = ConvertFunctions.BOParcelToPO(bl.GetBLParcel(parcelInListId));
-            this.AddTab = addTab;
+            this.ParcelInList = ConvertFunctions.BOParcelToPO(ListsModel.Bl.GetBLParcel(parcelInListId));
         }
-        public ParcelViewModel(BlApi.IBL bl/*, Action refreshParcelList*/)
+        public ParcelViewModel()
         {
-            this.Bl = bl;
-           // this.RefreshParcelList = refreshParcelList;
             this.ParcelInList = new PO.Parcel();
-            this.CustomersIds = bl.GetCustomerForList().Select(c => c.Id);
+            this.CustomersIds = ListsModel.Bl.GetCustomerForList().Select(c => c.Id);
             Weights = (IEnumerable<Enums.WeightCategories>)Enum.GetValues(typeof(Enums.WeightCategories));
             Prioritys = (IEnumerable<Enums.Priorities>)Enum.GetValues(typeof(Enums.Priorities));
         }
 
         public void RefreshParcelInList()
         {
-            ParcelInList = ConvertFunctions.BOParcelToPO(Bl.GetBLParcel(parcelInList.Id));
+            ParcelInList = ConvertFunctions.BOParcelToPO(ListsModel.Bl.GetBLParcel(parcelInList.Id));
             PO.ListsModel.RefreshParcels();
         }
     }

@@ -28,6 +28,7 @@ namespace PL
         {
             bl = BlApi.BlFactory.GetBl();
             InitializeComponent();
+            Tabs.SetAddTab(AddTab);
         }
 
         /// <summary>
