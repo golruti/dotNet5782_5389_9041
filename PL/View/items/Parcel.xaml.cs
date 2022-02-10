@@ -180,7 +180,11 @@ namespace PL
             try
             {
                 TabItem tabItem = new TabItem();
-                tabItem.Content = new Drone(PO.ListsModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id));
+                //var t = PO.ListsModel.Bl.GetDroneForList();
+                //var t2 = t.FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.DroneParcel.Id);
+
+                tabItem.Content = new Drone(PO.ListsModel.Bl.GetDroneForList()
+                    .FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.DroneParcel.Id));
                 tabItem.Header = "update  drone";
                 tabItem.Visibility = Visibility.Visible;
                Tabs.AddTab(tabItem);
