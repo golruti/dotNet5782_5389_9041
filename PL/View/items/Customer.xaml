@@ -89,7 +89,7 @@
                 </Button>
             </StackPanel>
 
-            <ListView x:Name="FromCustomerView_Copy" ItemsSource="{Binding CustomerInList.FromCustomer}"   Grid.Row="0" Margin="427,240,0,133" >
+            <ListView x:Name="FromCustomerView_Copy" ItemsSource="{Binding CustomerInList.FromCustomer}"  MouseDoubleClick="ToCustomerView_MouseDoubleClick"  Grid.Row="0" Margin="427,240,0,133" >
                 <ListView.View >
                     <GridView>
                         <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id}" />
