@@ -1,30 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCustomer>
   <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>3</Id>
-    <Name>????</Name>
-    <Phone>0504162322</Phone>
-    <Longitude>22</Longitude>
-    <Latitude>22</Latitude>
-  </Customer>
-  <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>3</Id>
-    <Name>????</Name>
-    <Phone>0504162322</Phone>
-    <Longitude>22</Longitude>
-    <Latitude>22</Latitude>
-  </Customer>
-  <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>12</Id>
-    <Name>12</Name>
-    <Phone>12</Phone>
-    <Longitude>12</Longitude>
-    <Latitude>12</Latitude>
-  </Customer>
-  <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
     <Id>12</Id>
     <Name>chaya</Name>

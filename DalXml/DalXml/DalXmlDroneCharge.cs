@@ -52,9 +52,13 @@ namespace DAL
         /// update release
         /// </summary>
         /// <param name="id"></param>
-        public void UpdateRelease(int id)
+        public void UpdateRelease(int droneId)
         {
-            DeleteDroneCharge(id);
+            var station = GetBaseStation(GetDroneCharge(droneId).StationId);
+            DeleteDroneCharge(droneId);
+            DeleteBaseStation(station.Id);
+            station.AvailableChargingPorts++;
+            AddBaseStation(station);
         }
 
         //---------------------------------------------Show item-----------------------------------------------------------------------------------------

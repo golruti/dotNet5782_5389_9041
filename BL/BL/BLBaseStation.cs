@@ -137,8 +137,8 @@ namespace BL
                 {
                     Id = baseStation.Id,
                     Name = baseStation.Name,
-                    AvailableChargingPorts = (baseStation.ChargeSlote) - countFullChargeSlots(baseStation.Id),
-                    UsedChargingPorts = countFullChargeSlots(baseStation.Id)
+                    AvailableChargingPorts = baseStation.AvailableChargingPorts,
+                    UsedChargingPorts = baseStation.ChargeSlote - baseStation.AvailableChargingPorts
                 });
             }
             if (BaseStationsForList.Count() == 0)
@@ -195,7 +195,7 @@ namespace BL
                 Id = station.Id,
                 Name = station.Name,
                 Location = new Location() { Latitude = Math.Round(station.Latitude), Longitude = Math.Round(station.Longitude) },
-                AvailableChargingPorts = station.ChargeSlote - countFullChargeSlots(station.Id),
+                AvailableChargingPorts = station.AvailableChargingPorts,
                 DronesInCharging = GetDronesInCharging(station.Id)
             };
         }
@@ -218,7 +218,7 @@ namespace BL
         private int randStation()
         {
             var ids = dal.GetAvaBaseStations().Select(s => s.Id).ToList();
-            var randStationId = ids[rand.Next(0, ids.Count()-1)];
+            var randStationId = ids[rand.Next(0, ids.Count() - 1)];
             return randStationId;
         }
     }
