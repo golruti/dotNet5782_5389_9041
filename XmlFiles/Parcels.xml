@@ -26,4 +26,17 @@
     <PickedUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
   </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>1</Id>
+    <SenderId>6</SenderId>
+    <TargetId>12</TargetId>
+    <Droneld>-1</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Fast</Priority>
+    <Requested>2022-02-10T12:57:27.7590567+02:00</Requested>
+    <Scheduled xsi:nil="true" />
+    <PickedUp xsi:nil="true" />
+    <Delivered xsi:nil="true" />
+  </Parcel>
 </ArrayOfParcel>

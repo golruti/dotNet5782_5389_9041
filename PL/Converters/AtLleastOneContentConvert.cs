@@ -12,15 +12,15 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (values.Count() >=1)
-            {
-                if (!string.IsNullOrEmpty(values[0].ToString()) && values[0].ToString() != values[2].ToString()
-                || !string.IsNullOrEmpty(values[1].ToString()) && values[1].ToString() != values[3].ToString())
-                    return true;
+            //if (values.Count() >=1)
+            //{
+            //    if (!string.IsNullOrEmpty(values[0].ToString()) && values[0].ToString() != values[2].ToString()
+            //    || !string.IsNullOrEmpty(values[1].ToString()) && values[1].ToString() != values[3].ToString())
+            //        return true;
                
-            }
-            return false;
-           
+            //}
+            //return false;
+            return true;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

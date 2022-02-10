@@ -23,12 +23,6 @@ namespace PL
     /// </summary>
     public partial class ParcelList : UserControl
     {
-        //BlApi.IBL bl;
-        //Action<TabItem> addTab;
-        //Action<object, RoutedEventArgs> RemoveTab;
-        //ListCollectionView listCollectionView;
-        //ObservableCollection<ParcelForList> parcelForLists;
-
         ParcelListViewModel parcelListViewModel;
 
         public ParcelList()
@@ -158,10 +152,11 @@ namespace PL
 
         private bool FilterParcel(object obj)
         {
+            var t = SenderId.SelectedItem;
             if (obj is PO.ParcelForList parcel)
             {
                 return (ParcelStatuses.SelectedItem == null || parcel.Status == (PO.Enums.ParcelStatuses)ParcelStatuses.SelectedItem)
-                    && (SenderId.SelectedItem == null || parcel.SendCustomer == SenderId.SelectedItem)
+                    && (SenderId.SelectedItem == null || parcel.SendCustomer ==  SenderId.SelectedItem)
                     && (ReceiveId.SelectedItem == null || parcel.ReceiveCustomer == ReceiveId.SelectedItem)
                     && (From.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate)
                     && (To.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate);             
