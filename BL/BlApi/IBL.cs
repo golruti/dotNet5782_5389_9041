@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Customer =BO.Customer;
+using Customer = BO.Customer;
 using Drone = BO.Drone;
-using Parcel =BO.Parcel;
+using Parcel = BO.Parcel;
 using BaseStation = BO.BaseStation;
+using User = BO.User;
+
 
 
 namespace BlApi
@@ -57,8 +59,20 @@ namespace BlApi
         public Enums.ParcelStatuses GetParcelStatusByDrone(int droneId);
 
         public void DeleteBLCustomer(int customerId);
-    }
 
+
+
+
+
+
+        public void AddUser(User tempUser);
+        public bool IsExistClient(int userId, string password);
+        public bool IsExistEmployee(int userId, string password);
+   
+
+
+        public void DeleteUser(User tempUser);
+    }
 }
 
 

@@ -17,6 +17,8 @@ namespace DAL
         static internal List<Customer> customers = new List<Customer>();
         static internal List<Parcel> parcels = new List<Parcel>();
         static internal List<DroneCharge> droneCharges = new List<DroneCharge>();
+        static internal List<User> users = new List<User>();
+
 
         internal class Config
         {

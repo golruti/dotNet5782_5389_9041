@@ -24,6 +24,13 @@ namespace DO
             Fast,
             Emergency
         }
+
+        //Allowing the user to access data and operations
+        public enum Access
+        {
+            Client,
+            Employee
+        }
     }
 }
 
