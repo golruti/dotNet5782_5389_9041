@@ -43,6 +43,9 @@ namespace DAL
 
             DroneCharge droneCharge = new DroneCharge() { DroneId = droneId, StationId = station.Id, Time = DateTime.Now, IsDeleted = false };
             AddDroneCharge(droneCharge);
+            DeleteBaseStation(station.Id);
+            --station.AvailableChargingPorts;
+            AddBaseStation(station);
         }
 
         /// <summary>

@@ -82,11 +82,24 @@ namespace BL
         private Enums.DroneStatuses findfDroneStatus(int droneId)
         {
             if (isDroneMakesDelivery(droneId))
-            {
                 return BO.Enums.DroneStatuses.Delivery;
-            }
 
-            return (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length - 1);
+            if(isDroneMaintenance(droneId))
+                return BO.Enums.DroneStatuses.Maintenance;
+
+            return BO.Enums.DroneStatuses.Available;
+        }
+
+        /// <summary>
+        ///  Boolean function that returns if the drone is charging
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
+        private bool isDroneMaintenance(int droneId)
+        {
+            var droneCharges = dal.GetDronesCharges();
+
+            return !droneCharges.FirstOrDefault(dc => dc.DroneId == droneId).Equals(default(DO.DroneCharge));
         }
 
         /// <summary>

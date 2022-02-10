@@ -287,9 +287,8 @@ namespace BL
             int baseStationId = -1;
             Location location = new Location() { };
             double distance = double.MaxValue;
-            if ((int)tempDrone.Status == 0)
+            if (tempDrone.Status == Enums.DroneStatuses.Available)
             {
-
                 foreach (var item in dal.GetBaseStations())
                 {
                     double tempDistance = this.distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);

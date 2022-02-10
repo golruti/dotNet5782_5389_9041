@@ -38,10 +38,10 @@ namespace DAL
 
         private DalXml()
         {
-            XDocument document = XDocument.Load(droneChargesPath);
-            document.Root.RemoveAll();
+            //XDocument document = XDocument.Load(droneChargesPath);
+            //document.Root.RemoveAll();
 
-            document.Save(droneChargesPath);
+           // document.Save(droneChargesPath);
         }
 
         private void AddItem(string path, object item)

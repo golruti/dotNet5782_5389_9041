@@ -15,7 +15,7 @@ namespace DAL
         static internal List<Drone> drones = new List<Drone>();
         static internal List<BaseStation> stations = new List<BaseStation>();
         static internal List<Customer> customers = new List<Customer>();
-        static internal List< Parcel> parcels = new List<Parcel>();
+        static internal List<Parcel> parcels = new List<Parcel>();
         static internal List<DroneCharge> droneCharges = new List<DroneCharge>();
 
         internal class Config
@@ -39,12 +39,14 @@ namespace DAL
                 BaseStation tempStation = new BaseStation();
                 tempStation.Id = i;
                 tempStation.Name = $"station {i}";
-                tempStation.ChargeSlote = Rand.Next(10,50);
+                tempStation.ChargeSlote = Rand.Next(10, 50);
+                tempStation.AvailableChargingPorts = tempStation.ChargeSlote;
+                if (i == 0)
+                    tempStation.AvailableChargingPorts = tempStation.ChargeSlote - 1;
                 tempStation.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
                 tempStation.IsDeleted = false;
                 stations.Add(tempStation);
-
             }
 
             //customers
@@ -70,8 +72,18 @@ namespace DAL
                 tempDrone.IsDeleted = false;
                 drones.Add(tempDrone);
             }
-            
-            
+
+            //drone charge
+            for (int i = 0; i < 2; i++)
+            {
+                DroneCharge droneCharge = new();
+                droneCharge.DroneId = 2;
+                droneCharge.StationId = 0;
+                droneCharge.IsDeleted = false;
+                droneCharge.Time = DateTime.Now;
+                droneCharges.Add(droneCharge);
+            }
+
             //parcel
             for (int i = 0; i < 10; ++i)
             {
@@ -93,7 +105,6 @@ namespace DAL
 
                 tempParcel.Weight = (WeightCategories)(Rand.Next(0, 3));
                 tempParcel.Priority = (Priorities)(Rand.Next(0, 3));
-                tempParcel.Droneld = i;
                 tempParcel.Requested = DateTime.Now;
                 tempParcel.Droneld = -1;
                 if (i == 0)
@@ -106,6 +117,10 @@ namespace DAL
                 {
                     tempParcel.Droneld = i;
                     tempParcel.Scheduled = DateTime.Now.AddDays(2);
+                }
+                else
+                {
+                    tempParcel.Droneld = -1;
                 }
                 tempParcel.IsDeleted = false;
                 parcels.Add(tempParcel);

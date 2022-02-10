@@ -49,19 +49,22 @@ namespace BL
             foreach (var drone in drones)
             {
                 drone.Status = findfDroneStatus(drone.Id);
-                if (drone.Status == DroneStatuses.Maintenance)
-                {
-                    dal.AddDroneCharge(new DO.DroneCharge()
-                    {
-                        DroneId = drone.Id,
-                        StationId = randStation(),
-                        Time = DateTime.Now,
-                        IsDeleted = false
-                    });
-                }
+                //if (drone.Status == DroneStatuses.Available)
+                //    drone.Status = (Enums.DroneStatuses)rand.Next(System.Enum.GetNames(typeof(Enums.DroneStatuses)).Length-1);
+
+                ////if (drone.Status == DroneStatuses.Maintenance)
+                ////{
+                ////    dal.AddDroneCharge(new DO.DroneCharge()
+                ////    {
+                ////        DroneId = drone.Id,
+                ////        StationId = randStation(),
+                ////        Time = DateTime.Now,
+                ////        IsDeleted = false
+                ////    });
+                ////}
             }
 
-            
+
             foreach (var drone in drones)
             {
                 drone.ParcelDeliveredId = findParceDeliveredlId(drone.Id);
@@ -78,7 +81,7 @@ namespace BL
             }
         }
 
-        
+
         /// <summary>
         /// The function calculates the minimum charge the glider needs to get 
         /// from the place of origin to the destination
