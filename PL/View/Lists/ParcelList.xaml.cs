@@ -152,12 +152,11 @@ namespace PL
 
         private bool FilterParcel(object obj)
         {
-            var t = SenderId.SelectedItem;
             if (obj is PO.ParcelForList parcel)
             {
                 return (ParcelStatuses.SelectedItem == null || parcel.Status == (PO.Enums.ParcelStatuses)ParcelStatuses.SelectedItem)
-                    && (SenderId.SelectedItem == null || parcel.SendCustomer ==  SenderId.SelectedItem)
-                    && (ReceiveId.SelectedItem == null || parcel.ReceiveCustomer == ReceiveId.SelectedItem)
+                    && (SenderId.SelectedItem == null || parcel.SendCustomer ==  SenderId.SelectedItem.ToString())
+                    && (ReceiveId.SelectedItem == null || parcel.ReceiveCustomer == ReceiveId.SelectedItem.ToString())
                     && (From.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate)
                     && (To.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate);             
             }
