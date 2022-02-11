@@ -209,7 +209,7 @@ namespace BL
         {
             var minDistance = double.MaxValue;
             var nearestBaseStation = default(DO.BaseStation);
-            foreach (var BaseStation in dal.GetBaseStations())
+            foreach (var BaseStation in dal.GetAvaBaseStations())
             {
                 if (distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude) < minDistance)
                 {
@@ -217,10 +217,9 @@ namespace BL
                     nearestBaseStation = BaseStation;
                 }
             }
-            if (nearestBaseStation.GetType().Equals(default))
-            {
-                throw new ArgumentNullException("Get nearst base station -BL-");
-            }
+            if (nearestBaseStation.Equals(default(DO.BaseStation)))
+                throw new ArgumentNullException("Get nearst base station available -BL-");
+
             return nearestBaseStation;
         }
 
@@ -238,6 +237,5 @@ namespace BL
             }
             return 100;
         }
-
     }
 }

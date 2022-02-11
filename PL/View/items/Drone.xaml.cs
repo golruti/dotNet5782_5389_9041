@@ -85,8 +85,7 @@ namespace PL
                         Longitude = PO.ListsModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude,
                         Latitude = PO.ListsModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude
                     }
-
-                });
+                }, int.Parse(StationsId.Text));
 
                 if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -170,6 +169,7 @@ namespace PL
                 tabControl.Items.Remove(tabItem);
             //  droneViewModel.RefreshDroneInList();
             PO.ListsModel.RefreshDrones();
+            PO.ListsModel.RefreshStations();
         }
 
         private void Close_Page_notDo(object sender, RoutedEventArgs e)

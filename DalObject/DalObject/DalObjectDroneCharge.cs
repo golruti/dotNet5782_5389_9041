@@ -47,7 +47,7 @@ namespace DAL
         }
 
         /// <summary>
-        /// update release
+        /// Release of drone from charging
         /// </summary>
         /// <param name="droneId"></param>
         public void UpdateRelease(int droneId)

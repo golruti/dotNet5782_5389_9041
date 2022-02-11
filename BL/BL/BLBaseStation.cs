@@ -24,8 +24,8 @@ namespace BL
                     Name = tempBaseStation.Name,
                     Longitude = Math.Round(tempBaseStation.Location.Longitude),
                     Latitude = Math.Round(tempBaseStation.Location.Latitude),
-                    ChargeSlote = tempBaseStation.AvailableChargingPorts,
-                    AvailableChargingPorts = (GetDronesInCharging(tempBaseStation.Id)).Count() + tempBaseStation.AvailableChargingPorts,
+                    ChargeSlote = tempBaseStation.AvailableChargingPorts + tempBaseStation.DronesInCharging.Count(),
+                    AvailableChargingPorts = tempBaseStation.AvailableChargingPorts,
                     IsDeleted = false
                 });
             }

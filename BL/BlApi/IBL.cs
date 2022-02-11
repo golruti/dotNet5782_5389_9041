@@ -21,7 +21,7 @@ namespace BlApi
         public void DeleteBLDrone(int droneId);
         public void deleteBLBaseStation(int stationId);
         public void AddBaseStation(BaseStation tempBaseStation);
-        void AddDrone(Drone tempDrone);
+        void AddDrone(Drone tempDrone, int stationId = -1);
         public void AddCustomer(Customer tempCustomer);
         public void AddParcel(Parcel tempParcel);
 

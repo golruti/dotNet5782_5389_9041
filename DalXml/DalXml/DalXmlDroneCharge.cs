@@ -19,11 +19,15 @@ namespace DAL
         /// <param name="droneCharge">The drone charge for Adding</param>
         public void AddDroneCharge(DroneCharge droneCharge)
         {
+            var station1 = GetBaseStation(23);
+
             if (!GetDroneCharge(droneCharge.DroneId).Equals(default(DroneCharge)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone charge - DAL");
             droneCharge.IsDeleted = false;
 
             AddItem(droneChargesPath, droneCharge);
+           var station =GetBaseStation(23);
+
         }
 
         //--------------------------------------------Update-------------------------------------------------------------------------------------------

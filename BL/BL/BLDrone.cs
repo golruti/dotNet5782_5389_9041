@@ -15,7 +15,7 @@ namespace BL
         /// Add a drone to the list of drones(DAL list and local list)
         /// </summary>
         /// <param name="tempDrone">The customer for Adding</param>
-        public void AddDrone(Drone tempDrone)
+        public void AddDrone(Drone tempDrone, int stationId = -1)
         {
 
             //dal list
@@ -52,6 +52,53 @@ namespace BL
             {
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
+            var t = dal.GetBaseStation(23);
+
+            //If the drone was inserted as a drone in the charge - update the charge
+            if (tempDrone.Status == Enums.DroneStatuses.Maintenance)
+            {
+                BaseStation station;
+                if (stationId == -1)
+                {
+                    station = mapBaseStation(nearestBaseStation(tempDrone.Location.Longitude, tempDrone.Location.Latitude));
+                }
+                else
+                {
+                    station = mapBaseStation(dal.GetBaseStation(stationId));
+                }
+                var t2 = dal.GetBaseStation(23);
+
+
+                var dalStation = dal.GetBaseStation(station.Id);
+
+                dal.DeleteBaseStation(dalStation.Id);
+                dalStation.AvailableChargingPorts--;
+                dal.AddBaseStation(dalStation);
+
+                var t3 = dal.GetBaseStation(23);
+
+                if (dal.GetDroneCharge(tempDrone.Id).Equals(default(DO.DroneCharge)))
+                {
+                    var t4 = dal.GetBaseStation(23);
+
+                    try
+                    {
+                        dal.AddDroneCharge(new DO.DroneCharge()
+                        {
+                            DroneId = tempDrone.Id,
+                            StationId = station.Id,
+                            Time = DateTime.Now,
+                            IsDeleted = false
+                        });
+                    }
+                    catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+                    {
+                        throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                    }
+                    var t5 = dal.GetBaseStation(23);
+
+                }
+            }
         }
 
         //---------------------------------------------Delete ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -76,6 +123,11 @@ namespace BL
             //local list
             drones.Remove(deleteDrone);
 
+            // Release charge if the drone was charging
+            if (deleteDrone.Status == Enums.DroneStatuses.Maintenance)
+            {
+                UpdateRelease(droneId);
+            }
         }
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -172,7 +224,7 @@ namespace BL
             {
                 throw new KeyNotFoundException(ex.Message);
             }
-            
+
 
             //update local list
             DeleteBLDrone(tempDroneForList.Id);
@@ -289,7 +341,7 @@ namespace BL
             double distance = double.MaxValue;
             if (tempDrone.Status == Enums.DroneStatuses.Available)
             {
-                foreach (var item in dal.GetBaseStations())
+                foreach (var item in dal.GetAvaBaseStations())
                 {
                     double tempDistance = this.distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
                     if (tempDistance < distance)

@@ -11,66 +11,12 @@
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>true</IsDeleted>
-    <Id>1</Id>
-    <Name>hj</Name>
-    <Longitude>20</Longitude>
-    <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>10</AvailableChargingPorts>
-  </BaseStation>
-  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>1</Id>
-    <Name>hi</Name>
-    <Longitude>20</Longitude>
-    <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>10</AvailableChargingPorts>
-  </BaseStation>
-  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>56</Id>
-    <Name>55</Name>
-    <Longitude>20</Longitude>
-    <Latitude>30</Latitude>
-    <ChargeSlote>2</ChargeSlote>
-    <AvailableChargingPorts>2</AvailableChargingPorts>
-  </BaseStation>
-  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>1</Id>
-    <Name>hi</Name>
-    <Longitude>20</Longitude>
-    <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>9</AvailableChargingPorts>
-  </BaseStation>
-  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>1</Id>
-    <Name>hi</Name>
-    <Longitude>20</Longitude>
-    <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>8</AvailableChargingPorts>
-  </BaseStation>
-  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>1</Id>
-    <Name>hi</Name>
-    <Longitude>20</Longitude>
-    <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>7</AvailableChargingPorts>
-  </BaseStation>
-  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>1</Id>
-    <Name>hi</Name>
-    <Longitude>20</Longitude>
-    <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>6</AvailableChargingPorts>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>19</ChargeSlote>
+    <AvailableChargingPorts>18</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>true</IsDeleted>
@@ -78,17 +24,8 @@
     <Name>23</Name>
     <Longitude>23</Longitude>
     <Latitude>23</Latitude>
-    <ChargeSlote>23</ChargeSlote>
-    <AvailableChargingPorts>23</AvailableChargingPorts>
-  </BaseStation>
-  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>1</Id>
-    <Name>hi</Name>
-    <Longitude>20</Longitude>
-    <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>10</AvailableChargingPorts>
+    <ChargeSlote>18</ChargeSlote>
+    <AvailableChargingPorts>18</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>true</IsDeleted>
@@ -96,8 +33,8 @@
     <Name>23</Name>
     <Longitude>23</Longitude>
     <Latitude>23</Latitude>
-    <ChargeSlote>23</ChargeSlote>
-    <AvailableChargingPorts>23</AvailableChargingPorts>
+    <ChargeSlote>17</ChargeSlote>
+    <AvailableChargingPorts>17</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>true</IsDeleted>
@@ -114,8 +51,8 @@
     <Name>23</Name>
     <Longitude>23</Longitude>
     <Latitude>23</Latitude>
-    <ChargeSlote>23</ChargeSlote>
-    <AvailableChargingPorts>22</AvailableChargingPorts>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>20</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>true</IsDeleted>
@@ -123,8 +60,8 @@
     <Name>hi</Name>
     <Longitude>20</Longitude>
     <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>10</AvailableChargingPorts>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>20</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>true</IsDeleted>
@@ -132,8 +69,8 @@
     <Name>23</Name>
     <Longitude>23</Longitude>
     <Latitude>23</Latitude>
-    <ChargeSlote>23</ChargeSlote>
-    <AvailableChargingPorts>23</AvailableChargingPorts>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>20</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>true</IsDeleted>
@@ -141,8 +78,8 @@
     <Name>hi</Name>
     <Longitude>20</Longitude>
     <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>10</AvailableChargingPorts>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>19</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>true</IsDeleted>
@@ -150,26 +87,8 @@
     <Name>23</Name>
     <Longitude>23</Longitude>
     <Latitude>23</Latitude>
-    <ChargeSlote>23</ChargeSlote>
-    <AvailableChargingPorts>23</AvailableChargingPorts>
-  </BaseStation>
-  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>1</Id>
-    <Name>hi</Name>
-    <Longitude>20</Longitude>
-    <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>9</AvailableChargingPorts>
-  </BaseStation>
-  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
-    <Id>1</Id>
-    <Name>hi</Name>
-    <Longitude>20</Longitude>
-    <Latitude>30</Latitude>
-    <ChargeSlote>10</ChargeSlote>
-    <AvailableChargingPorts>10</AvailableChargingPorts>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>19</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>true</IsDeleted>
@@ -177,8 +96,17 @@
     <Name>23</Name>
     <Longitude>23</Longitude>
     <Latitude>23</Latitude>
-    <ChargeSlote>23</ChargeSlote>
-    <AvailableChargingPorts>22</AvailableChargingPorts>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>20</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>20</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
@@ -186,7 +114,7 @@
     <Name>23</Name>
     <Longitude>23</Longitude>
     <Latitude>23</Latitude>
-    <ChargeSlote>23</ChargeSlote>
-    <AvailableChargingPorts>23</AvailableChargingPorts>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>19</AvailableChargingPorts>
   </BaseStation>
 </ArrayOfBaseStation>
