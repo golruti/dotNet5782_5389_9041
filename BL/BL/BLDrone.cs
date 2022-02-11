@@ -52,7 +52,6 @@ namespace BL
             {
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
             }
-            var t = dal.GetBaseStation(23);
 
             //If the drone was inserted as a drone in the charge - update the charge
             if (tempDrone.Status == Enums.DroneStatuses.Maintenance)
@@ -66,7 +65,6 @@ namespace BL
                 {
                     station = mapBaseStation(dal.GetBaseStation(stationId));
                 }
-                var t2 = dal.GetBaseStation(23);
 
 
                 var dalStation = dal.GetBaseStation(station.Id);
@@ -75,12 +73,8 @@ namespace BL
                 dalStation.AvailableChargingPorts--;
                 dal.AddBaseStation(dalStation);
 
-                var t3 = dal.GetBaseStation(23);
-
                 if (dal.GetDroneCharge(tempDrone.Id).Equals(default(DO.DroneCharge)))
                 {
-                    var t4 = dal.GetBaseStation(23);
-
                     try
                     {
                         dal.AddDroneCharge(new DO.DroneCharge()
@@ -95,8 +89,6 @@ namespace BL
                     {
                         throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
                     }
-                    var t5 = dal.GetBaseStation(23);
-
                 }
             }
         }

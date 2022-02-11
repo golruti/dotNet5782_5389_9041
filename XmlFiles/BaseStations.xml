@@ -109,6 +109,24 @@
     <AvailableChargingPorts>20</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>19</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>20</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
     <Id>23</Id>
     <Name>23</Name>
