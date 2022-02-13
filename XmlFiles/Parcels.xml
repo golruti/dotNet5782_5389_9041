@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfParcel>
   <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
-    <Id>0</Id>
+    <IsDeleted>true</IsDeleted>
+    <Id>8</Id>
     <SenderId>12</SenderId>
     <TargetId>12</TargetId>
-    <Droneld>999</Droneld>
+    <Droneld>-1</Droneld>
     <Weight>Light</Weight>
     <Priority>Regular</Priority>
     <Requested>2022-02-08T17:40:35.7883861+02:00</Requested>
@@ -31,11 +31,11 @@
     <Id>1</Id>
     <SenderId>6</SenderId>
     <TargetId>12</TargetId>
-    <Droneld>23</Droneld>
+    <Droneld>100</Droneld>
     <Weight>Light</Weight>
     <Priority>Fast</Priority>
     <Requested>2022-02-10T12:57:27.7590567+02:00</Requested>
-    <Scheduled>2022-02-10T14:45:13.5168393+02:00</Scheduled>
+    <Scheduled>2022-02-13T16:42:12.609361+02:00</Scheduled>
     <PickedUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
   </Parcel>

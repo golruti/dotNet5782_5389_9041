@@ -1,21 +1,12 @@
 ﻿using BO;
+using PL.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using PL.ViewModel;
-using System.ComponentModel;
 
 namespace PL
 {
@@ -270,7 +261,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.PackageCollection(droneViewModel.DroneInList.Id);
+                PO.ListsModel.Bl.ParcelCollection(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -388,12 +379,18 @@ namespace PL
 
         private void parcelByDrone_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedParcel = droneViewModel.DroneInList.Delivery;
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedParcel.Id);
-            tabItem.Header = "Update Parcel";
-            tabItem.Visibility = Visibility.Visible;
-            Tabs.AddTab(tabItem);
+
+            if (droneViewModel.DroneInList.Delivery.Id !=0)
+            {
+                var selectedParcel = droneViewModel.DroneInList.Delivery;
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Parcel(selectedParcel.Id);
+                tabItem.Header = "Update Parcel";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+
+            }
+
         }
 
 

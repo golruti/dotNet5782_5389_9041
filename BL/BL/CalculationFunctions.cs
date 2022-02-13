@@ -102,6 +102,7 @@ namespace BL
             return !droneCharges.FirstOrDefault(dc => dc.DroneId == droneId).Equals(default(DO.DroneCharge));
         }
 
+
         /// <summary>
         /// Boolean function that returns if the drone makes a delivery
         /// </summary>
@@ -109,11 +110,14 @@ namespace BL
         /// <returns>If the drone makes a delivery</returns>
         private bool isDroneMakesDelivery(int droneId)
         {
+            
+
             foreach (var parcel in dal.GetParcels())
             {
+               
                 if (parcel.Droneld == droneId &&
-                    !(parcel.Requested.GetType().Equals(null)) &&
-                    parcel.Delivered == null)
+                    !parcel.Requested.Equals(null) &&
+                    parcel.Delivered.Equals(null))
                 {
                     return true;
                 }
@@ -205,7 +209,7 @@ namespace BL
         /// <param name="LongitudeSenderCustomer">Location of the drone</param>
         /// <param name="LatitudeSenderCustomer">Location of the drone</param>
         /// <returns> The nearest base station</returns>
-        private DO.BaseStation nearestBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
+        internal DO.BaseStation nearestBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
         {
             var minDistance = double.MaxValue;
             var nearestBaseStation = default(DO.BaseStation);

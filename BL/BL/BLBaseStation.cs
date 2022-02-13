@@ -188,7 +188,7 @@ namespace BL
         /// </summary>
         /// <param name="station">The sation to convert</param>
         /// <returns>The converted station</returns>
-        private BaseStation mapBaseStation(DO.BaseStation station)
+        internal BaseStation mapBaseStation(DO.BaseStation station)
         {
             return new BaseStation()
             {

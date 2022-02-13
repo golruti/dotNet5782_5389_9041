@@ -54,7 +54,7 @@ namespace BlApi
         void UpdateCharge(int droneId);
         void AssignParcelToDrone(int droneId);
         void UpdateCustomer(int customerId, string name, string phone);
-        public void PackageCollection(int Id);
+        public void ParcelCollection(int Id);
         public void UpdateParcelDelivered(int id);
         public Enums.ParcelStatuses GetParcelStatusByDrone(int droneId);
 

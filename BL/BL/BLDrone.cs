@@ -159,7 +159,7 @@ namespace BL
                 Status = droneToList.Status,
                 Battery = droneToList.Battery,
                 Location = droneToList.Location,
-                Delivery = droneToList.ParcelDeliveredId != -1 ? createParcelInTransfer((int)droneToList.ParcelDeliveredId) : null
+                Delivery = droneToList.ParcelDeliveredId != -1 ? createParcelInTransfer(droneToList.ParcelDeliveredId) : null
             };
         }
 
@@ -227,9 +227,10 @@ namespace BL
 
         /// <summary>
         /// Collection of a parcel by drone
+        /// //הרחפן אסף את החבילה
         /// </summary>
         /// <param name="droneID">id of drone</param>
-        public void PackageCollection(int droneID)
+        public void ParcelCollection(int droneID)
         {
             DroneForList droneForList = drones.FirstOrDefault(drone => drone.Id == droneID);
 
@@ -400,6 +401,7 @@ namespace BL
 
         /// <summary>
         /// Assign a parcel to a drone
+        /// //שיון רחפן לחבילה
         /// </summary>
         /// <param name="id">id of drone</param>
         public void AssignParcelToDrone(int id)
@@ -499,9 +501,11 @@ namespace BL
         private void UpdateDroneStatus(int id, DroneStatuses status, double battery, int parcelIdDeliverd, double longitude, double latitude)
         {
             DroneForList tempDroneForList = drones.First(drone => drone.Id == id);
-            if (tempDroneForList == null)
+
+            if (tempDroneForList.Equals(default(DroneForList)))
                 throw new ArgumentNullException("update drone -BL-:There is not drone with same id i data");
 
+            //local list
             drones.Remove(tempDroneForList);
             tempDroneForList.Status = status;
             tempDroneForList.Battery = battery;
@@ -509,6 +513,9 @@ namespace BL
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
             drones.Add(tempDroneForList);
+
+         
+        
         }
 
         /// <summary>

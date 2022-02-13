@@ -15,6 +15,11 @@ namespace BL
         static private List<DroneForList> drones = new List<DroneForList>();
         private static Random rand = new Random();
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
+       internal double available ;
+       internal double lightWeight ;
+       internal double mediumWeight;
+       internal double heavyWeight;
+       internal double chargingRate;
 
         /// <summary>
         /// constructor
@@ -24,11 +29,11 @@ namespace BL
             dal = DalApi.DalFactory.GetDal();
             initializeDrones();
             double[] arr = dal.GetElectricityUse();
-            double available = arr[0];
-            double lightWeight = arr[1];
-            double mediumWeight = arr[2];
-            double heavyWeight = arr[3];
-            double chargingRate = arr[4];
+             available = arr[0];
+             lightWeight = arr[1];
+             mediumWeight = arr[2];
+             heavyWeight = arr[3];
+             chargingRate = arr[4];
         }
 
         /// <summary>
@@ -49,19 +54,7 @@ namespace BL
             foreach (var drone in drones)
             {
                 drone.Status = findfDroneStatus(drone.Id);
-
-                //if (drone.Status == DroneStatuses.Maintenance)
-                //{
-                //    dal.AddDroneCharge(new DO.DroneCharge()
-                //    {
-                //        DroneId = drone.Id,
-                //        StationId = randStation(),
-                //        Time = DateTime.Now,
-                //        IsDeleted = false
-                //    });
-                //}
             }
-
 
             foreach (var drone in drones)
             {

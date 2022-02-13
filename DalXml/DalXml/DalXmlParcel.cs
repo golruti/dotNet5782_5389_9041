@@ -25,7 +25,6 @@ namespace DAL
                 throw new KeyNotFoundException("Add parcel -DAL-:Sender not exist");
             if (GetCustomer(parcel.TargetId).Equals(default(Customer)))
                 throw new KeyNotFoundException("Add parcel -DAL-:Target not exist");
-            var t = GetParcel(parcel.Id);
             if (!GetParcel(parcel.Id).Equals(default(Parcel)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a parcel - DAL");
 
@@ -119,6 +118,8 @@ namespace DAL
 
             UpdateItem(parcelsPath, parcelId, nameof(Parcel.Scheduled), DateTime.Now);
             UpdateItem(parcelsPath, parcelId, nameof(Parcel.Droneld), droneId);
+
+            
         }
 
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------

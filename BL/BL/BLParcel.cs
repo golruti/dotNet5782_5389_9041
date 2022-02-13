@@ -165,14 +165,14 @@ namespace BL
         /// <summary>
         /// The function returns the status of the package according to the drone to which it is associated
         /// </summary>
-        /// <param name="droneId"></param>
+        /// <param name="parcelId"></param>
         /// <returns></returns>
-        public Enums.ParcelStatuses GetParcelStatusByDrone(int droneId)
+        public Enums.ParcelStatuses GetParcelStatusByDrone(int parcelId)
         {
             Parcel parcel;
             try
             {
-                parcel = mapParcel(dal.GetParcel(droneId));
+                parcel = mapParcel(dal.GetParcel(parcelId));
             }
             catch (KeyNotFoundException ex)
             {
@@ -227,24 +227,21 @@ namespace BL
         /// <returns>The converted parcel</returns>
         private ParcelByTransfer createParcelInTransfer(int id)
         {
-            DO.Parcel parcel;
-            DO.Customer sender;
-            DO.Customer target;
-            parcel = dal.GetParcel(id);
+            DO.Parcel parcel = dal.GetParcel(id);
             if (parcel.Equals(null))
                 throw new KeyNotFoundException("not found parcel -BL-");
 
 
-            sender = dal.GetCustomer(parcel.SenderId);
-            target = dal.GetCustomer(parcel.TargetId);
+            DO.Customer sender = dal.GetCustomer(parcel.SenderId);
+            DO.Customer  target = dal.GetCustomer(parcel.TargetId);
             if (sender.Equals(null) || target.Equals(null))
                 throw new KeyNotFoundException("not found sender customer/target customer -BL-");
 
             return new ParcelByTransfer
             {
                 Id = id,
-                Weight = (Enums.WeightCategories)parcel.Weight,
-                Priority = (Enums.Priorities)parcel.Priority,
+                Weight = (WeightCategories)parcel.Weight,
+                Priority = (Priorities)parcel.Priority,
                 IsDestinationParcel = !parcel.PickedUp.Equals(null),
                 SenderLocation = new Location() { Longitude = sender.Longitude, Latitude = sender.Latitude },
                 TargetLocation = new Location() { Longitude = target.Longitude, Latitude = target.Latitude },
@@ -317,11 +314,12 @@ namespace BL
         /// <returns>The name of the sending customer</returns>
         private string getSendCustomerName(DO.Parcel parcel)
         {
-            if ((dal.GetCustomers().First(customer => customer.Id == parcel.SenderId)).Name.GetType().Equals(default))
+            var senderCustomerName = dal.GetCustomers().First(customer => customer.Id == parcel.SenderId);
+            if (senderCustomerName.Equals(default(DO.Customer)))
             {
                 throw new ArgumentNullException("Get sender customer  -BL-");
             }
-            return (dal.GetCustomers().First(customer => customer.Id == parcel.SenderId)).Name;
+            return senderCustomerName.Name;
         }
 
         /// <summary>
@@ -331,11 +329,12 @@ namespace BL
         /// <returns>The name of the receiving customer</returns>
         private string getReceiveCustomer(DO.Parcel parcel)
         {
-            if ((dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId)).Name.GetType().Equals(default))
+            var receiveCustomerName = dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId));
+            if ( receiveCustomerName.Equals(default(DO.Customer)))
             {
                 throw new ArgumentNullException("Get recieve customer  -BL-");
             }
-            return (dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId)).Name;
+            return receiveCustomerName.Name;
         }
 
         /// <summary>
@@ -343,9 +342,9 @@ namespace BL
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>The parcel status</returns>
-        private BO.Enums.ParcelStatuses getParcelStatus(DO.Parcel parcel)
+        private ParcelStatuses getParcelStatus(DO.Parcel parcel)
         {
-            if (!(parcel.Requested.Equals(null)))
+            if (!parcel.Requested.Equals(null))
             {
                 return Enums.ParcelStatuses.Created;
             }
@@ -353,7 +352,7 @@ namespace BL
             {
                 return Enums.ParcelStatuses.Associated;
             }
-            else if (!(parcel.PickedUp.Equals(null)) && parcel.Delivered.Equals(null))
+            else if (!parcel.PickedUp.Equals(null) && parcel.Delivered.Equals(null))
             {
                 return Enums.ParcelStatuses.Collected;
             }

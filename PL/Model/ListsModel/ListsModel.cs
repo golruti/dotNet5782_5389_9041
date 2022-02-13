@@ -49,7 +49,7 @@ namespace PO
             foreach (var item in ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()))
                 customers.Add(item);
 
-            var t = customers;
+           
         }
         static public void RefreshParcels()
         {

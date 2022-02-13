@@ -19,15 +19,21 @@
     <Time>2022-02-11T02:30:57.1157701+02:00</Time>
   </DroneCharge>
   <DroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
+    <IsDeleted>true</IsDeleted>
     <DroneId>1</DroneId>
     <StationId>23</StationId>
     <Time>2022-02-11T02:32:24.0001907+02:00</Time>
   </DroneCharge>
   <DroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
+    <IsDeleted>true</IsDeleted>
     <DroneId>100</DroneId>
     <StationId>23</StationId>
     <Time>2022-02-13T14:26:30.0585894+02:00</Time>
+  </DroneCharge>
+  <DroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <DroneId>1</DroneId>
+    <StationId>20</StationId>
+    <Time>2022-02-13T16:15:49.2734981+02:00</Time>
   </DroneCharge>
 </ArrayOfDroneCharge>

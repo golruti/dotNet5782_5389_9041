@@ -1,19 +1,11 @@
 ﻿using BO;
+using PL.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using PL.ViewModel;
-using System.Text.RegularExpressions;
 
 namespace PL
 {
@@ -164,12 +156,17 @@ namespace PL
 
         private void ToCustomerView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelToCustomer;
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedCustomer.Id);
-            tabItem.Header = "Update parcel";
-            tabItem.Visibility = Visibility.Visible;
-            Tabs.AddTab(tabItem);
+            if (ToCustomerView.SelectedItem != null)
+            {
+                var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelToCustomer;
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Parcel(selectedCustomer.Id);
+                tabItem.Header = "Update parcel";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+
+            }
+
         }
     }
 }

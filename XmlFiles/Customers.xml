@@ -16,4 +16,12 @@
     <Longitude>60</Longitude>
     <Latitude>70</Latitude>
   </Customer>
+  <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>89</Id>
+    <Name>89</Name>
+    <Phone>89</Phone>
+    <Longitude>89</Longitude>
+    <Latitude>89</Latitude>
+  </Customer>
 </ArrayOfCustomer>
