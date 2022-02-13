@@ -24,8 +24,9 @@ namespace BL
             this.update = update;
             drone = bl.GetBLDrone(droneId);
 
-            while (checkStop())
+            while (!checkStop())
             {
+                //bl.UpdateDroneModel(drone.Id, "M-" + DateTime.Now.Second);
                 switch (drone.Status)
                 {
                     case DroneStatuses.Available:
@@ -41,6 +42,7 @@ namespace BL
                         break;
                 }
                 update();
+                //Thread.Sleep(5000);
             }
         }
         private void AvaibleDrone()
@@ -73,6 +75,8 @@ namespace BL
             {
                 if (!sleepDelayTime()) break;
                 CalculateLocationAndBattary(bl.available, station.Location);
+                distance = bl.distance(drone.Location.Latitude, station.Location.Latitude, drone.Location.Longitude, station.Location.Longitude);
+
                 update();
             }
             while (drone.Battery < 100)
@@ -93,6 +97,8 @@ namespace BL
             {
                 if (!sleepDelayTime()) break;
                 CalculateLocationAndBattary(bl.available, station.Location);
+                distance = bl.distance(drone.Location.Latitude, drone.Delivery.TargetLocation.Latitude, drone.Location.Longitude, drone.Delivery.TargetLocation.Longitude);
+
                 update();
             }
 
@@ -107,6 +113,7 @@ namespace BL
             {
                 if (!sleepDelayTime()) break;
                 CalculateLocationAndBattary(elec, station.Location);
+                distance = bl.distance(drone.Location.Latitude, drone.Delivery.TargetLocation.Latitude, drone.Location.Longitude, drone.Delivery.TargetLocation.Longitude);
                 update();
             }
             bl.UpdateParcelDelivered(drone.Id);
@@ -116,6 +123,7 @@ namespace BL
         {
             double delta = distance < STEP ? distance : STEP;
             double proportion = delta / distance;
+
             drone.Battery = Math.Max(0.0, drone.Battery - delta * elecricity);
             double lat = drone.Location.Latitude + (targetLocation.Latitude - drone.Location.Latitude) * proportion;
             double lon = drone.Location.Longitude + (targetLocation.Longitude - drone.Location.Longitude) * proportion;

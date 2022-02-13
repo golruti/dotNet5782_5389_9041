@@ -2,6 +2,7 @@
 using PL.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -17,7 +18,6 @@ namespace PL
     {
         DroneViewModel droneViewModel;
 
-
         public Drone()
         {
             InitializeComponent();
@@ -27,8 +27,6 @@ namespace PL
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
             StationsId.DataContext = PO.ListsModel.Bl.GetBaseStationForList().Select(item => item.Id);
         }
-
-
 
         public Drone(DroneForList droneForList)
         {
@@ -328,7 +326,6 @@ namespace PL
             }
         }
 
-
         /// <summary>
         /// update the drone
         /// </summary>
@@ -388,11 +385,8 @@ namespace PL
                 tabItem.Header = "Update Parcel";
                 tabItem.Visibility = Visibility.Visible;
                 Tabs.AddTab(tabItem);
-
             }
-
         }
-
 
         //bool auto;
         //public bool Auto
@@ -401,15 +395,27 @@ namespace PL
         //    set => this.setAndNotify(PropertyChanged, nameof(Auto), out auto, value);
         //}
 
+
         //BackgroundWorker worker;
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
-            //Auto = true;
-            //worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
-            //worker.DoWork += (sender, args) => PO.ListsModel.Bl.StartDroneSimulator((int)args.Argument, updateDrone, checkStop);
-            //worker.RunWorkerCompleted += (sender, args) => Auto = false;
-            //worker.ProgressChanged += (sender, args) => updateDroneView();
-            //worker.RunWorkerAsync(Drone.Id);
+            droneViewModel.StartDroneSimulator();
+        //    //Auto = true;
+        //    worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
+        //    worker.DoWork += (sender, args) => PO.ListsModel.Bl.StartDroneSimulator((int)args.Argument, UpdateDrone, CheckStop);
+        //    worker.RunWorkerCompleted += (sender, args) => Auto = false;
+        //    worker.ProgressChanged += (sender, args) => updateDroneView();
+        //    worker.RunWorkerAsync(Drone.Id);
         }
+
+        //private void UpdateDrone()
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //private bool CheckStop()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
     }
 }

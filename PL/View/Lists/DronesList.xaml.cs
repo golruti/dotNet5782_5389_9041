@@ -119,13 +119,14 @@ namespace PL
         /// <param name="e"></param>
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedDrone = DronesListView.SelectedItem as PO.DroneForList;
-
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(ConvertFunctions.PODroneForListToBO(selectedDrone));
-            tabItem.Header = "Update drone";
-            tabItem.Visibility = Visibility.Visible;
-            Tabs.AddTab(tabItem);
+            if (DronesListView.SelectedItem is PO.DroneForList selectedDrone)
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Drone(ConvertFunctions.PODroneForListToBO(selectedDrone));
+                tabItem.Header = "Update drone";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+            }
         }
 
         /// <summary>

@@ -536,5 +536,10 @@ namespace BL
             tempDroneForList.Location.Latitude = latitude;
             drones.Add(tempDroneForList);
         }
+
+        public void StartDroneSimulator(int droneId, Action update, Func<bool> checkStop)
+        {
+            new DroneSimulator(this, droneId, update, checkStop);
+        }
     }
 }

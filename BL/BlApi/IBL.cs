@@ -69,10 +69,12 @@ namespace BlApi
         public void AddUser(User tempUser);
         public bool IsExistClient(int userId, string password);
         public bool IsExistEmployee(int userId, string password);
-   
+
 
 
         public void DeleteUser(User tempUser);
+
+        public void StartDroneSimulator(int droneId, Action update, Func<bool> checkStop);
     }
 }
 

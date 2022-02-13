@@ -73,5 +73,32 @@ namespace PL.ViewModel
 
             }
         }
+
+        BackgroundWorker worker;
+        bool auto;
+        public void StartDroneSimulator()
+        {
+            Auto = true;
+            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
+            worker.DoWork += (sender, args) => PO.ListsModel.Bl.StartDroneSimulator((int)args.Argument, UpdateDrone, CheckStop);
+            worker.RunWorkerCompleted += (sender, args) => Auto = false;
+            worker.ProgressChanged += (sender, args) => UpdateDroneView();
+            worker.RunWorkerAsync(DroneInList.Id);
+        }
+        public bool Auto
+        {
+            get => auto;
+            set
+            {
+                auto = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Auto)));
+            }
+        }
+        private void UpdateDrone() => worker.ReportProgress(0);
+        private bool CheckStop() => worker.CancellationPending;
+        private void UpdateDroneView()
+        {
+            DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
+        }
     }
 }

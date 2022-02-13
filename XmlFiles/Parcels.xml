@@ -31,11 +31,11 @@
     <Id>1</Id>
     <SenderId>6</SenderId>
     <TargetId>12</TargetId>
-    <Droneld>100</Droneld>
+    <Droneld>1</Droneld>
     <Weight>Light</Weight>
     <Priority>Fast</Priority>
     <Requested>2022-02-10T12:57:27.7590567+02:00</Requested>
-    <Scheduled>2022-02-13T16:42:12.609361+02:00</Scheduled>
+    <Scheduled>2022-02-13T20:56:50.1561383+02:00</Scheduled>
     <PickedUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
   </Parcel>

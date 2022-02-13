@@ -118,7 +118,6 @@
         </Grid>
         <ListView x:Name="DronesListView" ItemsSource="{Binding DronesList}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick">
             <ListView.View >
-
                 <GridView  >
                     <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
                     <GridViewColumn  Header="Model" DisplayMemberBinding="{Binding Model}" />

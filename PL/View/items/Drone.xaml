@@ -103,7 +103,7 @@
                     <TextBlock Text="{Binding parcelsByDrone.Weight}" HorizontalAlignment="Left" Margin="209,321,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.018,0.699"/>
                 </StackPanel>
             </ContentControl>
-            <Button Content="Automatic" HorizontalAlignment="Left" Margin="615,206,0,0" VerticalAlignment="Top" Click="Automatic_Click"/>
+            <Button Content="Automatic" HorizontalAlignment="Left" Margin="616,335,0,0" VerticalAlignment="Top" Click="Automatic_Click"/>
         </Grid>
         <Grid x:Name="Add_grid" Visibility="Collapsed" >
             <Grid Grid.Row="0"  Name="UpGrid"  Margin="176,50,176,150" Height="170" Width="252" >
