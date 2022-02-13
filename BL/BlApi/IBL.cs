@@ -55,11 +55,12 @@ namespace BlApi
         void AssignParcelToDrone(int droneId);
         void UpdateCustomer(int customerId, string name, string phone);
         public void PackageCollection(int Id);
-        public void PackageDelivery(int id);
+        public void UpdateParcelDelivered(int id);
         public Enums.ParcelStatuses GetParcelStatusByDrone(int droneId);
 
         public void DeleteBLCustomer(int customerId);
 
+        public void UpdateParcelScheduled(int parcelId, int droneId);
 
 
 

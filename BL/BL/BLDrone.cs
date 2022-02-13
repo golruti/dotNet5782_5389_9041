@@ -256,7 +256,7 @@ namespace BL
                         droneForList.Battery -= ((int)minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1);
                         droneForList.Location = location;
                         drones.Add(droneForList);
-                        dal.UpdateParcelPickedUp(parcel);
+                        dal.UpdateParcelPickedUp(parcel.Id);
                     }
                     else
                     {
@@ -274,24 +274,17 @@ namespace BL
             }
         }
 
+
         /// <summary>
-        /// update the parcel status to parcel in delivery
+        /// The parcel arrived at the destination
+        /// //החבילה הגיעה ליעד
         /// </summary>
         /// <param name="droneId"></param>
-        public void PackageDelivery(int droneId)
+        public void UpdateParcelDelivered(int droneId)
         {
-            DroneForList drone = new DroneForList();
-            int index = 0;
-            foreach (DroneForList d in drones)
-            {
-                if (d.Id == droneId)
-                {
-                    drone = d;
-                    break;
-                }
-                ++index;
-            }
-            if (drone.ParcelDeliveredId != 0)
+            DroneForList drone = GetBLDroneInList(droneId);
+
+            if (drone.ParcelDeliveredId != -1)
             {
                 DO.Parcel parcel = new DO.Parcel();
                 foreach (DO.Parcel item in dal.GetParcels())
@@ -309,11 +302,11 @@ namespace BL
                     }
                 }
                 Customer customer = GetBLCustomer(parcel.TargetId);
-                drones[index].Battery -= (minBattery(drone.Location, customer.Location, drone.Status, drone.MaxWeight) + 1);
-                drones[index].Location = customer.Location;
+                drone.Battery -= minBattery(drone.Location, customer.Location, drone.Status, drone.MaxWeight) + 1;
+                drone.Location = customer.Location;
                 parcel.Delivered = DateTime.Now;
-                drones[index].Status = DroneStatuses.Available;
-                dal.UpdateSupply(parcel);
+                drone.Status = DroneStatuses.Available;
+                dal.UpdateParcelDelivered(parcel.Id);
             }
             else
             {
@@ -413,50 +406,50 @@ namespace BL
         {
             Drone drone = GetBLDrone(id);
 
-            if ((!drone.Equals(null)) && drone.Status == DroneStatuses.Available)
+            if (!drone.Equals(default(Drone)) && drone.Status == DroneStatuses.Available)
             {
-                int parcelId = 0;
+                int parcelId = -1;
                 bool isExist = false;
 
-                Enums.Priorities priority = Enums.Priorities.Regular;
-                Enums.WeightCategories weight = Enums.WeightCategories.Light;
+                Priorities priority = Priorities.Regular;
+                WeightCategories weight = WeightCategories.Light;
                 double distance = double.MaxValue;
 
-                foreach (DO.Parcel item in dal.GetParcels())
+                foreach (DO.Parcel parcel in dal.GetParcels())
                 {
-                    if (minBattery(drone.Location, GetBLCustomer(item.SenderId).Location, drone.Status, drone.MaxWeight) < drone.Battery && (WeightCategories)item.Weight <= drone.MaxWeight)
+                    if (minBattery(drone.Location, GetBLCustomer(parcel.SenderId).Location, drone.Status, drone.MaxWeight) < drone.Battery && (WeightCategories)parcel.Weight <= drone.MaxWeight)
                     {
-                        if ((Enums.Priorities)item.Priority > priority)
+                        if ((Priorities)parcel.Priority > priority)
                         {
-                            parcelId = item.Id;
-                            priority = (Enums.Priorities)item.Priority;
+                            parcelId = parcel.Id;
+                            priority = (Priorities)parcel.Priority;
                             isExist = true;
                         }
                         else
                         {
-                            if ((Enums.WeightCategories)item.Weight > weight && (Enums.Priorities)item.Priority == priority)
+                            if ((WeightCategories)parcel.Weight > weight && (Priorities)parcel.Priority == priority)
                             {
-                                parcelId = item.Id;
-                                weight = (Enums.WeightCategories)item.Weight;
+                                parcelId = parcel.Id;
+                                weight = (WeightCategories)parcel.Weight;
                                 isExist = true;
                             }
                             else
                             {
-                                if (this.distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude) < distance && (Enums.WeightCategories)item.Weight == weight && (Enums.Priorities)item.Priority == priority)
+                                if (this.distance(drone.Location.Latitude, GetBLCustomer(parcel.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(parcel.SenderId).Location.Longitude) < distance && (Enums.WeightCategories)parcel.Weight == weight && (Enums.Priorities)parcel.Priority == priority)
                                 {
                                     isExist = true;
-                                    parcelId = item.Id;
-                                    distance = this.distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude);
+                                    parcelId = parcel.Id;
+                                    distance = this.distance(drone.Location.Latitude, GetBLCustomer(parcel.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(parcel.SenderId).Location.Longitude);
                                 }
                                 else
                                 {
                                     if (isExist == false)
                                     {
                                         isExist = true;
-                                        parcelId = item.Id;
-                                        priority = (Enums.Priorities)item.Priority;
-                                        weight = (Enums.WeightCategories)item.Weight;
-                                        distance = this.distance(drone.Location.Latitude, GetBLCustomer(item.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(item.SenderId).Location.Longitude);
+                                        parcelId = parcel.Id;
+                                        priority = (Enums.Priorities)parcel.Priority;
+                                        weight = (Enums.WeightCategories)parcel.Weight;
+                                        distance = this.distance(drone.Location.Latitude, GetBLCustomer(parcel.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(parcel.SenderId).Location.Longitude);
                                         break;
                                     }
                                 }
@@ -467,7 +460,7 @@ namespace BL
                 if (isExist == true)
                 {
                     UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery, parcelId, drone.Location.Longitude, drone.Location.Latitude);
-                    UpdateParcelAffiliation(parcelId, drone.Id, DateTime.Now);
+                    UpdateParcelScheduled(parcelId, drone.Id);
                 }
                 else
                 {

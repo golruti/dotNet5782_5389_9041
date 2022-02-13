@@ -80,42 +80,45 @@ namespace DAL
         ///Assigning a parcel to a drone
         /// </summary>
         /// <param name="idParcel">Id of the parcel</param>
-        public void UpdateParcelPickedUp(Parcel parcel)
+        public void UpdateParcelPickedUp(int parcelId)
         {
-            if (GetParcel(parcel.Id).Equals(default(Parcel)))
+            if (GetParcel(parcelId).Equals(default(Parcel)))
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
             }
 
-            UpdateItem(parcelsPath, parcel.Id, nameof(Parcel.PickedUp), DateTime.Now);
+            UpdateItem(parcelsPath, parcelId, nameof(Parcel.PickedUp), DateTime.Now);
         }
+
+
 
         /// <summary>
         /// Delivery of a parcel to the destination
         /// </summary>
         /// <param name="idxParcel">Id of the parcel</param>
-        public void UpdateParcelDelivered(Parcel parcel)
+        public void UpdateParcelDelivered(int parcelId)
         {
-            if (GetParcel(parcel.Id).Equals(default(Parcel)))
+            if (GetParcel(parcelId).Equals(default(Parcel)))
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
             }
-
-            UpdateItem(parcelsPath, parcel.Id, nameof(Parcel.Delivered), DateTime.Now);
+            UpdateItem(parcelsPath, parcelId, nameof(Parcel.Delivered), DateTime.Now);
+            UpdateItem(parcelsPath, parcelId, nameof(Parcel.Droneld), -1);
         }
 
         /// <summary>
         /// update parcel assembly by drone
         /// </summary>
         /// <param name="parcel">the parcel to update</param>
-        public void UpdateSupply(Parcel parcel)
+        public void UpdateParcelScheduled(int parcelId, int droneId)
         {
-            if (GetParcel(parcel.Id).Equals(default(Parcel)))
+            if (GetParcel(parcelId).Equals(default(Parcel)))
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
             }
 
-            UpdateItem(parcelsPath, parcel.Id, nameof(Parcel.Scheduled), DateTime.Now);
+            UpdateItem(parcelsPath, parcelId, nameof(Parcel.Scheduled), DateTime.Now);
+            UpdateItem(parcelsPath, parcelId, nameof(Parcel.Droneld), droneId);
         }
 
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------
@@ -142,7 +145,7 @@ namespace DAL
             XDocument document = XDocument.Load(ConfigPath);
 
             XElement indexElement = document.Root.Element("Index");
-            int index  = int.Parse(indexElement.Value);
+            int index = int.Parse(indexElement.Value);
             indexElement.SetValue(++index);
 
             return index;

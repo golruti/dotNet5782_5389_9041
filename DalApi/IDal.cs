@@ -51,9 +51,10 @@ namespace DalApi
         public Parcel GetParcel(Predicate<Parcel> predicate);
         public IEnumerable<Parcel> GetParcels();
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate);
-        public void UpdateParcelPickedUp(Parcel Parcel);
-        public void UpdateParcelDelivered(Parcel Parcel );
-        public void UpdateSupply(Parcel parcel);
+        public void UpdateParcelPickedUp(int parcelId);
+        public void UpdateParcelDelivered(int parcelId);
+        public void UpdateParcelScheduled(int parcelId, int droneId);
+
         public void DeleteParcel(int id);
         #endregion
 

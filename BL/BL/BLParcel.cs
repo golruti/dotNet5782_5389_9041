@@ -66,20 +66,11 @@ namespace BL
         /// <param name="parcelId"></param>
         /// <param name="droneId"></param>
         /// <param name="dateTime"></param>
-        public void UpdateParcelAffiliation(int parcelId, int droneId, DateTime dateTime)
+        public void UpdateParcelScheduled(int parcelId, int droneId)
         {
-            DO.Parcel parcel = dal.GetParcel(parcelId);
-            if (parcel.Equals(null))
-                throw new KeyNotFoundException("Delete parcel -BL-");
-
-            deleteBLParcel(parcelId);
-
-            parcel.Droneld = droneId;
-            parcel.Scheduled = dateTime;
-
             try
             {
-                dal.AddParcel(parcel);
+                dal.UpdateParcelScheduled(parcelId, droneId);
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {

@@ -38,6 +38,7 @@ namespace PL
         internal void AddTab(TabItem tabItem)
         {
             tub_control.Items.Add(tabItem);
+            tub_control.SelectedItem = tabItem;
         }
 
         internal void RemoveTab(object sender, RoutedEventArgs e)

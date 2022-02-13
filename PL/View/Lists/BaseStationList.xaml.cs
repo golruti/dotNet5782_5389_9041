@@ -46,12 +46,15 @@ namespace PL
         /// <param name="e"></param>
         private void BaseStationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedBaseStation = BaseStationListView.SelectedItem as PO.BaseStationForList;
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStation(PO.ConvertFunctions.POStationToBO(selectedBaseStation));
-            tabItem.Header = "Update base station";
-            tabItem.Visibility = Visibility.Visible;
-            Tabs.AddTab(tabItem);
+            if (BaseStationListView.SelectedItem != null)
+            {
+                var selectedBaseStation = BaseStationListView.SelectedItem as PO.BaseStationForList;
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new BaseStation(PO.ConvertFunctions.POStationToBO(selectedBaseStation));
+                tabItem.Header = "Update base station";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+            }
         }
 
         /// <summary>

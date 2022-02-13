@@ -27,10 +27,10 @@ namespace PL.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        public DroneInChargeListViewModel(int stationId)
-        {
-            DronesInChargeList = new ListCollectionView(PO.ListsModel.dronesCharging);
-            this.stationId = stationId;
-        }
+        //public DroneInChargeListViewModel(int stationId)
+        //{
+        //    DronesInChargeList = new ListCollectionView(PO.ListsModel.dronesCharging);
+        //    this.stationId = stationId;
+        //}
     }
 }

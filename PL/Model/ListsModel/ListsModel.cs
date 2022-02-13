@@ -15,7 +15,7 @@ namespace PO
         static public ObservableCollection<BaseStationForList> stations { get; set; }
         static public ObservableCollection<CustomerForList> customers { get; set; }
         static public ObservableCollection<ParcelForList> parcels { get; set; }
-        static public ObservableCollection<DroneInCharging> dronesCharging { get; set; }
+        //static public ObservableCollection<DroneInCharging> dronesCharging { get; set; }
 
 
 
@@ -26,7 +26,7 @@ namespace PO
             stations = ConvertFunctions.BOBaseStationForListToPO(Bl.GetAvaBaseStationForList());
             customers = ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList());
             parcels = ConvertFunctions.BOParcelForListToPO(Bl.GetParcelForList());
-            dronesCharging = ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging());
+            //dronesCharging = ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging());
         }
 
 
@@ -58,11 +58,11 @@ namespace PO
                 parcels.Add(item);
         }
 
-        static public void RefreshDronesCharging()
-        {
-            dronesCharging.Clear();
-            foreach (var item in ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging()))
-                dronesCharging.Add(item);
-        }
+    //    static public void RefreshDronesCharging()
+    //    {
+    //        dronesCharging.Clear();
+    //        foreach (var item in ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging()))
+    //            dronesCharging.Add(item);
+    //    }
     }
 }

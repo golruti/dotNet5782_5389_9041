@@ -1,28 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfParcel>
   <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>0</Id>
-    <SenderId>12</SenderId>
-    <TargetId>12</TargetId>
-    <Droneld>0</Droneld>
-    <Weight>Light</Weight>
-    <Priority>Regular</Priority>
-    <Requested>2022-02-08T17:40:35.7883861+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
     <Id>0</Id>
     <SenderId>12</SenderId>
     <TargetId>12</TargetId>
-    <Droneld>2</Droneld>
+    <Droneld>999</Droneld>
     <Weight>Light</Weight>
     <Priority>Regular</Priority>
     <Requested>2022-02-08T17:40:35.7883861+02:00</Requested>
-    <Scheduled>2022-02-08T17:49:28.7305462+02:00</Scheduled>
+    <Scheduled>2022-02-13T16:09:10.8989083+02:00</Scheduled>
     <PickedUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
   </Parcel>

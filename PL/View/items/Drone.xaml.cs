@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PL.ViewModel;
-
+using System.ComponentModel;
 
 namespace PL
 {
@@ -308,7 +308,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.PackageDelivery(droneViewModel.DroneInList.Id);
+                PO.ListsModel.Bl.UpdateParcelDelivered(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("he parcel was successfully delivered", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -394,6 +394,25 @@ namespace PL
             tabItem.Header = "Update Parcel";
             tabItem.Visibility = Visibility.Visible;
             Tabs.AddTab(tabItem);
+        }
+
+
+        //bool auto;
+        //public bool Auto
+        //{
+        //    get => auto;
+        //    set => this.setAndNotify(PropertyChanged, nameof(Auto), out auto, value);
+        //}
+
+        //BackgroundWorker worker;
+        private void Automatic_Click(object sender, RoutedEventArgs e)
+        {
+            //Auto = true;
+            //worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
+            //worker.DoWork += (sender, args) => PO.ListsModel.Bl.StartDroneSimulator((int)args.Argument, updateDrone, checkStop);
+            //worker.RunWorkerCompleted += (sender, args) => Auto = false;
+            //worker.ProgressChanged += (sender, args) => updateDroneView();
+            //worker.RunWorkerAsync(Drone.Id);
         }
     }
 }

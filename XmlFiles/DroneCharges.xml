@@ -24,4 +24,10 @@
     <StationId>23</StationId>
     <Time>2022-02-11T02:32:24.0001907+02:00</Time>
   </DroneCharge>
+  <DroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <DroneId>100</DroneId>
+    <StationId>23</StationId>
+    <Time>2022-02-13T14:26:30.0585894+02:00</Time>
+  </DroneCharge>
 </ArrayOfDroneCharge>

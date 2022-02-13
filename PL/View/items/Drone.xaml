@@ -24,7 +24,7 @@
         <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
     </UserControl.Resources>
     <Grid Background="White">
-        <Grid x:Name="Update_grid" Visibility="Collapsed">
+        <Grid x:Name="Update_grid" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="480"/>
                 <RowDefinition Height="100"/>
@@ -103,6 +103,7 @@
                     <TextBlock Text="{Binding parcelsByDrone.Weight}" HorizontalAlignment="Left" Margin="209,321,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.018,0.699"/>
                 </StackPanel>
             </ContentControl>
+            <Button Content="Automatic" HorizontalAlignment="Left" Margin="615,206,0,0" VerticalAlignment="Top" Click="Automatic_Click"/>
         </Grid>
         <Grid x:Name="Add_grid" Visibility="Collapsed" >
             <Grid Grid.Row="0"  Name="UpGrid"  Margin="176,50,176,150" Height="170" Width="252" >
