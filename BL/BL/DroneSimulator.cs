@@ -89,8 +89,8 @@ namespace BL
                 update();
             }
             //צריך לשלוח את הרחפן לטעינה דרך הפונקציה- כדי ליצור דרון צארג
-            drone.Status = DroneStatuses.Available;
-            bl.UpdateCharge(drone.Id);
+            //drone.Status = DroneStatuses.Available;
+            bl.UpdateChargeSimulator(drone.Id);
             while (drone.Battery < 100)
             {
                 if (!sleepDelayTime()) break;

@@ -368,6 +368,45 @@ namespace BL
         }
 
         /// <summary>
+        /// Sending a drone for charging
+        /// </summary>
+        /// <param name="droneId">id of drone</param>
+        public void UpdateChargeSimulator(int droneId)
+        {
+            DroneForList tempDrone = GetBLDroneInList(droneId);
+            int baseStationId = -1;
+            Location location = new Location() { };
+            double distance = double.MaxValue;
+
+                foreach (var item in dal.GetAvaBaseStations())
+                {
+                    double tempDistance = this.distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
+                    if (tempDistance < distance)
+                    {
+                        baseStationId = item.Id;
+                        distance = tempDistance;
+                        location = new Location() { Longitude = item.Longitude, Latitude = item.Latitude };
+                    }
+                }
+                if (minBattery(tempDrone.Location, location,DroneStatuses.Available, tempDrone.MaxWeight) < tempDrone.Battery)
+                {
+                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
+                    tempDrone.Location = GetBLBaseStation(baseStationId).Location;
+                    try
+                    {
+                        dal.UpdateCharge(droneId);
+                    }
+                    catch (KeyNotFoundException ex)
+                    {
+                        throw new KeyNotFoundException(ex.Message);
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException("the drone not have enough battery  -BL-");
+                }
+        }
+        /// <summary>
         /// Release drone from charging
         /// </summary>
         /// <param name="droneId">id of drone</param>

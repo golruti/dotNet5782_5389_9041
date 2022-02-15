@@ -3,10 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using static PO.ListsModel;
 
 namespace PL.ViewModel
 {
@@ -69,7 +65,7 @@ namespace PL.ViewModel
             if (blDrones.Count() != 0)
             {
                 DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
-                
+
                 PO.ListsModel.RefreshDrones();
                 PO.ListsModel.RefreshStations();
                 PO.ListsModel.RefreshParcels();
@@ -77,15 +73,25 @@ namespace PL.ViewModel
         }
 
         BackgroundWorker worker;
-        bool auto;
+        bool auto = false;
         public void StartDroneSimulator()
         {
-            Auto = true;
-            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
-            worker.DoWork += (sender, args) => PO.ListsModel.Bl.StartDroneSimulator((int)args.Argument, UpdateDrone, CheckStop);
-            worker.RunWorkerCompleted += (sender, args) => Auto = false;
-            worker.ProgressChanged += (sender, args) => UpdateDroneView();
-            worker.RunWorkerAsync(DroneInList.Id);
+            if (!Auto)
+            {
+                Auto = true;
+                worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
+                worker.DoWork += (sender, args) => PO.ListsModel.Bl.StartDroneSimulator((int)args.Argument, UpdateDrone, CheckStop);
+                worker.RunWorkerCompleted += (sender, args) => Auto = false;
+                worker.ProgressChanged += (sender, args) => UpdateDroneView();
+                worker.RunWorkerAsync(DroneInList.Id);
+            }
+            else
+            {
+                worker.CancelAsync();
+                Auto = false;
+            }
+               
+
         }
         public bool Auto
         {

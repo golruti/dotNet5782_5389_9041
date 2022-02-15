@@ -156,4 +156,30 @@
     <PickedUp>2022-02-15T15:32:20.7245291+02:00</PickedUp>
     <Delivered>2022-02-15T15:32:20.7267995+02:00</Delivered>
   </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>57</Id>
+    <SenderId>89</SenderId>
+    <TargetId>12</TargetId>
+    <Droneld>100</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <Requested>2022-02-15T17:27:35.5226094+02:00</Requested>
+    <Scheduled>2022-02-15T17:27:35.7905396+02:00</Scheduled>
+    <PickedUp>2022-02-15T17:27:38.7994743+02:00</PickedUp>
+    <Delivered>2022-02-15T17:27:38.8019979+02:00</Delivered>
+  </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>58</Id>
+    <SenderId>6</SenderId>
+    <TargetId>12</TargetId>
+    <Droneld>1</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <Requested>2022-02-15T17:30:05.4635255+02:00</Requested>
+    <Scheduled>2022-02-15T17:30:38.4992289+02:00</Scheduled>
+    <PickedUp>2022-02-15T17:30:39.5107502+02:00</PickedUp>
+    <Delivered>2022-02-15T17:30:39.5158905+02:00</Delivered>
+  </Parcel>
 </ArrayOfParcel>
