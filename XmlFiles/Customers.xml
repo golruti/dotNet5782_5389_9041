@@ -24,4 +24,12 @@
     <Longitude>89</Longitude>
     <Latitude>89</Latitude>
   </Customer>
+  <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>100</Id>
+    <Name>efrat</Name>
+    <Phone>2</Phone>
+    <Longitude>20</Longitude>
+    <Latitude>53</Latitude>
+  </Customer>
 </ArrayOfCustomer>

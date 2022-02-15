@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PO
 {
@@ -37,6 +38,8 @@ namespace PO
             get { return phone; }
             set
             {
+                if (int.Parse(phone) < 999999999 || int.Parse(phone) >= 1000000000)
+                    MessageBox.Show("hi");
                 phone = value;
                 OnPropertyChanged(nameof(Phone));
             }
