@@ -29,9 +29,6 @@ namespace BL
 
             while (!checkStop())
             {
-                //bl.UpdateDroneModel(drone.Id, "M-" + DateTime.Now.Second);
-                //drone = bl.GetBLDrone(droneId);
-
                 try
                 {
                     switch (drone.Status)
@@ -91,6 +88,9 @@ namespace BL
 
                 update();
             }
+            //צריך לשלוח את הרחפן לטעינה דרך הפונקציה- כדי ליצור דרון צארג
+            drone.Status = DroneStatuses.Available;
+            bl.UpdateCharge(drone.Id);
             while (drone.Battery < 100)
             {
                 if (!sleepDelayTime()) break;
@@ -100,8 +100,7 @@ namespace BL
             }
 
 
-            //צריך לשלוח את הרחפן לטעינה דרך הפונקציה- כדי ליצור דרון צארג
-            drone.Status = DroneStatuses.Available;
+            
             bl.UpdateRelease(drone.Id);
             station = null;
         }

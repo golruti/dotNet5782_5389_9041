@@ -376,21 +376,24 @@ namespace PL
 
         private void parcelByDrone_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
-            if (droneViewModel.DroneInList.Delivery.Id !=0)
+            if (droneViewModel.DroneInList.Delivery.Id != 0)
             {
                 var selectedParcel = droneViewModel.DroneInList.Delivery;
-                TabItem tabItem = new TabItem();
-                tabItem.Content = new Parcel(selectedParcel.Id);
-                tabItem.Header = "Update Parcel";
-                tabItem.Visibility = Visibility.Visible;
-                Tabs.AddTab(tabItem);
+                if (!selectedParcel.Equals(null))
+                {
+                    TabItem tabItem = new TabItem();
+                    tabItem.Content = new Parcel(selectedParcel.Id);
+                    tabItem.Header = "Update Parcel";
+                    tabItem.Visibility = Visibility.Visible;
+                    Tabs.AddTab(tabItem);
+                }
             }
         }
 
 
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
+            
             droneViewModel.StartDroneSimulator();
         }
 

@@ -35,13 +35,16 @@ namespace PL
 
         private void CustomersListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+           
             var selectedCustomer = CustomersListViewXaml.SelectedItem as PO.CustomerForList;
-            
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer(PO.ConvertFunctions.POCustomerForListToBO( selectedCustomer));
-            tabItem.Header = "Update customer";
-            tabItem.Visibility = Visibility.Visible;
-            Tabs.AddTab(tabItem);
+            if (!selectedCustomer.Equals(null))
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Customer(PO.ConvertFunctions.POCustomerForListToBO(selectedCustomer));
+                tabItem.Header = "Update customer";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+            }
         }
 
         private void add_customer_Click(object sender, RoutedEventArgs e)

@@ -104,4 +104,56 @@
     <PickedUp>2022-02-15T13:16:20.3943817+02:00</PickedUp>
     <Delivered>2022-02-15T13:16:22.5318358+02:00</Delivered>
   </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>53</Id>
+    <SenderId>6</SenderId>
+    <TargetId>12</TargetId>
+    <Droneld>-1</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <Requested>2022-02-15T15:00:22.0767272+02:00</Requested>
+    <Scheduled xsi:nil="true" />
+    <PickedUp xsi:nil="true" />
+    <Delivered xsi:nil="true" />
+  </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>54</Id>
+    <SenderId>12</SenderId>
+    <TargetId>12</TargetId>
+    <Droneld>999</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Emergency</Priority>
+    <Requested>2022-02-15T15:31:25.0946238+02:00</Requested>
+    <Scheduled>2022-02-15T15:31:25.9325508+02:00</Scheduled>
+    <PickedUp>2022-02-15T15:31:28.4398828+02:00</PickedUp>
+    <Delivered>2022-02-15T15:31:28.4422346+02:00</Delivered>
+  </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>55</Id>
+    <SenderId>89</SenderId>
+    <TargetId>12</TargetId>
+    <Droneld>999</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Emergency</Priority>
+    <Requested>2022-02-15T15:31:47.9844734+02:00</Requested>
+    <Scheduled>2022-02-15T15:31:48.2586814+02:00</Scheduled>
+    <PickedUp>2022-02-15T15:31:51.2660689+02:00</PickedUp>
+    <Delivered>2022-02-15T15:31:51.2715055+02:00</Delivered>
+  </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>56</Id>
+    <SenderId>6</SenderId>
+    <TargetId>12</TargetId>
+    <Droneld>999</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Emergency</Priority>
+    <Requested>2022-02-15T15:32:18.1613795+02:00</Requested>
+    <Scheduled>2022-02-15T15:32:18.2180419+02:00</Scheduled>
+    <PickedUp>2022-02-15T15:32:20.7245291+02:00</PickedUp>
+    <Delivered>2022-02-15T15:32:20.7267995+02:00</Delivered>
+  </Parcel>
 </ArrayOfParcel>

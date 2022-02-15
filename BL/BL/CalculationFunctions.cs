@@ -84,7 +84,7 @@ namespace BL
             if (isDroneMakesDelivery(droneId))
                 return BO.Enums.DroneStatuses.Delivery;
 
-            if(isDroneMaintenance(droneId))
+            if (isDroneMaintenance(droneId))
                 return BO.Enums.DroneStatuses.Maintenance;
 
             return BO.Enums.DroneStatuses.Available;
@@ -112,7 +112,7 @@ namespace BL
         {
             foreach (var parcel in dal.GetParcels())
             {
-               
+
                 if (parcel.Droneld == droneId &&
                     parcel.Delivered.Equals(null))
                 {
@@ -231,14 +231,7 @@ namespace BL
         /// <returns>sum of battary after charge</returns>
         private double batteryCalculationInCharging(int time)
         {
-            double battery = time * 0.05;
-            if (battery < 100)
-            {
-                return battery;
-            }
-            return 100;
+            return time * dal.GetElectricityUse()[4];
         }
-      //  public void StartDroneSimulator(int id, Action update, Func<bool> checkStop) => new DroneSimulator(this, id, update, checkStop);
-
     }
 }

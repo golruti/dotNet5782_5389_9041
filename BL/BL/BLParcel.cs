@@ -317,7 +317,7 @@ namespace BL
         /// <returns>The name of the sending customer</returns>
         private string getSendCustomerName(DO.Parcel parcel)
         {
-            var senderCustomerName = dal.GetCustomers().First(customer => customer.Id == parcel.SenderId);
+            var senderCustomerName = dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.SenderId);
             if (senderCustomerName.Equals(default(DO.Customer)))
             {
                 throw new ArgumentNullException("Get sender customer  -BL-");

@@ -242,7 +242,7 @@ namespace BL
                     int parcelId = -1;
                     foreach (var tempParcel in dal.GetParcels())
                     {
-                        if ( tempParcel.Droneld == droneID && tempParcel.PickedUp.Equals(null))
+                        if (tempParcel.Droneld == droneID && tempParcel.PickedUp.Equals(null))
                         {
                             parcelId = tempParcel.Id;
                             break;
@@ -256,7 +256,7 @@ namespace BL
                         //double distance = this.distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
                         Location location = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
                         droneForList.Battery -= minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1;
-                        droneForList.Location = location;                       
+                        droneForList.Location = location;
                         dal.UpdateParcelPickedUp(parcel.Id);
                     }
                     else
@@ -327,11 +327,11 @@ namespace BL
         /// <param name="droneId">id of drone</param>
         public void UpdateCharge(int droneId)
         {
-            Drone tempDrone = GetBLDrone(droneId);
+            DroneForList tempDrone = GetBLDroneInList(droneId);
             int baseStationId = -1;
             Location location = new Location() { };
             double distance = double.MaxValue;
-            if (tempDrone.Status == Enums.DroneStatuses.Available)
+            if (tempDrone.Status == DroneStatuses.Available)
             {
                 foreach (var item in dal.GetAvaBaseStations())
                 {
@@ -346,6 +346,7 @@ namespace BL
                 if (minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight) < tempDrone.Battery)
                 {
                     UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
+                    tempDrone.Location = GetBLBaseStation(baseStationId).Location;
                     try
                     {
                         dal.UpdateCharge(droneId);
@@ -373,18 +374,15 @@ namespace BL
         /// <param name="time">the time the drone was in charge</param>
         public void UpdateRelease(int droneId)
         {
-            DroneInCharging droneInCharging = new DroneInCharging();
             DroneForList drone = drones.FirstOrDefault(drone => drone.Id == droneId);
             if (!drone.Equals(default(DroneForList)))
             {
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
                     TimeSpan time = (TimeSpan)(DateTime.Now - GetDroneInChargByID(droneId).Time);
-                    drones.Remove(drone);
-                    droneInCharging.Battery = drone.Battery + batteryCalculationInCharging(time.Hours);
-                    drone.Battery = droneInCharging.Battery;
-                    drone.Status = (DroneStatuses)0;
-                    drones.Add(drone);
+                    double totalTime = drone.Battery + batteryCalculationInCharging(time.Seconds);
+                    drone.Battery = totalTime < 100 ? totalTime : 100;
+                    drone.Status = DroneStatuses.Available;
                     try
                     {
                         dal.UpdateRelease(droneId);

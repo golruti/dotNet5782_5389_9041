@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using static PO.ListsModel;
 
 namespace PL.ViewModel
 {
@@ -100,6 +101,10 @@ namespace PL.ViewModel
         private void UpdateDroneView()
         {
             //RefreshDroneInList();
+            //RefreshDrones();
+            //RefreshStations();
+            //RefreshParcels();
+            //RefreshCustomers();
             DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
         }
     }

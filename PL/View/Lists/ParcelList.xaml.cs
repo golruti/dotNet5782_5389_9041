@@ -108,11 +108,14 @@ namespace PL
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedParcel = ParcelesListView.SelectedItem as PO.ParcelForList;
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedParcel.Id);
-            tabItem.Header = "Update Parcel";
-            tabItem.Visibility = Visibility.Visible;
-           Tabs.AddTab(tabItem);
+            if (!selectedParcel.Equals(null))
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Parcel(selectedParcel.Id);
+                tabItem.Header = "Update Parcel";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+            }
         }
 
         /// <summary>
@@ -155,10 +158,10 @@ namespace PL
             if (obj is PO.ParcelForList parcel)
             {
                 return (ParcelStatuses.SelectedItem == null || parcel.Status == (PO.Enums.ParcelStatuses)ParcelStatuses.SelectedItem)
-                    && (SenderId.SelectedItem == null || parcel.SendCustomer ==  SenderId.SelectedItem.ToString())
+                    && (SenderId.SelectedItem == null || parcel.SendCustomer == SenderId.SelectedItem.ToString())
                     && (ReceiveId.SelectedItem == null || parcel.ReceiveCustomer == ReceiveId.SelectedItem.ToString())
                     && (From.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate)
-                    && (To.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate);             
+                    && (To.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate);
             }
             return false;
         }

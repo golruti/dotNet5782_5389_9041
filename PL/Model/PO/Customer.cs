@@ -38,8 +38,6 @@ namespace PO
             get { return phone; }
             set
             {
-                if (int.Parse(phone) < 999999999 || int.Parse(phone) >= 1000000000)
-                    MessageBox.Show("hi");
                 phone = value;
                 OnPropertyChanged(nameof(Phone));
             }

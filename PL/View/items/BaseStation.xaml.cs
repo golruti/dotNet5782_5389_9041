@@ -35,10 +35,10 @@ namespace PL
             Add_grid.Visibility = Visibility.Visible;
         }
 
-        public BaseStation( BaseStationForList baseStationForList)
+        public BaseStation(BaseStationForList baseStationForList)
         {
             InitializeComponent();
-            baseStationViewModel = new BaseStationViewModel( baseStationForList);
+            baseStationViewModel = new BaseStationViewModel(baseStationForList);
             this.DataContext = baseStationViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
@@ -53,7 +53,7 @@ namespace PL
             {
                 MessageBox.Show($"The station does not exist and could not be deleted");
             }
-            catch (Exception )
+            catch (Exception)
             {
                 MessageBox.Show($"The station was not delete.");
             }
@@ -103,7 +103,7 @@ namespace PL
             {
                 MessageBox.Show($"The station was not add, {ex.Message}");
             }
-            catch (Exception )
+            catch (Exception)
             {
                 MessageBox.Show($"The station was not add");
             }
@@ -125,12 +125,15 @@ namespace PL
         {
             try
             {
-            var selectedDrone = DronesListView.SelectedItem as PO.DroneInCharging;
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(PO.ListsModel.Bl.GetBLDrone(selectedDrone.Id));
-            tabItem.Header = "Update drone";
-            tabItem.Visibility = Visibility.Visible;
-            Tabs.AddTab(tabItem);
+                var selectedDrone = DronesListView.SelectedItem as PO.DroneInCharging;
+                if (!selectedDrone.Equals(null))
+                {
+                    TabItem tabItem = new TabItem();
+                    tabItem.Content = new Drone(PO.ListsModel.Bl.GetBLDrone(selectedDrone.Id));
+                    tabItem.Header = "Update drone";
+                    tabItem.Visibility = Visibility.Visible;
+                    Tabs.AddTab(tabItem);
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -203,7 +206,7 @@ namespace PL
             {
                 MessageBox.Show($"The base station could not be updated, {ex.Message}");
             }
-            catch (Exception )
+            catch (Exception)
             {
                 MessageBox.Show($"The base station could not be updated");
             }
