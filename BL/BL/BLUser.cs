@@ -36,7 +36,7 @@ namespace BL
 
         public bool IsExistEmployee(int userId, string password)
         {
-            return dal.ExistUser(userId, password, (DO.Enum.Access)Access.Client);
+            return dal.ExistUser(userId, password, (DO.Enum.Access)Access.Employee);
         }
 
 

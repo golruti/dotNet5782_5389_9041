@@ -71,7 +71,7 @@ namespace DAL
             XElement item = document.Root
                                     .Elements()
                                     .FirstOrDefault(element => !bool.Parse(element.Element("IsDeleted").Value)
-                                                               && userName.ToString() == element.Element("UserId").Value
+                                                               && userName ==int.Parse( element.Element("UserId").Value)
                                                                 && password == element.Element("Password").Value
                                                                 && stringAccess == element.Element("Access").Value);
 
