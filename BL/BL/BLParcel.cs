@@ -225,7 +225,8 @@ namespace BL
         /// </summary>
         /// <param name="id">The requested parcel to convert</param>
         /// <returns>The converted parcel</returns>
-        private ParcelByTransfer createParcelInTransfer(int id)
+
+        internal ParcelByTransfer createParcelInTransfer(int id)
         {
             DO.Parcel parcel = dal.GetParcel(id);
             if (parcel.Equals(null))
@@ -233,7 +234,7 @@ namespace BL
 
 
             DO.Customer sender = dal.GetCustomer(parcel.SenderId);
-            DO.Customer  target = dal.GetCustomer(parcel.TargetId);
+            DO.Customer target = dal.GetCustomer(parcel.TargetId);
             if (sender.Equals(null) || target.Equals(null))
                 throw new KeyNotFoundException("not found sender customer/target customer -BL-");
 
@@ -250,6 +251,8 @@ namespace BL
                 Target = new CustomerDelivery() { Id = target.Id, Name = target.Name }
             };
         }
+
+
 
         /// <summary>
         /// Convert a BL parcel to Parcel At Customer
@@ -330,7 +333,7 @@ namespace BL
         private string getReceiveCustomer(DO.Parcel parcel)
         {
             var receiveCustomerName = dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId);
-            if ( receiveCustomerName.Equals(default(DO.Customer)))
+            if (receiveCustomerName.Equals(default(DO.Customer)))
             {
                 throw new ArgumentNullException("Get recieve customer  -BL-");
             }
@@ -344,22 +347,13 @@ namespace BL
         /// <returns>The parcel status</returns>
         private ParcelStatuses getParcelStatus(DO.Parcel parcel)
         {
-            if (!parcel.Requested.Equals(null))
-            {
-                return Enums.ParcelStatuses.Created;
-            }
-            else if (parcel.Scheduled.Equals(null) && parcel.PickedUp.Equals(null) && parcel.Delivered.Equals(null))
-            {
-                return Enums.ParcelStatuses.Associated;
-            }
-            else if (!parcel.PickedUp.Equals(null) && parcel.Delivered.Equals(null))
-            {
-                return Enums.ParcelStatuses.Collected;
-            }
-            else
-            {
+            if (!parcel.Delivered.Equals(null))
                 return Enums.ParcelStatuses.Provided;
-            }
+            if (!parcel.PickedUp.Equals(null))
+                return Enums.ParcelStatuses.Collected;
+            if (!parcel.Scheduled.Equals(null))
+                return Enums.ParcelStatuses.Associated;
+            return Enums.ParcelStatuses.Created;
         }
 
         /// <summary>

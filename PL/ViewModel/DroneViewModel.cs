@@ -68,9 +68,10 @@ namespace PL.ViewModel
             if (blDrones.Count() != 0)
             {
                 DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
+                
                 PO.ListsModel.RefreshDrones();
                 PO.ListsModel.RefreshStations();
-
+                PO.ListsModel.RefreshParcels();
             }
         }
 
@@ -98,6 +99,7 @@ namespace PL.ViewModel
         private bool CheckStop() => worker.CancellationPending;
         private void UpdateDroneView()
         {
+            //RefreshDroneInList();
             DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
         }
     }

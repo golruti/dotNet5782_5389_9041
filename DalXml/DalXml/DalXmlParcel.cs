@@ -25,6 +25,8 @@ namespace DAL
                 throw new KeyNotFoundException("Add parcel -DAL-:Sender not exist");
             if (GetCustomer(parcel.TargetId).Equals(default(Customer)))
                 throw new KeyNotFoundException("Add parcel -DAL-:Target not exist");
+            var t = GetParcel(parcel.Id);
+            var s = default(Parcel);
             if (!GetParcel(parcel.Id).Equals(default(Parcel)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a parcel - DAL");
 
@@ -102,7 +104,7 @@ namespace DAL
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
             }
             UpdateItem(parcelsPath, parcelId, nameof(Parcel.Delivered), DateTime.Now);
-            UpdateItem(parcelsPath, parcelId, nameof(Parcel.Droneld), -1);
+            //UpdateItem(parcelsPath, parcelId, nameof(Parcel.Droneld), -1);
         }
 
         /// <summary>
@@ -119,7 +121,7 @@ namespace DAL
             UpdateItem(parcelsPath, parcelId, nameof(Parcel.Scheduled), DateTime.Now);
             UpdateItem(parcelsPath, parcelId, nameof(Parcel.Droneld), droneId);
 
-            
+
         }
 
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------
@@ -147,8 +149,9 @@ namespace DAL
 
             XElement indexElement = document.Root.Element("Index");
             int index = int.Parse(indexElement.Value);
-            indexElement.SetValue(++index);
+            indexElement.SetValue(index + 1);
 
+            document.Save(ConfigPath);
             return index;
         }
     }

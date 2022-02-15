@@ -170,6 +170,7 @@ namespace BL
         /// <returns>A list of drones to print</returns
         public IEnumerable<DroneForList> GetDroneForList()
         {
+            var s = drones;
             return drones;
         }
 
@@ -292,9 +293,10 @@ namespace BL
                 {
                     if (item.Id == drone.ParcelDeliveredId)
                     {
-                        if (item.PickedUp != null && item.Delivered == default(DateTime))
+                        if (!item.PickedUp.Equals(null) && item.Delivered.Equals(null))
                         {
                             parcel = item;
+                            break;
                         }
                         else
                         {
@@ -399,27 +401,33 @@ namespace BL
             }
         }
 
+
         /// <summary>
         /// Assign a parcel to a drone
-        /// //שיון רחפן לחבילה
+        /// //שיוך רחפן לחבילה
         /// </summary>
         /// <param name="id">id of drone</param>
         public void AssignParcelToDrone(int id)
         {
             Drone drone = GetBLDrone(id);
 
-            if (!drone.Equals(default(Drone)) && drone.Status == DroneStatuses.Available)
+            if (drone.Equals(default(Drone)) || drone.Status != DroneStatuses.Available)
+                throw new KeyNotFoundException("drone not exist  or not available -BL-");
+
+            int parcelId = -1;
+            bool isExist = false;
+            Priorities priority = Priorities.Regular;
+            WeightCategories weight = WeightCategories.Light;
+            double distance = double.MaxValue;
+
+            foreach (DO.Parcel parcel in dal.GetParcels(parcel => parcel.Scheduled.Equals(null)))
             {
-                int parcelId = -1;
-                bool isExist = false;
-
-                Priorities priority = Priorities.Regular;
-                WeightCategories weight = WeightCategories.Light;
-                double distance = double.MaxValue;
-
-                foreach (DO.Parcel parcel in dal.GetParcels())
+                if (parcel.Scheduled == null)
                 {
-                    if (minBattery(drone.Location, GetBLCustomer(parcel.SenderId).Location, drone.Status, drone.MaxWeight) < drone.Battery && (WeightCategories)parcel.Weight <= drone.MaxWeight)
+                    var batteryWayToSender = minBattery(drone.Location, GetBLCustomer(parcel.SenderId).Location, drone.Status, drone.MaxWeight);
+                    var batteryWayToTarget = minBattery(GetBLCustomer(parcel.SenderId).Location, GetBLCustomer(parcel.TargetId).Location, drone.Status, (WeightCategories)parcel.Weight);
+                    var t = drone.Battery;
+                    if ((batteryWayToSender + batteryWayToTarget) < drone.Battery && (WeightCategories)parcel.Weight <= drone.MaxWeight)
                     {
                         if ((Priorities)parcel.Priority > priority)
                         {
@@ -459,19 +467,13 @@ namespace BL
                         }
                     }
                 }
-                if (isExist == true)
-                {
-                    UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery, parcelId, drone.Location.Longitude, drone.Location.Latitude);
-                    UpdateParcelScheduled(parcelId, drone.Id);
-                }
-                else
-                {
-                    throw new KeyNotFoundException("parcel not exist -BL-");
-                }
             }
+            if (isExist == false)
+                throw new NoParcelFoundForConnectionToTheDroneException("-BL-");
             else
             {
-                throw new KeyNotFoundException("parcel not exist -BL-");
+                UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery, parcelId, drone.Location.Longitude, drone.Location.Latitude);
+                UpdateParcelScheduled(parcelId, drone.Id);
             }
         }
 
@@ -483,7 +485,7 @@ namespace BL
         /// </summary>
         /// <param name="id">The requested dron</param>
         /// <returns>A Bl drone for list</returns>
-        private DroneForList GetBLDroneInList(int id)
+        internal DroneForList GetBLDroneInList(int id)
         {
             var drone = drones.FirstOrDefault(d => d.Id == id);
             return drone;
@@ -513,9 +515,6 @@ namespace BL
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
             drones.Add(tempDroneForList);
-
-         
-        
         }
 
         /// <summary>

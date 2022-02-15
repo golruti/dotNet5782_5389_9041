@@ -110,13 +110,10 @@ namespace BL
         /// <returns>If the drone makes a delivery</returns>
         private bool isDroneMakesDelivery(int droneId)
         {
-            
-
             foreach (var parcel in dal.GetParcels())
             {
                
                 if (parcel.Droneld == droneId &&
-                    !parcel.Requested.Equals(null) &&
                     parcel.Delivered.Equals(null))
                 {
                     return true;

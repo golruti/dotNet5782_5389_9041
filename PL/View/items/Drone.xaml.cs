@@ -388,34 +388,12 @@ namespace PL
             }
         }
 
-        //bool auto;
-        //public bool Auto
-        //{
-        //    get => auto;
-        //    set => this.setAndNotify(PropertyChanged, nameof(Auto), out auto, value);
-        //}
 
-
-        //BackgroundWorker worker;
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
             droneViewModel.StartDroneSimulator();
-        //    //Auto = true;
-        //    worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
-        //    worker.DoWork += (sender, args) => PO.ListsModel.Bl.StartDroneSimulator((int)args.Argument, UpdateDrone, CheckStop);
-        //    worker.RunWorkerCompleted += (sender, args) => Auto = false;
-        //    worker.ProgressChanged += (sender, args) => updateDroneView();
-        //    worker.RunWorkerAsync(Drone.Id);
         }
 
-        //private void UpdateDrone()
-        //{
-        //    throw new NotImplementedException();
-        //}
-        //private bool CheckStop()
-        //{
-        //    throw new NotImplementedException();
-        //}
 
     }
 }
