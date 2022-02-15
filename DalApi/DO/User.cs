@@ -12,7 +12,7 @@ namespace DO
         #region properties
         public string Password { get; set; }
         public int UserId { get; set; }
-        public Access Acces { get; set; }
+        public Access Access { get; set; }
         public bool IsDeleted { get; set; }        
         #endregion
     }

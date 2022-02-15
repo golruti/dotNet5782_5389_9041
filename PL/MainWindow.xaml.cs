@@ -79,7 +79,7 @@ namespace PL
         private void showEmployeeWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Employee(bl, AddTab, RemoveTab);
+            tabItem.Content = new Employee();
             tabItem.Header = "Employee";
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);

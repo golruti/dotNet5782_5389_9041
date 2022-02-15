@@ -18,7 +18,7 @@ namespace DAL
         /// <param name="user">struct of customer</param>
         public void AddUser(User user)
         {
-            if (!GetUser(user.UserId, user.Password, user.Acces).Equals(default(User)))
+            if (!GetUser(user.UserId, user.Password, user.Access).Equals(default(User)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("An existing user in the database - DAL");
             user.IsDeleted = false;
 
@@ -27,7 +27,7 @@ namespace DAL
 
         public bool ExistUser(int userName, string password, Access access)
         {
-            return GetUsers().FirstOrDefault(user =>  user.Acces == access).Equals(default(User)) ? false : true;
+            return GetUsers().FirstOrDefault(user =>  user.Access == access).Equals(default(User)) ? false : true;
         }
         //--------------------------------------------Show item-------------------------------------------------------------------------------------------
         /// <summary>
@@ -48,7 +48,7 @@ namespace DAL
         /// <returns>the user</returns>
         private User GetCUser(Predicate<User> predicate, Access access)
         {
-            return GetUsers().FirstOrDefault(user => predicate(user) && user.Acces == access);
+            return GetUsers().FirstOrDefault(user => predicate(user) && user.Access == access);
         }
 
         //--------------------------------------------Show list-------------------------------------------------------------------------------------------
@@ -78,9 +78,9 @@ namespace DAL
         /// <param name="id">user details</param>
         public void DeleteUser(User user)
         {
-            if (GetUser(user.UserId, user.Password, user.Acces).Equals(default(User)))
+            if (GetUser(user.UserId, user.Password, user.Access).Equals(default(User)))
                 throw new KeyNotFoundException("Delete user -DAL: There is no suitable user in data");
-            UpdateItem(customersPath, user.UserId, user.Password, user.Acces, nameof(User.IsDeleted), true);
+            UpdateItem(customersPath, user.UserId, user.Password, user.Access, nameof(User.IsDeleted), true);
         }
     }
 }

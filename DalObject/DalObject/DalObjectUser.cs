@@ -16,7 +16,7 @@ namespace DAL
         /// <param name="user">struct of user</param>
         public void AddUser(User user)
         {
-            if (!GetUser(user.UserId, user.Password, user.Acces).Equals(default(User)))
+            if (!GetUser(user.UserId, user.Password, user.Access).Equals(default(User)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("An existing user in the database - DAL");
             user.IsDeleted = false;
 
@@ -26,7 +26,7 @@ namespace DAL
 
         public bool ExistUser(int userName, string password, Access access)
         {
-            return GetUsers().FirstOrDefault(user => user.Acces == access).Equals(default(User)) ? false : true;
+            return GetUsers().FirstOrDefault(user => user.Access == access).Equals(default(User)) ? false : true;
         }
         //--------------------------------------------Show item-------------------------------------------------------------------------------------------
         /// <summary>
@@ -38,7 +38,7 @@ namespace DAL
         private User GetUser(int userName, string password, Access access)
         {
             User user = DataSource.users.FirstOrDefault(user => user.UserId == userName && user.Password == password &&
-            user.Acces == access && !(user.IsDeleted));
+            user.Access == access && !(user.IsDeleted));
 
             return user;
         }
@@ -50,7 +50,7 @@ namespace DAL
         /// <returns>the user</returns>
         private User GetCUser(Predicate<User> predicate, Access access)
         {
-            return GetUsers().FirstOrDefault(user => predicate(user) && user.Acces == access);
+            return GetUsers().FirstOrDefault(user => predicate(user) && user.Access == access);
         }
 
         //--------------------------------------------Show list-------------------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ namespace DAL
         /// <param name="id">user details</param>
         public void DeleteUser(User user)
         {
-            User deletedUser = GetUser(user.UserId, user.Password, user.Acces);
+            User deletedUser = GetUser(user.UserId, user.Password, user.Access);
             if (deletedUser.Equals(default(User)))
                 throw new KeyNotFoundException("Delete user -DAL-: There is no suitable user in data");
             else

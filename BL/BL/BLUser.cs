@@ -19,7 +19,7 @@ namespace BL
                 {
                     Password = tempUser.Password,
                     UserId = tempUser.UserId,
-                    Acces = (DO.Enum.Access)tempUser.Acces,
+                    Access = (DO.Enum.Access)tempUser.Access,
                     IsDeleted = false
                 });
             }
@@ -46,7 +46,7 @@ namespace BL
             {
                 Password = tempUser.Password,
                 UserId = tempUser.UserId,
-                Acces = (DO.Enum.Access)tempUser.Acces,
+                Access = (DO.Enum.Access)tempUser.Access,
                 IsDeleted = false
             });
         }

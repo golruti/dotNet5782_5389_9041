@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static PL.Tabs;
+using static PO.ListsModel;
 
 namespace PL
 {
@@ -21,27 +23,20 @@ namespace PL
     /// </summary>
     public partial class Employee : UserControl
     {
-        Action<TabItem> addTab;
-        private BlApi.IBL bl;
-        private Action<object, RoutedEventArgs> RemoveTab;
-
-        public Employee(IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
+        public Employee()
         {
             InitializeComponent();
 
-            this.bl = bl;
-            this.addTab = addTab;
-            this.RemoveTab = removeTab;
         }
 
         private void show_EmployeeHomePage(object sender, RoutedEventArgs e)
         {
-            if (bl.IsExistEmployee(int.Parse(userName.Text), password.Text))
+            if (Bl.IsExistEmployee(int.Parse(userName.Text), password.Text))
             {
                 TabItem tabItem = new TabItem();
-                tabItem.Content = new EmployeeHomePage(bl, addTab, RemoveTab);
+                tabItem.Content = new EmployeeHomePage();
                 tabItem.Header = "Employee Home Page";
-                this.addTab(tabItem);
+                AddTab(tabItem);
                 Close_Page(sender, e);
             }
             else
