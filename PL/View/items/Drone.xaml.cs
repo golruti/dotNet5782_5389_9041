@@ -159,6 +159,8 @@ namespace PL
             //  droneViewModel.RefreshDroneInList();
             PO.ListsModel.RefreshDrones();
             PO.ListsModel.RefreshStations();
+            if (droneViewModel.worker.IsBusy)
+                droneViewModel.worker.CancelAsync();
         }
 
         private void Close_Page_notDo(object sender, RoutedEventArgs e)
@@ -393,7 +395,7 @@ namespace PL
 
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
-            
+
             droneViewModel.StartDroneSimulator();
         }
 

@@ -72,7 +72,7 @@ namespace PL.ViewModel
             }
         }
 
-        BackgroundWorker worker;
+        public BackgroundWorker worker;
         bool auto = false;
         public void StartDroneSimulator()
         {
@@ -88,7 +88,7 @@ namespace PL.ViewModel
             else
             {
                 worker.CancelAsync();
-                Auto = false;
+                //Auto = false;
             }
 
 

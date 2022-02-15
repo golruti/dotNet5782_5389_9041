@@ -345,8 +345,8 @@ namespace BL
                 }
                 if (minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight) < tempDrone.Battery)
                 {
-                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
-                    tempDrone.Location = GetBLBaseStation(baseStationId).Location;
+                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight), tempDrone.Location.Latitude, tempDrone.Location.Latitude);
+                    //tempDrone.Location = GetBLBaseStation(baseStationId).Location;
                     try
                     {
                         dal.UpdateCharge(droneId);
