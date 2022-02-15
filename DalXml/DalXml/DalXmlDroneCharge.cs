@@ -72,7 +72,7 @@ namespace DAL
         /// <returns>The specific drone charge</returns>
         public DroneCharge GetDroneCharge(int droneId)
         {
-            return GetList<DroneCharge>(droneChargesPath).FirstOrDefault(charge => charge.DroneId == droneId);
+            return GetList<DroneCharge>(droneChargesPath).FirstOrDefault(charge => charge.DroneId == droneId && charge.IsDeleted ==false);
         }
 
         //---------------------------------------------Show list--------------------------------------------------------------------------------------

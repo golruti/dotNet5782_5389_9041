@@ -1,6 +1,5 @@
 ﻿using BO;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using static BO.Enums;
 
@@ -16,16 +15,18 @@ namespace BL
         Action update;
         private BL bl;
         double distance;
-        const int STEP = 2000;/*2*/
-        const int DELAY = 500;/*500*/
-        private const double TIME_STEP = DELAY / 1000.0;/*1000.0*/
-
+        const int STEP = 2000;
+        const int DELAY = 500;
+        private const double TIME_STEP = DELAY / 1000.0;
+        Func<bool> checkStop;
+         
         public DroneSimulator(BL bl, int droneId, Action update, Func<bool> checkStop)
         {
             this.bl = bl;
             this.update = update;
-            drone = bl.GetBLDroneInList(droneId);
+            this.checkStop = checkStop;
 
+            drone = bl.GetBLDroneInList(droneId);
 
             while (!checkStop())
             {
@@ -66,7 +67,8 @@ namespace BL
                 {
                     if (drone.Battery < 100)
                     {
-                        drone.Status = DroneStatuses.Maintenance;
+                        //drone.Status = DroneStatuses.Maintenance;
+                        bl.UpdateCharge(drone.Id);
                     }
                 }
             }
@@ -74,35 +76,41 @@ namespace BL
 
         private void MaintenanceDrone()
         {
-            lock (bl)
+            if (bl.GetDroneInChargByID(drone.Id).Equals(default(DO.DroneCharge)))//האם הרחפן לא בטעינה
             {
-                station = bl.mapBaseStation(bl.nearestBaseStation(drone.Location.Longitude, drone.Location.Latitude));
-                distance = bl.distance(drone.Location.Latitude, station.Location.Latitude, drone.Location.Longitude, station.Location.Longitude);
-            }
+                lock (bl)
+                {
+                    station = bl.mapBaseStation(bl.nearestBaseStation(drone.Location.Longitude, drone.Location.Latitude));
+                    distance = bl.distance(drone.Location.Latitude, station.Location.Latitude, drone.Location.Longitude, station.Location.Longitude);
+                }
 
-            while (distance > 0.001)
-            {
-                if (!sleepDelayTime()) break;
-                CalculateLocationAndBattary(bl.available, station.Location);
-                distance = bl.distance(drone.Location.Latitude, station.Location.Latitude, drone.Location.Longitude, station.Location.Longitude);
+                while (distance > 0.001)
+                {
+                    if (checkStop()) 
+                        return;
+                    if (!sleepDelayTime()) 
+                        break;
+                    CalculateLocationAndBattary(bl.available, station.Location);
+                    distance = bl.distance(drone.Location.Latitude, station.Location.Latitude, drone.Location.Longitude, station.Location.Longitude);
+                    update();
+                }
 
-                update();
+
+                //bl.UpdateChargeSimulator(drone.Id);
             }
-            //צריך לשלוח את הרחפן לטעינה דרך הפונקציה- כדי ליצור דרון צארג
-            //drone.Status = DroneStatuses.Available;
-            bl.UpdateChargeSimulator(drone.Id);
             while (drone.Battery < 100)
             {
-                if (!sleepDelayTime()) break;
+                if (checkStop())
+                    return;
+                if (!sleepDelayTime())
+                    break;
                 lock (bl) drone.Battery = Math.Min(100.0, drone.Battery + bl.chargingRate * TIME_STEP);
                 update();
-
             }
 
 
-            
             bl.UpdateRelease(drone.Id);
-            station = null;
+
         }
 
         private void DeliveryDrone()
@@ -112,13 +120,17 @@ namespace BL
                 drone.Location.Longitude, senderAndTarget.SenderLocation.Longitude);
             while (distance > 0.003)
             {
-                if (!sleepDelayTime()) break;
+                if (checkStop())
+                    return;
+                if (!sleepDelayTime()) 
+                    break;
                 CalculateLocationAndBattary(bl.available, senderAndTarget.SenderLocation);
                 distance = bl.distance(drone.Location.Latitude, senderAndTarget.SenderLocation.Latitude, drone.Location.Longitude, senderAndTarget.SenderLocation.Longitude);
                 var t = senderAndTarget.SenderLocation;
 
                 update();
             }
+
 
             parcel = bl.GetBLParcel(senderAndTarget.Id);
             if (parcel.PickedUp.Equals(null))
@@ -129,12 +141,17 @@ namespace BL
             double elec = senderAndTarget.Weight == WeightCategories.Heavy ? bl.heavyWeight : senderAndTarget.Weight == WeightCategories.Light ? bl.lightWeight : bl.mediumWeight;
             while (distance > 0.005)
             {
-                if (!sleepDelayTime()) break;
+                if (checkStop())
+                    return;
+                if (!sleepDelayTime())
+                    break;
                 CalculateLocationAndBattary(elec, senderAndTarget.TargetLocation);
                 var t = bl.GetParcelForList();
-                distance = bl.distance(drone.Location.Latitude, senderAndTarget.TargetLocation.Latitude, drone.Location.Longitude,senderAndTarget.TargetLocation.Longitude);
+                distance = bl.distance(drone.Location.Latitude, senderAndTarget.TargetLocation.Latitude, drone.Location.Longitude, senderAndTarget.TargetLocation.Longitude);
                 update();
             }
+
+
             bl.UpdateParcelDelivered(drone.Id);
         }
 

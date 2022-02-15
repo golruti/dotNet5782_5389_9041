@@ -85,7 +85,7 @@ namespace BL
         private double minBattery(Location exit, Location target, Enums.DroneStatuses status, Enums.WeightCategories weight)
         {
             double distance = this.distance(exit.Latitude, target.Latitude, exit.Longitude, target.Longitude) / 1000;
-;
+
             if (status == DroneStatuses.Available)
             {
                 return distance * dal.GetElectricityUse()[0];

@@ -335,20 +335,25 @@ namespace PO
             ObservableCollection<PO.DroneForList> drones = new ObservableCollection<DroneForList>();
 
             foreach (var drone in droneForList)
-            {
-                drones.Add(new DroneForList()
-                {
-                    Id = drone.Id,
-                    Model = drone.Model,
-                    MaxWeight = BOEnumWeightCategoriesToPO(drone.MaxWeight),
-                    Battery = drone.Battery,
-                    Status = BOEnumDroneStatusesToPO(drone.Status),
-                    Location = BOLocationToPO(drone.Location),
-                    ParcelDeliveredId = drone.ParcelDeliveredId
-                });
-            }
+                drones.Add(BODorneForListToPO(drone));
+
             return drones;
         }
+
+        internal static DroneForList BODorneForListToPO(BO.DroneForList drone)
+        {
+            return new DroneForList()
+            {
+                Id = drone.Id,
+                Model = drone.Model,
+                MaxWeight = BOEnumWeightCategoriesToPO(drone.MaxWeight),
+                Battery = drone.Battery,
+                Status = BOEnumDroneStatusesToPO(drone.Status),
+                Location = BOLocationToPO(drone.Location),
+                ParcelDeliveredId = drone.ParcelDeliveredId
+            };
+        }
+
         internal static BO.DroneForList PODroneForListToBO(DroneForList drone)
         {
             return new BO.DroneForList()

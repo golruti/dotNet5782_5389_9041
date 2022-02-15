@@ -390,7 +390,7 @@ namespace BL
                 }
                 if (minBattery(tempDrone.Location, location,DroneStatuses.Available, tempDrone.MaxWeight) < tempDrone.Battery)
                 {
-                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
+                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, DroneStatuses.Available, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
                     tempDrone.Location = GetBLBaseStation(baseStationId).Location;
                     try
                     {
@@ -569,12 +569,10 @@ namespace BL
         private void UpdateDroneStatus(int id, DroneStatuses status, double battery, double longitude, double latitude)
         {
             DroneForList tempDroneForList = drones.First(drone => drone.Id == id);
-            drones.Remove(tempDroneForList);
             tempDroneForList.Status = status;
             tempDroneForList.Battery = battery;
             tempDroneForList.Location.Longitude = longitude;
             tempDroneForList.Location.Latitude = latitude;
-            drones.Add(tempDroneForList);
         }
 
         public void StartDroneSimulator(int droneId, Action update, Func<bool> checkStop)

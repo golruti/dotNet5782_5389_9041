@@ -90,7 +90,7 @@ namespace PL.ViewModel
                 worker.CancelAsync();
                 Auto = false;
             }
-               
+
 
         }
         public bool Auto
@@ -106,12 +106,13 @@ namespace PL.ViewModel
         private bool CheckStop() => worker.CancellationPending;
         private void UpdateDroneView()
         {
+            DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
+            PO.ListsModel.RefreshDrone(DroneInList.Id);
             //RefreshDroneInList();
             //RefreshDrones();
             //RefreshStations();
             //RefreshParcels();
             //RefreshCustomers();
-            DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
         }
     }
 }

@@ -36,6 +36,14 @@ namespace PO
             foreach (var item in ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList()))
                 drones.Add(item);
         }
+        static public void RefreshDrone(int droneId)
+        {
+            var dronePO = drones.FirstOrDefault(d => d.Id == droneId);
+            drones.Remove(dronePO);
+
+            var droneNew = ConvertFunctions.BODorneForListToPO(Bl.GetDroneForList().FirstOrDefault(d => d.Id == droneId));
+            drones.Add(droneNew);
+        }
 
         static public void RefreshStations()
         {
@@ -49,7 +57,7 @@ namespace PO
             foreach (var item in ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList()))
                 customers.Add(item);
 
-           
+
         }
         static public void RefreshParcels()
         {
@@ -58,11 +66,11 @@ namespace PO
                 parcels.Add(item);
         }
 
-    //    static public void RefreshDronesCharging()
-    //    {
-    //        dronesCharging.Clear();
-    //        foreach (var item in ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging()))
-    //            dronesCharging.Add(item);
-    //    }
+        //    static public void RefreshDronesCharging()
+        //    {
+        //        dronesCharging.Clear();
+        //        foreach (var item in ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging()))
+        //            dronesCharging.Add(item);
+        //    }
     }
 }

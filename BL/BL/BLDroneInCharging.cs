@@ -7,7 +7,7 @@ namespace BL
     partial class BL
     {
         //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private DO.DroneCharge GetDroneInChargByID(int id)
+        internal DO.DroneCharge GetDroneInChargByID(int id)
         {
             try
             {

@@ -33,7 +33,7 @@ namespace PL
             if (Bl.IsExistClient(int.Parse(Id_sign_in.Text), pass_sign_in.Text) == true)
             {
                 TabItem tabItem = new TabItem();
-                tabItem.Content = new CustomerHomePage();
+                tabItem.Content = new CustomerHomePage(int.Parse(Id_sign_in.Text));
                 tabItem.Header = "Customer Home Page";
                 Tabs.AddTab(tabItem);
                 Close_Page(sender, e);
@@ -65,7 +65,7 @@ namespace PL
             if (succeeded == true)
             {
                 TabItem tabItem = new TabItem();
-                tabItem.Content = new CustomerHomePage();
+                tabItem.Content = new CustomerHomePage(int.Parse(Id_sign_up.Text));
                 tabItem.Header = "Customer Home Page";
                 Tabs.AddTab(tabItem);
                 Close_Page(sender, e);

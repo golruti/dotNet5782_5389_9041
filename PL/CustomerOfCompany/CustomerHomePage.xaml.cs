@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static PL.Tabs;
 
 namespace PL
 {
@@ -20,9 +21,19 @@ namespace PL
     /// </summary>
     public partial class CustomerHomePage : UserControl
     {
-        public CustomerHomePage()
+        int customerId;
+        public CustomerHomePage(int customerId)
         {
+            this.customerId = customerId;
             InitializeComponent();
+        }
+
+        private void ShowParcelList_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new ParcelList(this.customerId);
+            tabItem.Header = "parcel list";
+            AddTab(tabItem);
         }
     }
 }

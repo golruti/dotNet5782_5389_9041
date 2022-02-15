@@ -25,10 +25,10 @@ namespace PL
     {
         ParcelListViewModel parcelListViewModel;
 
-        public ParcelList()
+        public ParcelList(int? customerId = null)
         {
             InitializeComponent();
-            parcelListViewModel = new ParcelListViewModel();
+            parcelListViewModel = new ParcelListViewModel(customerId);
             this.DataContext = parcelListViewModel;
             parcelListViewModel.ParcelsForList.Filter = FilterParcel;
             parcelListViewModel.ParcelsForList.GroupDescriptions.Add(new PropertyGroupDescription(nameof(ParcelForList.SendCustomer)));
@@ -37,18 +37,9 @@ namespace PL
             ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
         }
 
-        /// <summary>
-        /// Updates the skimmer list
-        /// </summary>
-        private void RefreshParcelList()
-        {
-            // parcelListViewModel.RefreshParcelList();
-            PO.ListsModel.RefreshParcels();
-            RefreshFilter();
-        }
 
         /// <summary>
-        /// Changes the list of skimmers according to the weight selected
+        /// Changes the list of drones according to the weight selected
         /// </summary>
         /// <param name = "sender" ></ param >
         /// < param name="e"></param>
@@ -157,7 +148,8 @@ namespace PL
         {
             if (obj is PO.ParcelForList parcel)
             {
-                return (ParcelStatuses.SelectedItem == null || parcel.Status == (PO.Enums.ParcelStatuses)ParcelStatuses.SelectedItem)
+                return (parcelListViewModel.Customer == null || parcel.SendCustomer == parcelListViewModel.Customer.Name || parcel.ReceiveCustomer == parcelListViewModel.Customer.Name)
+                    && (ParcelStatuses.SelectedItem == null || parcel.Status == (PO.Enums.ParcelStatuses)ParcelStatuses.SelectedItem)
                     && (SenderId.SelectedItem == null || parcel.SendCustomer == SenderId.SelectedItem.ToString())
                     && (ReceiveId.SelectedItem == null || parcel.ReceiveCustomer == ReceiveId.SelectedItem.ToString())
                     && (From.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate)

@@ -1,13 +1,5 @@
 ﻿using PO;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace PL.ViewModel
@@ -16,10 +8,13 @@ namespace PL.ViewModel
     {
         private ListCollectionView parcelsForList;
         public event PropertyChangedEventHandler PropertyChanged;
+        public BO.Customer Customer { get; set; }
 
-        public ParcelListViewModel()
+        public ParcelListViewModel(int? customerId = null)
         {
-            parcelsForList = new ListCollectionView(ListsModel.parcels);
+            ParcelsForList = new ListCollectionView(ListsModel.parcels);
+            if (customerId.HasValue)
+                this.Customer = ListsModel.Bl.GetBLCustomer(customerId.Value);
         }
 
         public ListCollectionView ParcelsForList

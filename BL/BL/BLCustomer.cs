@@ -97,7 +97,7 @@ namespace BL
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
         }
 
@@ -172,7 +172,7 @@ namespace BL
         {
             IEnumerable<ParcelToCustomer> sendedList = new List<ParcelToCustomer>();
             IEnumerable<ParcelToCustomer> targetedList = new List<ParcelToCustomer>();
-            
+
             sendedList = dal.GetParcels().Where(p => p.SenderId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
             targetedList = dal.GetParcels().Where(p => p.TargetId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
 
