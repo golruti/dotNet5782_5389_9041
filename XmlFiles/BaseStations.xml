@@ -604,7 +604,7 @@
     <AvailableChargingPorts>11</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
+    <IsDeleted>true</IsDeleted>
     <Id>20</Id>
     <Name>20</Name>
     <Longitude>20</Longitude>
@@ -629,5 +629,23 @@
     <Latitude>23</Latitude>
     <ChargeSlote>20</ChargeSlote>
     <AvailableChargingPorts>14</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>20</Id>
+    <Name>20</Name>
+    <Longitude>20</Longitude>
+    <Latitude>20</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>11</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>20</Id>
+    <Name>20</Name>
+    <Longitude>20</Longitude>
+    <Latitude>20</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>12</AvailableChargingPorts>
   </BaseStation>
 </ArrayOfBaseStation>

@@ -26,12 +26,11 @@ namespace PL
         public Employee()
         {
             InitializeComponent();
-
         }
 
         private void show_EmployeeHomePage(object sender, RoutedEventArgs e)
         {
-                if (Bl.IsExistEmployee(int.Parse(userName.Text), password.Text))
+            if (Bl.IsExistEmployee(int.Parse(userName.Text), password.Text))
             {
                 TabItem tabItem = new TabItem();
                 tabItem.Content = new EmployeeHomePage();

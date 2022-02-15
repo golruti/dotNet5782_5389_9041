@@ -67,10 +67,8 @@ namespace BL
                 {
                     if (drone.Battery < 100)
                     {
-                        //drone.Status = DroneStatuses.Maintenance;
-                        //var tempLocation = new Location() { Latitude = drone.Location.Latitude, Longitude = drone.Location.Longitude };
-                        bl.UpdateCharge(drone.Id);
-                        //drone.Location = new Location() { Latitude = tempLocation.Latitude, Longitude = tempLocation.Longitude };
+                        bl.UpadateChargaSimulator(drone.Id);
+
                     }
                 }
             }

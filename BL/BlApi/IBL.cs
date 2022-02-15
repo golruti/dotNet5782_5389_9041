@@ -62,7 +62,8 @@ namespace BlApi
 
         public void UpdateParcelScheduled(int parcelId, int droneId);
         public void UpdateChargeSimulator(int droneId);
-        
+
+
 
 
 
