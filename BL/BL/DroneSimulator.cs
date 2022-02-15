@@ -16,18 +16,16 @@ namespace BL
         Action update;
         private BL bl;
         double distance;
-        const int STEP = 200;/*2*/
-        const int DELAY = 1;/*500*/
-        private const double TIME_STEP = DELAY / 100000.0;/*1000.0*/
+        const int STEP = 2000;/*2*/
+        const int DELAY = 500;/*500*/
+        private const double TIME_STEP = DELAY / 1000.0;/*1000.0*/
 
         public DroneSimulator(BL bl, int droneId, Action update, Func<bool> checkStop)
         {
             this.bl = bl;
             this.update = update;
-            //drone = bl.GetBLDrone(droneId);
-            senderAndTarget = bl.createParcelInTransfer(droneId);
-
             drone = bl.GetBLDroneInList(droneId);
+
 
             while (!checkStop())
             {
@@ -56,7 +54,7 @@ namespace BL
                     break;
                 }
                 update();
-                //Thread.Sleep(5000);
+                Thread.Sleep(1000);
             }
         }
         private void AvaibleDrone()
@@ -101,20 +99,23 @@ namespace BL
 
             }
 
+
             //צריך לשלוח את הרחפן לטעינה דרך הפונקציה- כדי ליצור דרון צארג
+            drone.Status = DroneStatuses.Available;
             bl.UpdateRelease(drone.Id);
             station = null;
         }
 
         private void DeliveryDrone()
         {
+            senderAndTarget = bl.createParcelInTransfer(drone.ParcelDeliveredId);
             distance = bl.distance(drone.Location.Latitude, senderAndTarget.SenderLocation.Latitude,
                 drone.Location.Longitude, senderAndTarget.SenderLocation.Longitude);
             while (distance > 0.003)
             {
                 if (!sleepDelayTime()) break;
                 CalculateLocationAndBattary(bl.available, senderAndTarget.SenderLocation);
-                distance = bl.distance(drone.Location.Latitude, senderAndTarget.TargetLocation.Latitude, drone.Location.Longitude, senderAndTarget.TargetLocation.Longitude);
+                distance = bl.distance(drone.Location.Latitude, senderAndTarget.SenderLocation.Latitude, drone.Location.Longitude, senderAndTarget.SenderLocation.Longitude);
                 var t = senderAndTarget.SenderLocation;
 
                 update();
@@ -142,11 +143,11 @@ namespace BL
         {
             double delta = distance < STEP ? distance : STEP;
             double proportion = delta / distance;
-
             drone.Battery = Math.Max(0.0, drone.Battery - delta * elecricity);
             double lat = drone.Location.Latitude + (targetLocation.Latitude - drone.Location.Latitude) * proportion;
             double lon = drone.Location.Longitude + (targetLocation.Longitude - drone.Location.Longitude) * proportion;
             lock (bl) drone.Location = new() { Latitude = lat, Longitude = lon };
+
         }
         private static bool sleepDelayTime()
         {

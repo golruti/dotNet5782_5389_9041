@@ -85,23 +85,24 @@ namespace BL
         private double minBattery(Location exit, Location target, Enums.DroneStatuses status, Enums.WeightCategories weight)
         {
             double distance = this.distance(exit.Latitude, target.Latitude, exit.Longitude, target.Longitude) / 1000;
-            if (status == Enums.DroneStatuses.Available)
+;
+            if (status == DroneStatuses.Available)
             {
-                return distance * (dal.GetElectricityUse()[0]);
+                return distance * dal.GetElectricityUse()[0];
             }
-            else if (status == Enums.DroneStatuses.Delivery)
+            else if (status == DroneStatuses.Delivery)
             {
-                if (weight == Enums.WeightCategories.Light)
+                if(weight == WeightCategories.Light)
                 {
-                    return distance * (dal.GetElectricityUse()[1]);
+                    return distance * dal.GetElectricityUse()[1];
                 }
-                else if (weight == Enums.WeightCategories.Medium)
+                else if (weight == WeightCategories.Medium)
                 {
-                    return distance * (dal.GetElectricityUse()[2]);
+                    return distance * dal.GetElectricityUse()[2];
                 }
-                else if (weight == Enums.WeightCategories.Heavy)
+                else if (weight == WeightCategories.Heavy)
                 {
-                    return distance * (dal.GetElectricityUse()[3]);
+                    return distance * dal.GetElectricityUse()[3];
                 }
             }
             throw new KeyNotFoundException("It is not possible to calculate the drone distance in maintenance");

@@ -223,12 +223,12 @@ namespace BL
         /// <summary>
         /// Convert a DAL parcel to Parcel In Transfer
         /// </summary>
-        /// <param name="id">The requested parcel to convert</param>
+        /// <param name="parcelId">The requested parcel to convert</param>
         /// <returns>The converted parcel</returns>
 
-        internal ParcelByTransfer createParcelInTransfer(int id)
+        internal ParcelByTransfer createParcelInTransfer(int parcelId)
         {
-            DO.Parcel parcel = dal.GetParcel(id);
+            DO.Parcel parcel = dal.GetParcel(parcelId);
             if (parcel.Equals(null))
                 throw new KeyNotFoundException("not found parcel -BL-");
 
@@ -240,7 +240,7 @@ namespace BL
 
             return new ParcelByTransfer
             {
-                Id = id,
+                Id = parcelId,
                 Weight = (WeightCategories)parcel.Weight,
                 Priority = (Priorities)parcel.Priority,
                 IsDestinationParcel = !parcel.PickedUp.Equals(null),

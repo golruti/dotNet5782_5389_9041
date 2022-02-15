@@ -242,7 +242,7 @@ namespace BL
                     int parcelId = -1;
                     foreach (var tempParcel in dal.GetParcels())
                     {
-                        if (tempParcel.Droneld == droneID)
+                        if ( tempParcel.Droneld == droneID && tempParcel.PickedUp.Equals(null))
                         {
                             parcelId = tempParcel.Id;
                             break;
@@ -252,12 +252,11 @@ namespace BL
                     if (parcelId != -1)
                     {
                         DO.Parcel parcel = dal.GetParcel(parcelId);
-                        DO.Customer customer = dal.GetCustomer(parcel.SenderId);
-                        double distance = this.distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
+                        DO.Customer customer = dal.GetCustomer(parcel.TargetId);
+                        //double distance = this.distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
                         Location location = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
-                        droneForList.Battery -= ((int)minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1);
-                        droneForList.Location = location;
-                        drones.Add(droneForList);
+                        droneForList.Battery -= minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1;
+                        droneForList.Location = location;                       
                         dal.UpdateParcelPickedUp(parcel.Id);
                     }
                     else
@@ -289,10 +288,12 @@ namespace BL
             if (drone.ParcelDeliveredId != -1)
             {
                 DO.Parcel parcel = new DO.Parcel();
+
                 foreach (DO.Parcel item in dal.GetParcels())
                 {
                     if (item.Id == drone.ParcelDeliveredId)
                     {
+                        var ee = dal.GetParcels().ToList();
                         if (!item.PickedUp.Equals(null) && item.Delivered.Equals(null))
                         {
                             parcel = item;
@@ -304,11 +305,14 @@ namespace BL
                         }
                     }
                 }
+
+                //update local drone list
                 Customer customer = GetBLCustomer(parcel.TargetId);
+                drone.Status = DroneStatuses.Available;
                 drone.Battery -= minBattery(drone.Location, customer.Location, drone.Status, drone.MaxWeight) + 1;
                 drone.Location = customer.Location;
-                parcel.Delivered = DateTime.Now;
-                drone.Status = DroneStatuses.Available;
+                drone.ParcelDeliveredId = -1;
+                //update data list
                 dal.UpdateParcelDelivered(parcel.Id);
             }
             else
@@ -420,13 +424,13 @@ namespace BL
             WeightCategories weight = WeightCategories.Light;
             double distance = double.MaxValue;
 
+            var t = dal.GetParcels().ToList();
             foreach (DO.Parcel parcel in dal.GetParcels(parcel => parcel.Scheduled.Equals(null)))
             {
                 if (parcel.Scheduled == null)
                 {
-                    var batteryWayToSender = minBattery(drone.Location, GetBLCustomer(parcel.SenderId).Location, drone.Status, drone.MaxWeight);
-                    var batteryWayToTarget = minBattery(GetBLCustomer(parcel.SenderId).Location, GetBLCustomer(parcel.TargetId).Location, drone.Status, (WeightCategories)parcel.Weight);
-                    var t = drone.Battery;
+                    var batteryWayToSender = minBattery(drone.Location, GetBLCustomer(parcel.SenderId).Location, DroneStatuses.Available, drone.MaxWeight);
+                    var batteryWayToTarget = minBattery(GetBLCustomer(parcel.SenderId).Location, GetBLCustomer(parcel.TargetId).Location, DroneStatuses.Delivery, (WeightCategories)parcel.Weight);
                     if ((batteryWayToSender + batteryWayToTarget) < drone.Battery && (WeightCategories)parcel.Weight <= drone.MaxWeight)
                     {
                         if ((Priorities)parcel.Priority > priority)

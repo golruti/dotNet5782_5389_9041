@@ -24,7 +24,7 @@ namespace BL
                     DO.Customer senderCustomer2 = new DO.Customer();
                     try
                     {
-                        senderCustomer2 = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
+                        senderCustomer2 = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId);
 
                     }
                     catch (KeyNotFoundException ex)
@@ -40,13 +40,13 @@ namespace BL
                     DO.Customer senderCustomer = new DO.Customer();
                     try
                     {
-                        senderCustomer = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
+                        senderCustomer = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId);
                     }
                     catch (KeyNotFoundException ex)
                     {
                         throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message);
                     }
-                    senderCustomer = dal.GetCustomer(customer => customer.Id == (dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId));
+                    senderCustomer = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId);
                     return new Location() { Longitude = Math.Round(senderCustomer.Longitude), Latitude = Math.Round(senderCustomer.Latitude) };
                 }
             }
@@ -61,7 +61,7 @@ namespace BL
             }
             var x =
                 dal.GetCustomers((customer) => (
-               (dal.GetParcels(parcel => (parcel.Delivered != null) && (customer.Id == parcel.TargetId))).Any())).ToList();
+               dal.GetParcels(parcel => (parcel.Delivered != null) && (customer.Id == parcel.TargetId))).Any()).ToList();
             int randNumber = rand.Next(x.Count());
             if (x.Count() == 0)
             {
