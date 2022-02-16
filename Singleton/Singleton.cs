@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Singleton
 {
-    public abstract class Singleton<T> where T : Singleton<T>
+    abstract class Singleton<T> where T : Singleton<T>
     {
         static Singleton() { }
         protected Singleton() { }
