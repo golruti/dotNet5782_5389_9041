@@ -159,7 +159,8 @@ namespace PL
                 tabControl.Items.Remove(tabItem);
 
             PO.ListsModel.RefreshStations();
-            // baseStationViewModel.RefreshStationsList();
+            PO.ListsModel.RefreshDrones();
+
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)

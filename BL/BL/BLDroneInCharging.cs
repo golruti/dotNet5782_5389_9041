@@ -26,7 +26,7 @@ namespace BL
         /// <returns>The list of drones in charge</returns>
         public IEnumerable<DroneInCharging> GetDronesInCharging(int stationId)
         {
-            IEnumerable<DO.DroneCharge> list = dal.GetDronesCharges(droneCharge => droneCharge.StationId == stationId);
+            IEnumerable<DO.DroneCharge> list = dal.GetDronesCharges(droneCharge => droneCharge.IsDeleted ==false && droneCharge.StationId == stationId);
             if (list.Count() == 0)
                 return Enumerable.Empty<DroneInCharging>();
             List<DroneInCharging> droneInChargings = new();
@@ -48,7 +48,7 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<DroneInCharging> GetDronesInCharging()
         {
-            IEnumerable<DO.DroneCharge> list = dal.GetDronesCharges();
+            IEnumerable<DO.DroneCharge> list = dal.GetDronesCharges().Where(dc => dc.IsDeleted == false);
             if (list.Count() == 0)
                 return Enumerable.Empty<DroneInCharging>();
             List<DroneInCharging> droneInChargings = new();

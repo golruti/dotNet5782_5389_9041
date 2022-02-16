@@ -62,7 +62,7 @@ namespace DAL
         /// <returns>list of users</returns>
         public IEnumerable<User> GetUsers()
         {
-            return DataSource.users.Where(user => !user.IsDeleted);
+            return DataSource.users;
         }
 
         /// <summary>

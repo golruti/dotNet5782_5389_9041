@@ -159,7 +159,8 @@ namespace PL
             //  droneViewModel.RefreshDroneInList();
             PO.ListsModel.RefreshDrones();
             PO.ListsModel.RefreshStations();
-            if (droneViewModel.worker.IsBusy)
+
+            if (droneViewModel.worker != null && droneViewModel.worker.IsBusy)
                 droneViewModel.worker.CancelAsync();
         }
 

@@ -104,7 +104,7 @@ namespace BL
         public IEnumerable<ParcelForList> GetParcelForList()
         {
             List<ParcelForList> ParcelsForList = new List<ParcelForList>();
-            foreach (var parcel in dal.GetParcels())
+            foreach (var parcel in dal.GetParcels().Where(p => p.IsDeleted == false))
             {
                 try
                 {
@@ -114,7 +114,7 @@ namespace BL
                         Weight = (Enums.WeightCategories)parcel.Weight,
                         Priority = (Enums.Priorities)parcel.Priority,
                         SendCustomer = getSendCustomerName(parcel),
-                        ReceiveCustomer = getReceiveCustomer(parcel),
+                        ReceiveCustomer = getReceiveCustomer(parcel) ,
                         Status = getParcelStatus(parcel)
                     });
                 }
@@ -148,7 +148,7 @@ namespace BL
         /// <returns>A list of parcels to print</returns>
         private IEnumerable<Parcel> GetAllParcels()
         {
-            return (dal.GetParcels()).Select(Parcel => GetBLParcel(Parcel.Id));
+            return (dal.GetParcels()).Where(p => p.IsDeleted == false).Select(Parcel => GetBLParcel(Parcel.Id));
         }
 
 
@@ -296,7 +296,7 @@ namespace BL
         /// <returns>The parcel status</returns>
         private parcelState findParcelState(int DroneId)
         {
-            foreach (var parcel in dal.GetParcels())
+            foreach (var parcel in dal.GetParcels().Where(p => p.IsDeleted == false))
             {
                 if (!(parcel.Scheduled.Equals(null)) && parcel.PickedUp.Equals(null))
                 {
@@ -317,10 +317,11 @@ namespace BL
         /// <returns>The name of the sending customer</returns>
         private string getSendCustomerName(DO.Parcel parcel)
         {
-            var senderCustomerName = dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.SenderId);
+            var senderCustomerName = dal.GetCustomers().FirstOrDefault(c=>c.Id == parcel.SenderId);
+
             if (senderCustomerName.Equals(default(DO.Customer)))
             {
-                throw new ArgumentNullException("Get sender customer  -BL-");
+                throw new ArgumentNullException("Get recieve customer  -BL-");
             }
             return senderCustomerName.Name;
         }
@@ -332,7 +333,7 @@ namespace BL
         /// <returns>The name of the receiving customer</returns>
         private string getReceiveCustomer(DO.Parcel parcel)
         {
-            var receiveCustomerName = dal.GetCustomers().FirstOrDefault(customer => customer.Id == parcel.TargetId);
+            var receiveCustomerName = dal.GetCustomers().FirstOrDefault(c => c.Id == parcel.TargetId);
             if (receiveCustomerName.Equals(default(DO.Customer)))
             {
                 throw new ArgumentNullException("Get recieve customer  -BL-");
@@ -363,7 +364,7 @@ namespace BL
         /// <returns>the ID of the parcel</returns>
         private int findParceDeliveredlId(int droneId)
         {
-            foreach (var parcel in dal.GetParcels())
+            foreach (var parcel in dal.GetParcels().Where(p => p.IsDeleted == false))
             {
                 if (parcel.Droneld == droneId)
                 {

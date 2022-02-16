@@ -41,6 +41,7 @@ namespace PL
             InitializeComponent();
             parcelViewModel = new ParcelViewModel(parcelInListId);
             this.DataContext = parcelViewModel;
+
             Update_grid.Visibility = Visibility.Visible;
         }
 
@@ -148,11 +149,18 @@ namespace PL
         {
             try
             {
-                TabItem tabItem = new TabItem();
-                tabItem.Content = new Customer(PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id));
-                tabItem.Header = "update Sender Customer";
-                tabItem.Visibility = Visibility.Visible;
-                Tabs.AddTab(tabItem);
+                if (PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id) == null)
+                {
+                    MessageBox.Show($"Sorry, customer deleted.");
+                }
+                else
+                {
+                    TabItem tabItem = new TabItem();
+                    tabItem.Content = new Customer(PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id));
+                    tabItem.Header = "update Sender Customer";
+                    tabItem.Visibility = Visibility.Visible;
+                    Tabs.AddTab(tabItem);
+                }
             }
             catch (KeyNotFoundException ex)
             {

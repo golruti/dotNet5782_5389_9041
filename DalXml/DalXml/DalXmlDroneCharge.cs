@@ -36,19 +36,19 @@ namespace DAL
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
         /// <returns>Returns if the base station is available to receive the glider</returns>
-        public void UpdateCharge(int droneId)
+        public void UpdateCharge(int droneId, int baseStationId)
         {
             var drone = GetDrone(droneId);
             if (drone.Equals(default(DroneCharge)))
                 throw new KeyNotFoundException("Get drone charge -DAL-: There is no suitable drone charge in data"); ;
-            var station = GetBaseStations().FirstOrDefault(s => s.ChargeSlote > GetDronesCharges().Count(dc => dc.StationId == s.Id));
+            var station = GetBaseStation(baseStationId);
             if (station.Equals(default(BaseStation)))
                 throw new KeyNotFoundException("Get station -DAL-: There is no suitable station in data");
 
             DroneCharge droneCharge = new DroneCharge() { DroneId = droneId, StationId = station.Id, Time = DateTime.Now, IsDeleted = false };
             AddDroneCharge(droneCharge);
             DeleteBaseStation(station.Id);
-            --station.AvailableChargingPorts;
+            --station.AvailableChargingPorts;         
             AddBaseStation(station);
         }
 

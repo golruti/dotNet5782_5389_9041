@@ -21,10 +21,6 @@ namespace BL
         /// <returns></returns>
         internal double distance(double Latitude1, double Latitude2, double Longitude1, double Longitude2)
         {
-            //var Coord1 = new GeoCoordinate(Latitude1, Longitude2);
-            //var Coord2 = new GeoCoordinate(Latitude2, Longitude2);
-            //return Coord1.GetDistanceTo(Coord2);
-
             int R = 6371 * 1000; // metres
             double phi1 = Latitude1 * Math.PI / 180; // φ, λ in radians
             double phi2 = Latitude2 * Math.PI / 180;

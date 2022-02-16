@@ -127,8 +127,8 @@ namespace BL
         public IEnumerable<CustomerForList> GetCustomerForList()
         {
             List<CustomerForList> CustomerForList = new List<CustomerForList>();
-            IEnumerable<DO.Parcel> parcels = dal.GetParcels();
-            foreach (var customer in dal.GetCustomers())
+            IEnumerable<DO.Parcel> parcels = dal.GetParcels().Where(p => p.IsDeleted == false);
+            foreach (var customer in dal.GetCustomers().Where(c => c.IsDeleted == false ))
             {
                 CustomerForList.Add(new CustomerForList()
                 {
@@ -136,14 +136,14 @@ namespace BL
                     Name = customer.Name,
                     Phone = customer.Phone,
                     //שלחתי והגיע
-                    NumParcelSentDelivered = dal.GetParcels().Count(parcel => parcel.SenderId == customer.Id && !parcel.Delivered.Equals(null)),
+                    NumParcelSentDelivered = dal.GetParcels().Count(parcel =>parcel.IsDeleted ==false && parcel.SenderId == customer.Id && !parcel.Delivered.Equals(null)),
                    //שלחתי ועוד לא נגיע
-                    NumParcelSentNotDelivered = dal.GetParcels().Count(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(null)),
+                    NumParcelSentNotDelivered = dal.GetParcels().Count(parcel => parcel.IsDeleted == false && parcel.SenderId == customer.Id && parcel.Delivered.Equals(null)),
                     //החבילות שכבר קיבלתי
-                    NumParcelReceived = dal.GetParcels().Count(parcel => parcel.TargetId == customer.Id && !parcel.Delivered.Equals(null)),
+                    NumParcelReceived = dal.GetParcels().Count(parcel => parcel.IsDeleted == false && parcel.TargetId == customer.Id && !parcel.Delivered.Equals(null)),
                    //החבילות שבדך אלי
                     NumParcelWayToCustomer = dal.GetParcels()
-                                        .Count(parcel => parcel.TargetId == customer.Id && parcel.Delivered.Equals(null))
+                                        .Count(parcel => parcel.IsDeleted == false && parcel.TargetId == customer.Id && parcel.Delivered.Equals(null))
                 });
             }
             if (CustomerForList.Count() == 0)
@@ -177,8 +177,8 @@ namespace BL
             IEnumerable<ParcelToCustomer> sendedList = new List<ParcelToCustomer>();
             IEnumerable<ParcelToCustomer> targetedList = new List<ParcelToCustomer>();
 
-            sendedList = dal.GetParcels().Where(p => p.SenderId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
-            targetedList = dal.GetParcels().Where(p => p.TargetId == customer.Id).Select(p => mapParcelToParcelToCustomer(p));
+            sendedList = dal.GetParcels().Where(p => p.SenderId == customer.Id && p.IsDeleted ==false).Select(p => mapParcelToParcelToCustomer(p));
+            targetedList = dal.GetParcels().Where(p => p.TargetId == customer.Id &&p.IsDeleted ==false).Select(p => mapParcelToParcelToCustomer(p));
 
             return new Customer()
             {

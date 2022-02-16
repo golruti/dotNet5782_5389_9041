@@ -54,14 +54,14 @@ namespace BL
             {
                 if (drone.Status == Enums.DroneStatuses.Maintenance)
                 {
-                    int randNumber1 = rand.Next(dal.GetBaseStations().Count());
-                    var randomBaseStation = (dal.GetBaseStations().ToList())[randNumber1];
+                    int randNumber1 = rand.Next(dal.GetBaseStations().Where(s => s.IsDeleted == false).Count());
+                    var randomBaseStation = dal.GetBaseStations().Where(s => s.IsDeleted == false).ToList()[randNumber1];
                     return new Location() { Longitude = Math.Round(randomBaseStation.Longitude), Latitude = Math.Round(randomBaseStation.Latitude) };
                 }
             }
             var x =
                 dal.GetCustomers((customer) => (
-               dal.GetParcels(parcel => (parcel.Delivered != null) && (customer.Id == parcel.TargetId))).Any()).ToList();
+               dal.GetParcels(parcel => (parcel.Delivered != null) && (customer.Id == parcel.TargetId))).Where(c => c.IsDeleted == false).Any()).ToList();
             int randNumber = rand.Next(x.Count());
             if (x.Count() == 0)
             {
@@ -97,7 +97,7 @@ namespace BL
         /// <returns></returns>
         private bool isDroneMaintenance(int droneId)
         {
-            var droneCharges = dal.GetDronesCharges();
+            var droneCharges = dal.GetDronesCharges().Where(dc => dc.IsDeleted == false);
 
             return !droneCharges.FirstOrDefault(dc => dc.DroneId == droneId).Equals(default(DO.DroneCharge));
         }
@@ -110,7 +110,7 @@ namespace BL
         /// <returns>If the drone makes a delivery</returns>
         private bool isDroneMakesDelivery(int droneId)
         {
-            foreach (var parcel in dal.GetParcels())
+            foreach (var parcel in dal.GetParcels().Where(p => p.IsDeleted == false))
             {
 
                 if (parcel.Droneld == droneId &&
@@ -210,7 +210,7 @@ namespace BL
         {
             var minDistance = double.MaxValue;
             var nearestBaseStation = default(DO.BaseStation);
-            foreach (var BaseStation in dal.GetAvaBaseStations())
+            foreach (var BaseStation in dal.GetAvaBaseStations().Where(s => s.IsDeleted == false))
             {
                 if (distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude) < minDistance)
                 {

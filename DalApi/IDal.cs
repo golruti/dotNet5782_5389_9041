@@ -18,7 +18,7 @@ namespace DalApi
         public IEnumerable<BaseStation> GetAvaBaseStations();
         public void DeleteBaseStation(int id);
         void UpdateRelease(int droneId);
-        public void UpdateCharge(int droneId);
+        public void UpdateCharge(int droneId, int baseStationId);
         #endregion
 
         #region Customer

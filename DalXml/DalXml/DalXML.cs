@@ -84,7 +84,7 @@ namespace DAL
             XDocument document = XDocument.Load(path);
             return document.Root
                            .Elements()
-                           .Where(element => !bool.Parse(element.Element("IsDeleted").Value))
+                           //.Where(element => !bool.Parse(element.Element("IsDeleted").Value))
                            .Select(element => element.Deserialize<T>());
         }
 

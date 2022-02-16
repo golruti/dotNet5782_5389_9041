@@ -240,7 +240,7 @@ namespace BL
                 if (droneForList.Status == DroneStatuses.Delivery)
                 {
                     int parcelId = -1;
-                    foreach (var tempParcel in dal.GetParcels())
+                    foreach (var tempParcel in dal.GetParcels().Where(p => p.IsDeleted == false))
                     {
                         if (tempParcel.Droneld == droneID && tempParcel.PickedUp.Equals(null))
                         {
@@ -253,7 +253,6 @@ namespace BL
                     {
                         DO.Parcel parcel = dal.GetParcel(parcelId);
                         DO.Customer customer = dal.GetCustomer(parcel.TargetId);
-                        //double distance = this.distance(droneForList.Location.Latitude, customer.Latitude, droneForList.Location.Longitude, customer.Longitude);
                         Location location = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
                         droneForList.Battery -= minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1;
                         droneForList.Location = location;
@@ -289,11 +288,10 @@ namespace BL
             {
                 DO.Parcel parcel = new DO.Parcel();
 
-                foreach (DO.Parcel item in dal.GetParcels())
+                foreach (DO.Parcel item in dal.GetParcels().Where(p => p.IsDeleted == false))
                 {
                     if (item.Id == drone.ParcelDeliveredId)
                     {
-                        var ee = dal.GetParcels().ToList();
                         if (!item.PickedUp.Equals(null) && item.Delivered.Equals(null))
                         {
                             parcel = item;
@@ -330,7 +328,7 @@ namespace BL
             double distance = double.MaxValue;
             if (tempDrone.Status == DroneStatuses.Available)
             {
-                foreach (var item in dal.GetAvaBaseStations())
+                foreach (var item in dal.GetAvaBaseStations().Where(s => s.IsDeleted == false))
                 {
                     double tempDistance = this.distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
                     if (tempDistance < distance)
@@ -343,10 +341,9 @@ namespace BL
                 if (minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight) < tempDrone.Battery)
                 {
                     UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight), tempDrone.Location.Latitude, tempDrone.Location.Latitude);
-                    //tempDrone.Location = GetBLBaseStation(baseStationId).Location;
                     try
                     {
-                        dal.UpdateCharge(droneId);
+                        dal.UpdateCharge(droneId, baseStationId);
                     }
                     catch (KeyNotFoundException ex)
                     {
@@ -376,7 +373,7 @@ namespace BL
             double distance = double.MaxValue;
             if (tempDrone.Status == DroneStatuses.Available)
             {
-                foreach (var item in dal.GetAvaBaseStations())
+                foreach (var item in dal.GetAvaBaseStations().Where(s => s.IsDeleted == false))
                 {
                     double tempDistance = this.distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
                     if (tempDistance < distance)
@@ -392,7 +389,7 @@ namespace BL
                     tempDrone.Location = GetBLBaseStation(baseStationId).Location;
                     try
                     {
-                        dal.UpdateCharge(droneId);
+                        dal.UpdateCharge(droneId, baseStationId);
                     }
                     catch (KeyNotFoundException ex)
                     {
@@ -421,33 +418,33 @@ namespace BL
             Location location = new Location() { };
             double distance = double.MaxValue;
 
-                foreach (var item in dal.GetAvaBaseStations())
+            foreach (var item in dal.GetAvaBaseStations().Where(s => s.IsDeleted == false))
+            {
+                double tempDistance = this.distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
+                if (tempDistance < distance)
                 {
-                    double tempDistance = this.distance(tempDrone.Location.Latitude, item.Latitude, tempDrone.Location.Longitude, item.Longitude);
-                    if (tempDistance < distance)
-                    {
-                        baseStationId = item.Id;
-                        distance = tempDistance;
-                        location = new Location() { Longitude = item.Longitude, Latitude = item.Latitude };
-                    }
+                    baseStationId = item.Id;
+                    distance = tempDistance;
+                    location = new Location() { Longitude = item.Longitude, Latitude = item.Latitude };
                 }
-                if (minBattery(tempDrone.Location, location,DroneStatuses.Available, tempDrone.MaxWeight) < tempDrone.Battery)
+            }
+            if (minBattery(tempDrone.Location, location, DroneStatuses.Available, tempDrone.MaxWeight) < tempDrone.Battery)
+            {
+                UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, DroneStatuses.Available, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
+                tempDrone.Location = GetBLBaseStation(baseStationId).Location;
+                try
                 {
-                    UpdateDroneStatus(droneId, DroneStatuses.Maintenance, tempDrone.Battery - minBattery(tempDrone.Location, location, DroneStatuses.Available, tempDrone.MaxWeight), GetBLBaseStation(baseStationId).Location.Latitude, GetBLBaseStation(baseStationId).Location.Latitude);
-                    tempDrone.Location = GetBLBaseStation(baseStationId).Location;
-                    try
-                    {
-                        dal.UpdateCharge(droneId);
-                    }
-                    catch (KeyNotFoundException ex)
-                    {
-                        throw new KeyNotFoundException(ex.Message);
-                    }
+                    dal.UpdateCharge(droneId, baseStationId);
                 }
-                else
+                catch (KeyNotFoundException ex)
                 {
-                    throw new ArgumentNullException("the drone not have enough battery  -BL-");
+                    throw new KeyNotFoundException(ex.Message);
                 }
+            }
+            else
+            {
+                throw new ArgumentNullException("the drone not have enough battery  -BL-");
+            }
         }
         /// <summary>
         /// Release drone from charging
@@ -504,8 +501,7 @@ namespace BL
             WeightCategories weight = WeightCategories.Light;
             double distance = double.MaxValue;
 
-            var t = dal.GetParcels().ToList();
-            foreach (DO.Parcel parcel in dal.GetParcels(parcel => parcel.Scheduled.Equals(null)))
+            foreach (DO.Parcel parcel in dal.GetParcels(parcel => parcel.IsDeleted == false && parcel.Scheduled.Equals(null)))
             {
                 if (parcel.Scheduled == null)
                 {

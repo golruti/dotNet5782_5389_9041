@@ -10,7 +10,6 @@ namespace BL
 {
     partial class BL
     {
-
         public void AddUser(User tempUser)
         {
             try
@@ -39,15 +38,8 @@ namespace BL
         public User GetUser(int userName, string password, Access access)
         {
             DO.User tempUser = dal.GetUser(userName, password, (DO.Enum.Access)access);
-            User user = new User()
-            {
-                UserId = tempUser.UserId,
-                Password = tempUser.Password,
-                Access = (Enums.Access)tempUser.Access,
-                IsDeleted = tempUser.IsDeleted
-            };
 
-            return user;
+            return MapUser(tempUser);
         }
 
 
@@ -74,15 +66,15 @@ namespace BL
             });
         }
 
-        //private User MapUser(DO.User user)
-        //{
-        //    return new User()
-        //    {
-        //        Password = user.Password,
-        //        UserId = user.UserId,
-        //        Acces = (Access)user.Acces,
-        //        IsDeleted = false
-        //    };
-        //}
+        private User MapUser(DO.User user)
+        {
+            return new User()
+            {
+                Password = user.Password,
+                UserId = user.UserId,
+                Access = (Access)user.Access,
+                IsDeleted = false
+            };
+        }
     }
 }

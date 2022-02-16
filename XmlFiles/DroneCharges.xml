@@ -7,9 +7,15 @@
     <Time>2022-02-16T02:39:34.3228692+02:00</Time>
   </DroneCharge>
   <DroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
-    <DroneId>2</DroneId>
+    <IsDeleted>true</IsDeleted>
+    <DroneId>100</DroneId>
     <StationId>23</StationId>
-    <Time>2022-02-16T02:39:48.5881409+02:00</Time>
+    <Time>2022-02-16T13:16:00.0439367+02:00</Time>
+  </DroneCharge>
+  <DroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <DroneId>1</DroneId>
+    <StationId>23</StationId>
+    <Time>2022-02-16T13:16:41.250338+02:00</Time>
   </DroneCharge>
 </ArrayOfDroneCharge>

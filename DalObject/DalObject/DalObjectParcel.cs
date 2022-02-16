@@ -59,7 +59,7 @@ namespace DAL
         public IEnumerable<Parcel> GetParcels()
         {
             IEnumerable<Parcel> parcels = new List<Parcel>();
-            parcels = DataSource.parcels.Where(parcel => !(parcel.IsDeleted));
+            parcels = DataSource.parcels;
             return parcels;
         }
 
@@ -71,7 +71,7 @@ namespace DAL
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
         {
             IEnumerable<Parcel> parcels = new List<Parcel>();
-            parcels = DataSource.parcels.Where(parcel => predicate(parcel) && !(parcel.IsDeleted));
+            parcels = DataSource.parcels.Where(parcel => predicate(parcel));
             return parcels;
         }
 
@@ -84,7 +84,7 @@ namespace DAL
         /// <param name="idParcel">Id of the parcel</param>
         public void UpdateParcelPickedUp(int parcelId)
         {
-            Parcel parcel = GetParcel( parcelId);
+            Parcel parcel = GetParcel(parcelId);
             if (parcel.Equals(default(Parcel)))
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
@@ -102,7 +102,7 @@ namespace DAL
         /// <param name="idxParcel">Id of the parcel</param>
         public void UpdateParcelDelivered(int parcelId)
         {
-            Parcel parcel = GetParcel( parcelId);
+            Parcel parcel = GetParcel(parcelId);
             if (parcel.Equals(default(Parcel)))
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable customer in data");

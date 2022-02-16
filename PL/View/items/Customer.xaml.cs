@@ -26,10 +26,12 @@ namespace PL
 
         public Customer(CustomerForList customerInList)
         {
+
             InitializeComponent();
             customerViewModel = new CustomerViewModel(customerInList);
             this.DataContext = customerViewModel;
             Update_grid.Visibility = Visibility.Visible;
+
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
