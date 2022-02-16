@@ -47,7 +47,7 @@ namespace BL
         public void deleteBLParcel(int parcelId)
         {
             var parcel = GetBLParcel(parcelId);
-            if (parcel.Scheduled != null)
+            if (parcel.Scheduled != null && parcel.Delivered == null  )
                 throw new TheParcelIsAssociatedAndCannotBeDeleted();
             try
             {
@@ -56,6 +56,10 @@ namespace BL
             catch (KeyNotFoundException ex)
             {
                 throw new KeyNotFoundException("Delete parcel -BL-" + ex.Message);
+            }
+            catch(DO.TheParcelIsAssociatedAndCannotBeDeleted ex)
+            {
+                throw new TheParcelIsAssociatedAndCannotBeDeleted("Delete parcel -BL-" + ex.Message);
             }
         }
 

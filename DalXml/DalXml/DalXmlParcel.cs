@@ -134,7 +134,8 @@ namespace DAL
             Parcel deletedParcel = GetParcel(id);
             if (deletedParcel.Equals(default(Parcel)))
                 throw new KeyNotFoundException("Delete parcel -DAL-: There is no suitable parcel in data");
-
+            if (deletedParcel.Scheduled != null && deletedParcel.Delivered == null)
+                throw new TheParcelIsAssociatedAndCannotBeDeleted();
             UpdateItem(parcelsPath, id, nameof(Parcel.IsDeleted), true);
         }
 
