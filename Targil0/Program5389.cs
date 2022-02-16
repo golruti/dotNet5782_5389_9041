@@ -4,13 +4,13 @@ namespace Targil0
 {
     partial class Program
     {
-        //static void Main(string[] args)
-        //{
-        //    Welcome5389();
-        //    Welcome9041();
+        static void Main(string[] args)
+        {
+            //Welcome5389();
+            //Welcome9041();
 
-        //    Console.ReadKey();
-        //}
+            //Console.ReadKey();
+        }
 
         //static partial void Welcome9041();
         //private static void Welcome5389()
@@ -19,6 +19,6 @@ namespace Targil0
         //    string name = Console.ReadLine();
         //    Console.Write("{0}, welcome to my first console application", name);
         //}
-        public int x = 10;
+        //public int x = 10;
     }
 }

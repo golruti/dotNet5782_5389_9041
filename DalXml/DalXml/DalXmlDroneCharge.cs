@@ -19,11 +19,15 @@ namespace DAL
         /// <param name="droneCharge">The drone charge for Adding</param>
         public void AddDroneCharge(DroneCharge droneCharge)
         {
+            var station1 = GetBaseStation(23);
+
             if (!GetDroneCharge(droneCharge.DroneId).Equals(default(DroneCharge)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("Adding a drone charge - DAL");
             droneCharge.IsDeleted = false;
 
             AddItem(droneChargesPath, droneCharge);
+           var station =GetBaseStation(23);
+
         }
 
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
@@ -32,26 +36,33 @@ namespace DAL
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
         /// <returns>Returns if the base station is available to receive the glider</returns>
-        public void UpdateCharge(int droneId)
+        public void UpdateCharge(int droneId, int baseStationId)
         {
             var drone = GetDrone(droneId);
             if (drone.Equals(default(DroneCharge)))
                 throw new KeyNotFoundException("Get drone charge -DAL-: There is no suitable drone charge in data"); ;
-            var station = GetBaseStations().FirstOrDefault(s => s.ChargeSlote > GetDronesCharges().Count(dc => dc.StationId == s.Id));
+            var station = GetBaseStation(baseStationId);
             if (station.Equals(default(BaseStation)))
                 throw new KeyNotFoundException("Get station -DAL-: There is no suitable station in data");
 
-            DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
+            DroneCharge droneCharge = new DroneCharge() { DroneId = droneId, StationId = station.Id, Time = DateTime.Now, IsDeleted = false };
             AddDroneCharge(droneCharge);
+            DeleteBaseStation(station.Id);
+            --station.AvailableChargingPorts;         
+            AddBaseStation(station);
         }
 
         /// <summary>
         /// update release
         /// </summary>
         /// <param name="id"></param>
-        public void UpdateRelease(int id)
+        public void UpdateRelease(int droneId)
         {
-            DeleteDroneCharge(id);
+            var station = GetBaseStation(GetDroneCharge(droneId).StationId);
+            DeleteDroneCharge(droneId);
+            DeleteBaseStation(station.Id);
+            station.AvailableChargingPorts++;
+            AddBaseStation(station);
         }
 
         //---------------------------------------------Show item-----------------------------------------------------------------------------------------
@@ -61,7 +72,7 @@ namespace DAL
         /// <returns>The specific drone charge</returns>
         public DroneCharge GetDroneCharge(int droneId)
         {
-            return GetList<DroneCharge>(droneChargesPath).FirstOrDefault(charge => charge.DroneId == droneId);
+            return GetList<DroneCharge>(droneChargesPath).FirstOrDefault(charge => charge.DroneId == droneId && charge.IsDeleted ==false);
         }
 
         //---------------------------------------------Show list--------------------------------------------------------------------------------------

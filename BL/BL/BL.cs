@@ -15,6 +15,11 @@ namespace BL
         static private List<DroneForList> drones = new List<DroneForList>();
         private static Random rand = new Random();
         private enum parcelState { DroneNotAssociated, associatedNotCollected, collectedNotDelivered }
+        internal double available;
+        internal double lightWeight;
+        internal double mediumWeight;
+        internal double heavyWeight;
+        internal double chargingRate;
 
         /// <summary>
         /// constructor
@@ -24,11 +29,11 @@ namespace BL
             dal = DalApi.DalFactory.GetDal();
             initializeDrones();
             double[] arr = dal.GetElectricityUse();
-            double available = arr[0];
-            double lightWeight = arr[1];
-            double mediumWeight = arr[2];
-            double heavyWeight = arr[3];
-            double chargingRate = arr[4];
+            available = arr[0];
+            lightWeight = arr[1];
+            mediumWeight = arr[2];
+            heavyWeight = arr[3];
+            chargingRate = arr[4];
         }
 
         /// <summary>
@@ -36,7 +41,7 @@ namespace BL
         /// </summary>
         private void initializeDrones()
         {
-            foreach (var drone in dal.GetDrones())
+            foreach (var drone in dal.GetDrones().Where(d=>d.IsDeleted ==false))
             {
                 drones.Add(new DroneForList
                 {
@@ -49,11 +54,6 @@ namespace BL
             foreach (var drone in drones)
             {
                 drone.Status = findfDroneStatus(drone.Id);
-                if (drone.Status == DroneStatuses.Maintenance)
-                {
-                    dal.AddDroneCharge(new DO.DroneCharge(drone.Id, rand.Next(1)));
-                }
-
             }
 
             foreach (var drone in drones)
@@ -72,6 +72,7 @@ namespace BL
             }
         }
 
+
         /// <summary>
         /// The function calculates the minimum charge the glider needs to get 
         /// from the place of origin to the destination
@@ -84,23 +85,24 @@ namespace BL
         private double minBattery(Location exit, Location target, Enums.DroneStatuses status, Enums.WeightCategories weight)
         {
             double distance = this.distance(exit.Latitude, target.Latitude, exit.Longitude, target.Longitude) / 1000;
-            if (status == Enums.DroneStatuses.Available)
+
+            if (status == DroneStatuses.Available)
             {
-                return distance * (dal.GetElectricityUse()[0]);
+                return distance * dal.GetElectricityUse()[0];
             }
-            else if (status == Enums.DroneStatuses.Delivery)
+            else if (status == DroneStatuses.Delivery)
             {
-                if (weight == Enums.WeightCategories.Light)
+                if (weight == WeightCategories.Light)
                 {
-                    return distance * (dal.GetElectricityUse()[1]);
+                    return distance * dal.GetElectricityUse()[1];
                 }
-                else if (weight == Enums.WeightCategories.Medium)
+                else if (weight == WeightCategories.Medium)
                 {
-                    return distance * (dal.GetElectricityUse()[2]);
+                    return distance * dal.GetElectricityUse()[2];
                 }
-                else if (weight == Enums.WeightCategories.Heavy)
+                else if (weight == WeightCategories.Heavy)
                 {
-                    return distance * (dal.GetElectricityUse()[3]);
+                    return distance * dal.GetElectricityUse()[3];
                 }
             }
             throw new KeyNotFoundException("It is not possible to calculate the drone distance in maintenance");

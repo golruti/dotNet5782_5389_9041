@@ -3,18 +3,41 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace PL.ViewModel
 {
     public class DroneViewModel : INotifyPropertyChanged
     {
-        public BlApi.IBL Bl { get; private set; }
-        public Action RefreshDronesList { get; private set; }
-        public Action<TabItem> AddTab { get; private set; }
-        public Action<TabItem> CloseTab { get; private set; }
+        public DroneViewModel(BO.DroneForList droneInList)
+        {
+            this.DroneInList = ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
+
+            this.Rand = new Random();
+
+            BO.Drone tempDrone = ListsModel.Bl.GetBLDrone(droneInList.Id);
+            if (tempDrone.Status == BO.Enums.DroneStatuses.Delivery)
+                this.parcelsByDrone = ConvertFunctions.BOParcelByTransferToPO(tempDrone.Delivery);
+        }
+
+        public DroneViewModel(BO.Drone droneInList)
+        {
+            this.DroneInList = ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
+            this.Rand = new Random();
+
+            if (droneInList.Status == BO.Enums.DroneStatuses.Delivery)
+                this.parcelsByDrone = ConvertFunctions.BOParcelByTransferToPO(droneInList.Delivery);
+        }
+
+        public DroneViewModel()
+        {
+            this.Rand = new Random();
+            this.DroneInList = new PO.Drone();
+            this.ParcelStutus = (Enums.ParcelStatuses)ListsModel.Bl.GetParcelStatusByDrone(DroneInList.Id);
+            StationsId = ((ListsModel.Bl.GetBaseStationForList()).Select(s => s.Id));
+            DroneWeights = (IEnumerable<Enums.WeightCategories>)Enum.GetValues(typeof(Enums.WeightCategories));
+        }
+
+
         public Random Rand { get; private set; }
         public Enums.ParcelStatuses ParcelStutus { get; private set; }
         public IEnumerable<int> StationsId { get; set; }
@@ -23,15 +46,7 @@ namespace PL.ViewModel
         public PO.ParcelByTransfer parcelsByDrone { get; set; }
 
 
-        public PO.Drone SourceDroneInList
-        {
-            get { return droneInList; }
-            set
-            {
-                droneInList = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(droneInList)));
-            }
-        }
+
         public PO.Drone DroneInList
         {
             get { return droneInList; }
@@ -42,52 +57,62 @@ namespace PL.ViewModel
             }
         }
 
-
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public DroneViewModel(BlApi.IBL bl, Action refreshDronesList)
-        {
-            this.Bl = bl;
-            this.RefreshDronesList = refreshDronesList;
-            this.DroneInList = new PO.Drone();
-            this.SourceDroneInList = new PO.Drone();
-            this.Rand = new Random();
-            this.ParcelStutus = (Enums.ParcelStatuses)Bl.GetParcelStatusByDrone(DroneInList.Id);
-            StationsId = ((bl.GetBaseStationForList()).Select(s => s.Id)).ToList();
-            DroneWeights = (IEnumerable<Enums.WeightCategories>)Enum.GetValues(typeof(Enums.WeightCategories));
-        }
-
-        public DroneViewModel(BO.DroneForList droneInList, BlApi.IBL bl, Action refreshDronesList)
-        {
-            this.Bl = bl;
-            this.RefreshDronesList = refreshDronesList;
-            this.DroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
-            this.SourceDroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
-            this.Rand = new Random();
-
-            BO.Drone tempDrone = bl.GetBLDrone(droneInList.Id);
-            if (tempDrone.Status == BO.Enums.DroneStatuses.Delivery)
-                this.parcelsByDrone =ConvertFunctions.BOParcelByTransferToPO( tempDrone.Delivery);
-        }
-
-        public DroneViewModel(BO.Drone droneInList, BlApi.IBL bl, Action refreshDronesList)
-        {
-            this.Bl = bl;
-            this.RefreshDronesList = refreshDronesList;
-            this.DroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
-            this.SourceDroneInList = ConvertFunctions.BODroneToPO(bl.GetBLDrone(droneInList.Id));
-            this.Rand = new Random();
-
-
-            if (droneInList.Status == BO.Enums.DroneStatuses.Delivery)
-                this.parcelsByDrone = ConvertFunctions.BOParcelByTransferToPO(droneInList.Delivery);
-        }
 
         public void RefreshDroneInList()
         {
-            DroneInList = PO.ConvertFunctions.BODroneToPO(Bl.GetBLDrone(droneInList.Id));
-            RefreshDronesList();
+            var blDrones = ListsModel.Bl.GetDroneForList();
+            if (blDrones.Count() != 0)
+            {
+                DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
+
+                PO.ListsModel.RefreshDrones();
+                PO.ListsModel.RefreshStations();
+                PO.ListsModel.RefreshParcels();
+            }
+        }
+
+        public BackgroundWorker worker;
+        bool auto = false;
+        public void StartDroneSimulator()
+        {
+            if (!Auto)
+            {
+                Auto = true;
+                worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
+                worker.DoWork += (sender, args) => PO.ListsModel.Bl.StartDroneSimulator((int)args.Argument, UpdateDrone, CheckStop);
+                worker.RunWorkerCompleted += (sender, args) => Auto = false;
+                worker.ProgressChanged += (sender, args) => UpdateDroneView();
+                worker.RunWorkerAsync(DroneInList.Id);
+            }
+            else
+            {
+                worker.CancelAsync();
+                //Auto = false;
+            }
+
+
+        }
+        public bool Auto
+        {
+            get => auto;
+            set
+            {
+                auto = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Auto)));
+            }
+        }
+        private void UpdateDrone() => worker.ReportProgress(0);
+        private bool CheckStop() => worker.CancellationPending;
+        private void UpdateDroneView()
+        {
+            DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
+            PO.ListsModel.RefreshDrone(DroneInList.Id);
+            //RefreshDroneInList();
+            //RefreshDrones();
+            //RefreshStations();
+            //RefreshParcels();
+            //RefreshCustomers();
         }
     }
 }

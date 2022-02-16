@@ -118,15 +118,14 @@
         </Grid>
         <ListView x:Name="DronesListView" ItemsSource="{Binding DronesList}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick">
             <ListView.View >
-
                 <GridView  >
                     <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
                     <GridViewColumn  Header="Model" DisplayMemberBinding="{Binding Model}" />
                     <GridViewColumn  Header="MaxWeight" DisplayMemberBinding="{Binding MaxWeight}" />
                     <GridViewColumn  Header="Battery" DisplayMemberBinding="{Binding Battery}"/>
                     <GridViewColumn  Header="Status" DisplayMemberBinding="{Binding Status}"/>
-                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}"/>
-                    <GridViewColumn  Header="ParcelDeliveredId" DisplayMemberBinding="{Binding ParcelDeliveredId}"/>
+                    <GridViewColumn Header="Location-Long" DisplayMemberBinding="{Binding Location.Longitude}"/>
+                    <GridViewColumn Header="Location-Lat" DisplayMemberBinding="{Binding Location.Latitude}"/>
                 </GridView>
 
             </ListView.View>
@@ -137,12 +136,10 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate>
-                                        <Expander IsExpanded="True">
+                                        <Expander >
                                             <Expander.Header>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
-                                                    <TextBlock Text="{Binding ItemCount}" FontSize="22" Foreground="DarkCyan" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
-                                                    <TextBlock Text=" item(s)" FontSize="22" Foreground="Silver" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding Name}"  />
                                                 </StackPanel>
                                             </Expander.Header>
                                             <ItemsPresenter />

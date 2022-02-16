@@ -53,7 +53,7 @@ namespace DAL
         public IEnumerable<Customer> GetCustomers()
         {
             IEnumerable<Customer> customers = new List<Customer>();
-            customers= DataSource.customers.Where(customer => !(customer.IsDeleted)).ToList();
+            customers = DataSource.customers;
             return customers;
         }
 
@@ -64,9 +64,8 @@ namespace DAL
         /// <returns>List of customers that maintain the predicate</returns>
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate)
         {
-            IEnumerable<Customer> customers = new List<Customer>(); 
-            customers = DataSource.customers.Where
-                (customer => predicate(customer) && !(customer.IsDeleted)).ToList();
+            IEnumerable<Customer> customers = new List<Customer>();
+            customers = DataSource.customers.Where(customer => predicate(customer));
             return customers;
         }
 

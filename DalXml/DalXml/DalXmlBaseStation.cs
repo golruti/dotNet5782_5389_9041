@@ -44,7 +44,10 @@ namespace DAL
         /// <returns>array of station</returns>
         public IEnumerable<BaseStation> GetBaseStations()
         {
+           
+
             return GetList<BaseStation>(baseStationsPath);
+
         }
 
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)

@@ -8,7 +8,7 @@
         Title="MainWindow" Height="640" >
     <Grid>
         <StackPanel Margin="-10,-10,10,10">
-            <Label Content="Hello..!&#xA;How would you like to enter ..?" FontSize="30" HorizontalAlignment="Left" Margin="123,45,0,0" VerticalAlignment="Top" Width="465" Height="88"/>
+            <Label Content="Hello..!&#xA;Who do you want to join...?" FontSize="30" HorizontalAlignment="Left" Margin="123,45,0,0" VerticalAlignment="Top" Width="465" Height="88"/>
             <Button Content="employee in the company." Margin="40" Click="showEmployeeWindow" />
             <Button Content="Castomer of company" Margin="40" Click="showCustomerOfCompanyWindow"/>
             

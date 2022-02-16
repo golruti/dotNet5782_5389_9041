@@ -1,21 +1,13 @@
 ﻿using BO;
+using PL.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using PL.ViewModel;
-
 
 namespace PL
 {
@@ -25,38 +17,35 @@ namespace PL
     public partial class Drone
     {
         DroneViewModel droneViewModel;
-        
 
-        public Drone(BlApi.IBL bl, Action refreshDroneList)
+        public Drone()
         {
             InitializeComponent();
-            droneViewModel = new DroneViewModel(bl, refreshDroneList);
+            droneViewModel = new DroneViewModel();
             this.DataContext = droneViewModel;
             Add_grid.Visibility = Visibility.Visible;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
-            StationsId.DataContext = bl.GetBaseStationForList().Select(item=>item.Id);
+            StationsId.DataContext = PO.ListsModel.Bl.GetBaseStationForList().Select(item => item.Id);
         }
 
-
-
-        public Drone(DroneForList droneForList, BlApi.IBL bl, Action refreshDroneList)
+        public Drone(DroneForList droneForList)
         {
             InitializeComponent();
-            droneViewModel = new DroneViewModel(droneForList, bl, refreshDroneList);
+            droneViewModel = new DroneViewModel(droneForList);
             this.DataContext = droneViewModel;
-            Update_grid.Visibility = Visibility.Visible;              
+            Update_grid.Visibility = Visibility.Visible;
         }
 
-        public Drone(BO.Drone droneForList, BlApi.IBL bl, Action refreshDroneList)
+        public Drone(BO.Drone droneForList)
         {
             InitializeComponent();
-            droneViewModel = new DroneViewModel(droneForList, bl, refreshDroneList);
+            droneViewModel = new DroneViewModel(droneForList);
             this.DataContext = droneViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
         private void DeleteDrone(object sender, RoutedEventArgs e)
         {
-            droneViewModel.Bl.DeleteBLDrone(droneViewModel.DroneInList.Id);
+            PO.ListsModel.Bl.DeleteBLDrone(droneViewModel.DroneInList.Id);
             if (MessageBox.Show("the drone was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -72,8 +61,20 @@ namespace PL
         {
             try
             {
-                droneViewModel.Bl.AddDrone(new BO.Drone(int.Parse(Id.Text), Model.Text, (BO.Enums.WeightCategories)DroneWeights.SelectedItem, BO.Enums.DroneStatuses.Maintenance, droneViewModel.Rand.Next(20, 41),
-                    droneViewModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude, droneViewModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude));
+                PO.ListsModel.Bl.AddDrone(new BO.Drone()
+                {
+                    Id = int.Parse(Id.Text),
+                    Model = Model.Text,
+                    MaxWeight = (BO.Enums.WeightCategories)DroneWeights.SelectedItem,
+                    Status = BO.Enums.DroneStatuses.Maintenance,
+                    Battery = droneViewModel.Rand.Next(20, 40),
+                    Delivery = null,
+                    Location = new Location()
+                    {
+                        Longitude = PO.ListsModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude,
+                        Latitude = PO.ListsModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude
+                    }
+                }, int.Parse(StationsId.Text));
 
                 if (MessageBox.Show("the drone was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -112,7 +113,7 @@ namespace PL
         {
             try
             {
-                droneViewModel.Bl.AssignParcelToDrone(droneViewModel.DroneInList.Id);
+                PO.ListsModel.Bl.AssignParcelToDrone(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -155,7 +156,26 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            droneViewModel.RefreshDroneInList();
+            //  droneViewModel.RefreshDroneInList();
+            PO.ListsModel.RefreshDrones();
+            PO.ListsModel.RefreshStations();
+
+            if (droneViewModel.worker != null && droneViewModel.worker.IsBusy)
+                droneViewModel.worker.CancelAsync();
+        }
+
+        private void Close_Page_notDo(object sender, RoutedEventArgs e)
+        {
+            object tmp = sender;
+            TabItem tabItem = null;
+            while (tmp.GetType() != typeof(TabControl))
+            {
+                if (tmp.GetType() == typeof(TabItem))
+                    tabItem = (tmp as TabItem);
+                tmp = ((FrameworkElement)tmp).Parent;
+            }
+            if (tmp is TabControl tabControl)
+                tabControl.Items.Remove(tabItem);
         }
 
         /// <summary>
@@ -167,7 +187,7 @@ namespace PL
         {
             try
             {
-                droneViewModel.Bl.UpdateRelease(droneViewModel.DroneInList.Id);
+                PO.ListsModel.Bl.UpdateRelease(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -205,7 +225,7 @@ namespace PL
         {
             try
             {
-                droneViewModel.Bl.UpdateCharge(droneViewModel.DroneInList.Id);
+                PO.ListsModel.Bl.UpdateCharge(droneViewModel.DroneInList.Id);
                 if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
@@ -242,7 +262,7 @@ namespace PL
         {
             try
             {
-                droneViewModel.Bl.PackageCollection(droneViewModel.DroneInList.Id);
+                PO.ListsModel.Bl.ParcelCollection(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -280,7 +300,7 @@ namespace PL
         {
             try
             {
-                droneViewModel.Bl.PackageDelivery(droneViewModel.DroneInList.Id);
+                PO.ListsModel.Bl.UpdateParcelDelivered(droneViewModel.DroneInList.Id);
                 (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("he parcel was successfully delivered", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -309,7 +329,6 @@ namespace PL
             }
         }
 
-
         /// <summary>
         /// update the drone
         /// </summary>
@@ -319,8 +338,7 @@ namespace PL
         {
             try
             {
-                droneViewModel.Bl.UpdateDroneModel(droneViewModel.DroneInList.Id, droneViewModel.DroneInList.Model);
-                //(sender as Button).IsEnabled = false;
+                PO.ListsModel.Bl.UpdateDroneModel(droneViewModel.DroneInList.Id, droneViewModel.DroneInList.Model);
                 if (MessageBox.Show("The drone model has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
@@ -359,6 +377,29 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-      
+        private void parcelByDrone_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (droneViewModel.DroneInList.Delivery.Id != 0)
+            {
+                var selectedParcel = droneViewModel.DroneInList.Delivery;
+                if (!selectedParcel.Equals(null))
+                {
+                    TabItem tabItem = new TabItem();
+                    tabItem.Content = new Parcel(selectedParcel.Id);
+                    tabItem.Header = "Update Parcel";
+                    tabItem.Visibility = Visibility.Visible;
+                    Tabs.AddTab(tabItem);
+                }
+            }
+        }
+
+
+        private void Automatic_Click(object sender, RoutedEventArgs e)
+        {
+
+            droneViewModel.StartDroneSimulator();
+        }
+
+
     }
 }

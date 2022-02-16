@@ -28,6 +28,7 @@ namespace PL
         {
             bl = BlApi.BlFactory.GetBl();
             InitializeComponent();
+            Tabs.SetAddTab(AddTab);
         }
 
         /// <summary>
@@ -37,6 +38,7 @@ namespace PL
         internal void AddTab(TabItem tabItem)
         {
             tub_control.Items.Add(tabItem);
+            tub_control.SelectedItem = tabItem;
         }
 
         internal void RemoveTab(object sender, RoutedEventArgs e)
@@ -68,7 +70,7 @@ namespace PL
         private void showCustomerOfCompanyWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerEntrance(bl, AddTab,RemoveTab);
+            tabItem.Content = new CustomerEntrance();
             tabItem.Header = "Customer of company";
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);
@@ -77,7 +79,7 @@ namespace PL
         private void showEmployeeWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Employee(bl, AddTab, RemoveTab);
+            tabItem.Content = new Employee();
             tabItem.Header = "Employee";
             tub_control.Visibility = Visibility.Visible;
             AddTab(tabItem);

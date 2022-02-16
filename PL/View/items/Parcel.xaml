@@ -97,9 +97,9 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0"  Grid.Row="0" Content="   sender id:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <ComboBox x:Name="senderId" Grid.Row="0" ItemsSource="{Binding CustomersIds}" Background="LightGray" PreviewTextInput="textID_PreviewTextInput" Grid.Column="1"/>
+                <ComboBox x:Name="senderId" Grid.Row="0" ItemsSource="{Binding SenderCustomersIds}" Background="LightGray" PreviewTextInput="textID_PreviewTextInput" Grid.Column="1"/>
                 <Label Grid.Column="0"  Grid.Row="2" Content="   reciver id:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <ComboBox x:Name="reciverId" Grid.Row="2" ItemsSource="{Binding CustomersIds}" Background="LightGray" PreviewTextInput="textID_PreviewTextInput" Grid.Column="1"/>
+                <ComboBox x:Name="reciverId" Grid.Row="2" ItemsSource="{Binding TargetCustomersIds}" Background="LightGray" PreviewTextInput="textID_PreviewTextInput" Grid.Column="1"/>
                 <Label  Grid.Row="4" Content="   weight:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" HorizontalAlignment="Center" Width="128" Margin="0,5,0,5" Grid.RowSpan="3"/>
                 <ComboBox x:Name="Weight"  Grid.Column="1" ItemsSource="{Binding Weights}" Grid.Row="4" Margin="0,0,0,7" Grid.RowSpan="2"  />
                 <Label Grid.Column="0"  Grid.Row="6" Content="   priority:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,5,0,0" Grid.RowSpan="2"/>

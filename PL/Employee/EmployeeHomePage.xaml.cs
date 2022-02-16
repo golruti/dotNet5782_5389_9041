@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static PL.Tabs;
 
 namespace PL
 {
@@ -21,15 +22,10 @@ namespace PL
     /// </summary>
     public partial class EmployeeHomePage : UserControl
     {
-        private BlApi.IBL bl;
-        Action<TabItem> addTab;
-        Action<object, RoutedEventArgs> RemoveTab;
-        public EmployeeHomePage(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
+
+        public EmployeeHomePage()
         {
             InitializeComponent();
-            this.bl = bl;
-            this.addTab = addTab;
-            this.RemoveTab = removeTab;
         }
 
         /// <summary>
@@ -40,41 +36,41 @@ namespace PL
         private void ShowDroneListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new DronesList(bl, addTab, RemoveTab);
+            tabItem.Content = new DronesList();
             tabItem.Header = "Drone list";
-            addTab(tabItem);
+            AddTab(tabItem);
         }
 
         private void ShowParcelListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new ParcelList(bl, addTab, RemoveTab);           
+            tabItem.Content = new ParcelList();           
             tabItem.Header = "parcel list";
-            addTab(tabItem);
+            AddTab(tabItem);
         }
 
         private void ShowBaseStationListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new BaseStationList(bl, addTab, RemoveTab);           
+            tabItem.Content = new BaseStationList();           
             tabItem.Header = "Base station list";
-            addTab(tabItem);
+            AddTab(tabItem);
         }
 
         private void showCustomersListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomersList(bl, addTab, RemoveTab);
+            tabItem.Content = new CustomersList();
             tabItem.Header = "Customers list";
-            addTab(tabItem);
+            AddTab(tabItem);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerEntrance(bl,addTab, RemoveTab);
+            tabItem.Content = new CustomerEntrance();
             tabItem.Header = "Customer entrance";
-            addTab(tabItem);
+            AddTab(tabItem);
         }     
     }
 }

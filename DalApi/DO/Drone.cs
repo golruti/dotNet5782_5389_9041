@@ -14,30 +14,20 @@ namespace DO
     /// </summary>
     public struct Drone
     {
+        #region properties
         public bool IsDeleted { get; set; }
         public int Id { get; set; }
         public string Model { get; set; }
         public WeightCategories MaxWeight { get; set; }
+        #endregion
 
-        /// <summary>
-        /// String of details for drone
-        /// </summary>
-        /// <returns>String of details for drone</returns>
+        #region ToString
         public override string ToString()
         {
             return ("\nId: " + Id + "\nModel: " + Model + "\nMaxWeight: " + MaxWeight +
                 "\n\nStatus: " + "%\n");
         }
-
-        public Drone(int id, string model, WeightCategories maxWeight)
-        {
-            IsDeleted = false;
-            Id = id;
-            Model = model;
-            MaxWeight = maxWeight;
-        }
-
-
+        #endregion
     }
 }
 

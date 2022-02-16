@@ -43,15 +43,14 @@ namespace DAL
         public IEnumerable<BaseStation> GetBaseStations()
         {
             IEnumerable<BaseStation> baseStations = new List<BaseStation>();
-            baseStations = DataSource.stations.Where(station => !(station.IsDeleted)).ToList();
+            baseStations = DataSource.stations;
             return baseStations;
         }
 
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)
         {
             IEnumerable<BaseStation> baseStations = new List<BaseStation>();
-            baseStations = DataSource.stations.Where
-                (station => predicate(station) && !(station.IsDeleted)).ToList();
+            baseStations = DataSource.stations.Where(station => predicate(station));
             return baseStations;
         }
 
@@ -63,8 +62,7 @@ namespace DAL
         {
             IEnumerable<BaseStation> baseStations = new List<BaseStation>();
             baseStations = DataSource.stations
-                         .Where(station => station.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == station.Id ) && !(station.IsDeleted))
-                         .ToList();
+                         .Where(station => station.ChargeSlote > DataSource.droneCharges.Count(dc => dc.StationId == station.Id));
             return baseStations;
         }
         //---------------------------------------------Delete--------------------------------------------------------------------------------------------

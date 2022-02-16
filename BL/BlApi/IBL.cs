@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Customer =BO.Customer;
+using Customer = BO.Customer;
 using Drone = BO.Drone;
-using Parcel =BO.Parcel;
+using Parcel = BO.Parcel;
 using BaseStation = BO.BaseStation;
-
+using User = BO.User;
+using static BO.Enums;
 
 namespace BlApi
 {
@@ -19,7 +20,7 @@ namespace BlApi
         public void DeleteBLDrone(int droneId);
         public void deleteBLBaseStation(int stationId);
         public void AddBaseStation(BaseStation tempBaseStation);
-        void AddDrone(Drone tempDrone);
+        void AddDrone(Drone tempDrone, int stationId = -1);
         public void AddCustomer(Customer tempCustomer);
         public void AddParcel(Parcel tempParcel);
 
@@ -33,6 +34,8 @@ namespace BlApi
         public IEnumerable<BaseStationForList> GetAvaBaseStationForList();
         public IEnumerable<DroneForList> GetDroneForList();
         public IEnumerable<DroneForList> GetDroneForList(Predicate<DroneForList> predicate);
+        IEnumerable<DroneInCharging> GetDronesInCharging();
+
         //public IEnumerable<DroneForList> GetDroneForList(Enums.WeightCategories weight, Enums.DroneStatuses status);
         //public IEnumerable<DroneForList> GetDroneForList(Enums.WeightCategories weight);
         //public IEnumerable<DroneForList> GetDroneForList(Enums.DroneStatuses status);
@@ -42,7 +45,7 @@ namespace BlApi
         public IEnumerable<ParcelForList> GetParcelForList(Predicate<ParcelForList> predicate);
         public IEnumerable<DroneInCharging> GetDronesInCharging(int droneId);
 
-        public IEnumerable<Parcel> GetAllParcels();
+        //public IEnumerable<Parcel> GetAllParcels();
         public CustomerForList GetCustomerForList(string name);
         public void UpdateBaseStation(int id, string name, int chargeSlote);
         public void UpdateDroneModel(int id, string model);
@@ -50,13 +53,31 @@ namespace BlApi
         void UpdateCharge(int droneId);
         void AssignParcelToDrone(int droneId);
         void UpdateCustomer(int customerId, string name, string phone);
-        public void PackageCollection(int Id);
-        public void PackageDelivery(int id);
+        public void ParcelCollection(int Id);
+        public void UpdateParcelDelivered(int id);
         public Enums.ParcelStatuses GetParcelStatusByDrone(int droneId);
 
         public void DeleteBLCustomer(int customerId);
-    }
 
+        public void UpdateParcelScheduled(int parcelId, int droneId);
+        public void UpdateChargeSimulator(int droneId);
+
+
+
+
+
+
+
+        public void AddUser(User tempUser);
+        public bool IsExistClient(int userId, string password);
+        public bool IsExistEmployee(int userId, string password);
+        public User GetUser(int userName, string password, Access access);
+
+
+        public void DeleteUser(User tempUser);
+
+        public void StartDroneSimulator(int droneId, Action update, Func<bool> checkStop);
+    }
 }
 
 

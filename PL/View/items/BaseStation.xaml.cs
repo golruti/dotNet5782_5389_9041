@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PL.ViewModel;
 
+
 namespace PL
 {
     /// <summary>
@@ -26,26 +27,37 @@ namespace PL
     {
         BaseStationViewModel baseStationViewModel;
 
-        public BaseStation(BlApi.IBL bl, Action refreshBaseStationList)
+        public BaseStation()
         {
             InitializeComponent();
-            baseStationViewModel = new BaseStationViewModel(bl, refreshBaseStationList);
+            baseStationViewModel = new BaseStationViewModel();
             this.DataContext = baseStationViewModel;
             Add_grid.Visibility = Visibility.Visible;
         }
 
-        public BaseStation(BlApi.IBL bl, Action<TabItem> addTab, BaseStationForList baseStationForList, Action refreshBaseStationList)
+        public BaseStation(BaseStationForList baseStationForList)
         {
             InitializeComponent();
-            baseStationViewModel = new BaseStationViewModel(bl, addTab, baseStationForList, refreshBaseStationList);
+            baseStationViewModel = new BaseStationViewModel(baseStationForList);
             this.DataContext = baseStationViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
 
         private void DeleteBaseStation(object sender, RoutedEventArgs e)
         {
-            baseStationViewModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
-            if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+            try
+            {
+                PO.ListsModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
+            }
+            catch (KeyNotFoundException)
+            {
+                MessageBox.Show($"The station does not exist and could not be deleted");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"The station was not delete.");
+            }
+            if (MessageBox.Show("the station was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
             }
@@ -61,7 +73,14 @@ namespace PL
 
             try
             {
-                baseStationViewModel.Bl.AddBaseStation(new BO.BaseStation(int.Parse(Id.Text), Name.Text, double.Parse(longitude.Text), double.Parse(latitude.Text), int.Parse(Num_of_charging_positions.Text)));
+                PO.ListsModel.Bl.AddBaseStation(new BO.BaseStation()
+                {
+                    Id = int.Parse(Id.Text),
+                    AvailableChargingPorts = int.Parse(Num_of_charging_positions.Text),
+                    DronesInCharging = new List<DroneInCharging>(),
+                    Location = new Location() { Longitude = double.Parse(longitude.Text), Latitude = double.Parse(latitude.Text) },
+                    Name = Name.Text
+                }); ;
 
                 if (MessageBox.Show("the station was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -84,9 +103,9 @@ namespace PL
             {
                 MessageBox.Show($"The station was not add, {ex.Message}");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show($"The station was not add, {ex.Message}");
+                MessageBox.Show($"The station was not add");
             }
         }
 
@@ -104,14 +123,26 @@ namespace PL
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedDrone = DronesListView.SelectedItem as PO.DroneInCharging;
-
-            var drone = baseStationViewModel.Bl.GetBLDrone(selectedDrone.Id);
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(drone, baseStationViewModel.Bl, baseStationViewModel.DronesList.RefreshDroneList);
-            tabItem.Header = "Update drone";
-            tabItem.Visibility = Visibility.Visible;
-            baseStationViewModel.AddTab(tabItem);
+            try
+            {
+                var selectedDrone = DronesListView.SelectedItem as PO.DroneInCharging;
+                if (!selectedDrone.Equals(null))
+                {
+                    TabItem tabItem = new TabItem();
+                    tabItem.Content = new Drone(PO.ListsModel.Bl.GetBLDrone(selectedDrone.Id));
+                    tabItem.Header = "Update drone";
+                    tabItem.Visibility = Visibility.Visible;
+                    Tabs.AddTab(tabItem);
+                }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The station could not be found in the database, {ex.Message}");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"The station can not be displayed");
+            }
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
@@ -127,7 +158,9 @@ namespace PL
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
 
-            baseStationViewModel.RefreshStationsList();
+            PO.ListsModel.RefreshStations();
+            PO.ListsModel.RefreshDrones();
+
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)
@@ -136,17 +169,17 @@ namespace PL
             {
                 if (update_name.Text != null && update_num_of_charging_ports.Text != null)
                 {
-                    baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
+                    PO.ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
                     (sender as Button).IsEnabled = false;
                 }
                 else if (update_name.Text != null)
                 {
-                    baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, baseStationViewModel.BaseStationInList.AvailableChargingPorts);
+                    PO.ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, baseStationViewModel.BaseStationInList.AvailableChargingPorts);
                     (sender as Button).IsEnabled = false;
                 }
                 else
                 {
-                    baseStationViewModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, baseStationViewModel.BaseStationInList.Name, int.Parse(update_num_of_charging_ports.Text));
+                    PO.ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, baseStationViewModel.BaseStationInList.Name, int.Parse(update_num_of_charging_ports.Text));
                     (sender as Button).IsEnabled = false;
                 }
                 if (MessageBox.Show("The base station has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
@@ -174,9 +207,9 @@ namespace PL
             {
                 MessageBox.Show($"The base station could not be updated, {ex.Message}");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show($"The base station could not be updated, {ex.Message}");
+                MessageBox.Show($"The base station could not be updated");
             }
         }
     }

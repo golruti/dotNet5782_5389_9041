@@ -25,31 +25,39 @@ namespace DAL
         }
 
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
-        // <summary>
+        /// <summary>
         /// Sending a drone for charging at a base station By changing the drone mode and adding a record of a drone battery charging entity
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
-        /// <returns>Returns if the base station is available to receive the glider</returns>
-        public void UpdateCharge(int droneId)
+        /// <param name="baseStationId">Id of IDגof the charging station</param>
+        public void UpdateCharge(int droneId, int baseStationId)
         {
             var drone = GetDrone(droneId);
             if (drone.Equals(default(DroneCharge)))
                 throw new KeyNotFoundException("Get drone charge -DAL-: There is no suitable drone charge in data"); ;
-            var station = GetBaseStations().FirstOrDefault(s => s.ChargeSlote > GetDronesCharges().Count(dc => dc.StationId == s.Id));
+            var station = GetBaseStation(baseStationId);
             if (station.Equals(default(BaseStation)))
                 throw new KeyNotFoundException("Get station -DAL-: There is no suitable station in data");
 
-            DroneCharge droneCharge = new DroneCharge(droneId, station.Id);
+            DroneCharge droneCharge = new DroneCharge() { DroneId = droneId, StationId = station.Id, Time = DateTime.Now, IsDeleted = false };
+            DeleteBaseStation(station.Id);
+            station.AvailableChargingPorts--;
+            AddBaseStation(station);
             AddDroneCharge(droneCharge);
         }
 
         /// <summary>
-        /// update release
+        /// Release of drone from charging
         /// </summary>
-        /// <param name="id"></param>
-        public void UpdateRelease(int id)
+        /// <param name="droneId"></param>
+        public void UpdateRelease(int droneId)
         {
-            DeleteDroneCharge(id);
+            DeleteDroneCharge(droneId);
+
+            var station = GetBaseStation(GetDroneCharge(droneId).StationId);
+            DeleteBaseStation(station.Id);
+            station.AvailableChargingPorts++;
+            AddBaseStation(station);
         }
 
         //---------------------------------------------Show item-----------------------------------------------------------------------------------------
@@ -71,7 +79,7 @@ namespace DAL
         public IEnumerable<DroneCharge> GetDronesCharges()
         {
             IEnumerable<DroneCharge> droneCharges = new List<DroneCharge>();
-            droneCharges = DataSource.droneCharges.Where(droneCharge => !(droneCharge.IsDeleted)).ToList();
+            droneCharges = DataSource.droneCharges;
             return droneCharges;
         }
 
@@ -82,10 +90,9 @@ namespace DAL
         /// <returns>List of DroneCharge that maintain the predicate</returns>
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate)
         {
-
             IEnumerable<DroneCharge> droneCharges = new List<DroneCharge>();
             droneCharges = DataSource.droneCharges.Where
-                (droneCharge => predicate(droneCharge) && !(droneCharge.IsDeleted)).ToList();
+                (droneCharge => predicate(droneCharge) );
             return droneCharges;
         }
 

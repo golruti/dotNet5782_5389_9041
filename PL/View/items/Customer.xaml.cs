@@ -1,19 +1,11 @@
 ﻿using BO;
+using PL.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using PL.ViewModel;
-using System.Text.RegularExpressions;
 
 namespace PL
 {
@@ -24,20 +16,22 @@ namespace PL
     {
         CustomerViewModel customerViewModel;
 
-        public Customer(BlApi.IBL bl, Action refreshCustomersList)
+        public Customer()
         {
             InitializeComponent();
-            customerViewModel = new CustomerViewModel(bl, refreshCustomersList);
+            customerViewModel = new CustomerViewModel();
             this.DataContext = customerViewModel;
             Add_grid.Visibility = Visibility.Visible;
         }
-         
-        public Customer(CustomerForList customerInList, BlApi.IBL bl, Action refreshCustomersList, Action<TabItem> addTab)
+
+        public Customer(CustomerForList customerInList)
         {
+
             InitializeComponent();
-            customerViewModel = new CustomerViewModel( customerInList, bl, refreshCustomersList,addTab);
+            customerViewModel = new CustomerViewModel(customerInList);
             this.DataContext = customerViewModel;
             Update_grid.Visibility = Visibility.Visible;
+
         }
 
         private void Close_Page(object sender, RoutedEventArgs e)
@@ -52,14 +46,15 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            customerViewModel.RefreshCustomersList();
+            PO.ListsModel.RefreshCustomers();
+            //customerViewModel.RefreshCustomersList();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                customerViewModel.Bl.DeleteBLCustomer(customerViewModel.CustomerInList.Id);
+                PO.ListsModel.Bl.DeleteBLCustomer(customerViewModel.CustomerInList.Id);
 
             }
             catch (KeyNotFoundException ex)
@@ -90,7 +85,15 @@ namespace PL
 
             try
             {
-                customerViewModel.Bl.AddCustomer(new BO.Customer(int.Parse(ID.Text), name.Text, phone.Text, double.Parse(longitude.Text), double.Parse(latitude.Text)));
+                PO.ListsModel.Bl.AddCustomer(new BO.Customer()
+                {
+                    Id = int.Parse(ID.Text),
+                    Name = name.Text,
+                    Phone = phone.Text,
+                    Location = new Location() { Longitude = double.Parse(longitude.Text), Latitude = double.Parse(latitude.Text) },
+                    FromCustomer = new List<ParcelToCustomer>(),
+                    ToCustomer = new List<ParcelToCustomer>()
+                });
                 if (MessageBox.Show("the customer was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     Close_Page(sender, e);
@@ -118,7 +121,7 @@ namespace PL
         {
             try
             {
-              customerViewModel.Bl.UpdateCustomer(customerViewModel.CustomerInList.Id, customerViewModel.CustomerInList.Name, customerViewModel.CustomerInList.Phone);
+                PO.ListsModel.Bl.UpdateCustomer(customerViewModel.CustomerInList.Id, customerViewModel.CustomerInList.Name, customerViewModel.CustomerInList.Phone);
             }
             catch (KeyNotFoundException ex)
             {
@@ -155,12 +158,17 @@ namespace PL
 
         private void ToCustomerView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelToCustomer;
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedCustomer.Id, customerViewModel.Bl, customerViewModel.RefreshCustomersList, customerViewModel.AddTab);
-            tabItem.Header = "Update parcel";
-            tabItem.Visibility = Visibility.Visible;
-            customerViewModel.AddTab(tabItem);
+            if (ToCustomerView.SelectedItem != null)
+            {
+                var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelToCustomer;
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Parcel(selectedCustomer.Id);
+                tabItem.Header = "Update parcel";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+
+            }
+
         }
     }
 }

@@ -21,32 +21,42 @@ namespace PL
     /// <summary>
     /// Interaction logic for Parcel.xaml
     /// </summary>
-    public partial class Parcel 
+    public partial class Parcel
     {
         ParcelViewModel parcelViewModel;
-        
+
         static int idParcel { get; set; } = 10;
-        public Parcel(BlApi.IBL bl, Action refreshParcelsList)
+        public Parcel()
         {
             InitializeComponent();
-            parcelViewModel = new ParcelViewModel(bl, refreshParcelsList);
+            parcelViewModel = new ParcelViewModel();
             this.DataContext = parcelViewModel;
             Add_grid.Visibility = Visibility.Visible;
-           
+
         }
 
-        
-        public Parcel(int parcelInListId, BlApi.IBL bl, Action refreshParcelsList, Action<TabItem> addTab)
+
+        public Parcel(int parcelInListId)
         {
             InitializeComponent();
-            parcelViewModel = new ParcelViewModel(parcelInListId, bl, refreshParcelsList,addTab);
+            parcelViewModel = new ParcelViewModel(parcelInListId);
             this.DataContext = parcelViewModel;
+
             Update_grid.Visibility = Visibility.Visible;
+        }
+
+        //עבור ממשק לקוח
+        public Parcel(BO.User user)
+        {
+            InitializeComponent();
+            parcelViewModel = new ParcelViewModel(user);
+            this.DataContext = parcelViewModel;
+            Add_grid.Visibility = Visibility.Visible;
         }
 
         private void DeleteParcel(object sender, RoutedEventArgs e)
         {
-            parcelViewModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
+            PO.ListsModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
             if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -57,12 +67,22 @@ namespace PL
         {
             try
             {
-                BO.Customer senderCustomer= parcelViewModel.Bl.GetBLCustomer(int.Parse(senderId.Text));
-                BO.Customer recieveCustomer = parcelViewModel.Bl.GetBLCustomer(int.Parse(reciverId.Text));
+                BO.Customer senderCustomer = PO.ListsModel.Bl.GetBLCustomer(int.Parse(senderId.Text));
+                BO.Customer recieveCustomer = PO.ListsModel.Bl.GetBLCustomer(int.Parse(reciverId.Text));
 
-                parcelViewModel.Bl.AddParcel(new BO.Parcel(idParcel++, (BO.Enums.WeightCategories)Weight.SelectedItem, (BO.Enums.Priorities)Priority.SelectedItem, new BO.DroneInParcel(),
-                    new BO.CustomerDelivery ( senderCustomer.Id, senderCustomer.Name),
-                    new BO.CustomerDelivery(recieveCustomer.Id, recieveCustomer.Name)));
+                PO.ListsModel.Bl.AddParcel(new BO.Parcel()
+                {
+                    Id = idParcel++,
+                    Weight = (BO.Enums.WeightCategories)Weight.SelectedItem,
+                    Priority = (BO.Enums.Priorities)Priority.SelectedItem,
+                    CustomerReceives = new BO.CustomerDelivery() { Id = senderCustomer.Id, Name = senderCustomer.Name },
+                    CustomerSender = new BO.CustomerDelivery() { Id = recieveCustomer.Id, Name = recieveCustomer.Name },
+                    Requested = DateTime.Now,
+                    Delivered = null,
+                    PickedUp = null,
+                    Scheduled = null,
+                    DroneParcel = null
+                });
 
                 if (MessageBox.Show("the parcel was seccessfully added", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -71,23 +91,23 @@ namespace PL
             }
             catch (KeyNotFoundException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The parcel was not add, {ex.Message}");
             }
             catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The parcel was not add, {ex.Message}");
             }
             catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The parcel was not add, {ex.Message}");
             }
             catch (ArgumentNullException ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The parcel was not add, {ex.Message}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"The drone was not add, {ex.Message}");
+                MessageBox.Show($"The parcel was not add, {ex.Message}");
             }
         }
 
@@ -111,7 +131,7 @@ namespace PL
             parcelViewModel.RefreshParcelInList();
         }
 
-      
+
 
         /// <summary>
         /// Input filter for ID
@@ -125,67 +145,72 @@ namespace PL
         }
 
 
-        private void ShowDrone_Click(object sender, RoutedEventArgs e)
+        private void CustomerSender(object sender, RoutedEventArgs e)
         {
             try
             {
-                parcelViewModel.Bl.UpdateCharge(parcelViewModel.ParcelInList.Id);
-                (sender as Button).IsEnabled = false;
-                if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
+                if (PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id) == null)
                 {
-                    Close_Page(sender, e);
+                    MessageBox.Show($"Sorry, customer deleted.");
+                }
+                else
+                {
+                    TabItem tabItem = new TabItem();
+                    tabItem.Content = new Customer(PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id));
+                    tabItem.Header = "update Sender Customer";
+                    tabItem.Visibility = Visibility.Visible;
+                    Tabs.AddTab(tabItem);
                 }
             }
             catch (KeyNotFoundException ex)
             {
-                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
+                MessageBox.Show($"The station could not be found in the database, {ex.Message}");
             }
-            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            catch (Exception)
             {
-                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
+                MessageBox.Show($"The station can not be displayed");
             }
-            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
-            {
-                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
-            }
-            catch (ArgumentNullException ex)
-            {
-                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"The drone could not be sent for loading, {ex.Message}");
-            }
-        }
-
-        private void CustomerSender(object sender, RoutedEventArgs e)
-        {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id)),
-                this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList, parcelViewModel.AddTab);
-            tabItem.Header = "update Sender Customer";
-            tabItem.Visibility = Visibility.Visible;
-            parcelViewModel.AddTab(tabItem);
-
         }
 
         private void CustomerReceives(object sender, RoutedEventArgs e)
         {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer((parcelViewModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id)),
-                this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList, parcelViewModel.AddTab);
-            tabItem.Header = "update Receives Customer";
-            tabItem.Visibility = Visibility.Visible;
-            this.parcelViewModel.AddTab(tabItem);
+            try
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Customer(PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id));
+                tabItem.Header = "update Receives Customer";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The station could not be found in the database, {ex.Message}");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"The station can not be displayed");
+            }
         }
 
         private void Drone(object sender, RoutedEventArgs e)
         {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Drone(parcelViewModel.Bl.GetDroneForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.Id), this.parcelViewModel.Bl, parcelViewModel.RefreshParcelList);
-            tabItem.Header = "update  drone";
-            tabItem.Visibility = Visibility.Visible;
-            this.parcelViewModel.AddTab(tabItem);
+            try
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Drone(PO.ListsModel.Bl.GetDroneForList()
+                    .FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.DroneParcel.Id));
+                tabItem.Header = "update  drone";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show($"The station could not be found in the database, {ex.Message}");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"The station can not be displayed");
+            }
         }
     }
 }

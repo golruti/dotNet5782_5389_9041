@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PL"
-              xmlns:Converters="clr-namespace:Converters" 
+              xmlns:Convert="clr-namespace:Converters" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -15,8 +15,8 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
-        <Converters:MultyConvert5Items x:Key="multyConvert5Items"></Converters:MultyConvert5Items>
-        <Converters:AtLleastOneContentConvert x:Key="atLleastOneContentConvert"></Converters:AtLleastOneContentConvert>
+        <Convert:MultyConvert5Items x:Key="multyConvert5Items"/>
+        <Convert:AtLleastOneContentConvert x:Key="atLleastOneContentConvert"/>
     </UserControl.Resources>
     <Grid Background="White" >
         <Grid x:Name="Update_grid" Visibility="Collapsed">
@@ -47,23 +47,23 @@
 
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Id: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SourceBaseStationInList.Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding BaseStationInList.Id}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Name: "  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
-                <TextBox x:Name="update_name" Grid.Row="1" Grid.Column="1" Text="{Binding SourceBaseStationInList.Name}"  IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
+                <TextBox x:Name="update_name" Grid.Row="1" Grid.Column="1" Text="{Binding BaseStationInList.Name}"  IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic Bold" Margin="0,10,0,10" Grid.RowSpan="3"/>
 
                 <Label Grid.Row="4" Grid.Column="0" Content="num of charging ports:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox x:Name="update_num_of_charging_ports" Grid.Row="4" Grid.Column="1" Text="{Binding SourceBaseStationInList.AvailableChargingPorts}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic"/>
+                <TextBox x:Name="update_num_of_charging_ports" Grid.Row="4" Grid.Column="1" Text="{Binding BaseStationInList.AvailableChargingPorts}" IsEnabled="True" FontSize="15" FontFamily="Copperplate Gothic"/>
 
                 <Label Grid.Row="6" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,1,0,12" RenderTransformOrigin="0.5,0.5"/>
-                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding SourceBaseStationInList.Location.Longitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
+                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding BaseStationInList.Location.Longitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
 
                 <Label Grid.Row="8" Grid.Column="0" Content="Location: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,1,0,12" RenderTransformOrigin="0.5,0.5"/>
-                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding SourceBaseStationInList.Location.Latitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding BaseStationInList.Location.Latitude}" IsEnabled="False" FontSize="15" FontFamily="Copperplate Gothic" Margin="0,1,0,12"/>
                 
                 <Label Grid.Row="10" Grid.Column="0" Content="drones in charging: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,0,0,150" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
 
-                <ListView x:Name="DronesListView" ItemsSource="{Binding DronesInChargingList.DronesInChargeList}" DisplayMemberPath="" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="9" Grid.ColumnSpan="2">
+                <ListView x:Name="DronesListView" ItemsSource="{Binding BaseStationInList.DronesInCharging}" DisplayMemberPath="" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="9" Grid.ColumnSpan="2">
                     <ListView.View >
                         <GridView>
                             <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
@@ -78,11 +78,10 @@
                 <Button  Content="Update " Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource atLleastOneContentConvert}">
-                           
-                            <Binding Path="SourceBaseStationInList.Name" ></Binding>
-                            <Binding Path="SourceBaseStationInList.availableChargingPorts"></Binding>
-                            <Binding Path="BaseStationInList.Name" ></Binding>
-                            <Binding Path="BaseStationInList.availableChargingPorts"></Binding>
+                            <Binding Path="BaseStationInList.Name" />
+                            <Binding Path="BaseStationInList.availableChargingPorts"/>
+                            <Binding Path="BaseStationInList.Name" />
+                            <Binding Path="BaseStationInList.availableChargingPorts"/>
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>

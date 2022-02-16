@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static PL.Tabs;
+using static PO.ListsModel;
 
 namespace PL
 {
@@ -21,36 +23,57 @@ namespace PL
     /// </summary>
     public partial class CustomerEntrance : UserControl
     {
-        Action<TabItem> addTab;
-        Action<object, RoutedEventArgs> RemoveTab;
-        Action<object, RoutedEventArgs> closeTab;
-        private BlApi.IBL bl;
-
-
-        public CustomerEntrance(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab )
+        public CustomerEntrance()
         {
             InitializeComponent();
-            this.addTab = addTab;
-            this.RemoveTab = removeTab;
-            this.bl = bl;
         }
 
         private void sign_in_show_CustomerPageHome(object sender, RoutedEventArgs e)
         {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerHomePage();
-            tabItem.Header = "Customer Home Page";
-            this.addTab(tabItem);
-            Close_Page(sender, e);
+            if (Id_sign_in.Text!= null  && pass_sign_in.Text != null)
+            {
+
+                if (Bl.IsExistClient(int.Parse(Id_sign_in.Text), pass_sign_in.Text) == true)
+                {
+                    TabItem tabItem = new TabItem();
+                    tabItem.Content = new CustomerHomePage(int.Parse(Id_sign_in.Text), pass_sign_in.Text);
+                    tabItem.Header = "Customer Home Page";
+                    Tabs.AddTab(tabItem);
+                    Close_Page(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show($"Incorrect id or password, please try again.");
+                }
+            }
         }
 
         private void sign_up_show_CustomerPageHome(object sender, RoutedEventArgs e)
         {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerHomePage();
-            tabItem.Header = "Customer Home Page";
-            this.addTab(tabItem);
-            Close_Page(sender, e);
+            bool succeeded = true;
+            try
+            {
+                Bl.AddUser(new BO.User()
+                {
+                    Access = BO.Enums.Access.Client,
+                    IsDeleted = false,
+                    UserId = int.Parse(Id_sign_up.Text),
+                    Password = pass_sign_up.Text
+                });
+            }
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException)
+            {
+                succeeded = false;
+                MessageBox.Show($"here is someone in the system with the same name.");
+            }
+            if (succeeded == true)
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new CustomerHomePage(int.Parse(Id_sign_up.Text), pass_sign_up.Text);
+                tabItem.Header = "Customer Home Page";
+                Tabs.AddTab(tabItem);
+                Close_Page(sender, e);
+            }
         }
 
         /// <summary>
@@ -93,6 +116,8 @@ namespace PL
             center_sign_in.Visibility = Visibility.Collapsed;
             center_sign_up.Visibility = Visibility.Collapsed;
             back.Visibility = Visibility.Visible;
+
+
         }
         private void Show_SignUp_buttons(object sender, RoutedEventArgs e)
         {

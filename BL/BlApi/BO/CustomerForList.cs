@@ -8,6 +8,7 @@ namespace BO
 {
     public class CustomerForList
     {
+        #region properties
         public int Id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
@@ -15,29 +16,16 @@ namespace BO
         public int NumParcelSentNotDelivered { get; set; }
         public int NumParcelReceived { get; set; }
         public int NumParcelWayToCustomer { get; set; }
+        #endregion
 
+        #region ToString
         public override string ToString()
         {
             return $"Customer #{Id}: {Name}, Phone{Phone}, Num Parcel Sent Delivered = {NumParcelSentDelivered}, " +
                 $"Num Parcel SentN ot Delivered = {NumParcelSentNotDelivered}, Num Parcel Received = {NumParcelReceived}, " +
                 $" NumP arcel Way To Customer = {NumParcelWayToCustomer}";
         }
-
-        public CustomerForList(int id, string name, string phone, int parcelSentDelivered, int parcelSentNotDelivered, int recievedParcel, int parcelOnWayToCustomer)
-        {
-            Id = id;
-            Name = name;
-            Phone = phone;
-            NumParcelSentDelivered = parcelSentDelivered;
-            NumParcelSentNotDelivered = parcelSentNotDelivered;
-            NumParcelReceived = recievedParcel;
-            NumParcelWayToCustomer = parcelOnWayToCustomer;
-        }
-
-        public CustomerForList()
-        {
-
-        }
+        #endregion
     }
 }
 

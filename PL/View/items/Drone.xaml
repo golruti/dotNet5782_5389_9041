@@ -15,6 +15,7 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
+        <Converters:SimulatorConvert x:Key="SimulatorConvert"></Converters:SimulatorConvert>
         <Converters:MultyConvert1ItemsCompare x:Key="multyConvert1ItemsCompare"></Converters:MultyConvert1ItemsCompare>
         <Converters:DroneAvailableStatusConvert x:Key="droneAvailableStatusConvert"></Converters:DroneAvailableStatusConvert>
         <Converters:DroneDeliveryStatusConvert x:Key="droneDeliveryStatusConvert"></Converters:DroneDeliveryStatusConvert>
@@ -24,7 +25,7 @@
         <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
     </UserControl.Resources>
     <Grid Background="White">
-        <Grid x:Name="Update_grid" Visibility="Collapsed">
+        <Grid x:Name="Update_grid" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="480"/>
                 <RowDefinition Height="100"/>
@@ -90,15 +91,20 @@
                     </Button.IsEnabled>
                 </Button>
             </StackPanel>
-            <Label Content="Parcel by transfer:
-                   " Margin="151,269,412,177"/>
-            <Label Content="ID:" Margin="151,286,614,168" RenderTransformOrigin="0.798,0.568"/>
-            <TextBlock Text="{Binding parcelsByDrone.Id }" HorizontalAlignment="Left" Margin="186,291,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.645,0.929"/>
-            <Label Content="priority:" Margin="151,299,591,155" RenderTransformOrigin="0.798,0.568"/>
-            <TextBlock Text="{Binding parcelsByDrone.Priority}" HorizontalAlignment="Left" Margin="219,308,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.645,0.929" Height="17"/>
-            <Label Content="Weight:" Margin="151,317,591,137" RenderTransformOrigin="0.798,0.568"/>
-            <TextBlock Text="{Binding parcelsByDrone.Weight}" HorizontalAlignment="Left" Margin="209,321,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.018,0.699"/>
 
+            <ContentControl x:Name="parcelByDrone" MouseDoubleClick="parcelByDrone_MouseDoubleClick">
+                <StackPanel>
+                    <Label Content="Parcel by transfer:
+                   " Margin="151,269,412,177" />
+                    <Label Content="ID:" Margin="151,286,614,168" RenderTransformOrigin="0.798,0.568"/>
+                    <TextBlock Text="{Binding parcelsByDrone.Id }" HorizontalAlignment="Left" Margin="186,291,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.645,0.929"/>
+                    <Label Content="priority:" Margin="151,299,591,155" RenderTransformOrigin="0.798,0.568"/>
+                    <TextBlock Text="{Binding parcelsByDrone.Priority}" HorizontalAlignment="Left" Margin="219,308,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.645,0.929" Height="17"/>
+                    <Label Content="Weight:" Margin="151,317,591,137" RenderTransformOrigin="0.798,0.568"/>
+                    <TextBlock Text="{Binding parcelsByDrone.Weight}" HorizontalAlignment="Left" Margin="209,321,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.018,0.699"/>
+                </StackPanel>
+            </ContentControl>
+            <Button Content="{Binding Auto,Converter={StaticResource SimulatorConvert}}" HorizontalAlignment="Left" Margin="616,335,0,0" VerticalAlignment="Top" Click="Automatic_Click"/>
         </Grid>
         <Grid x:Name="Add_grid" Visibility="Collapsed" >
             <Grid Grid.Row="0"  Name="UpGrid"  Margin="176,50,176,150" Height="170" Width="252" >
@@ -141,7 +147,7 @@
                     </Button.IsEnabled>
                 </Button>
 
-                <Button Background="DarkCyan" Content="concel"  Margin="115,15,25,15" Click="Close_Page"  Height="20" Width="60" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
+                <Button Background="DarkCyan" Content="cencel"  Margin="115,15,25,15" Click="Close_Page_notDo"  Height="20" Width="60" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
             </Grid>
 
 

@@ -59,7 +59,7 @@ namespace DAL
         public IEnumerable<Parcel> GetParcels()
         {
             IEnumerable<Parcel> parcels = new List<Parcel>();
-            parcels = DataSource.parcels.Where(parcel => !(parcel.IsDeleted)).ToList();
+            parcels = DataSource.parcels;
             return parcels;
         }
 
@@ -71,7 +71,7 @@ namespace DAL
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
         {
             IEnumerable<Parcel> parcels = new List<Parcel>();
-            parcels = DataSource.parcels.Where(parcel => predicate(parcel) && !(parcel.IsDeleted)).ToList();
+            parcels = DataSource.parcels.Where(parcel => predicate(parcel));
             return parcels;
         }
 
@@ -79,47 +79,56 @@ namespace DAL
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
         /// <summary>
         ///Assigning a parcel to a drone
+        /////החבילה נאספה עי הרחפן
         /// </summary>
         /// <param name="idParcel">Id of the parcel</param>
-        public void UpdateParcelPickedUp(Parcel Parcel)
+        public void UpdateParcelPickedUp(int parcelId)
         {
-            Parcel parcel = GetParcel(Parcel.Id);
+            Parcel parcel = GetParcel(parcelId);
             if (parcel.Equals(default(Parcel)))
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
             }
-            parcel.PickedUp = DateTime.Now;
 
             DeleteParcel(parcel.Id);
+            parcel.PickedUp = DateTime.Now;
             AddParcel(parcel);
         }
 
         /// <summary>
         /// Delivery of a parcel to the destination
+        /// //הרחפן-החבילה הגיעה ליעד
         /// </summary>
         /// <param name="idxParcel">Id of the parcel</param>
-        public void UpdateParcelDelivered(Parcel Parcel)
+        public void UpdateParcelDelivered(int parcelId)
         {
-            Parcel parcel = GetParcel(Parcel.Id);
+            Parcel parcel = GetParcel(parcelId);
             if (parcel.Equals(default(Parcel)))
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable customer in data");
             }
-            parcel.Delivered = DateTime.Now;
             DeleteParcel(parcel.Id);
+            parcel.Delivered = DateTime.Now;
+            parcel.Droneld = -1;
             AddParcel(parcel);
         }
 
+
         /// <summary>
         /// update parcel assembly by drone
+        /// // החבילה שויכה לרחפן
         /// </summary>
         /// <param name="parcel">the parcel to update</param>
-        public void UpdateSupply(Parcel parcel)
+        /// ()supply
+        public void UpdateParcelScheduled(int parcelId, int droneId)
         {
+            DeleteParcel(parcelId);
+            var parcel = GetParcel(parcelId);
             parcel.Scheduled = DateTime.Now;
-            DeleteParcel(parcel.Id);
+            parcel.Droneld = droneId;
             AddParcel(parcel);
         }
+
 
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------
         /// <summary>
@@ -131,6 +140,8 @@ namespace DAL
             Parcel deletedParcel = GetParcel(id);
             if (deletedParcel.Equals(default(Parcel)))
                 throw new KeyNotFoundException("Delete parcel -DAL-: There is no suitable parcel in data");
+            if (deletedParcel.Scheduled != null && deletedParcel.Delivered == null)
+                throw new TheParcelIsAssociatedAndCannotBeDeleted();
             else
             {
                 DataSource.parcels.Remove(deletedParcel);

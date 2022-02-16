@@ -23,37 +23,28 @@ namespace PL
     /// </summary>
     public partial class ParcelList : UserControl
     {
-        //BlApi.IBL bl;
-        //Action<TabItem> addTab;
-        //Action<object, RoutedEventArgs> RemoveTab;
-        //ListCollectionView listCollectionView;
-        //ObservableCollection<ParcelForList> parcelForLists;
-
         ParcelListViewModel parcelListViewModel;
 
-        public ParcelList(BlApi.IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
+        public ParcelList(int? customerId = null)
         {
             InitializeComponent();
-            parcelListViewModel = new ParcelListViewModel(bl, addTab, removeTab);
+            parcelListViewModel = new ParcelListViewModel(customerId);
             this.DataContext = parcelListViewModel;
-            parcelListViewModel.ParcelsForList.Filter = FilterParcel;
+            parcelListViewModel.ParcelsForList.Filter += FilterParcel;
             parcelListViewModel.ParcelsForList.GroupDescriptions.Add(new PropertyGroupDescription(nameof(ParcelForList.SendCustomer)));
-            SenderId.DataContext = bl.GetParcelForList().Select(item => item.SendCustomer).Distinct();
-            ReceiveId.DataContext = bl.GetParcelForList().Select(item => item.ReceiveCustomer).Distinct();
+            SenderId.DataContext = PO.ListsModel.Bl.GetParcelForList().Select(item => item.SendCustomer).Distinct();
+            ReceiveId.DataContext = PO.ListsModel.Bl.GetParcelForList().Select(item => item.ReceiveCustomer).Distinct();
             ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
+            if (customerId != null)
+                Buttons.Visibility = Visibility.Collapsed;
+            else
+                Buttons.Visibility = Visibility.Visible;
+                //customerId != null ? Buttons.Visibility = Visibility.Collapsed : Buttons.Visibility = Visibility.Visible;
         }
 
-        /// <summary>
-        /// Updates the skimmer list
-        /// </summary>
-        private void RefreshParcelList()
-        {
-            parcelListViewModel.RefreshParcelList();
-            RefreshFilter();
-        }
 
         /// <summary>
-        /// Changes the list of skimmers according to the weight selected
+        /// Changes the list of drones according to the weight selected
         /// </summary>
         /// <param name = "sender" ></ param >
         /// < param name="e"></param>
@@ -100,9 +91,9 @@ namespace PL
         private void ShowAddParcelWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(parcelListViewModel.Bl, RefreshParcelList);
+            tabItem.Content = new Parcel();
             tabItem.Header = "Add parcel";
-            this.parcelListViewModel.AddTab(tabItem);
+            Tabs.AddTab(tabItem);
         }
 
         /// <summary>
@@ -113,11 +104,14 @@ namespace PL
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedParcel = ParcelesListView.SelectedItem as PO.ParcelForList;
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel(selectedParcel.Id, this.parcelListViewModel.Bl, RefreshParcelList, parcelListViewModel.AddTab);
-            tabItem.Header = "Update Parcel";
-            tabItem.Visibility = Visibility.Visible;
-            this.parcelListViewModel.AddTab(tabItem);
+            if (!selectedParcel.Equals(null))
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Parcel(selectedParcel.Id);
+                tabItem.Header = "Update Parcel";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+            }
         }
 
         /// <summary>
@@ -159,235 +153,12 @@ namespace PL
         {
             if (obj is PO.ParcelForList parcel)
             {
-                return (ParcelStatuses.SelectedItem == null || parcel.Status == (PO.Enums.ParcelStatuses)ParcelStatuses.SelectedItem)
-                    && (SenderId.SelectedItem == null || parcel.SendCustomer == SenderId.SelectedItem)
-                    && (ReceiveId.SelectedItem == null || parcel.ReceiveCustomer == ReceiveId.SelectedItem)
-                    && (From.SelectedDate == null||parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate)
-                    && (To.SelectedDate == null||parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate);
-
-            //    if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-            //        return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
-
-            //    }
-            //    else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-            //        return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
-
-            //    }
-
-            //    else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-            //        return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
-
-            //    }
-            //    else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
-            //    {
-
-
-            //        return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
-
-            //    }
-            //    else if (ReceiveId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-            //        return parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
-
-            //    }
-            //    else if (SenderId.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-            //        return parcel.SendCustomer == SenderId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
-
-            //    }
-            //    else if (ParcelStatuses.SelectedItem != null && To.SelectedDate != null && From.SelectedDate != null)
-            //    {
-
-
-            //        return parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
-
-            //    }
-            //    else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-            //        return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
-
-            //    }
-            //    else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && To.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-
-            //        return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
-
-            //    }
-
-            //    else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-
-            //        return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
-
-            //    }
-            //    else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && To.SelectedDate != null)
-            //    {
-
-
-
-            //        return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
-
-            //    }
-            //    else if (ReceiveId.SelectedItem != null && To.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-
-            //        return parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
-
-            //    }
-            //    else if (SenderId.SelectedItem != null && To.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-            //        return parcel.SendCustomer == SenderId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
-
-            //    }
-            //    else if (ParcelStatuses.SelectedItem != null && To.SelectedDate != null)
-            //    {
-
-
-
-            //        return parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > To.SelectedDate;
-
-            //    }
-            //    else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-
-            //        return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
-
-            //    }
-            //    else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && From.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-
-            //        return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
-
-            //    }
-
-            //    else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-
-            //        return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
-
-            //    }
-            //    else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null && From.SelectedDate != null)
-            //    {
-
-
-
-            //        return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
-
-            //    }
-            //    else if (ReceiveId.SelectedItem != null && From.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-
-            //        return parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
-
-            //    }
-            //    else if (SenderId.SelectedItem != null && From.SelectedDate != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-
-            //        return parcel.SendCustomer == SenderId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
-
-            //    }
-            //    else if (ParcelStatuses.SelectedItem != null && From.SelectedDate != null)
-            //    {
-
-
-
-            //        return parcel.ReceiveCustomer == ReceiveId.SelectedItem && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
-
-            //    }
-
-            //    else if (ParcelStatuses.SelectedItem != null && SenderId.SelectedItem != null && ReceiveId.SelectedItem != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-            //        return parcel.Status == status && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
-            //    }
-            //    else if (ParcelStatuses.SelectedItem != null && ReceiveId.SelectedItem != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-            //        return parcel.Status == status && parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
-            //    }
-            //    else if (SenderId.SelectedItem != null && ReceiveId.SelectedItem != null)
-            //    {
-
-            //        return parcel.SendCustomer == SenderId.SelectedItem && parcel.ReceiveCustomer == ReceiveId.SelectedItem;
-            //    }
-            //    else if (To.SelectedDate != null && From.SelectedDate != null)
-            //    {
-
-
-            //        return parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate && parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
-
-            //    }
-            //    else if (ReceiveId.SelectedItem != null)
-            //    {
-
-            //        return parcel.ReceiveCustomer == ReceiveId.SelectedItem;
-
-            //    }
-            //    else if (SenderId.SelectedItem != null)
-            //    {
-
-            //        return parcel.SendCustomer == SenderId.SelectedItem;
-
-            //    }
-            //    else if (ParcelStatuses.SelectedItem != null)
-            //    {
-            //        Enums.ParcelStatuses status = (Enums.ParcelStatuses)ParcelStatuses.SelectedItem;
-
-            //        return parcel.Status == status;
-
-            //    }
-            //    else if (To.SelectedDate != null)
-            //    {
-
-
-
-            //        return parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate;
-
-            //    }
-            //    else if (From.SelectedDate != null)
-            //    {
-
-
-            //        return parcelListViewModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate;
-
-            //    }
-            //    else
-            //    {
-            //        return true;
-            //    }
+                return (parcelListViewModel.Customer == null || parcel.SendCustomer == parcelListViewModel.Customer.Name || parcel.ReceiveCustomer == parcelListViewModel.Customer.Name)
+                    && (ParcelStatuses.SelectedItem == null || parcel.Status == (PO.Enums.ParcelStatuses)ParcelStatuses.SelectedItem)
+                    && (SenderId.SelectedItem == null || parcel.SendCustomer == SenderId.SelectedItem.ToString())
+                    && (ReceiveId.SelectedItem == null || parcel.ReceiveCustomer == ReceiveId.SelectedItem.ToString())
+                    && (From.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate)
+                    && (To.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate);
             }
             return false;
         }

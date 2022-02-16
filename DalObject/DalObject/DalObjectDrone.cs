@@ -42,7 +42,7 @@ namespace DAL
         public IEnumerable<Drone> GetDrones()
         {
             IEnumerable<Drone> drones = new List<Drone>();
-            drones= DataSource.drones.Where(drone => !(drone.IsDeleted)).ToList();
+            drones= DataSource.drones;
 
             return drones;
         }
@@ -55,7 +55,7 @@ namespace DAL
         public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate)
         {
             IEnumerable<Drone> drones = new List<Drone>();
-            drones = DataSource.drones.Where(drone => predicate(drone) && !(drone.IsDeleted)).ToList();
+            drones = DataSource.drones.Where(drone => predicate(drone) );
             return drones;
         }
 

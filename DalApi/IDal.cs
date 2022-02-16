@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DO.Enum;
 
 namespace DalApi
 {
@@ -17,7 +18,7 @@ namespace DalApi
         public IEnumerable<BaseStation> GetAvaBaseStations();
         public void DeleteBaseStation(int id);
         void UpdateRelease(int droneId);
-        public void UpdateCharge(int droneId);
+        public void UpdateCharge(int droneId, int baseStationId);
         #endregion
 
         #region Customer
@@ -50,10 +51,21 @@ namespace DalApi
         public Parcel GetParcel(Predicate<Parcel> predicate);
         public IEnumerable<Parcel> GetParcels();
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate);
-        public void UpdateParcelPickedUp(Parcel Parcel);
-        public void UpdateParcelDelivered(Parcel Parcel );
-        public void UpdateSupply(Parcel parcel);
+        public void UpdateParcelPickedUp(int parcelId);
+        public void UpdateParcelDelivered(int parcelId);
+        public void UpdateParcelScheduled(int parcelId, int droneId);
+
         public void DeleteParcel(int id);
+        #endregion
+
+        #region User
+        public void AddUser(User user);
+        public bool ExistUser(int userName, string password, Access access);
+        public User GetUser(int userId, string password, Access access);
+        public User GetCUser(Predicate<User> predicate, Access access);
+        public IEnumerable<User> GetUsers();
+        public IEnumerable<User> GetUsers(Predicate<User> predicate);
+        public void DeleteUser(User user);
         #endregion
         public double[] GetElectricityUse();
     }

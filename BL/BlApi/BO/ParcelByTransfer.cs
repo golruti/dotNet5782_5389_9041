@@ -10,6 +10,7 @@ namespace BO
     //חבילה בהעברה
     public class ParcelByTransfer
     {
+        #region properties
         public int Id { get; set; }
         public Priorities Priority { get; set; }
         public WeightCategories Weight { get; set; }
@@ -19,5 +20,6 @@ namespace BO
         public Location TargetLocation { get; set; }
         public bool IsDestinationParcel { get; set; }
         public double Distance { get; set; }
+        #endregion
     }
 }

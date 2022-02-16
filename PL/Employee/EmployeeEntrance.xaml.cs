@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static PL.Tabs;
+using static PO.ListsModel;
 
 namespace PL
 {
@@ -21,26 +23,29 @@ namespace PL
     /// </summary>
     public partial class Employee : UserControl
     {
-        Action<TabItem> addTab;
-        private BlApi.IBL bl;
-        private Action<object, RoutedEventArgs> RemoveTab;
-
-        public Employee(IBL bl, Action<TabItem> addTab, Action<object, RoutedEventArgs> removeTab)
+        public Employee()
         {
             InitializeComponent();
-
-            this.bl = bl;
-            this.addTab = addTab;
-            this.RemoveTab = removeTab;
         }
 
         private void show_EmployeeHomePage(object sender, RoutedEventArgs e)
         {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new EmployeeHomePage(bl, addTab, RemoveTab);
-            tabItem.Header = "Employee Home Page";
-            this.addTab(tabItem);
-            Close_Page(sender, e);
+            if (userName.Text != null && password.Text != null)
+            {
+                if (Bl.IsExistEmployee(int.Parse(userName.Text), password.Text))
+                {
+                    TabItem tabItem = new TabItem();
+                    tabItem.Content = new EmployeeHomePage();
+                    tabItem.Header = "Employee Home Page";
+                    AddTab(tabItem);
+                    Close_Page(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show($"Incorrect username or password, please try again.");
+                }
+            }
+            
         }
         /// <summary>
         /// the function close the page

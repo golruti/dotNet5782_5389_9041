@@ -7,6 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Button Content="Parcel list" Click="ShowParcelList_Click" Margin="10,115,-10,303"/>
+        <Button Content="Add Parcel" Click="AddParcel_Click" Margin="10,209,-10,209"/>
+
     </Grid>
 </UserControl>

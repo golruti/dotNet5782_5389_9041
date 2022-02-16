@@ -9,6 +9,7 @@ namespace BO
 {
     public class DroneForList
     {
+        #region properties
         public int Id { get; set; }
         public string Model { get; set; }
         public WeightCategories MaxWeight { get; set; }
@@ -16,23 +17,13 @@ namespace BO
         public DroneStatuses Status { get; set; }
         public Location Location { get; set; }
         public int ParcelDeliveredId { get; set; } = -1;
-       
+        #endregion
 
-
+        #region ToString
         public override string ToString()
         {
             return $"Drone #{Id}: model={Model}, {Status}, {MaxWeight}, location = {Location.Latitude}, {Location.Longitude}, battery={(int)(Battery)} ";
         }
-        public DroneForList(int id, string model, WeightCategories maxWeight, double battery, DroneStatuses status, double longitude, double latitude)
-        {
-            Id = id;
-            Model = model;
-            MaxWeight = maxWeight;
-            Battery = battery;
-            Status = status;
-            Location = new Location(longitude, latitude);
-        }
-
-        public DroneForList() { }
+        #endregion
     }
 }

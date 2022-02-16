@@ -10,41 +10,31 @@ namespace BO
 {
     public class Parcel
     {
+        #region properties
         public int Id { get; set; }
         public CustomerDelivery CustomerSender { get; set; }
         public CustomerDelivery CustomerReceives { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
         public DroneInParcel DroneParcel { get; set; }
+        //נוצר
         public DateTime? Requested { get; set; } = null;
+        //התחבר לרחפן
         public DateTime? Scheduled { get; set; } = null;
+        //נאסף
         public DateTime? PickedUp { get; set; } = null;
+        //הגיע ליעד
         public DateTime? Delivered { get; set; } = null;
+        #endregion
 
-
-
-        /// <summary>
-        /// String of details for parsel
-        /// </summary>
-        /// <returns>String of details for parsel</returns>
+        #region ToString 
         public override string ToString()
         {
             return ("------\nid: " + Id +
                 "\nWeight: " + Weight + "\nPriority: " + Priority + "\nRequested: " + Requested + "\nDroneld: "
                 + "\nScheduled: " + Scheduled + "\nPickedUp: " + PickedUp + "\nDelivered: " + Delivered + "\n------\n");
         }
-        public Parcel(int id, WeightCategories weight, Priorities priority, DroneInParcel droneParcel, CustomerDelivery CustomerSender, CustomerDelivery CustomerReceives)
-        {
-            Id = id;
-            Weight = weight;
-            Priority = priority;
-            DroneParcel = droneParcel;
-            this.CustomerSender = CustomerSender;
-            this.CustomerReceives = CustomerReceives;
-        }
-
-        public Parcel()
-        { }
+        #endregion
     }
 }
 
