@@ -18,6 +18,8 @@ namespace DAL
         {
             if (!GetUser(user.UserId, user.Password, user.Access).Equals(default(User)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("An existing user in the database - DAL");
+            if (GetCustomer(user.UserId).Equals(default(Customer)))
+                throw new KeyNotFoundException("No matching customer found for UserId");
             user.IsDeleted = false;
 
             DataSource.users.Add(user);
@@ -35,7 +37,7 @@ namespace DAL
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private User GetUser(int userName, string password, Access access)
+        public User GetUser(int userName, string password, Access access)
         {
             User user = DataSource.users.FirstOrDefault(user => user.UserId == userName && user.Password == password &&
             user.Access == access && !(user.IsDeleted));
@@ -48,7 +50,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>the user</returns>
-        private User GetCUser(Predicate<User> predicate, Access access)
+        public User GetCUser(Predicate<User> predicate, Access access)
         {
             return GetUsers().FirstOrDefault(user => predicate(user) && user.Access == access);
         }
@@ -58,7 +60,7 @@ namespace DAL
         /// The function prepares a new array of all existing users
         /// </summary>
         /// <returns>list of users</returns>
-        private IEnumerable<User> GetUsers()
+        public IEnumerable<User> GetUsers()
         {
             return DataSource.users.Where(user => !user.IsDeleted);
         }
@@ -68,7 +70,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>List of users that maintain the predicate</returns>
-        private IEnumerable<User> GetUsers(Predicate<User> predicate)
+        public IEnumerable<User> GetUsers(Predicate<User> predicate)
         {
             return GetUsers().Where(item => predicate(item));
         }

@@ -30,17 +30,21 @@ namespace PL
 
         private void sign_in_show_CustomerPageHome(object sender, RoutedEventArgs e)
         {
-            if (Bl.IsExistClient(int.Parse(Id_sign_in.Text), pass_sign_in.Text) == true)
+            if (Id_sign_in.Text!= null  && pass_sign_in.Text != null)
             {
-                TabItem tabItem = new TabItem();
-                tabItem.Content = new CustomerHomePage(int.Parse(Id_sign_in.Text));
-                tabItem.Header = "Customer Home Page";
-                Tabs.AddTab(tabItem);
-                Close_Page(sender, e);
-            }
-            else
-            {
-                MessageBox.Show($"Incorrect id or password, please try again.");
+
+                if (Bl.IsExistClient(int.Parse(Id_sign_in.Text), pass_sign_in.Text) == true)
+                {
+                    TabItem tabItem = new TabItem();
+                    tabItem.Content = new CustomerHomePage(int.Parse(Id_sign_in.Text), pass_sign_in.Text);
+                    tabItem.Header = "Customer Home Page";
+                    Tabs.AddTab(tabItem);
+                    Close_Page(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show($"Incorrect id or password, please try again.");
+                }
             }
         }
 
@@ -65,7 +69,7 @@ namespace PL
             if (succeeded == true)
             {
                 TabItem tabItem = new TabItem();
-                tabItem.Content = new CustomerHomePage(int.Parse(Id_sign_up.Text));
+                tabItem.Content = new CustomerHomePage(int.Parse(Id_sign_up.Text), pass_sign_up.Text);
                 tabItem.Header = "Customer Home Page";
                 Tabs.AddTab(tabItem);
                 Close_Page(sender, e);

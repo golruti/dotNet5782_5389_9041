@@ -30,11 +30,16 @@ namespace PL
             InitializeComponent();
             parcelListViewModel = new ParcelListViewModel(customerId);
             this.DataContext = parcelListViewModel;
-            parcelListViewModel.ParcelsForList.Filter = FilterParcel;
+            parcelListViewModel.ParcelsForList.Filter += FilterParcel;
             parcelListViewModel.ParcelsForList.GroupDescriptions.Add(new PropertyGroupDescription(nameof(ParcelForList.SendCustomer)));
             SenderId.DataContext = PO.ListsModel.Bl.GetParcelForList().Select(item => item.SendCustomer).Distinct();
             ReceiveId.DataContext = PO.ListsModel.Bl.GetParcelForList().Select(item => item.ReceiveCustomer).Distinct();
             ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
+            if (customerId != null)
+                Buttons.Visibility = Visibility.Collapsed;
+            else
+                Buttons.Visibility = Visibility.Visible;
+                //customerId != null ? Buttons.Visibility = Visibility.Collapsed : Buttons.Visibility = Visibility.Visible;
         }
 
 

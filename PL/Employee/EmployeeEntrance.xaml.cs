@@ -30,18 +30,22 @@ namespace PL
 
         private void show_EmployeeHomePage(object sender, RoutedEventArgs e)
         {
-            if (Bl.IsExistEmployee(int.Parse(userName.Text), password.Text))
+            if (userName.Text != null && password.Text != null)
             {
-                TabItem tabItem = new TabItem();
-                tabItem.Content = new EmployeeHomePage();
-                tabItem.Header = "Employee Home Page";
-                AddTab(tabItem);
-                Close_Page(sender, e);
+                if (Bl.IsExistEmployee(int.Parse(userName.Text), password.Text))
+                {
+                    TabItem tabItem = new TabItem();
+                    tabItem.Content = new EmployeeHomePage();
+                    tabItem.Header = "Employee Home Page";
+                    AddTab(tabItem);
+                    Close_Page(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show($"Incorrect username or password, please try again.");
+                }
             }
-            else
-            {
-                MessageBox.Show($"Incorrect username or password, please try again.");
-            }
+            
         }
         /// <summary>
         /// the function close the page

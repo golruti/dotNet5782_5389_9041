@@ -9,7 +9,7 @@ using Singleton;
 
 namespace DAL
 {
-    public sealed partial class DalObject : Singleton.Singleton<DalObject>, DalApi.IDal
+    public sealed partial class DalObject : Singleton.Singleton<DalObject>, IDal
     {
         /// <summary>
         /// constructor
@@ -33,5 +33,25 @@ namespace DAL
                     DataSource.Config.ChargingRate
                   });
         }
+
+        //User IDal.GetCUser(Predicate<User> predicate, DO.Enum.Access access)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //User IDal.GetUser(int userId, string password, DO.Enum.Access access)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //IEnumerable<User> IDal.GetUsers()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //IEnumerable<User> IDal.GetUsers(Predicate<User> predicate)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

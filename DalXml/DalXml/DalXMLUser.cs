@@ -20,6 +20,8 @@ namespace DAL
         {
             if (!GetUser(user.UserId, user.Password, user.Access).Equals(default(User)))
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException("An existing user in the database - DAL");
+            if (GetCustomer(user.UserId).Equals(default(Customer)))
+                throw new KeyNotFoundException("No matching customer found for UserId");
             user.IsDeleted = false;
 
             AddItem(usersPath, user);
@@ -27,7 +29,7 @@ namespace DAL
 
         public bool ExistUser(int userName, string password, Access access)
         {
-            return GetUsers().FirstOrDefault(user =>  user.Access == access).Equals(default(User)) ? false : true;
+            return GetUsers().FirstOrDefault(user => user.Access == access && user.UserId == userName && user.Password == password).Equals(default(User)) ? false : true;
         }
         //--------------------------------------------Show item-------------------------------------------------------------------------------------------
         /// <summary>
@@ -36,7 +38,7 @@ namespace DAL
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private User GetUser(int userId, string password, Access access)
+        public User GetUser(int userId, string password, Access access)
         {
             return GetItem<User>(usersPath, userId, password, access);
         }
@@ -46,7 +48,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>the user</returns>
-        private User GetCUser(Predicate<User> predicate, Access access)
+        public User GetCUser(Predicate<User> predicate, Access access)
         {
             return GetUsers().FirstOrDefault(user => predicate(user) && user.Access == access);
         }
@@ -66,7 +68,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>List of users that maintain the predicate</returns>
-        private IEnumerable<User> GetUsers(Predicate<User> predicate)
+        public IEnumerable<User> GetUsers(Predicate<User> predicate)
         {
             return GetUsers().Where(item => predicate(item));
         }

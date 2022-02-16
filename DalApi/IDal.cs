@@ -61,10 +61,10 @@ namespace DalApi
         #region User
         public void AddUser(User user);
         public bool ExistUser(int userName, string password, Access access);
-        //public User GetUser(int userId, string password, Access access);
-        //public User GetCUser(Predicate<User> predicate, Access access);
-        //public IEnumerable<User> GetUsers();
-        //public IEnumerable<User> GetUsers(Predicate<User> predicate);
+        public User GetUser(int userId, string password, Access access);
+        public User GetCUser(Predicate<User> predicate, Access access);
+        public IEnumerable<User> GetUsers();
+        public IEnumerable<User> GetUsers(Predicate<User> predicate);
         public void DeleteUser(User user);
         #endregion
         public double[] GetElectricityUse();

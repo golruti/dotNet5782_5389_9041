@@ -10,8 +10,7 @@ using Drone = BO.Drone;
 using Parcel = BO.Parcel;
 using BaseStation = BO.BaseStation;
 using User = BO.User;
-
-
+using static BO.Enums;
 
 namespace BlApi
 {
@@ -72,7 +71,7 @@ namespace BlApi
         public void AddUser(User tempUser);
         public bool IsExistClient(int userId, string password);
         public bool IsExistEmployee(int userId, string password);
-
+        public User GetUser(int userName, string password, Access access);
 
 
         public void DeleteUser(User tempUser);

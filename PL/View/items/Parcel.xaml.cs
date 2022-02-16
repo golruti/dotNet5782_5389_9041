@@ -44,6 +44,15 @@ namespace PL
             Update_grid.Visibility = Visibility.Visible;
         }
 
+        //עבור ממשק לקוח
+        public Parcel(BO.User user)
+        {
+            InitializeComponent();
+            parcelViewModel = new ParcelViewModel(user);
+            this.DataContext = parcelViewModel;
+            Add_grid.Visibility = Visibility.Visible;
+        }
+
         private void DeleteParcel(object sender, RoutedEventArgs e)
         {
             PO.ListsModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
@@ -184,7 +193,7 @@ namespace PL
                     .FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.DroneParcel.Id));
                 tabItem.Header = "update  drone";
                 tabItem.Visibility = Visibility.Visible;
-               Tabs.AddTab(tabItem);
+                Tabs.AddTab(tabItem);
             }
             catch (KeyNotFoundException ex)
             {

@@ -8,7 +8,7 @@
   </User>
   <User xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <Password>12345</Password>
-    <UserId>6</UserId>
+    <UserId>12</UserId>
     <Access>Client</Access>
     <IsDeleted>false</IsDeleted>
   </User>

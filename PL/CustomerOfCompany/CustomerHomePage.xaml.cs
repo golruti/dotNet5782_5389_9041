@@ -21,17 +21,29 @@ namespace PL
     /// </summary>
     public partial class CustomerHomePage : UserControl
     {
-        int customerId;
-        public CustomerHomePage(int customerId)
+        
+        int userId;
+        string password;
+
+        public CustomerHomePage(int customerId,string password)
         {
-            this.customerId = customerId;
+            this.userId = customerId;
+            this.password = password;
             InitializeComponent();
         }
 
         private void ShowParcelList_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new ParcelList(this.customerId);
+            tabItem.Content = new ParcelList(this.userId);
+            tabItem.Header = "parcel list";
+            AddTab(tabItem);
+        }
+
+        private void AddParcel_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new Parcel( PO.ListsModel.Bl.GetUser(userId, password,BO.Enums.Access.Client));
             tabItem.Header = "parcel list";
             AddTab(tabItem);
         }

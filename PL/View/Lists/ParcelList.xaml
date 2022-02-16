@@ -89,7 +89,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="Gray">
+    <Grid  Background="Gray">
         <Grid.RowDefinitions>
 
             <RowDefinition Height="56*"/>
@@ -143,7 +143,7 @@
                     <GridViewColumn  Header="Receiver" DisplayMemberBinding="{Binding ReceiveCustomer}" />
                     <GridViewColumn  Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
                     <GridViewColumn  Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
-                    
+
                     <GridViewColumn  Header="Status" DisplayMemberBinding="{Binding Status}"/>
                 </GridView>
 
@@ -174,9 +174,9 @@
         </ListView>
 
 
-
-        <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
-        <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddParcelWindow" Content="add parcel" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
-
+        <Grid x:Name="Buttons" Margin="10,19,-10,20" Grid.Row="2" Visibility="Visible">
+            <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+            <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddParcelWindow" Content="add parcel" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+        </Grid>
     </Grid>
 </UserControl>
