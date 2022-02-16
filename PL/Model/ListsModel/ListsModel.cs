@@ -51,6 +51,7 @@ namespace PO
             foreach (var item in ConvertFunctions.BOBaseStationForListToPO(Bl.GetBaseStationForList()))
                 stations.Add(item);
         }
+
         static public void RefreshCustomers()
         {
             customers.Clear();

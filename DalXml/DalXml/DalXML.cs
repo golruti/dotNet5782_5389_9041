@@ -75,7 +75,6 @@ namespace DAL
                                                                && password == element.Element("Password").Value
                                                                 && stringAccess == element.Element("Access").Value);
 
-
             return item == null ? default : item.Deserialize<T>();
         }
 
@@ -84,7 +83,6 @@ namespace DAL
             XDocument document = XDocument.Load(path);
             return document.Root
                            .Elements()
-                           //.Where(element => !bool.Parse(element.Element("IsDeleted").Value))
                            .Select(element => element.Deserialize<T>());
         }
 
@@ -107,6 +105,7 @@ namespace DAL
 
             document.Save(path);
         }
+
 
 
         private void UpdateItem(string path, int userName, string password, Access access, string propertyName, object propertyValue)

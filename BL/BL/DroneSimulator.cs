@@ -76,7 +76,6 @@ namespace BL
 
         private void MaintenanceDrone()
         {
-            var e = bl.GetDroneInChargByID(drone.Id);
             //היה בדיקה אם קיים דרון צארג
             lock (bl)
             {
@@ -95,7 +94,6 @@ namespace BL
                 update();
             }
 
-
             while (drone.Battery < 100)
             {
                 if (checkStop())
@@ -105,10 +103,7 @@ namespace BL
                 lock (bl) drone.Battery = Math.Min(100.0, drone.Battery + bl.chargingRate * TIME_STEP);
                 update();
             }
-
-
             bl.UpdateRelease(drone.Id);
-
         }
 
         private void DeliveryDrone()
