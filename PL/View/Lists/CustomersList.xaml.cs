@@ -37,7 +37,7 @@ namespace PL
         {
            
             var selectedCustomer = CustomersListViewXaml.SelectedItem as PO.CustomerForList;
-            if (!selectedCustomer.Equals(null))
+            if (selectedCustomer !=null)
             {
                 TabItem tabItem = new TabItem();
                 tabItem.Content = new Customer(PO.ConvertFunctions.POCustomerForListToBO(selectedCustomer));

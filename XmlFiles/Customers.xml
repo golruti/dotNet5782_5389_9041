@@ -17,7 +17,7 @@
     <Latitude>73</Latitude>
   </Customer>
   <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
+    <IsDeleted>true</IsDeleted>
     <Id>89</Id>
     <Name>89</Name>
     <Phone>89</Phone>

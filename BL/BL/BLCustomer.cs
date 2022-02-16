@@ -135,11 +135,15 @@ namespace BL
                     Id = customer.Id,
                     Name = customer.Name,
                     Phone = customer.Phone,
-                    NumParcelSentDelivered = dal.GetParcels().Count(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(null)),
-                    NumParcelSentNotDelivered = dal.GetParcels().Count(parcel => parcel.SenderId == customer.Id && !(parcel.Delivered.Equals(null))),
+                    //שלחתי והגיע
+                    NumParcelSentDelivered = dal.GetParcels().Count(parcel => parcel.SenderId == customer.Id && !parcel.Delivered.Equals(null)),
+                   //שלחתי ועוד לא נגיע
+                    NumParcelSentNotDelivered = dal.GetParcels().Count(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(null)),
+                    //החבילות שכבר קיבלתי
                     NumParcelReceived = dal.GetParcels().Count(parcel => parcel.TargetId == customer.Id && !parcel.Delivered.Equals(null)),
+                   //החבילות שבדך אלי
                     NumParcelWayToCustomer = dal.GetParcels()
-                                        .Count(parcel => parcel.SenderId == customer.Id && parcel.Delivered.Equals(null) && !parcel.PickedUp.Equals(null))
+                                        .Count(parcel => parcel.TargetId == customer.Id && parcel.Delivered.Equals(null))
                 });
             }
             if (CustomerForList.Count() == 0)
