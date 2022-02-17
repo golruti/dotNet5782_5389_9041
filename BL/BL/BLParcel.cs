@@ -335,8 +335,8 @@ namespace BL
         /// <returns>The name of the sending customer</returns>
         private string getSendCustomerName(DO.Parcel parcel)
         {
-            DO.Customer senderCustomerName;
-            lock (dal) { senderCustomerName = dal.GetCustomer(parcel.SenderId); }
+             DO.Customer senderCustomerName;
+            lock (dal) { senderCustomerName = dal.GetCustomers().FirstOrDefault( c=> c.Id == parcel.SenderId); }
 
             if (senderCustomerName.Equals(default(DO.Customer)))
             {
@@ -353,7 +353,7 @@ namespace BL
         private string getReceiveCustomer(DO.Parcel parcel)
         {
             DO.Customer receiveCustomerName;
-            lock (dal) { receiveCustomerName = dal.GetCustomer(parcel.TargetId); }
+            lock (dal) { receiveCustomerName = dal.GetCustomers().FirstOrDefault(c => c.Id == parcel.TargetId); }
             if (receiveCustomerName.Equals(default(DO.Customer)))
             {
                 throw new ArgumentNullException("Get recieve customer  -BL-");

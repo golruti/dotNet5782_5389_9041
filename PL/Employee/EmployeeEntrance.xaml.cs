@@ -44,9 +44,9 @@ namespace PL
                 {
                     MessageBox.Show($"Incorrect username or password, please try again.");
                 }
-            }
-            
+            }           
         }
+
         /// <summary>
         /// the function close the page
         /// </summary>
