@@ -11,6 +11,10 @@ namespace DalApi
 {
     public static class DalFactory
     {
+        /// <summary>
+        /// Loads the DAL variable according to write in an external file.
+        /// </summary>
+        /// <returns>Variable IDL interface type</returns>
         public static IDal GetDal()
         {
             string dalType = DalConfig.DalName;

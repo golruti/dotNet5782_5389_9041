@@ -8,100 +8,15 @@ using static DO.Enum;
 
 namespace DalApi
 {
+    /// <summary>
+    /// DAL layer interface - the data layer.
+    /// </summary>
     public interface IDal
     {
         // In this layer:
         // All the functions that return lists - return all the existing objects in the data, even those that have been logically deleted.
         // And the return functions are individual - return only if the object is not deleted.
 
-
-
-        #region Base station
-        /// <summary>
-        /// Adds a station to the list of existing stations in the data.
-        /// </summary>
-        /// <param name="station"></param>
-        public void AddBaseStation(BaseStation station);
-
-        /// <summary>
-        ///  Returns a specific sttion by station ID only if active in the system.
-        /// </summary>
-        /// <param name="idStation"></param>
-        /// <returns>The specific דאשאןםמ(active) </returns>
-        public BaseStation GetBaseStation(int idStation);
-
-        /// <summary>
-        /// Returns the list of existing stations in the data.
-        /// </summary>
-        /// <returns>the list of existing stations in the data</returns>
-        public IEnumerable<BaseStation> GetBaseStations();
-
-        /// <summary>
-        /// Returns the list of existing stations in the data that meet the predicate conditions.
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>stations in the data that meet the predicate conditions</returns>
-        public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate);
-
-        /// <summary>
-        /// Returns the list of available free stations in the data.
-        /// </summary>
-        /// <returns>available free stations in the data</returns>
-        public IEnumerable<BaseStation> GetAvaBaseStations();
-
-        /// <summary>
-        /// Deletes a specific station from the data.
-        /// </summary>
-        /// <param name="id"></param>
-        public void DeleteBaseStation(int id);
-
-        /// <summary>
-        /// Releases drone from charging.
-        /// </summary>
-        /// <param name="droneId"></param>
-        void UpdateRelease(int droneId);
-
-        /// <summary>
-        /// Sends a drone for charging.
-        /// </summary>
-        /// <param name="droneId"></param>
-        /// <param name="baseStationId"></param>
-        public void UpdateCharge(int droneId, int baseStationId);
-        #endregion
-
-        #region Customer
-        /// <summary>
-        /// Adds a customer to the list of existing customers in the data.
-        /// </summary>
-        /// <param name="customer"></param>
-        public void AddCustomer(Customer customer);
-
-        /// <summary>
-        /// Returns a specific customer by customer ID only if active in the system.
-        /// </summary>
-        /// <param name="idCustomer"></param>
-        /// <returns>The specific customer(active) (active)</returns>
-        public Customer GetCustomer(int idCustomer);
-
-        /// <summary>
-        /// Returns the list of existing stations in the data.
-        /// </summary>
-        /// <returns>existing customers in the data</returns>
-        public IEnumerable<Customer> GetCustomers();
-
-        /// <summary>
-        /// Returns the list of existing customers in the data that meet the predicate conditions.
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>customers in the data that meet the predicate conditions</returns>
-        public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate);
-
-        /// <summary>
-        /// Deletes a specific customer from the data.
-        /// </summary>
-        /// <param name="id"></param>
-        public void DeleteCustomer(int id);
-        #endregion
 
         #region Drone
         /// <summary>
@@ -128,6 +43,46 @@ namespace DalApi
         /// </summary>
         /// <param name="droneId"></param>
         public void DeleteDrone(int droneId);
+        #endregion
+
+        #region Base station
+        /// <summary>
+        /// Adds a station to the list of existing stations in the data.
+        /// </summary>
+        /// <param name="station"></param>
+        public void AddBaseStation(BaseStation station);
+
+        /// <summary>
+        ///  Returns a specific sttion by station ID only if active in the system.
+        /// </summary>
+        /// <param name="idStation"></param>
+        /// <returns>The specific station(active) </returns>
+        public BaseStation GetBaseStation(int idStation);
+
+        /// <summary>
+        /// Returns the list of existing stations in the data.
+        /// </summary>
+        /// <returns>the list of existing stations in the data</returns>
+        public IEnumerable<BaseStation> GetBaseStations();
+
+        /// <summary>
+        /// Returns the list of existing stations in the data that meet the predicate conditions.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>stations in the data that meet the predicate conditions</returns>
+        public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate);
+
+        /// <summary>
+        /// Returns the list of available free stations in the data.
+        /// </summary>
+        /// <returns>available free stations in the data</returns>
+        public IEnumerable<BaseStation> GetAvaBaseStations();
+
+        /// <summary>
+        /// Deletes a specific station from the data.
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteBaseStation(int id);
         #endregion
 
         #region Drone charge
@@ -162,6 +117,19 @@ namespace DalApi
         /// </summary>
         /// <param name="droneId"></param>
         public void DeleteDroneCharge(int droneId);
+
+        /// <summary>
+        /// Releases drone from charging.
+        /// </summary>
+        /// <param name="droneId"></param>
+        void UpdateRelease(int droneId);
+
+        /// <summary>
+        /// Sends a drone for charging.
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <param name="baseStationId"></param>
+        public void UpdateCharge(int droneId, int baseStationId);
         #endregion
 
         #region Parcel
@@ -218,6 +186,49 @@ namespace DalApi
         public void UpdateParcelDelivered(int parcelId);
         #endregion
 
+        #region Customer
+        /// <summary>
+        /// Adds a customer to the list of existing customers in the data.
+        /// </summary>
+        /// <param name="customer"></param>
+        public void AddCustomer(Customer customer);
+
+        /// <summary>
+        /// Returns a specific customer by customer ID only if active in the system.
+        /// </summary>
+        /// <param name="idCustomer"></param>
+        /// <returns>The specific customer(active) (active)</returns>
+        public Customer GetCustomer(int idCustomer);
+
+        /// <summary>
+        /// Returns the list of existing stations in the data.
+        /// </summary>
+        /// <returns>existing customers in the data</returns>
+        public IEnumerable<Customer> GetCustomers();
+
+        /// <summary>
+        /// Returns the list of existing customers in the data that meet the predicate conditions.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>customers in the data that meet the predicate conditions</returns>
+        public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate);
+
+        /// <summary>
+        /// Deletes a specific customer from the data.
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteCustomer(int id);
+        #endregion
+
+        #region Electricity
+        /// <summary>
+        /// Returns an array that includes the rate at which a battery is wasted traveling from place to place,
+        /// And the battery charge rate.
+        /// </summary>
+        /// <returns>array that includes the rate at which a battery is wasted and the battery charge rate</returns>
+        public double[] GetElectricityUse();
+        #endregion
+
         #region User
         /// <summary>
         /// Adds a User to the list of existing customers in the data.
@@ -231,7 +242,7 @@ namespace DalApi
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <param name="access"></param>
-        /// <returns></returns>
+        /// <returns>true if there is and false if not</returns>
         public bool ExistUser(int userName, string password, Access access);
 
         /// <summary>
@@ -261,15 +272,6 @@ namespace DalApi
         /// </summary>
         /// <param name="user"></param>
         public void DeleteUser(User user);
-        #endregion
-
-        #region Electricity
-        /// <summary>
-        /// Returns an array that includes the rate at which a battery is wasted traveling from place to place,
-        /// And the battery charge rate.
-        /// </summary>
-        /// <returns>array that includes the rate at which a battery is wasted and the battery charge rate</returns>
-        public double[] GetElectricityUse();
         #endregion
     }
 }

@@ -9,6 +9,10 @@ namespace BlApi
 {
     public static class BlFactory
     {
+        /// <summary>
+        /// Loads the BL variable
+        /// </summary>
+        /// <returns>Variable IBL interface type</returns>
         public static IBL GetBl()
         {
             try

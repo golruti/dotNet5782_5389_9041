@@ -8,6 +8,10 @@ using System.Xml.Linq;
 
 namespace DalApi
 {
+
+    /// <summary>
+    /// Reads the type of variable to be executed according to what is written in an external file.
+    /// </summary>
     class DalConfig
     {
         internal static string DalName;

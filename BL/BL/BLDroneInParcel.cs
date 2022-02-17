@@ -10,7 +10,7 @@ namespace BL
     partial class BL
     {
         /// <summary>
-        /// Convert a drone To List to Drone With Parcel
+        /// Convert a "DroneToList" drone to Drone With Parcel- "DroneInParcel"
         /// </summary>
         /// <param name="drone">The drone to convert</param>
         /// <returns>The converter drone</returns>

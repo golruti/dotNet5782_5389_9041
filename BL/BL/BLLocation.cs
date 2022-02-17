@@ -12,7 +12,7 @@ namespace BL
     public partial class BL
     {
         /// <summary>
-        /// Calculates the distance between two points on the earth
+        /// Calculates the distance between two points on the earth.
         /// </summary>
         /// <param name="Latitude1">The source point</param>
         /// <param name="Longitude1">The source point</param>

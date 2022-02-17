@@ -9,6 +9,7 @@ namespace BL
 {
     partial class BL
     {
+        //---------------------------------------------Show list------------------------------------------------------------------------------------------
         /// <summary>
         /// The function returns the list of parcels at a customer - from the customer
         /// </summary>

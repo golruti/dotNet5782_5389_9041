@@ -12,10 +12,6 @@ namespace BL
     {
 
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Add a customer to the list of customers
-        /// </summary>
-        /// <param name="tempCustomer">The customer for Adding</param>
         public void AddCustomer(Customer tempCustomer)
         {
             try
@@ -39,11 +35,7 @@ namespace BL
             }
         }
 
-        //---------------------------------------------Delete ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function gets a customer ID and tries to delete it
-        /// </summary>
-        /// <param name="station"></param>
+        //---------------------------------------------Delete ----------------------------------------------------------------------------------------------
         public void DeleteBLCustomer(int customerId)
         {
             try
@@ -61,12 +53,6 @@ namespace BL
         }
 
         //--------------------------------------------Update----------------------------------------------------------------------------------------
-        /// <summary>
-        /// update customer
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <param name="phone"></param>
         public void UpdateCustomer(int id, string name = "-1", string phone = "-1")
         {
             DO.Customer tempCustomer;
@@ -112,12 +98,7 @@ namespace BL
             }
         }
 
-        //---------------------------------------------Show item---------------------------------------------------------------------------------
-        /// <summary>
-        /// Retrieves the requested customer from the data and converts it to BL customer
-        /// </summary>
-        /// <param name="id">The requested customer</param>
-        /// <returns>A Bl customer to print</returns>
+        //---------------------------------------------Show item----------------------------------------------------------------------------------------
         public Customer GetBLCustomer(int id)
         {
             try
@@ -133,11 +114,7 @@ namespace BL
             }
         }
 
-        //--------------------------------------------Show list--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function returns the customer list from DAL to the CustomerForList list
-        /// </summary>
-        /// <returns>The list of CustomerForList customers</returns>
+        //--------------------------------------------Show list--------------------------------------------------------------------------------------------
         public IEnumerable<CustomerForList> GetCustomerForList()
         {
             List<CustomerForList> CustomerForList = new List<CustomerForList>();
@@ -171,11 +148,7 @@ namespace BL
             return CustomerForList;
         }
 
-        /// <summary>
-        /// The function receives a predicate and returns the list that maintains the predicate
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>List of CustomerForList that maintain the predicate</returns>
+
         public IEnumerable<CustomerForList> GetCustomerForList(Predicate<CustomerForList> predicate)
         {
             return GetCustomerForList().Where(customer => predicate(customer));

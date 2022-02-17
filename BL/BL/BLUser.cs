@@ -10,6 +10,8 @@ namespace BL
 {
     partial class BL
     {
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
+
         public void AddUser(User tempUser)
         {
             try
@@ -44,18 +46,7 @@ namespace BL
         }
 
 
-
-        public bool IsExistClient(int userId, string password)
-        {
-            lock (dal) { return dal.ExistUser(userId, password, (DO.Enum.Access)Access.Client) && !dal.GetCustomer(userId).Equals(default(DO.Customer)); }
-        }
-
-        public bool IsExistEmployee(int userId, string password)
-        {
-            lock (dal) { return dal.ExistUser(userId, password, (DO.Enum.Access)Access.Employee); }
-        }
-
-
+        //---------------------------------------------Delete ------------------------------------------------------------------------------------------
         public void DeleteUser(User tempUser)
         {
             lock (dal)
@@ -70,6 +61,24 @@ namespace BL
             }
         }
 
+
+        //--------------------------------------------Initialize the parcel list---------------------------------------------------------------------
+
+        public bool IsExistClient(int userId, string password)
+        {
+            lock (dal) { return dal.ExistUser(userId, password, (DO.Enum.Access)Access.Client) && !dal.GetCustomer(userId).Equals(default(DO.Customer)); }
+        }
+
+        public bool IsExistEmployee(int userId, string password)
+        {
+            lock (dal) { return dal.ExistUser(userId, password, (DO.Enum.Access)Access.Employee); }
+        }
+
+        /// <summary>
+        /// Converts a DO type to a BO type.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private User MapUser(DO.User user)
         {
             return new User()
