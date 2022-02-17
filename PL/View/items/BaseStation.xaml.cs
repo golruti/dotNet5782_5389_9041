@@ -65,9 +65,18 @@ namespace PL
 
         private void add_Station_Click(object sender, RoutedEventArgs e)
         {
-            if (double.Parse(longitude.Text) < -90 || double.Parse(longitude.Text) > 90 || double.Parse(latitude.Text) < -90 || double.Parse(latitude.Text) > 90)
+            if (double.TryParse(longitude.Text, out double @long) && double.TryParse(latitude.Text, out double lat))
             {
-                MessageBox.Show("Location not in the middle");
+                if (@long < -180 || @long > 180 || lat < -90 || lat > 90)
+                {
+                    MessageBox.Show("Location not in the middle");
+                    return;
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Wrong format for Location");
                 return;
             }
 

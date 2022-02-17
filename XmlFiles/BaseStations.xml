@@ -207,4 +207,13 @@
     <ChargeSlote>20</ChargeSlote>
     <AvailableChargingPorts>20</AvailableChargingPorts>
   </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>45</Id>
+    <Name>fdghfdg</Name>
+    <Longitude>-90</Longitude>
+    <Latitude>45</Latitude>
+    <ChargeSlote>45</ChargeSlote>
+    <AvailableChargingPorts>45</AvailableChargingPorts>
+  </BaseStation>
 </ArrayOfBaseStation>
