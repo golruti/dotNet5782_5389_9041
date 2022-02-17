@@ -116,11 +116,11 @@
                 <Label  Grid.Row="2" Content="Name:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" HorizontalAlignment="Center" Width="236" Margin="0,0,0,5"/>
                 <TextBox x:Name="Name"  Grid.Column="1"  Grid.Row="2" Margin="0,0,-140,2"  />
                 <Label Grid.Column="0"  Grid.Row="4" Content="num of charging positions:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,5,0,5" Grid.RowSpan="3"/>
-                <TextBox x:Name="Num_of_charging_positions" Grid.Row="4"  Margin="0,1,-140,5" Grid.Column="1" Grid.RowSpan="2"/>
+                <TextBox x:Name="Num_of_charging_positions" PreviewTextInput="textID_PreviewTextInput" Grid.Row="4"  Margin="0,1,-140,5" Grid.Column="1" Grid.RowSpan="2"/>
                 <Label Grid.Column="0"  Grid.Row="6" Content="longitude:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,2,16,33" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="longitude" Background="White"  Grid.Row="8" Grid.Column="1" Margin="1,0,-141,55"  />
+                <TextBox x:Name="longitude" Background="White"   PreviewTextInput="textID_PreviewTextInput" Grid.Row="8" Grid.Column="1" Margin="1,0,-141,55"  />
                 <Label Grid.Column="0"  Grid.Row="8" Content="latitude:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,31,0,3"/>
-                <TextBox x:Name="latitude" Grid.Row="8"  Margin="0,31,-140,17" Grid.Column="1"/>
+                <TextBox x:Name="latitude" Grid.Row="8" PreviewTextInput="textID_PreviewTextInput"  Margin="0,31,-140,17" Grid.Column="1"/>
 
             </Grid>
 

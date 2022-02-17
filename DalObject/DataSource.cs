@@ -45,8 +45,8 @@ namespace DAL
                 tempStation.AvailableChargingPorts = tempStation.ChargeSlote;
                 if (i == 0)
                     tempStation.AvailableChargingPorts = tempStation.ChargeSlote - 1;
-                tempStation.Latitude = Rand.Next(-89, 89) + Rand.NextDouble();
-                tempStation.Longitude = Rand.Next(-89, 89) + Rand.NextDouble();
+                tempStation.Latitude = Rand.Next(-91, 90) + Rand.NextDouble();
+                tempStation.Longitude = Rand.Next(-91, 90) + Rand.NextDouble();
                 tempStation.IsDeleted = false;
                 stations.Add(tempStation);
             }

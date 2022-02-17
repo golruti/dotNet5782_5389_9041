@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCustomer>
   <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
+    <IsDeleted>true</IsDeleted>
     <Id>12</Id>
     <Name>chaya</Name>
     <Phone>005545424</Phone>
@@ -9,7 +9,7 @@
     <Latitude>54</Latitude>
   </Customer>
   <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
+    <IsDeleted>true</IsDeleted>
     <Id>6</Id>
     <Name>ruthi</Name>
     <Phone>05252525252</Phone>
@@ -47,5 +47,21 @@
     <Phone>0542365578</Phone>
     <Longitude>65</Longitude>
     <Latitude>68</Latitude>
+  </Customer>
+  <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>12</Id>
+    <Name>OPOP</Name>
+    <Phone>005545424</Phone>
+    <Longitude>57</Longitude>
+    <Latitude>54</Latitude>
+  </Customer>
+  <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>789</Id>
+    <Name>hu</Name>
+    <Phone>14</Phone>
+    <Longitude>89</Longitude>
+    <Latitude>90</Latitude>
   </Customer>
 </ArrayOfCustomer>

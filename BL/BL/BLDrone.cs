@@ -158,6 +158,7 @@ namespace BL
         private Drone mapDrone(int id)
         {
             DroneForList droneToList = drones.FirstOrDefault(drone => drone.Id == id);
+            var t = drones;
             if (droneToList == null)
                 throw new ArgumentNullException("Map drone -BL-:There is not drone with same id i data");
             return new Drone()
@@ -230,11 +231,8 @@ namespace BL
                 throw new KeyNotFoundException(ex.Message, ex);
             }
 
-
             //update local list
-            DeleteBLDrone(tempDroneForList.Id);
             tempDroneForList.Model = model;
-            drones.Add(tempDroneForList);
         }
 
 
@@ -485,7 +483,7 @@ namespace BL
             WeightCategories weight = WeightCategories.Light;
             double distance = double.MaxValue;
             IEnumerable<DO.Parcel> parcels;
-            lock (dal) { parcels = dal.GetParcels(parcel => parcel.IsDeleted == false && parcel.Scheduled != null); }
+            lock (dal) { parcels = dal.GetParcels(parcel => parcel.IsDeleted == false && parcel.Scheduled == null); }
 
             foreach (DO.Parcel parcel in parcels)
             {

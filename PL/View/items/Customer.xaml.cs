@@ -62,11 +62,11 @@ namespace PL
                 PO.ListsModel.Bl.DeleteBLCustomer(customerViewModel.CustomerInList.Id);
 
             }
-            catch (KeyNotFoundException ex)
+            catch (KeyNotFoundException)
             {
                 MessageBox.Show($"Customer not exists");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentNullException )
             {
                 MessageBox.Show($"Customer not exists");
             }
@@ -85,6 +85,12 @@ namespace PL
             if (double.Parse(longitude.Text) < -90 || double.Parse(longitude.Text) > 90 || double.Parse(latitude.Text) < -90 || double.Parse(latitude.Text) > 90)
             {
                 MessageBox.Show("Location not in the middle");
+                return;
+            }
+
+            if (int.Parse(phone.Text) < 500000000 || int.Parse(phone.Text) > 599999999 )
+            {
+                MessageBox.Show("Phone not in the middle");
                 return;
             }
 
@@ -108,7 +114,7 @@ namespace PL
             {
                 MessageBox.Show($"The customer was not add, {ex.Message}");
             }
-            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException)
             {
                 MessageBox.Show($"A key already exists");
             }
@@ -132,7 +138,7 @@ namespace PL
             {
                 MessageBox.Show($"The customer not updated, {ex.Message}");
             }
-            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException)
             {
                 MessageBox.Show($"A key already exists");
             }

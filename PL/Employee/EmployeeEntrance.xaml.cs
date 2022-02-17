@@ -30,7 +30,8 @@ namespace PL
 
         private void show_EmployeeHomePage(object sender, RoutedEventArgs e)
         {
-            if (userName.Text != null && password.Text != null)
+            int parse;
+            if (userName.Text != null && password.Text != null && int.TryParse(userName.Text,out parse))
             {
                 if (Bl.IsExistEmployee(int.Parse(userName.Text), password.Text))
                 {
@@ -44,7 +45,11 @@ namespace PL
                 {
                     MessageBox.Show($"Incorrect username or password, please try again.");
                 }
-            }           
+            }
+            else
+            {
+                MessageBox.Show($"Please fill in a username and password.");
+            }
         }
 
         /// <summary>

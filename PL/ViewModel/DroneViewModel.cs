@@ -32,7 +32,6 @@ namespace PL.ViewModel
         {
             this.Rand = new Random();
             this.DroneInList = new PO.Drone();
-            this.ParcelStutus = (Enums.ParcelStatuses)ListsModel.Bl.GetParcelStatusByDrone(DroneInList.Id);
             StationsId = ((ListsModel.Bl.GetBaseStationForList()).Select(s => s.Id));
             DroneWeights = (IEnumerable<Enums.WeightCategories>)Enum.GetValues(typeof(Enums.WeightCategories));
         }
@@ -106,11 +105,11 @@ namespace PL.ViewModel
         {
             DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
             PO.ListsModel.RefreshDrone(DroneInList.Id);
-            //RefreshDroneInList();
-            //RefreshDrones();
-            //RefreshStations();
-            //RefreshParcels();
-            //RefreshCustomers();
+            //PO.ListsModel.RefreshDroneInList();
+            PO.ListsModel.RefreshDrones();
+            PO.ListsModel.RefreshStations();
+            PO.ListsModel.RefreshParcels();
+            PO.ListsModel.RefreshCustomers();
         }
     }
 }
