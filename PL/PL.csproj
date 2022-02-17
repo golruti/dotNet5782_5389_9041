@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Employee\logo-01.png" />
     <None Remove="images\quik-runner.gif" />
   </ItemGroup>
 
@@ -23,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Employee\logo-01.png" />
     <Resource Include="images\quik-runner.gif" />
   </ItemGroup>
 

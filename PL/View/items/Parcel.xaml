@@ -18,8 +18,9 @@
         <Converters:MultyConvert1ItemsCompare x:Key="contentConvert"></Converters:MultyConvert1ItemsCompare>
         <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
         <Converters:ParcelToEnableDeletionConverter x:Key="ParcelToEnableDeletionConverter" />
+        <Converters:NullAndNotNullToVisibilityConverter x:Key="NullAndNotNullToVisibilityConverter"/>
     </UserControl.Resources>
-    <Grid Background="White">
+    <StackPanel Background="White">
         <Grid x:Name="Update_grid" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="480"/>
@@ -66,7 +67,14 @@
                 <StackPanel Orientation="Horizontal" x:Name="ChangeButtons">
                     <Button Content="CustomerReceives"   Height="40" Width="130" Background="DarkCyan"  Click="CustomerReceives" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
                     <Button Content="CustomerSender"   Height="40" Width="130" Background="DarkCyan"  Click="CustomerSender" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-                    <Button Content="Drone"   Height="40" Width="130" Background="DarkCyan"  Click="Drone" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
+                    <Button Content="Drone" Height="40" Width="130" Background="DarkCyan"  Click="Drone" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold">
+                        <Button.Visibility>
+                            <MultiBinding Converter="{StaticResource NullAndNotNullToVisibilityConverter}">
+                                <Binding Path="ParcelInList.Scheduled" />
+                                <Binding Path="ParcelInList.Delivered" />
+                            </MultiBinding>
+                        </Button.Visibility>
+                    </Button>
 
 
                     <Button Content="delete" IsEnabled="{Binding ParcelInList, Converter={StaticResource ParcelToEnableDeletionConverter}}"  Height="40" Width="130" Background="DarkCyan"  Click="DeleteParcel" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold" />
@@ -127,6 +135,6 @@
 
 
         </Grid>
-    </Grid>
+    </StackPanel>
 
 </UserControl>

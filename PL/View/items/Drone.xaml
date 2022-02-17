@@ -87,7 +87,7 @@
                 <Button Content = "Sending a drone for charging" Click = "SendingDroneForCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding DroneInList.Status, Converter={StaticResource droneAvailableStatusConvert}}"/>
                 <Button Content = " Connecting a parcel to a drone" Click= "SendingDroneForDelivery_Click" Background = "DarkCyan" Height ="40" Width = "130" Visibility="{Binding DroneInList.Status,Converter={StaticResource droneAvailableStatusConvert}}"/>
                 <Button Content = "Release drone from charging" Click= "ReleaseDroneFromCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" HorizontalAlignment ="Center" Visibility="{Binding  DroneInList.Status, Converter={StaticResource droneMaintenanceStatusConvert}}"/>
-                <StackPanel Visibility="{Binding DroneInList.Status,Converter={StaticResource droneDeliveryStatusConvert}}">
+                <StackPanel Visibility="{Binding DroneInList.Status,Converter={StaticResource droneDeliveryStatusConvert}}" Orientation="Horizontal">
                     <Button Content = "Parcel delivery" Click = "ParcelDelivery_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding ParcelStutus, Converter={StaticResource parcelStatusByDroneCollectedConvert}}"/>
                     <Button Content = "Parcel collection" Click = "ParcelCollection_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding ParcelStutus, Converter={StaticResource parcelStatusByDroneAssociatedConvert}}"/>
                 </StackPanel>
