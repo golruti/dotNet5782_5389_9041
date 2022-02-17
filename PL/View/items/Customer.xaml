@@ -74,22 +74,10 @@
                 </ListView.View>
             </ListView>
 
-            <!--<TextBlock Visibility="{Binding CustomerInList.ToCustomer.Count, Converter={StaticResource ListLengthToVisibilityConverter}}" Grid.Row="0">No Parcels</TextBlock>-->
-
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
                 <Button Content="delete customer"  Click="Delete_Click" Height="40" Width="130" Margin="100,0,0,0" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
                 <Button Content="close"  Click="Close_Page" Height="40" Width="130"  Margin="30,0,0,0" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-                <Button Content="update details" Height="40" Width="130" Margin="30,0,0,0" Click="Update_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
-                    <Button.IsEnabled>
-                        <MultiBinding Converter="{StaticResource atLleastOneContentConvert}">
-
-                            <Binding Path="SourceCustomerInList.Name"></Binding>
-                            <Binding Path="SourceCustomerInList.Phone"></Binding>
-                            <Binding Path="CustomerInList.Name"></Binding>
-                            <Binding Path="CustomerInList.Phone"></Binding>
-                        </MultiBinding>
-                    </Button.IsEnabled>
-                </Button>
+                <Button Content="update details" Height="40" Width="130" Margin="30,0,0,0" Click="Update_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold"></Button>
             </StackPanel>
 
             <ListView x:Name="FromCustomerView_Copy" Visibility="{Binding CustomerInList.FromCustomer.Count, Converter={StaticResource ListLengthToVisibilityConverter}}" ItemsSource="{Binding CustomerInList.FromCustomer}"  MouseDoubleClick="ToCustomerView_MouseDoubleClick"  Grid.Row="0" Margin="427,240,0,133" >
@@ -102,11 +90,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <!--<TextBlock Visibility="{Binding CustomerInList.FromCustomer.Count, Converter={StaticResource ListLengthToVisibilityConverter}}" Grid.Row="0" >No Parcels</TextBlock>-->
 
             <Label  Content="parcels to customer:" HorizontalAlignment="Left" Margin="56,216,0,0" VerticalAlignment="Top" Width="194" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
             <Label Content="parcels from customer:" HorizontalAlignment="Left" Margin="445,216,0,0" VerticalAlignment="Top" Width="223" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-
         </Grid>
 
 
@@ -131,7 +117,7 @@
                 <Label Grid.Column="0"  Grid.Row="1" Content=" name:"   FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
                 <TextBox x:Name="name" Grid.Row="1"  Background="LightGray" Grid.Column="1"  Margin="0,1,0,0" Grid.RowSpan="2"/>
                 <Label Grid.Column="0"  Grid.Row="3" Content="phone:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
-                <TextBox x:Name="phone" Grid.Row="3" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
+                <TextBox x:Name="phone" Grid.Row="3" PreviewTextInput="textID_PreviewTextInput" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
                 <Label Grid.Column="0"  Grid.Row="4" Content="longitude:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
                 <TextBox x:Name="longitude" Grid.Row="4" PreviewTextInput="textID_PreviewTextInput" Background="LightGray" Margin="0,1,0,0" Grid.Column="1"/>
                 <Label Grid.Column="0"  Grid.Row="5" Content="latitude:"  FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"/>
@@ -139,23 +125,9 @@
             </Grid>
 
             <Grid Width="200" Height="50" Margin="259,205,145,95">
-                <Button  Content="finish"  Click="Add_Customer_finish_click" Margin="34,15,100,15"  Height="20" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
-                    <Button.IsEnabled>
-                        <MultiBinding Converter="{StaticResource multyConvert5Items}">
-                            <Binding ElementName="ID" Path="Text"></Binding>
-                            <Binding ElementName="name" Path="Text"></Binding>
-                            <Binding ElementName="phone" Path="Text"></Binding>
-                            <Binding ElementName="longg" Path="Text"></Binding>
-                            <Binding ElementName="lat" Path="Text"></Binding>
-                           
-                        </MultiBinding>
-                    </Button.IsEnabled>
-                </Button>
+                <Button  Content="finish"  Click="Add_Customer_finish_click" Margin="34,15,100,15"  Height="20" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold"></Button>
                 <Button  Content="cencel" Margin="115,15,22,15" Click="Close_Page"  Height="20" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold" />
             </Grid>
         </Grid>
-
-
     </Grid>
-
 </UserControl>

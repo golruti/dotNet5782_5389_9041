@@ -114,7 +114,7 @@ namespace PL
             try
             {
                 PO.ListsModel.Bl.AssignParcelToDrone(droneViewModel.DroneInList.Id);
-                (sender as Button).IsEnabled = false;
+                //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
@@ -188,7 +188,7 @@ namespace PL
             try
             {
                 PO.ListsModel.Bl.UpdateRelease(droneViewModel.DroneInList.Id);
-                (sender as Button).IsEnabled = false;
+                //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
@@ -263,7 +263,7 @@ namespace PL
             try
             {
                 PO.ListsModel.Bl.ParcelCollection(droneViewModel.DroneInList.Id);
-                (sender as Button).IsEnabled = false;
+                //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
@@ -301,7 +301,7 @@ namespace PL
             try
             {
                 PO.ListsModel.Bl.UpdateParcelDelivered(droneViewModel.DroneInList.Id);
-                (sender as Button).IsEnabled = false;
+               // (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("he parcel was successfully delivered", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();

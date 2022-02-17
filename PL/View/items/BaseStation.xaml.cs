@@ -67,7 +67,7 @@ namespace PL
         {
             if (double.TryParse(longitude.Text, out double @long) && double.TryParse(latitude.Text, out double lat))
             {
-                if (@long < -180 || @long > 180 || lat < -90 || lat > 90)
+                if (@long < -90 || @long > 90 || lat < -90 || lat > 90)
                 {
                     MessageBox.Show("Location not in the middle");
                     return;
@@ -99,11 +99,11 @@ namespace PL
             {
                 MessageBox.Show($"The station was not add, {ex.Message}");
             }
-            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException ex)
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException )
             {
                 MessageBox.Show($"No charge for sending for charging");
             }
-            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
+            catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException)
             {
                 MessageBox.Show($"A key already exists");
             }
@@ -178,7 +178,7 @@ namespace PL
                 if (update_name.Text != null && update_num_of_charging_ports.Text != null)
                 {
                     PO.ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
-                    (sender as Button).IsEnabled = false;
+                    //(sender as Button).IsEnabled = false;
                 }
                 else if (update_name.Text != null)
                 {

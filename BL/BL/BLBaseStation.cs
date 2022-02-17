@@ -169,7 +169,9 @@ namespace BL
 
             if (BaseStationsForList.Count() == 0)
                 return Enumerable.Empty<BaseStationForList>();
+            var t = BaseStationsForList;
             return BaseStationsForList;
+
         }
 
 

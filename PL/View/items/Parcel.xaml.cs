@@ -32,7 +32,6 @@ namespace PL
             parcelViewModel = new ParcelViewModel();
             this.DataContext = parcelViewModel;
             Add_grid.Visibility = Visibility.Visible;
-
         }
 
 
@@ -134,7 +133,10 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            parcelViewModel.RefreshParcelInList();
+
+            PO.ListsModel.RefreshParcels();
+            PO.ListsModel.RefreshCustomers();
+
         }
 
 

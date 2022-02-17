@@ -11,10 +11,7 @@ namespace DAL
 {
     public partial class DalObject
     {
-        /// <summary>
-        /// Add a user to the array of existing users
-        /// </summary>
-        /// <param name="user">struct of user</param>
+        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddUser(User user)
         {
@@ -28,18 +25,7 @@ namespace DAL
         }
 
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public bool ExistUser(int userName, string password, Access access)
-        {
-            return GetUsers().FirstOrDefault(user => user.Access == access).Equals(default(User)) ? false : true;
-        }
         //--------------------------------------------Show item-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// return a user from an array of users by userName and password
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public User GetUser(int userName, string password, Access access)
         {
@@ -49,33 +35,20 @@ namespace DAL
             return user;
         }
 
-        /// <summary>
-        /// The function accepts a condition in the predicate and returns the user who satisfies the condition
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>the user</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public User GetCUser(Predicate<User> predicate, Access access)
+        public bool ExistUser(int userName, string password, Access access)
         {
-            return GetUsers().FirstOrDefault(user => predicate(user) && user.Access == access);
+            return GetUsers().FirstOrDefault(user => user.Access == access).Equals(default(User)) ? false : true;
         }
 
+
         //--------------------------------------------Show list-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function prepares a new array of all existing users
-        /// </summary>
-        /// <returns>list of users</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<User> GetUsers()
         {
             return DataSource.users;
         }
 
-        /// <summary>
-        /// The function receives a predicate and returns the list that maintains the predicate
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>List of users that maintain the predicate</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<User> GetUsers(Predicate<User> predicate)
         {
@@ -83,10 +56,6 @@ namespace DAL
         }
 
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function deletes a specific user
-        /// </summary>
-        /// <param name="id">user details</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteUser(User user)
         {

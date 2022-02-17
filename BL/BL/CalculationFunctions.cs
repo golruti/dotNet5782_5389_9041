@@ -24,12 +24,12 @@ namespace BL
                     DO.Customer senderCustomer2 = new DO.Customer();
                     try
                     {
-                        lock (dal) { senderCustomer2 = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId); }
+                        lock (dal) { senderCustomer2 = dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == dal.GetParcels().FirstOrDefault(parcel => parcel.IsDeleted == false && parcel.Droneld == drone.Id).SenderId); }
 
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message,ex);
+                        throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message, ex);
                     }
 
                     DO.BaseStation nearStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
@@ -40,13 +40,13 @@ namespace BL
                     DO.Customer senderCustomer = new DO.Customer();
                     try
                     {
-                        lock (dal) { senderCustomer = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId); }
+                        lock (dal) { senderCustomer = dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == dal.GetParcels().FirstOrDefault(parcel => parcel.IsDeleted == false && parcel.Droneld == drone.Id).SenderId); }
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message,ex);
+                        throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message, ex);
                     }
-                    lock (dal) { senderCustomer = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId); }
+                    lock (dal) { senderCustomer = dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == dal.GetParcels().FirstOrDefault(parcel => parcel.IsDeleted == false && parcel.Droneld == drone.Id).SenderId); }
                     return new Location() { Longitude = Math.Round(senderCustomer.Longitude), Latitude = Math.Round(senderCustomer.Latitude) };
                 }
             }
@@ -122,7 +122,7 @@ namespace BL
             {
 
                 if (parcel.Droneld == droneId &&
-                    parcel.Delivered ==null)
+                    parcel.Delivered == null)
                 {
                     return true;
                 }
@@ -149,15 +149,15 @@ namespace BL
                         minDroneTarget = minBattery(drone.Location,
                             new Location()
                             {
-                                Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
-                                Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude
+                                Longitude = dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Longitude,
+                                Latitude = dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Longitude
                             },
                              drone.Status, drone.MaxWeight);
                     }
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message,ex);
+                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message, ex);
                 }
 
                 try
@@ -167,21 +167,21 @@ namespace BL
                         minTargetBaseStation = minBattery(
                          new Location()
                          {
-                             Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
-                             Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude
+                             Longitude = dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Longitude,
+                             Latitude = dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Latitude
                          },
                         new Location()
                         {
-                            Latitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
+                            Latitude = nearestBaseStation(dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
 
-                            Longitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
+                            Longitude = nearestBaseStation(dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
                         },
                         Enums.DroneStatuses.Available, drone.MaxWeight);
                     }
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message,ex);
+                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message, ex);
                 }
 
                 return rand.Next((int)(minDroneTarget + minTargetBaseStation), 100);
@@ -199,13 +199,13 @@ namespace BL
                     minDroneBaseStation = minBattery(
                         new Location()
                         {
-                            Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
-                            Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude
+                            Longitude = dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Longitude,
+                            Latitude = dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Longitude
                         },
                        new Location()
                        {
-                           Latitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
-                           Longitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
+                           Latitude = nearestBaseStation(dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
+                           Longitude = nearestBaseStation(dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
                        },
                        Enums.DroneStatuses.Available, drone.MaxWeight);
                     return rand.Next((int)(minDroneBaseStation), 101);

@@ -89,7 +89,11 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="Gray" Height="450" VerticalAlignment="Bottom">
+    <Grid  Height="450" VerticalAlignment="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="177*"/>
+            <ColumnDefinition Width="223*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
 
             <RowDefinition Height="56*"/>
@@ -97,7 +101,7 @@
             <RowDefinition Height="95*"/>
 
         </Grid.RowDefinitions>
-        <Grid   Name="UpGrid"  Grid.Row="0" Margin="150,10,150,10" Height="30" Width="600">
+        <Grid   Name="UpGrid"  Grid.Row="0"  Height="30" Width="600" Grid.ColumnSpan="2" Margin="100,13,100,13">
             <Grid.RowDefinitions>
                 <RowDefinition Height="9*"/>
                 <RowDefinition/>
@@ -110,14 +114,14 @@
 
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions >
-            <Label Grid.Column="0" Content="  Drone weight:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox Grid.Column="1" x:Name="DroneWeights" ItemsSource="{Binding DroneWeights}" SelectionChanged="DroneWeights_SelectionChanged" Grid.RowSpan="2"/>
-            <Label Grid.Column="2" Content="   Drone status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
-            <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding DroneStatuses}" SelectionChanged="DroneDtatuses_SelectionChanged" Grid.RowSpan="2" />
+            <Label Grid.Column="0" Content="  Drone weight:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Grid.RowSpan="2" Margin="-9,0,111,0" Grid.ColumnSpan="2"/>
+            <ComboBox Grid.Column="1" x:Name="DroneWeights" ItemsSource="{Binding DroneWeights}" SelectionChanged="DroneWeights_SelectionChanged" Grid.RowSpan="2" Margin="17,0,10,0"/>
+            <Label Grid.Column="2" Content="   Drone status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"  Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,2,98,-2"/>
+            <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding DroneStatuses}" SelectionChanged="DroneDtatuses_SelectionChanged" Grid.RowSpan="2" Margin="26,0,0,0" />
             <CheckBox Grid.Column="4" Click="CheckBox_Click" Content="Group" Margin="20,0"  FontFamily="Copperplate Gothic Bold" FontSize="15"  />
 
         </Grid>
-        <ListView x:Name="DronesListView" ItemsSource="{Binding DronesList}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick">
+        <ListView x:Name="DronesListView" ItemsSource="{Binding DronesList}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.ColumnSpan="2">
             <ListView.View >
                 <GridView  >
                     <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />
@@ -153,10 +157,10 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-       
 
-        <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
-        <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddDroneWindow" Content="add drone" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+
+        <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,46,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+        <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddDroneWindow" Content="add drone" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
     </Grid>
 </UserControl>

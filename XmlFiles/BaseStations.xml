@@ -181,7 +181,7 @@
     <AvailableChargingPorts>8</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
+    <IsDeleted>true</IsDeleted>
     <Id>7</Id>
     <Name>station</Name>
     <Longitude>32</Longitude>
@@ -199,7 +199,7 @@
     <AvailableChargingPorts>19</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
+    <IsDeleted>true</IsDeleted>
     <Id>23</Id>
     <Name>23</Name>
     <Longitude>23</Longitude>
@@ -208,12 +208,363 @@
     <AvailableChargingPorts>20</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
+    <IsDeleted>true</IsDeleted>
     <Id>45</Id>
     <Name>fdghfdg</Name>
     <Longitude>-90</Longitude>
     <Latitude>45</Latitude>
     <ChargeSlote>45</ChargeSlote>
     <AvailableChargingPorts>45</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>8</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>19</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>45</Id>
+    <Name>fdghfdg</Name>
+    <Longitude>-90</Longitude>
+    <Latitude>45</Latitude>
+    <ChargeSlote>45</ChargeSlote>
+    <AvailableChargingPorts>44</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>7</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>8</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>7</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>8</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>7</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>8</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>7</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>8</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>7</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>8</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>7</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>18</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>7</Id>
+    <Name>station</Name>
+    <Longitude>32</Longitude>
+    <Latitude>54</Latitude>
+    <ChargeSlote>10</ChargeSlote>
+    <AvailableChargingPorts>8</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>19</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>18</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>45</Id>
+    <Name>fdghfdg</Name>
+    <Longitude>-90</Longitude>
+    <Latitude>45</Latitude>
+    <ChargeSlote>45</ChargeSlote>
+    <AvailableChargingPorts>45</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>17</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>18</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>17</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>20</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>19</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>20</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>45</Id>
+    <Name>jkl</Name>
+    <Longitude>-90</Longitude>
+    <Latitude>45</Latitude>
+    <ChargeSlote>45</ChargeSlote>
+    <AvailableChargingPorts>45</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>45</Id>
+    <Name>jkl</Name>
+    <Longitude>-90</Longitude>
+    <Latitude>45</Latitude>
+    <ChargeSlote>50</ChargeSlote>
+    <AvailableChargingPorts>50</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>45</Id>
+    <Name>jkl</Name>
+    <Longitude>-90</Longitude>
+    <Latitude>45</Latitude>
+    <ChargeSlote>50</ChargeSlote>
+    <AvailableChargingPorts>50</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>24</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>23</ChargeSlote>
+    <AvailableChargingPorts>23</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>19</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>12</Id>
+    <Name>12</Name>
+    <Longitude>12</Longitude>
+    <Latitude>15</Latitude>
+    <ChargeSlote>12</ChargeSlote>
+    <AvailableChargingPorts>12</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>23</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>20</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>45</Id>
+    <Name>jkl</Name>
+    <Longitude>-90</Longitude>
+    <Latitude>45</Latitude>
+    <ChargeSlote>60</ChargeSlote>
+    <AvailableChargingPorts>50</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>45</Id>
+    <Name>jkl</Name>
+    <Longitude>-90</Longitude>
+    <Latitude>45</Latitude>
+    <ChargeSlote>60</ChargeSlote>
+    <AvailableChargingPorts>50</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>12</Id>
+    <Name>12</Name>
+    <Longitude>12</Longitude>
+    <Latitude>15</Latitude>
+    <ChargeSlote>20</ChargeSlote>
+    <AvailableChargingPorts>12</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>12</Id>
+    <Name>12</Name>
+    <Longitude>12</Longitude>
+    <Latitude>15</Latitude>
+    <ChargeSlote>30</ChargeSlote>
+    <AvailableChargingPorts>12</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>24</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>100</ChargeSlote>
+    <AvailableChargingPorts>23</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>true</IsDeleted>
+    <Id>24</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>100</ChargeSlote>
+    <AvailableChargingPorts>22</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>24</Id>
+    <Name>23</Name>
+    <Longitude>23</Longitude>
+    <Latitude>23</Latitude>
+    <ChargeSlote>100</ChargeSlote>
+    <AvailableChargingPorts>23</AvailableChargingPorts>
   </BaseStation>
 </ArrayOfBaseStation>

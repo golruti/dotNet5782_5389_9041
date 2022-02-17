@@ -238,7 +238,6 @@ namespace BL
         /// </summary>
         /// <param name="parcelId">The requested parcel to convert</param>
         /// <returns>The converted parcel</returns>
-
         internal ParcelByTransfer createParcelInTransfer(int parcelId)
         {
             DO.Parcel parcel;
@@ -251,15 +250,15 @@ namespace BL
 
             lock (dal) { sender = dal.GetCustomer(parcel.SenderId); }
             lock (dal) { target = dal.GetCustomer(parcel.TargetId); }
-            if (sender.Equals(default(DO.Customer)) || target.Equals(default(DO.Customer)))
-                throw new KeyNotFoundException("not found sender customer/target customer -BL-");
+            //if (sender.Equals(default(DO.Customer)) || target.Equals(default(DO.Customer)))
+              //  throw new KeyNotFoundException("not found sender customer/target customer -BL-");
 
             return new ParcelByTransfer
             {
                 Id = parcelId,
                 Weight = (WeightCategories)parcel.Weight,
                 Priority = (Priorities)parcel.Priority,
-                IsDestinationParcel = !parcel.PickedUp.Equals(null),
+                IsDestinationParcel = parcel.PickedUp != null,
                 SenderLocation = new Location() { Longitude = sender.Longitude, Latitude = sender.Latitude },
                 TargetLocation = new Location() { Longitude = target.Longitude, Latitude = target.Latitude },
                 Distance = distance(sender.Latitude, sender.Longitude, sender.Latitude, sender.Longitude),
@@ -385,7 +384,7 @@ namespace BL
         private int findParceDeliveredlId(int droneId)
         {
             IEnumerable<DO.Parcel> parcels;
-            parcels = dal.GetParcels(p => p.IsDeleted == false);
+            parcels = dal.GetParcels(p => p.IsDeleted == false && p.Delivered == null);
             foreach (var parcel in parcels)
             {
                 if (parcel.Droneld == droneId)

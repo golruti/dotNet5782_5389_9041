@@ -30,7 +30,8 @@ namespace PL
 
         private void sign_in_show_CustomerPageHome(object sender, RoutedEventArgs e)
         {
-            if (Id_sign_in.Text!= null  && pass_sign_in.Text != null)
+            int parse;
+            if (Id_sign_in.Text != null && pass_sign_in.Text != null && int.TryParse(Id_sign_in.Text, out parse))
             {
 
                 if (Bl.IsExistClient(int.Parse(Id_sign_in.Text), pass_sign_in.Text) == true)
@@ -51,20 +52,35 @@ namespace PL
         private void sign_up_show_CustomerPageHome(object sender, RoutedEventArgs e)
         {
             bool succeeded = true;
+            int parse;
+
             try
             {
-                Bl.AddUser(new BO.User()
+                if (int.TryParse(Id_sign_up.Text, out parse))
                 {
-                    Access = BO.Enums.Access.Client,
-                    IsDeleted = false,
-                    UserId = int.Parse(Id_sign_up.Text),
-                    Password = pass_sign_up.Text
-                });
+                    Bl.AddUser(new BO.User()
+                    {
+                        Access = BO.Enums.Access.Client,
+                        IsDeleted = false,
+                        UserId = int.Parse(Id_sign_up.Text),
+                        Password = pass_sign_up.Text
+                    });
+                }
+                else
+                {
+                    succeeded = false;
+                    MessageBox.Show($"Invalid username.");
+                }
             }
             catch (BO.ThereIsAnObjectWithTheSameKeyInTheListException)
             {
                 succeeded = false;
                 MessageBox.Show($"here is someone in the system with the same name.");
+            }
+            catch (KeyNotFoundException)
+            {
+                succeeded = false;
+                MessageBox.Show($"No matching customer found for UserId.");
             }
             if (succeeded == true)
             {

@@ -18,4 +18,10 @@
     <Access>Client</Access>
     <IsDeleted>false</IsDeleted>
   </User>
+  <User xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Password>Password</Password>
+    <UserId>100</UserId>
+    <Access>Client</Access>
+    <IsDeleted>false</IsDeleted>
+  </User>
 </ArrayOfUser>
