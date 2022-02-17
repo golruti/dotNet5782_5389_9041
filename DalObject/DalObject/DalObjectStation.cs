@@ -11,11 +11,6 @@ namespace DAL
     public partial class DalObject
     {
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Add a base station to the array of stations
-        /// </summary>
-        /// <param name="station">struct of station</param>
-
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BaseStation station)
         {
@@ -27,11 +22,6 @@ namespace DAL
 
 
         //---------------------------------------------Show item----------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function deletes a specific station
-        /// </summary>
-        /// <param name="idStation"></param>
-        /// <returns>station id</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBaseStation(int idStation)
         {
@@ -40,10 +30,6 @@ namespace DAL
         }
 
         //---------------------------------------------Show list----------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function prepares a new array of all existing stations
-        /// </summary>
-        /// <returns>array of station</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetBaseStations()
         {
@@ -60,10 +46,6 @@ namespace DAL
             return baseStations;
         }
 
-        /// <summary>
-        /// Display base stations with available charging stations
-        /// </summary>
-        /// <returns>array of stations</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetAvaBaseStations()
         {
@@ -73,9 +55,6 @@ namespace DAL
             return baseStations;
         }
         //---------------------------------------------Delete--------------------------------------------------------------------------------------------
-        /// delete base station from list
-        /// </summary>
-        /// <param name="id"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteBaseStation(int id)
         {

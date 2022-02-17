@@ -11,10 +11,6 @@ namespace DAL
     public partial class DalObject
     {
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Add a drone to the array of existing drones
-        /// </summary>
-        /// <param name="drone">struct of drone</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone)
         {
@@ -25,11 +21,6 @@ namespace DAL
         }
 
         //--------------------------------------------Show item-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Removes a drone from an array of drones by id
-        /// </summary>
-        /// <param name="idxDrone">struct of drone</param>
-        /// <returns>drone</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int droneId)
         {
@@ -38,10 +29,6 @@ namespace DAL
         }
 
         //--------------------------------------------Show list-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function prepares a new array of all existing drones
-        /// </summary>
-        /// <returns>array of drones</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones()
         {
@@ -51,11 +38,6 @@ namespace DAL
             return drones;
         }
 
-        /// <summary>
-        /// The function receives a predicate and returns the list that maintains the predicate
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>List of Drone that maintain the predicate</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate)
         {
@@ -65,10 +47,6 @@ namespace DAL
         }
 
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function deletes a specific drone
-        /// </summary>
-        /// <param name="droneId">drone ID</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDrone(int id)
         {

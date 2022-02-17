@@ -12,11 +12,6 @@ namespace DAL
     public partial class DalObject
     {
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Add a drone charge to the list of drones charge
-        /// </summary>
-        /// </summary>
-        /// <param name="droneCharge">The drone charge for Adding</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDroneCharge(DroneCharge droneCharge)
         {
@@ -27,11 +22,6 @@ namespace DAL
         }
 
         //--------------------------------------------Update-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Sending a drone for charging at a base station By changing the drone mode and adding a record of a drone battery charging entity
-        /// </summary>
-        /// <param name="droneId">Id of the drone</param>
-        /// <param name="baseStationId">Id of IDגof the charging station</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCharge(int droneId, int baseStationId)
         {
@@ -49,10 +39,7 @@ namespace DAL
             AddDroneCharge(droneCharge);
         }
 
-        /// <summary>
-        /// Release of drone from charging
-        /// </summary>
-        /// <param name="droneId"></param>
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateRelease(int droneId)
         {
@@ -65,10 +52,6 @@ namespace DAL
         }
 
         //---------------------------------------------Show item-----------------------------------------------------------------------------------------
-        /// The function returns a specific drone charge
-        /// </summary>
-        /// <param name="droneId">Drone ID</param>
-        /// <returns>The specific drone charge</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge GetDroneCharge(int droneId)
         {
@@ -77,10 +60,6 @@ namespace DAL
         }
 
         //---------------------------------------------Show list--------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function returns the drones charge list
-        /// </summary>
-        /// <returns>The drones charge list</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDronesCharges()
         {
@@ -89,11 +68,6 @@ namespace DAL
             return droneCharges;
         }
 
-        /// <summary>
-        /// The function receives a predicate and returns the list that maintains the predicate
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>List of DroneCharge that maintain the predicate</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate)
         {
@@ -105,11 +79,6 @@ namespace DAL
 
 
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Release drone from charging at base station
-        /// </summary>
-        /// <param name="droneId">Id of the drone</param>
-        /// <returns>Returns the mother drone released from charging</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDroneCharge(int droneId)
         {

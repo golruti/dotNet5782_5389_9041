@@ -19,10 +19,6 @@ namespace DAL
             DataSource.Initialize();
         }
 
-        /// <summary>
-        /// Takes from the DataSource the electricity use data of the drone
-        /// </summary>
-        /// <returns>A array of electricity use</returns>
         public double[] GetElectricityUse()
         {
             return (new double[5]{

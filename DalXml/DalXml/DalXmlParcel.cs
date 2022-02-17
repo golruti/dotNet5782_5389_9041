@@ -13,11 +13,7 @@ namespace DAL
 {
     internal partial class DalXml
     {
-        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Receipt of parcel for shipment.
-        /// </summary>
-        /// <param name="parcel">struct of parcel</param>
+        //--------------------------------------------Adding----------------------------------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(Parcel parcel)
         {
@@ -35,44 +31,25 @@ namespace DAL
         }
 
         //--------------------------------------------Show item-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Exits a parcel from an array of parcels by id
-        /// </summary>
-        /// <param name="idxParcel">struct ofo parcel</param>
-        /// <returns>parcel</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int idParcel)
         {
             return GetItem<Parcel>(parcelsPath, idParcel);
         }
-        /// <summary>
-        /// The function accepts a condition in the predicate and returns 
-        /// the parcel that satisfies the condition
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(Predicate<Parcel> predicate)
         {
             return GetParcels().FirstOrDefault(item => predicate(item));
         }
 
-        //--------------------------------------------Show list---------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function prepares a new array of all existing parcels
-        /// </summary>
-        /// <returns>array of parceles</returns>
+        //--------------------------------------------Show list-------------------------------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels()
         {
             return GetList<Parcel>(parcelsPath);
         }
 
-        /// <summary>
-        /// The function receives a predicate and returns the list that maintains the predicate
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>List of Parsel that maintain the predicate</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
         {
@@ -81,11 +58,7 @@ namespace DAL
         }
 
 
-        //--------------------------------------------Update-------------------------------------------------------------------------------------------
-        /// <summary>
-        ///Assigning a parcel to a drone
-        /// </summary>
-        /// <param name="idParcel">Id of the parcel</param>
+        //--------------------------------------------Update--------------------------------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcelPickedUp(int parcelId)
         {
@@ -97,12 +70,6 @@ namespace DAL
             UpdateItem(parcelsPath, parcelId, nameof(Parcel.PickedUp), DateTime.Now);
         }
 
-
-
-        /// <summary>
-        /// Delivery of a parcel to the destination
-        /// </summary>
-        /// <param name="idxParcel">Id of the parcel</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcelDelivered(int parcelId)
         {
@@ -111,13 +78,8 @@ namespace DAL
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
             }
             UpdateItem(parcelsPath, parcelId, nameof(Parcel.Delivered), DateTime.Now);
-            //UpdateItem(parcelsPath, parcelId, nameof(Parcel.Droneld), -1);
         }
 
-        /// <summary>
-        /// update parcel assembly by drone
-        /// </summary>
-        /// <param name="parcel">the parcel to update</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcelScheduled(int parcelId, int droneId)
         {
@@ -125,18 +87,12 @@ namespace DAL
             {
                 throw new KeyNotFoundException("Update parcel-DAL-There is no suitable parcel in data");
             }
-
             UpdateItem(parcelsPath, parcelId, nameof(Parcel.Scheduled), DateTime.Now);
             UpdateItem(parcelsPath, parcelId, nameof(Parcel.Droneld), droneId);
-
-
         }
 
-        //--------------------------------------------Delete-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function deletes a particular parcel
-        /// </summary>
-        /// <param name="id"></param>
+
+        //--------------------------------------------Delete--------------------------------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteParcel(int id)
         {
@@ -150,7 +106,7 @@ namespace DAL
 
         //------------------------------------------Private auxiliary functions--------------
         /// <summary>
-        /// Auxiliary function that returns the running number and advances it.
+        /// Auxiliary function that returns the running number For parcel ID and advances it.
         /// </summary>
         /// <returns></returns>
         private int RunNumberForParcel()

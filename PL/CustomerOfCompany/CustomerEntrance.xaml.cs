@@ -77,6 +77,11 @@ namespace PL
                 succeeded = false;
                 MessageBox.Show($"here is someone in the system with the same name.");
             }
+            catch (KeyNotFoundException)
+            {
+                succeeded = false;
+                MessageBox.Show($"No matching customer found for UserId.");
+            }
             if (succeeded == true)
             {
                 TabItem tabItem = new TabItem();
