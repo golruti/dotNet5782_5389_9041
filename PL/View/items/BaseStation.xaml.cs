@@ -72,7 +72,6 @@ namespace PL
                     MessageBox.Show("Location not in the middle");
                     return;
                 }
-
             }
             else
             {
