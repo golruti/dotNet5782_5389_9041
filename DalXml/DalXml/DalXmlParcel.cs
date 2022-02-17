@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -17,6 +18,7 @@ namespace DAL
         /// Receipt of parcel for shipment.
         /// </summary>
         /// <param name="parcel">struct of parcel</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(Parcel parcel)
         {
             parcel.Id = RunNumberForParcel();
@@ -40,6 +42,7 @@ namespace DAL
         /// </summary>
         /// <param name="idxParcel">struct ofo parcel</param>
         /// <returns>parcel</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int idParcel)
         {
             return GetItem<Parcel>(parcelsPath, idParcel);
@@ -50,6 +53,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(Predicate<Parcel> predicate)
         {
             return GetParcels().FirstOrDefault(item => predicate(item));
@@ -60,6 +64,7 @@ namespace DAL
         /// The function prepares a new array of all existing parcels
         /// </summary>
         /// <returns>array of parceles</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels()
         {
             return GetList<Parcel>(parcelsPath);
@@ -70,6 +75,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>List of Parsel that maintain the predicate</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
         {
             return GetParcels().Where(item => predicate(item));
@@ -81,6 +87,7 @@ namespace DAL
         ///Assigning a parcel to a drone
         /// </summary>
         /// <param name="idParcel">Id of the parcel</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcelPickedUp(int parcelId)
         {
             if (GetParcel(parcelId).Equals(default(Parcel)))
@@ -97,6 +104,7 @@ namespace DAL
         /// Delivery of a parcel to the destination
         /// </summary>
         /// <param name="idxParcel">Id of the parcel</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcelDelivered(int parcelId)
         {
             if (GetParcel(parcelId).Equals(default(Parcel)))
@@ -111,6 +119,7 @@ namespace DAL
         /// update parcel assembly by drone
         /// </summary>
         /// <param name="parcel">the parcel to update</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcelScheduled(int parcelId, int droneId)
         {
             if (GetParcel(parcelId).Equals(default(Parcel)))
@@ -129,6 +138,7 @@ namespace DAL
         /// The function deletes a particular parcel
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteParcel(int id)
         {
             Parcel deletedParcel = GetParcel(id);

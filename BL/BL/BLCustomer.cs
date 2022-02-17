@@ -20,15 +20,18 @@ namespace BL
         {
             try
             {
-                dal.AddCustomer(new DO.Customer()
+                lock (dal)
                 {
-                    Id = tempCustomer.Id,
-                    Name = tempCustomer.Name,
-                    Phone = tempCustomer.Phone,
-                    Longitude = Math.Round(tempCustomer.Location.Longitude),
-                    Latitude = Math.Round(tempCustomer.Location.Latitude),
-                    IsDeleted = false
-                });
+                    dal.AddCustomer(new DO.Customer()
+                    {
+                        Id = tempCustomer.Id,
+                        Name = tempCustomer.Name,
+                        Phone = tempCustomer.Phone,
+                        Longitude = Math.Round(tempCustomer.Location.Longitude),
+                        Latitude = Math.Round(tempCustomer.Location.Latitude),
+                        IsDeleted = false
+                    });
+                }
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -45,7 +48,10 @@ namespace BL
         {
             try
             {
-                dal.DeleteCustomer(customerId);
+                lock (dal)
+                {
+                    dal.DeleteCustomer(customerId);
+                }
 
             }
             catch (KeyNotFoundException ex)
@@ -67,7 +73,10 @@ namespace BL
 
             try
             {
-                tempCustomer = dal.GetCustomer(id);
+                lock (dal)
+                {
+                    tempCustomer = dal.GetCustomer(id);
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -92,8 +101,10 @@ namespace BL
             };
             try
             {
-                dal.AddCustomer(customer);
-
+                lock (dal)
+                {
+                    dal.AddCustomer(customer);
+                }
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -111,7 +122,10 @@ namespace BL
         {
             try
             {
-                return mapCustomer(dal.GetCustomer(id));
+                lock (dal)
+                {
+                    return mapCustomer(dal.GetCustomer(id));
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -127,25 +141,31 @@ namespace BL
         public IEnumerable<CustomerForList> GetCustomerForList()
         {
             List<CustomerForList> CustomerForList = new List<CustomerForList>();
-            IEnumerable<DO.Parcel> parcels = dal.GetParcels().Where(p => p.IsDeleted == false);
-            foreach (var customer in dal.GetCustomers().Where(c => c.IsDeleted == false ))
+            IEnumerable<DO.Customer> customers;
+            lock (dal) { customers = dal.GetCustomers(c => c.IsDeleted == false); }
+
+            foreach (var customer in customers)
             {
-                CustomerForList.Add(new CustomerForList()
+                lock (dal)
                 {
-                    Id = customer.Id,
-                    Name = customer.Name,
-                    Phone = customer.Phone,
-                    //שלחתי והגיע
-                    NumParcelSentDelivered = dal.GetParcels().Count(parcel =>parcel.IsDeleted ==false && parcel.SenderId == customer.Id && !parcel.Delivered.Equals(null)),
-                   //שלחתי ועוד לא נגיע
-                    NumParcelSentNotDelivered = dal.GetParcels().Count(parcel => parcel.IsDeleted == false && parcel.SenderId == customer.Id && parcel.Delivered.Equals(null)),
-                    //החבילות שכבר קיבלתי
-                    NumParcelReceived = dal.GetParcels().Count(parcel => parcel.IsDeleted == false && parcel.TargetId == customer.Id && !parcel.Delivered.Equals(null)),
-                   //החבילות שבדך אלי
-                    NumParcelWayToCustomer = dal.GetParcels()
-                                        .Count(parcel => parcel.IsDeleted == false && parcel.TargetId == customer.Id && parcel.Delivered.Equals(null))
-                });
+                    CustomerForList.Add(new CustomerForList()
+                    {
+                        Id = customer.Id,
+                        Name = customer.Name,
+                        Phone = customer.Phone,
+
+                        //Shipped and delivered
+                        NumParcelSentDelivered = dal.GetParcels(parcel => parcel.IsDeleted == false && parcel.SenderId == customer.Id && parcel.Delivered != null).Count(),
+                        //Sent and not yet delivered
+                        NumParcelSentNotDelivered = dal.GetParcels(parcel => parcel.IsDeleted == false && parcel.SenderId == customer.Id && parcel.Delivered == null).Count(),
+                        //Send to customer and he received them
+                        NumParcelReceived = dal.GetParcels(parcel => parcel.IsDeleted == false && parcel.TargetId == customer.Id && parcel.Delivered != null).Count(),
+                        //Send to customer and on the way
+                        NumParcelWayToCustomer = dal.GetParcels(parcel => parcel.IsDeleted == false && parcel.TargetId == customer.Id && parcel.Delivered == null).Count()
+                    });
+                }
             }
+
             if (CustomerForList.Count() == 0)
                 return Enumerable.Empty<CustomerForList>();
             return CustomerForList;
@@ -177,9 +197,14 @@ namespace BL
             IEnumerable<ParcelToCustomer> sendedList = new List<ParcelToCustomer>();
             IEnumerable<ParcelToCustomer> targetedList = new List<ParcelToCustomer>();
 
-            sendedList = dal.GetParcels().Where(p => p.SenderId == customer.Id && p.IsDeleted ==false).Select(p => mapParcelToParcelToCustomer(p));
-            targetedList = dal.GetParcels().Where(p => p.TargetId == customer.Id &&p.IsDeleted ==false).Select(p => mapParcelToParcelToCustomer(p));
-
+            lock (dal)
+            {
+                sendedList = dal.GetParcels().Where(p => p.SenderId == customer.Id && p.IsDeleted == false).Select(p => mapParcelToParcelToCustomer(p));
+            }
+            lock (dal)
+            {
+                targetedList = dal.GetParcels().Where(p => p.TargetId == customer.Id && p.IsDeleted == false).Select(p => mapParcelToParcelToCustomer(p));
+            }
             return new Customer()
             {
                 Id = customer.Id,
@@ -204,9 +229,11 @@ namespace BL
             newParcel.Weight = (WeightCategories)parcel.Weight;
             newParcel.Priority = (Priorities)parcel.Priority;
             newParcel.Status = getParcelStatus(parcel);
+            CustomerDelivery target;
+            CustomerDelivery sender;
 
-            CustomerDelivery target = mapCustomerInParcel(dal.GetCustomer(parcel.TargetId));
-            CustomerDelivery sender = mapCustomerInParcel(dal.GetCustomer(parcel.SenderId)); ;
+            lock (dal) { target = mapCustomerInParcel(dal.GetCustomer(parcel.TargetId)); }
+            lock (dal) { sender = mapCustomerInParcel(dal.GetCustomer(parcel.SenderId)); }
 
             if (target == null || sender == null)
                 throw new KeyNotFoundException("parcel to customer, not found customer customer -BL-");

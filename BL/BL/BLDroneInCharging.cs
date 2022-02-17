@@ -11,7 +11,10 @@ namespace BL
         {
             try
             {
-                return dal.GetDroneCharge(id);
+                lock (dal)
+                {
+                    return dal.GetDroneCharge(id);
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -26,12 +29,15 @@ namespace BL
         /// <returns>The list of drones in charge</returns>
         public IEnumerable<DroneInCharging> GetDronesInCharging(int stationId)
         {
-            IEnumerable<DO.DroneCharge> list = dal.GetDronesCharges(droneCharge => droneCharge.IsDeleted ==false && droneCharge.StationId == stationId);
-            if (list.Count() == 0)
+            IEnumerable<DO.DroneCharge> droneChargeList;
+            lock (dal) { droneChargeList = dal.GetDronesCharges(droneCharge => droneCharge.IsDeleted == false && droneCharge.StationId == stationId); }
+
+            if (droneChargeList.Count() == 0)
                 return Enumerable.Empty<DroneInCharging>();
+
             List<DroneInCharging> droneInChargings = new();
             DroneForList droneToList;
-            foreach (var drone in list)
+            foreach (var drone in droneChargeList)
             {
                 droneToList = drones.FirstOrDefault(d => (d.Id == drone.DroneId));
                 if (droneToList != default(DroneForList))
@@ -48,12 +54,15 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<DroneInCharging> GetDronesInCharging()
         {
-            IEnumerable<DO.DroneCharge> list = dal.GetDronesCharges().Where(dc => dc.IsDeleted == false);
-            if (list.Count() == 0)
+            IEnumerable<DO.DroneCharge> droneChargaeList;
+            lock (dal) { droneChargaeList = dal.GetDronesCharges().Where(dc => dc.IsDeleted == false); }
+            
+            if (droneChargaeList.Count() == 0)
                 return Enumerable.Empty<DroneInCharging>();
+            
             List<DroneInCharging> droneInChargings = new();
             DroneForList droneToList;
-            foreach (var drone in list)
+            foreach (var drone in droneChargaeList)
             {
                 droneToList = drones.FirstOrDefault(d => (d.Id == drone.DroneId));
                 if (droneToList != default(DroneForList))

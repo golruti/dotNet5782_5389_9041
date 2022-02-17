@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
@@ -14,6 +15,8 @@ namespace DAL
         /// Add a base station to the array of stations
         /// </summary>
         /// <param name="station">struct of station</param>
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BaseStation station)
         {
             if (!GetBaseStation(station.Id).Equals(default(BaseStation)))
@@ -29,6 +32,7 @@ namespace DAL
         /// </summary>
         /// <param name="idStation"></param>
         /// <returns>station id</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBaseStation(int idStation)
         {
             BaseStation station = DataSource.stations.FirstOrDefault(station => station.Id == idStation && !(station.IsDeleted));
@@ -40,6 +44,7 @@ namespace DAL
         /// The function prepares a new array of all existing stations
         /// </summary>
         /// <returns>array of station</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetBaseStations()
         {
             IEnumerable<BaseStation> baseStations = new List<BaseStation>();
@@ -47,6 +52,7 @@ namespace DAL
             return baseStations;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)
         {
             IEnumerable<BaseStation> baseStations = new List<BaseStation>();
@@ -58,6 +64,7 @@ namespace DAL
         /// Display base stations with available charging stations
         /// </summary>
         /// <returns>array of stations</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetAvaBaseStations()
         {
             IEnumerable<BaseStation> baseStations = new List<BaseStation>();
@@ -69,6 +76,7 @@ namespace DAL
         /// delete base station from list
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteBaseStation(int id)
         {
             BaseStation deletedStation = GetBaseStation(id);

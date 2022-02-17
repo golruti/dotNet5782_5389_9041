@@ -126,7 +126,7 @@ namespace BL
 
 
             parcel = bl.GetBLParcel(senderAndTarget.Id);
-            if (parcel.PickedUp.Equals(null))
+            if (parcel.PickedUp == null)
                 bl.ParcelCollection(drone.Id);
 
             distance = bl.distance(drone.Location.Latitude, senderAndTarget.TargetLocation.Latitude,
