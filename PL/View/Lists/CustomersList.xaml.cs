@@ -30,7 +30,6 @@ namespace PL
             InitializeComponent();
             customerListViewModel = new CustomerListViewModel();
             this.DataContext = customerListViewModel;
-            customerListViewModel.CustomersForList.GroupDescriptions.Add(new PropertyGroupDescription("Name"));
         }
 
         private void CustomersListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -53,6 +52,20 @@ namespace PL
             tabItem.Content = new Customer();
             tabItem.Header = "Add customer";
             Tabs.AddTab(tabItem);
+        }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+
+            if (checkBox.IsChecked == true)
+            {
+                customerListViewModel.CustomersForList.GroupDescriptions.Add(new PropertyGroupDescription("Name"));
+            }
+            else
+            {
+                customerListViewModel.CustomersForList.GroupDescriptions.Clear();
+            }
         }
     }
 }

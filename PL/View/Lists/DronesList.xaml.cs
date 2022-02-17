@@ -38,20 +38,23 @@ namespace PL
 
         private bool FilterDrone(object obj)
         {
+            object selectedStatus = DroneStatuses.SelectedItem == DroneListViewModel.NONE_VALUE ? null : DroneStatuses.SelectedItem;
+            object selectedWeight = DroneWeights.SelectedItem == DroneListViewModel.NONE_VALUE ? null : DroneWeights.SelectedItem;
+
             if (obj is DroneForList drone)
             {
-                if (DroneStatuses.SelectedItem != null && DroneWeights.SelectedItem != null)
+                if (selectedStatus != null && selectedWeight != null)
                 {
                     Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
                     Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
                     return drone.Status == status && drone.MaxWeight == weight;
                 }
-                else if (DroneWeights.SelectedItem != null)
+                else if (selectedWeight != null)
                 {
                     Enums.WeightCategories weight = (Enums.WeightCategories)DroneWeights.SelectedItem;
                     return drone.MaxWeight == weight;
                 }
-                else if (DroneStatuses.SelectedItem != null)
+                else if (selectedStatus != null)
                 {
                     Enums.DroneStatuses status = (Enums.DroneStatuses)DroneStatuses.SelectedItem;
                     return drone.Status == status;

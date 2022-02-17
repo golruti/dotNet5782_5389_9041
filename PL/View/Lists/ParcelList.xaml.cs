@@ -104,7 +104,7 @@ namespace PL
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedParcel = ParcelesListView.SelectedItem as PO.ParcelForList;
-            if (!selectedParcel.Equals(null))
+            if (selectedParcel != null)
             {
                 TabItem tabItem = new TabItem();
                 tabItem.Content = new Parcel(selectedParcel.Id);
@@ -163,6 +163,9 @@ namespace PL
             return false;
         }
 
-
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            parcelListViewModel.ParcelsForList.GroupDescriptions.Clear();
+        }
     }
 }

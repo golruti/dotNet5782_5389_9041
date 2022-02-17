@@ -25,7 +25,7 @@
         <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
     </UserControl.Resources>
     <Grid Background="White">
-        <Grid x:Name="Update_grid" Visibility="Visible">
+        <Grid x:Name="Update_grid" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="480"/>
                 <RowDefinition Height="100"/>
@@ -75,9 +75,9 @@
 
 
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
-                <Button Content = "Sending a drone for charging" Click = "SendingDroneForCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding SourceDroneInList.Status, Converter={StaticResource droneAvailableStatusConvert}}"/>
-                <Button Content = " Connecting a parcel to a drone" Click= "SendingDroneForDelivery_Click" Background = "DarkCyan" Height ="40" Width = "130" Visibility="{Binding SourceDroneInList.Status,Converter={StaticResource droneAvailableStatusConvert}}"/>
-                <Button Content = "Release drone from charging" Click= "ReleaseDroneFromCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" HorizontalAlignment ="Center" Visibility="{Binding SourceDroneInList.Status,Converter={StaticResource droneMaintenanceStatusConvert}}"/>
+                <Button Content = "Sending a drone for charging" Click = "SendingDroneForCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding ParcelStutus, Converter={StaticResource droneAvailableStatusConvert}}"/>
+                <Button Content = " Connecting a parcel to a drone" Click= "SendingDroneForDelivery_Click" Background = "DarkCyan" Height ="40" Width = "130" Visibility="{Binding ParcelStutus,Converter={StaticResource droneAvailableStatusConvert}}"/>
+                <Button Content = "Release drone from charging" Click= "ReleaseDroneFromCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" HorizontalAlignment ="Center" Visibility="{Binding ParcelStutus,Converter={StaticResource droneMaintenanceStatusConvert}}"/>
                 <Button Content = "Parcel delivery" Click = "ParcelDelivery_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding ParcelStutus,Converter={StaticResource parcelStatusByDroneCollectedConvert}}"/>
                 <Button Content = "Parcel collection" Click = "ParcelCollection_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding ParcelStutus,Converter={StaticResource parcelStatusByDroneAssociatedConvert}}"/>
                 <Button Content="delete"   Height="40" Width="130" Background="DarkCyan"  Click="DeleteDrone" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
@@ -152,7 +152,6 @@
 
 
         </Grid>
-
     </Grid>
 
 </UserControl>

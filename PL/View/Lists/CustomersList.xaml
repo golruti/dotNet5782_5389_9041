@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
          Height="450" Width="800">
-    <Grid>
+    <StackPanel>
 
+        <CheckBox Click="CheckBox_Click" Content="Group" Margin="20,0"  FontFamily="Copperplate Gothic Bold" FontSize="15"  />
         <ListView x:Name="CustomersListViewXaml" ItemsSource="{Binding CustomersForList}" MouseDoubleClick="CustomersListView_MouseLeftButtonDown">
            
             <ListView.View >
@@ -45,9 +46,8 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-
-        <StackPanel>
+        <StackPanel Orientation="Horizontal">
             <Button x:Name="add_customer" Margin="500,410,0,0" Content="add customer" Height="40" Width="130" Background="DarkCyan"  Click="add_customer_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
         </StackPanel>
-    </Grid>
+    </StackPanel>
 </UserControl>

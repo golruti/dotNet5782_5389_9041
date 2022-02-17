@@ -17,6 +17,7 @@
     <UserControl.Resources>
         <Convert:MultyConvert5Items x:Key="multyConvert5Items"/>
         <Convert:AtLleastOneContentConvert x:Key="atLleastOneContentConvert"/>
+        <Convert:ListLengthToVisibilityConverter x:Key="ListLengthToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid Background="White" >
         <Grid x:Name="Update_grid" Visibility="Collapsed">
@@ -63,7 +64,7 @@
                 
                 <Label Grid.Row="10" Grid.Column="0" Content="drones in charging: " FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Margin="0,0,0,150" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
 
-                <ListView x:Name="DronesListView" ItemsSource="{Binding BaseStationInList.DronesInCharging}" DisplayMemberPath="" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="9" Grid.ColumnSpan="2">
+                <ListView x:Name="DronesListView" Visibility="{Binding BaseStationInList.DronesInCharging.Count, Converter={StaticResource ListLengthToVisibilityConverter}}" ItemsSource="{Binding BaseStationInList.DronesInCharging}" DisplayMemberPath="" MouseDoubleClick="DronesListView_MouseDoubleClick" Grid.Row="9" Grid.ColumnSpan="2">
                     <ListView.View >
                         <GridView>
                             <GridViewColumn  Header="ID"   DisplayMemberBinding="{Binding Id }"  />

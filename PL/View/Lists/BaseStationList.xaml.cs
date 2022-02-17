@@ -18,7 +18,6 @@ namespace PL
             InitializeComponent();
             baseStationListViewModel = new BaseStationListViewModel();
             this.DataContext = baseStationListViewModel;
-            baseStationListViewModel.BaseStationsList.GroupDescriptions.Add(new PropertyGroupDescription("AvailableChargingPorts"));
             baseStationListViewModel.BaseStationsList.Filter = FilterBaseStation;
         }
 
@@ -84,6 +83,22 @@ namespace PL
         {
             baseStationListViewModel.BaseStationsList.Refresh();
         }
+        
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+
+            if (checkBox.IsChecked == true)
+            {
+                baseStationListViewModel.BaseStationsList.GroupDescriptions.Add(new PropertyGroupDescription("AvailableChargingPorts"));
+            }
+            else
+            {
+                baseStationListViewModel.BaseStationsList.GroupDescriptions.Clear();
+            }
+        }
+        
+
     }
 }
 

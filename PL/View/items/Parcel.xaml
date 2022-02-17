@@ -17,6 +17,7 @@
     <UserControl.Resources>
         <Converters:MultyConvert1ItemsCompare x:Key="contentConvert"></Converters:MultyConvert1ItemsCompare>
         <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
+        <Converters:ParcelToEnableDeletionConverter x:Key="ParcelToEnableDeletionConverter" />
     </UserControl.Resources>
     <Grid Background="White">
         <Grid x:Name="Update_grid" Visibility="Collapsed">
@@ -73,7 +74,7 @@
                 <Button Content="Drone"   Height="40" Width="130" Background="DarkCyan"  Click="Drone" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
 
 
-                <Button Content="delete"   Height="40" Width="130" Background="DarkCyan"  Click="DeleteParcel" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
+                <Button Content="delete" IsEnabled="{Binding ParcelInList, Converter={StaticResource ParcelToEnableDeletionConverter}}"  Height="40" Width="130" Background="DarkCyan"  Click="DeleteParcel" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold" />
                 <!--<Button  Content="Update" Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>-->
             </StackPanel>
 

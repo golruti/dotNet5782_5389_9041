@@ -92,12 +92,12 @@
     <Grid  Background="Gray">
         <Grid.RowDefinitions>
 
-            <RowDefinition Height="56*"/>
+            <RowDefinition Height="156*"/>
             <RowDefinition Height="299*"/>
             <RowDefinition Height="95*"/>
 
         </Grid.RowDefinitions>
-        <Grid   Name="UpGrid"  Grid.Row="0" Margin="0,13,0,13" Height="40">
+        <Grid   Name="UpGrid"  Grid.Row="0" Margin="0,13,0,13" Height="55">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="0*"/>
@@ -132,6 +132,7 @@
             <StackPanel Grid.Column="11" Grid.ColumnSpan="2" >
                 <RadioButton Content="by sender" IsChecked="True" Click="MoveToSender" />
                 <RadioButton Content="by recived" Click="MoveToRecive" />
+                <RadioButton Content="Don't Group" Click="RadioButton_Click" />
             </StackPanel>
         </Grid>
         <ListView x:Name="ParcelesListView"   ItemsSource="{Binding ParcelsForList}" Grid.Row="1"  MouseDoubleClick="ParcelListView_MouseDoubleClick">

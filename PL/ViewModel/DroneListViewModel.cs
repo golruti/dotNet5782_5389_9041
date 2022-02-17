@@ -1,5 +1,6 @@
 ﻿using PO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,16 +15,17 @@ namespace PL.ViewModel
 {
     public class DroneListViewModel : INotifyPropertyChanged
     {
+        public const string NONE_VALUE = "None";
         public DroneListViewModel()
         {
             DronesList = new ListCollectionView(PO.ListsModel.drones);
-            DroneWeights = Enum.GetValues(typeof(Enums.WeightCategories));
-            DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses));
+            DroneWeights = Enum.GetValues(typeof(Enums.WeightCategories)).OfType<object>().Union(new List<object>() { NONE_VALUE });
+            DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses)).OfType<object>().Union(new List<object>() { NONE_VALUE });
         }
 
 
-        public Array DroneStatuses { get; set; }
-        public Array DroneWeights { get; set; }
+        public IEnumerable DroneStatuses { get; set; }
+        public IEnumerable DroneWeights { get; set; }
         private ListCollectionView dronesList;
         public ListCollectionView DronesList
         {
