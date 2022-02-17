@@ -39,7 +39,7 @@ namespace BL
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
         }
         //--------------------------------------------Delete-------------------------------------------------------------------------------------------
@@ -58,11 +58,11 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Delete parcel -BL-" + ex.Message);
+                throw new KeyNotFoundException("Delete parcel -BL-" + ex.Message, ex);
             }
             catch (DO.TheParcelIsAssociatedAndCannotBeDeleted ex)
             {
-                throw new TheParcelIsAssociatedAndCannotBeDeleted("Delete parcel -BL-" + ex.Message);
+                throw new TheParcelIsAssociatedAndCannotBeDeleted("Delete parcel -BL-" + ex.Message, ex);
             }
         }
 
@@ -81,7 +81,7 @@ namespace BL
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
         }
 
@@ -99,7 +99,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Get parcel by id -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get parcel by id -BL-" + ex.Message, ex);
             }
         }
 
@@ -130,7 +130,7 @@ namespace BL
                 }
                 catch (ArgumentNullException ex)
                 {
-                    throw new ArgumentNullException("Add Parcel for list -BL-" + ex.Message);
+                    throw new ArgumentNullException("Add Parcel for list -BL-" + ex.Message, ex);
                 }
             }
             if (ParcelsForList.Count() == 0)
@@ -186,7 +186,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Get parcel by id -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get parcel by id -BL-" + ex.Message, ex);
             }
 
             if (parcel.Delivered != null)
@@ -205,7 +205,7 @@ namespace BL
         /// <returns>The converted parcel</returns>
         private Parcel mapParcel(DO.Parcel parcel)
         {
-            if (parcel.Equals(null))
+            if (parcel.Equals(default(DO.Parcel)))
                 throw new KeyNotFoundException("not found parcel -BL-");
             var tmpDrone = drones.FirstOrDefault(drone => drone.Id == parcel.Droneld);
             try
@@ -229,7 +229,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Get parcel by id -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get parcel by id -BL-" + ex.Message, ex);
             }
         }
 
@@ -246,12 +246,12 @@ namespace BL
             DO.Customer target;
 
             lock (dal) { parcel = dal.GetParcel(parcelId); }
-            if (parcel.Equals(null))
+            if (parcel.Equals(default(DO.Parcel)))
                 throw new KeyNotFoundException("not found parcel -BL-");
 
             lock (dal) { sender = dal.GetCustomer(parcel.SenderId); }
             lock (dal) { target = dal.GetCustomer(parcel.TargetId); }
-            if (sender.Equals(null) || target.Equals(null))
+            if (sender.Equals(default(DO.Customer)) || target.Equals(default(DO.Customer)))
                 throw new KeyNotFoundException("not found sender customer/target customer -BL-");
 
             return new ParcelByTransfer
@@ -335,8 +335,8 @@ namespace BL
         /// <returns>The name of the sending customer</returns>
         private string getSendCustomerName(DO.Parcel parcel)
         {
-             DO.Customer senderCustomerName;
-            lock (dal) { senderCustomerName = dal.GetCustomers().FirstOrDefault( c=> c.Id == parcel.SenderId); }
+            DO.Customer senderCustomerName;
+            lock (dal) { senderCustomerName = dal.GetCustomers().FirstOrDefault(c => c.Id == parcel.SenderId); }
 
             if (senderCustomerName.Equals(default(DO.Customer)))
             {

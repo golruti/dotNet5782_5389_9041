@@ -29,7 +29,7 @@ namespace BL
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message);
+                        throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message,ex);
                     }
 
                     DO.BaseStation nearStation = nearestBaseStation(senderCustomer2.Longitude, senderCustomer2.Latitude);
@@ -44,7 +44,7 @@ namespace BL
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message);
+                        throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message,ex);
                     }
                     lock (dal) { senderCustomer = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId); }
                     return new Location() { Longitude = Math.Round(senderCustomer.Longitude), Latitude = Math.Round(senderCustomer.Latitude) };
@@ -157,7 +157,7 @@ namespace BL
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message);
+                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message,ex);
                 }
 
                 try
@@ -181,7 +181,7 @@ namespace BL
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message);
+                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message,ex);
                 }
 
                 return rand.Next((int)(minDroneTarget + minTargetBaseStation), 100);
@@ -213,7 +213,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Drone battery -BL-" + ex.Message);
+                throw new KeyNotFoundException("Drone battery -BL-" + ex.Message, ex);
             }
         }
 

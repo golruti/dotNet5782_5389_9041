@@ -35,7 +35,7 @@ namespace BL
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
 
             //local list
@@ -54,7 +54,7 @@ namespace BL
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
 
             //If the drone was inserted as a drone in the charge - update the charge
@@ -92,7 +92,7 @@ namespace BL
                         }
                         catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
                         {
-                            throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                            throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
                         }
                     }
                 }
@@ -119,7 +119,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Delete drone -BL-" + ex.Message);
+                throw new KeyNotFoundException("Delete drone -BL-" + ex.Message, ex);
             }
             //local list
             drones.Remove(deleteDrone);
@@ -145,7 +145,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Get drone -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get drone -BL-" + ex.Message, ex);
             }
         }
 
@@ -223,11 +223,11 @@ namespace BL
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException(ex.Message);
+                throw new KeyNotFoundException(ex.Message, ex);
             }
 
 
@@ -366,7 +366,7 @@ namespace BL
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        throw new KeyNotFoundException(ex.Message);
+                        throw new KeyNotFoundException(ex.Message, ex);
                     }
                 }
                 else
@@ -416,7 +416,7 @@ namespace BL
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        throw new KeyNotFoundException(ex.Message);
+                        throw new KeyNotFoundException(ex.Message, ex);
                     }
                 }
                 else
@@ -452,7 +452,7 @@ namespace BL
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        throw new KeyNotFoundException(ex.Message);
+                        throw new KeyNotFoundException(ex.Message, ex);
                     }
                 }
                 else
