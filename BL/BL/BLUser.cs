@@ -14,13 +14,16 @@ namespace BL
         {
             try
             {
-                dal.AddUser(new DO.User()
+                lock (dal)
                 {
-                    Password = tempUser.Password,
-                    UserId = tempUser.UserId,
-                    Access = (DO.Enum.Access)tempUser.Access,
-                    IsDeleted = false
-                });
+                    dal.AddUser(new DO.User()
+                    {
+                        Password = tempUser.Password,
+                        UserId = tempUser.UserId,
+                        Access = (DO.Enum.Access)tempUser.Access,
+                        IsDeleted = false
+                    });
+                }
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -37,33 +40,34 @@ namespace BL
         /// <returns></returns>
         public User GetUser(int userName, string password, Access access)
         {
-            DO.User tempUser = dal.GetUser(userName, password, (DO.Enum.Access)access);
-
-            return MapUser(tempUser);
+            lock (dal) { return MapUser(dal.GetUser(userName, password, (DO.Enum.Access)access)); }
         }
 
 
 
         public bool IsExistClient(int userId, string password)
         {
-            return dal.ExistUser(userId, password, (DO.Enum.Access)Access.Client) && !dal.GetCustomer(userId).Equals(default(DO.Customer));
+            lock (dal) { return dal.ExistUser(userId, password, (DO.Enum.Access)Access.Client) && !dal.GetCustomer(userId).Equals(default(DO.Customer)); }
         }
 
         public bool IsExistEmployee(int userId, string password)
         {
-            return dal.ExistUser(userId, password, (DO.Enum.Access)Access.Employee);
+            lock (dal) { return dal.ExistUser(userId, password, (DO.Enum.Access)Access.Employee); }
         }
 
 
         public void DeleteUser(User tempUser)
         {
-            dal.DeleteUser(new DO.User()
+            lock (dal)
             {
-                Password = tempUser.Password,
-                UserId = tempUser.UserId,
-                Access = (DO.Enum.Access)tempUser.Access,
-                IsDeleted = false
-            });
+                dal.DeleteUser(new DO.User()
+                {
+                    Password = tempUser.Password,
+                    UserId = tempUser.UserId,
+                    Access = (DO.Enum.Access)tempUser.Access,
+                    IsDeleted = false
+                });
+            }
         }
 
         private User MapUser(DO.User user)

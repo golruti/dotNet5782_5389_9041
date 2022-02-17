@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
@@ -14,6 +15,7 @@ namespace DAL
         /// Receipt of parcel for shipment.
         /// </summary>
         /// <param name="parcel">struct of parcel</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(Parcel parcel)
         {
             parcel.Id = RunNumberForParcel();
@@ -34,6 +36,7 @@ namespace DAL
         /// </summary>
         /// <param name="idxParcel">struct ofo parcel</param>
         /// <returns>parcel</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int idParcel)
         {
             Parcel parcel = DataSource.parcels.FirstOrDefault(parcel => parcel.Id == idParcel);
@@ -45,6 +48,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(Predicate<Parcel> predicate)
         {
             Parcel parcel = DataSource.parcels.FirstOrDefault(parcel => predicate(parcel) && !(parcel.IsDeleted));
@@ -56,6 +60,7 @@ namespace DAL
         /// The function prepares a new array of all existing parcels
         /// </summary>
         /// <returns>array of parceles</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels()
         {
             IEnumerable<Parcel> parcels = new List<Parcel>();
@@ -68,6 +73,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>List of Parsel that maintain the predicate</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate)
         {
             IEnumerable<Parcel> parcels = new List<Parcel>();
@@ -82,6 +88,7 @@ namespace DAL
         /////החבילה נאספה עי הרחפן
         /// </summary>
         /// <param name="idParcel">Id of the parcel</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcelPickedUp(int parcelId)
         {
             Parcel parcel = GetParcel(parcelId);
@@ -100,6 +107,7 @@ namespace DAL
         /// //הרחפן-החבילה הגיעה ליעד
         /// </summary>
         /// <param name="idxParcel">Id of the parcel</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcelDelivered(int parcelId)
         {
             Parcel parcel = GetParcel(parcelId);
@@ -120,6 +128,7 @@ namespace DAL
         /// </summary>
         /// <param name="parcel">the parcel to update</param>
         /// ()supply
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcelScheduled(int parcelId, int droneId)
         {
             DeleteParcel(parcelId);
@@ -135,6 +144,7 @@ namespace DAL
         /// The function deletes a particular parcel
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteParcel(int id)
         {
             Parcel deletedParcel = GetParcel(id);

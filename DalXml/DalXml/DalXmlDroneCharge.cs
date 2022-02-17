@@ -3,6 +3,7 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -17,6 +18,7 @@ namespace DAL
         /// </summary>
         /// </summary>
         /// <param name="droneCharge">The drone charge for Adding</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDroneCharge(DroneCharge droneCharge)
         {
             var station1 = GetBaseStation(23);
@@ -36,6 +38,7 @@ namespace DAL
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
         /// <returns>Returns if the base station is available to receive the glider</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCharge(int droneId, int baseStationId)
         {
             var drone = GetDrone(droneId);
@@ -56,6 +59,7 @@ namespace DAL
         /// update release
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateRelease(int droneId)
         {
             var station = GetBaseStation(GetDroneCharge(droneId).StationId);
@@ -70,6 +74,7 @@ namespace DAL
         /// </summary>
         /// <param name="droneId">Drone ID</param>
         /// <returns>The specific drone charge</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge GetDroneCharge(int droneId)
         {
             return GetList<DroneCharge>(droneChargesPath).FirstOrDefault(charge => charge.DroneId == droneId && charge.IsDeleted ==false);
@@ -80,6 +85,7 @@ namespace DAL
         /// The function returns the drones charge list
         /// </summary>
         /// <returns>The drones charge list</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDronesCharges()
         {
             return GetList<DroneCharge>(droneChargesPath);
@@ -90,6 +96,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>List of DroneCharge that maintain the predicate</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> predicate)
         {
 
@@ -103,6 +110,7 @@ namespace DAL
         /// </summary>
         /// <param name="droneId">Id of the drone</param>
         /// <returns>Returns the mother drone released from charging</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDroneCharge(int droneId)
         {
             DroneCharge deletedDroneCharge = GetDroneCharge(droneId);

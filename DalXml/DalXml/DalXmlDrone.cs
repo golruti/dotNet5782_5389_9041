@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -15,6 +16,7 @@ namespace DAL
         /// Add a drone to the array of existing drones
         /// </summary>
         /// <param name="drone">struct of drone</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone)
         {
             if (!GetDrone(drone.Id).Equals(default(Drone)))
@@ -32,6 +34,7 @@ namespace DAL
         /// </summary>
         /// <param name="idxDrone">struct of drone</param>
         /// <returns>drone</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int droneId)
         {
             return GetItem<Drone>(dronesPath, droneId);
@@ -42,6 +45,7 @@ namespace DAL
         /// The function prepares a new array of all existing drones
         /// </summary>
         /// <returns>array of drones</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones()
         {
             return GetList<Drone>(dronesPath);
@@ -52,6 +56,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>List of Drone that maintain the predicate</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate)
         {
             return GetDrones().Where(item => predicate(item));
@@ -62,6 +67,7 @@ namespace DAL
         /// The function deletes a specific drone
         /// </summary>
         /// <param name="droneId">drone ID</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDrone(int id)
         {
             if (GetDrone(id).Equals(default(Drone)))

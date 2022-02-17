@@ -24,7 +24,7 @@ namespace BL
                     DO.Customer senderCustomer2 = new DO.Customer();
                     try
                     {
-                        senderCustomer2 = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId);
+                        lock (dal) { senderCustomer2 = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId); }
 
                     }
                     catch (KeyNotFoundException ex)
@@ -40,13 +40,13 @@ namespace BL
                     DO.Customer senderCustomer = new DO.Customer();
                     try
                     {
-                        senderCustomer = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId);
+                        lock (dal) { senderCustomer = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId); }
                     }
                     catch (KeyNotFoundException ex)
                     {
                         throw new KeyNotFoundException("Get customer/parcel -BL-" + ex.Message);
                     }
-                    senderCustomer = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId);
+                    lock (dal) { senderCustomer = dal.GetCustomer(customer => customer.Id == dal.GetParcel(parcel => parcel.Droneld == drone.Id).SenderId); }
                     return new Location() { Longitude = Math.Round(senderCustomer.Longitude), Latitude = Math.Round(senderCustomer.Latitude) };
                 }
             }
@@ -54,14 +54,19 @@ namespace BL
             {
                 if (drone.Status == Enums.DroneStatuses.Maintenance)
                 {
-                    int randNumber1 = rand.Next(dal.GetBaseStations().Where(s => s.IsDeleted == false).Count());
-                    var randomBaseStation = dal.GetBaseStations().Where(s => s.IsDeleted == false).ToList()[randNumber1];
+                    int randNumber1;
+                    lock (dal) { randNumber1 = rand.Next(dal.GetBaseStations().Where(s => s.IsDeleted == false).Count()); }
+                    DO.BaseStation randomBaseStation;
+                    lock (dal) { randomBaseStation = dal.GetBaseStations().Where(s => s.IsDeleted == false).ToList()[randNumber1]; }
                     return new Location() { Longitude = Math.Round(randomBaseStation.Longitude), Latitude = Math.Round(randomBaseStation.Latitude) };
                 }
             }
-            var x =
-                dal.GetCustomers((customer) => (
-               dal.GetParcels(parcel => (parcel.Delivered != null) && (customer.Id == parcel.TargetId))).Where(c => c.IsDeleted == false).Any()).ToList();
+            List<DO.Customer> x;
+            lock (dal)
+            {
+                x = dal.GetCustomers((customer) =>
+                (dal.GetParcels(parcel => (parcel.Delivered != null) && (customer.Id == parcel.TargetId))).Where(c => c.IsDeleted == false).Any()).ToList();
+            }
             int randNumber = rand.Next(x.Count());
             if (x.Count() == 0)
             {
@@ -97,7 +102,8 @@ namespace BL
         /// <returns></returns>
         private bool isDroneMaintenance(int droneId)
         {
-            var droneCharges = dal.GetDronesCharges().Where(dc => dc.IsDeleted == false);
+            IEnumerable<DO.DroneCharge> droneCharges;
+            lock (dal) { droneCharges = dal.GetDronesCharges().Where(dc => dc.IsDeleted == false); }
 
             return !droneCharges.FirstOrDefault(dc => dc.DroneId == droneId).Equals(default(DO.DroneCharge));
         }
@@ -110,11 +116,13 @@ namespace BL
         /// <returns>If the drone makes a delivery</returns>
         private bool isDroneMakesDelivery(int droneId)
         {
-            foreach (var parcel in dal.GetParcels().Where(p => p.IsDeleted == false))
+            IEnumerable<DO.Parcel> parcels;
+            parcels = dal.GetParcels(p => p.IsDeleted == false);
+            foreach (var parcel in parcels)
             {
 
                 if (parcel.Droneld == droneId &&
-                    parcel.Delivered.Equals(null))
+                    parcel.Delivered ==null)
                 {
                     return true;
                 }
@@ -136,13 +144,16 @@ namespace BL
                 double minTargetBaseStation;
                 try
                 {
-                    minDroneTarget = minBattery(drone.Location,
-                        new Location()
-                        {
-                            Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
-                            Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude
-                        },
-                         drone.Status, drone.MaxWeight);
+                    lock (dal)
+                    {
+                        minDroneTarget = minBattery(drone.Location,
+                            new Location()
+                            {
+                                Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
+                                Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude
+                            },
+                             drone.Status, drone.MaxWeight);
+                    }
                 }
                 catch (KeyNotFoundException ex)
                 {
@@ -151,19 +162,22 @@ namespace BL
 
                 try
                 {
-                    minTargetBaseStation = minBattery(
-                     new Location()
-                     {
-                         Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
-                         Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude
-                     },
-                    new Location()
+                    lock (dal)
                     {
-                        Latitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
+                        minTargetBaseStation = minBattery(
+                         new Location()
+                         {
+                             Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
+                             Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude
+                         },
+                        new Location()
+                        {
+                            Latitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
 
-                        Longitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
-                    },
-                    Enums.DroneStatuses.Available, drone.MaxWeight);
+                            Longitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
+                        },
+                        Enums.DroneStatuses.Available, drone.MaxWeight);
+                    }
                 }
                 catch (KeyNotFoundException ex)
                 {
@@ -180,19 +194,22 @@ namespace BL
             double minDroneBaseStation;
             try
             {
-                minDroneBaseStation = minBattery(
-                    new Location()
-                    {
-                        Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
-                        Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude
-                    },
-                   new Location()
-                   {
-                       Latitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
-                       Longitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
-                   },
-                   Enums.DroneStatuses.Available, drone.MaxWeight);
-                return rand.Next((int)(minDroneBaseStation), 101);
+                lock (dal)
+                {
+                    minDroneBaseStation = minBattery(
+                        new Location()
+                        {
+                            Longitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude,
+                            Latitude = dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude
+                        },
+                       new Location()
+                       {
+                           Latitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Latitude,
+                           Longitude = nearestBaseStation(dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomer(customer => customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
+                       },
+                       Enums.DroneStatuses.Available, drone.MaxWeight);
+                    return rand.Next((int)(minDroneBaseStation), 101);
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -209,8 +226,11 @@ namespace BL
         internal DO.BaseStation nearestBaseStation(double LongitudeSenderCustomer, double LatitudeSenderCustomer)
         {
             var minDistance = double.MaxValue;
-            var nearestBaseStation = default(DO.BaseStation);
-            foreach (var BaseStation in dal.GetAvaBaseStations().Where(s => s.IsDeleted == false))
+            DO.BaseStation nearestBaseStation = default(DO.BaseStation);
+            IEnumerable<DO.BaseStation> avaStations;
+            avaStations = dal.GetAvaBaseStations().Where(s => s.IsDeleted == false);
+
+            foreach (var BaseStation in avaStations)
             {
                 if (distance(LatitudeSenderCustomer, BaseStation.Latitude, LongitudeSenderCustomer, BaseStation.Longitude) < minDistance)
                 {
@@ -231,7 +251,7 @@ namespace BL
         /// <returns>sum of battary after charge</returns>
         private double batteryCalculationInCharging(int time)
         {
-            return time * dal.GetElectricityUse()[4];
+            lock (dal) { return time * dal.GetElectricityUse()[4]; }
         }
     }
 }

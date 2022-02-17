@@ -28,12 +28,17 @@ namespace BL
         {
             dal = DalApi.DalFactory.GetDal();
             initializeDrones();
-            double[] arr = dal.GetElectricityUse();
+            double[] arr;
+            lock (dal)
+            {
+                arr = dal.GetElectricityUse();
+            }
             available = arr[0];
             lightWeight = arr[1];
             mediumWeight = arr[2];
             heavyWeight = arr[3];
             chargingRate = arr[4];
+
         }
 
         /// <summary>
@@ -41,14 +46,17 @@ namespace BL
         /// </summary>
         private void initializeDrones()
         {
-            foreach (var drone in dal.GetDrones().Where(d=>d.IsDeleted ==false))
+            lock (dal)
             {
-                drones.Add(new DroneForList
+                foreach (var drone in dal.GetDrones().Where(d => d.IsDeleted == false))
                 {
-                    Id = drone.Id,
-                    Model = drone.Model,
-                    MaxWeight = (Enums.WeightCategories)drone.MaxWeight,
-                });
+                    drones.Add(new DroneForList
+                    {
+                        Id = drone.Id,
+                        Model = drone.Model,
+                        MaxWeight = (Enums.WeightCategories)drone.MaxWeight,
+                    });
+                }
             }
 
             foreach (var drone in drones)
@@ -88,21 +96,21 @@ namespace BL
 
             if (status == DroneStatuses.Available)
             {
-                return distance * dal.GetElectricityUse()[0];
+                lock (dal) { return distance * dal.GetElectricityUse()[0]; }
             }
             else if (status == DroneStatuses.Delivery)
             {
                 if (weight == WeightCategories.Light)
                 {
-                    return distance * dal.GetElectricityUse()[1];
+                    lock (dal) { return distance * dal.GetElectricityUse()[1]; }
                 }
                 else if (weight == WeightCategories.Medium)
                 {
-                    return distance * dal.GetElectricityUse()[2];
+                    lock (dal) { return distance * dal.GetElectricityUse()[2]; }
                 }
                 else if (weight == WeightCategories.Heavy)
                 {
-                    return distance * dal.GetElectricityUse()[3];
+                    lock (dal) { return distance * dal.GetElectricityUse()[3]; }
                 }
             }
             throw new KeyNotFoundException("It is not possible to calculate the drone distance in maintenance");

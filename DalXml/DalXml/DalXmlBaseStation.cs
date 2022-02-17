@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace DAL
         /// Add a base station to the array of stations
         /// </summary>
         /// <param name="station">struct of station</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BaseStation station)
         {
             if (!GetBaseStation(station.Id).Equals(default(BaseStation)))
@@ -32,6 +34,7 @@ namespace DAL
         /// </summary>
         /// <param name="idStation"></param>
         /// <returns>station id</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBaseStation(int idStation)
         {
             return GetItem<BaseStation>(baseStationsPath, idStation);
@@ -42,6 +45,7 @@ namespace DAL
         /// The function prepares a new array of all existing stations
         /// </summary>
         /// <returns>array of station</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetBaseStations()
         {
            
@@ -50,6 +54,7 @@ namespace DAL
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate)
         {
             return GetBaseStations().Where(item => predicate(item));
@@ -58,7 +63,7 @@ namespace DAL
         /// <summary>
         /// Display base stations with available charging stations
         /// </summary>
-        /// <returns>array of stations</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]/// <returns>array of stations</returns>
         public IEnumerable<BaseStation> GetAvaBaseStations()
         {
             return GetBaseStations(station => station.ChargeSlote > GetDronesCharges(charge => charge.StationId == station.Id).Count());
@@ -68,6 +73,7 @@ namespace DAL
         /// delete base station from list
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteBaseStation(int id)
         {
             BaseStation deletedStation = GetBaseStation(id);

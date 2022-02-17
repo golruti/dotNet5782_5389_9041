@@ -10,7 +10,7 @@
 
         <CheckBox Click="CheckBox_Click" Content="Group" Margin="20,0"  FontFamily="Copperplate Gothic Bold" FontSize="15"  />
         <ListView x:Name="CustomersListViewXaml" ItemsSource="{Binding CustomersForList}" MouseDoubleClick="CustomersListView_MouseLeftButtonDown">
-           
+
             <ListView.View >
                 <GridView>
                     <GridViewColumn  Header="ID" DisplayMemberBinding="{Binding Id }"/>
@@ -22,7 +22,7 @@
                     <GridViewColumn  Header="Recived parcel" DisplayMemberBinding="{Binding NumParcelReceived}"/>
                 </GridView>
             </ListView.View>
-            
+
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
@@ -46,8 +46,8 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-        <StackPanel Orientation="Horizontal">
-            <Button x:Name="add_customer" Margin="500,410,0,0" Content="add customer" Height="40" Width="130" Background="DarkCyan"  Click="add_customer_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
+        <StackPanel Orientation="Horizontal" Height="305">
+            <Button x:Name="add_customer" Content="add customer" Height="84" Width="207" Background="DarkCyan"  Click="add_customer_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold" RenderTransformOrigin="0.41,-0.984"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

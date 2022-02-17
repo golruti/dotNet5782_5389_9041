@@ -19,20 +19,23 @@ namespace BL
         {
             try
             {
-                dal.AddParcel(new DO.Parcel()
+                lock (dal)
                 {
-                    Id = tempParcel.Id,
-                    SenderId = tempParcel.CustomerSender.Id,
-                    TargetId = tempParcel.CustomerReceives.Id,
-                    Weight = (DO.Enum.WeightCategories)tempParcel.Weight,
-                    Priority = (DO.Enum.Priorities)tempParcel.Priority,
-                    Droneld = -1,
-                    Requested = tempParcel.Requested,
-                    Scheduled = null,
-                    PickedUp = null,
-                    Delivered = null,
-                    IsDeleted = false
-                });
+                    dal.AddParcel(new DO.Parcel()
+                    {
+                        Id = tempParcel.Id,
+                        SenderId = tempParcel.CustomerSender.Id,
+                        TargetId = tempParcel.CustomerReceives.Id,
+                        Weight = (DO.Enum.WeightCategories)tempParcel.Weight,
+                        Priority = (DO.Enum.Priorities)tempParcel.Priority,
+                        Droneld = -1,
+                        Requested = tempParcel.Requested,
+                        Scheduled = null,
+                        PickedUp = null,
+                        Delivered = null,
+                        IsDeleted = false
+                    });
+                }
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -47,17 +50,17 @@ namespace BL
         public void deleteBLParcel(int parcelId)
         {
             var parcel = GetBLParcel(parcelId);
-            if (parcel.Scheduled != null && parcel.Delivered == null  )
+            if (parcel.Scheduled != null && parcel.Delivered == null)
                 throw new TheParcelIsAssociatedAndCannotBeDeleted();
             try
             {
-                dal.DeleteParcel(parcelId);
+                lock (dal) { dal.DeleteParcel(parcelId); }
             }
             catch (KeyNotFoundException ex)
             {
                 throw new KeyNotFoundException("Delete parcel -BL-" + ex.Message);
             }
-            catch(DO.TheParcelIsAssociatedAndCannotBeDeleted ex)
+            catch (DO.TheParcelIsAssociatedAndCannotBeDeleted ex)
             {
                 throw new TheParcelIsAssociatedAndCannotBeDeleted("Delete parcel -BL-" + ex.Message);
             }
@@ -74,7 +77,7 @@ namespace BL
         {
             try
             {
-                dal.UpdateParcelScheduled(parcelId, droneId);
+                lock (dal) { dal.UpdateParcelScheduled(parcelId, droneId); }
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
@@ -92,7 +95,7 @@ namespace BL
         {
             try
             {
-                return mapParcel(dal.GetParcel(parcelId));
+                lock (dal) { return mapParcel(dal.GetParcel(parcelId)); }
             }
             catch (KeyNotFoundException ex)
             {
@@ -108,7 +111,10 @@ namespace BL
         public IEnumerable<ParcelForList> GetParcelForList()
         {
             List<ParcelForList> ParcelsForList = new List<ParcelForList>();
-            foreach (var parcel in dal.GetParcels().Where(p => p.IsDeleted == false))
+            IEnumerable<DO.Parcel> parcels;
+            lock (dal) { parcels = dal.GetParcels(p => p.IsDeleted == false); }
+
+            foreach (var parcel in parcels)
             {
                 try
                 {
@@ -118,7 +124,7 @@ namespace BL
                         Weight = (Enums.WeightCategories)parcel.Weight,
                         Priority = (Enums.Priorities)parcel.Priority,
                         SendCustomer = getSendCustomerName(parcel),
-                        ReceiveCustomer = getReceiveCustomer(parcel) ,
+                        ReceiveCustomer = getReceiveCustomer(parcel),
                         Status = getParcelStatus(parcel)
                     });
                 }
@@ -152,7 +158,7 @@ namespace BL
         /// <returns>A list of parcels to print</returns>
         private IEnumerable<Parcel> GetAllParcels()
         {
-            return (dal.GetParcels()).Where(p => p.IsDeleted == false).Select(Parcel => GetBLParcel(Parcel.Id));
+            lock (dal) { return dal.GetParcels(p => p.IsDeleted == false).Select(Parcel => GetBLParcel(Parcel.Id)); }
         }
 
 
@@ -176,7 +182,7 @@ namespace BL
             Parcel parcel;
             try
             {
-                parcel = mapParcel(dal.GetParcel(parcelId));
+                lock (dal) { parcel = mapParcel(dal.GetParcel(parcelId)); }
             }
             catch (KeyNotFoundException ex)
             {
@@ -204,19 +210,22 @@ namespace BL
             var tmpDrone = drones.FirstOrDefault(drone => drone.Id == parcel.Droneld);
             try
             {
-                return new Parcel()
+                lock (dal)
                 {
-                    Id = parcel.Id,
-                    CustomerReceives = mapCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
-                    CustomerSender = mapCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
-                    Weight = (Enums.WeightCategories)parcel.Weight,
-                    Priority = (Enums.Priorities)parcel.Priority,
-                    Scheduled = parcel.Scheduled,
-                    PickedUp = parcel.PickedUp,
-                    Requested = parcel.Requested,
-                    Delivered = parcel.Delivered,
-                    DroneParcel = tmpDrone != default ? mapDroneWithParcel(tmpDrone) : null
-                };
+                    return new Parcel()
+                    {
+                        Id = parcel.Id,
+                        CustomerReceives = mapCustomerInParcel(dal.GetCustomer(parcel.TargetId)),
+                        CustomerSender = mapCustomerInParcel(dal.GetCustomer(parcel.SenderId)),
+                        Weight = (Enums.WeightCategories)parcel.Weight,
+                        Priority = (Enums.Priorities)parcel.Priority,
+                        Scheduled = parcel.Scheduled,
+                        PickedUp = parcel.PickedUp,
+                        Requested = parcel.Requested,
+                        Delivered = parcel.Delivered,
+                        DroneParcel = tmpDrone != default ? mapDroneWithParcel(tmpDrone) : null
+                    };
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -232,13 +241,16 @@ namespace BL
 
         internal ParcelByTransfer createParcelInTransfer(int parcelId)
         {
-            DO.Parcel parcel = dal.GetParcel(parcelId);
+            DO.Parcel parcel;
+            DO.Customer sender;
+            DO.Customer target;
+
+            lock (dal) { parcel = dal.GetParcel(parcelId); }
             if (parcel.Equals(null))
                 throw new KeyNotFoundException("not found parcel -BL-");
 
-
-            DO.Customer sender = dal.GetCustomer(parcel.SenderId);
-            DO.Customer target = dal.GetCustomer(parcel.TargetId);
+            lock (dal) { sender = dal.GetCustomer(parcel.SenderId); }
+            lock (dal) { target = dal.GetCustomer(parcel.TargetId); }
             if (sender.Equals(null) || target.Equals(null))
                 throw new KeyNotFoundException("not found sender customer/target customer -BL-");
 
@@ -300,13 +312,15 @@ namespace BL
         /// <returns>The parcel status</returns>
         private parcelState findParcelState(int DroneId)
         {
-            foreach (var parcel in dal.GetParcels().Where(p => p.IsDeleted == false))
+            IEnumerable<DO.Parcel> parcels;
+            lock (dal) { parcels = dal.GetParcels(p => p.IsDeleted == false); }
+            foreach (var parcel in parcels)
             {
-                if (!(parcel.Scheduled.Equals(null)) && parcel.PickedUp.Equals(null))
+                if (parcel.Scheduled != null && parcel.PickedUp == null)
                 {
                     return parcelState.associatedNotCollected;
                 }
-                if (!parcel.PickedUp.Equals(null) && parcel.Delivered.Equals(null))
+                if (parcel.PickedUp != null && parcel.Delivered == null)
                 {
                     return parcelState.collectedNotDelivered;
                 }
@@ -321,7 +335,8 @@ namespace BL
         /// <returns>The name of the sending customer</returns>
         private string getSendCustomerName(DO.Parcel parcel)
         {
-            var senderCustomerName = dal.GetCustomers().FirstOrDefault(c=>c.Id == parcel.SenderId);
+             DO.Customer senderCustomerName;
+            lock (dal) { senderCustomerName = dal.GetCustomers().FirstOrDefault( c=> c.Id == parcel.SenderId); }
 
             if (senderCustomerName.Equals(default(DO.Customer)))
             {
@@ -337,7 +352,8 @@ namespace BL
         /// <returns>The name of the receiving customer</returns>
         private string getReceiveCustomer(DO.Parcel parcel)
         {
-            var receiveCustomerName = dal.GetCustomers().FirstOrDefault(c => c.Id == parcel.TargetId);
+            DO.Customer receiveCustomerName;
+            lock (dal) { receiveCustomerName = dal.GetCustomers().FirstOrDefault(c => c.Id == parcel.TargetId); }
             if (receiveCustomerName.Equals(default(DO.Customer)))
             {
                 throw new ArgumentNullException("Get recieve customer  -BL-");
@@ -352,11 +368,11 @@ namespace BL
         /// <returns>The parcel status</returns>
         private ParcelStatuses getParcelStatus(DO.Parcel parcel)
         {
-            if (!parcel.Delivered.Equals(null))
+            if (parcel.Delivered != null)
                 return Enums.ParcelStatuses.Provided;
-            if (!parcel.PickedUp.Equals(null))
+            if (parcel.PickedUp != null)
                 return Enums.ParcelStatuses.Collected;
-            if (!parcel.Scheduled.Equals(null))
+            if (parcel.Scheduled != null)
                 return Enums.ParcelStatuses.Associated;
             return Enums.ParcelStatuses.Created;
         }
@@ -368,7 +384,9 @@ namespace BL
         /// <returns>the ID of the parcel</returns>
         private int findParceDeliveredlId(int droneId)
         {
-            foreach (var parcel in dal.GetParcels().Where(p => p.IsDeleted == false))
+            IEnumerable<DO.Parcel> parcels;
+            parcels = dal.GetParcels(p => p.IsDeleted == false);
+            foreach (var parcel in parcels)
             {
                 if (parcel.Droneld == droneId)
                 {
