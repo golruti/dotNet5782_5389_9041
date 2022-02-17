@@ -47,7 +47,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
+                ListsModel.Bl.deleteBLBaseStation(baseStationViewModel.BaseStationInList.Id);
             }
             catch (KeyNotFoundException)
             {
@@ -81,7 +81,7 @@ namespace PL
 
             try
             {
-                PO.ListsModel.Bl.AddBaseStation(new BO.BaseStation()
+                ListsModel.Bl.AddBaseStation(new BO.BaseStation()
                 {
                     Id = int.Parse(Id.Text),
                     AvailableChargingPorts = int.Parse(Num_of_charging_positions.Text),
@@ -99,7 +99,7 @@ namespace PL
             {
                 MessageBox.Show($"The station was not add, {ex.Message}");
             }
-            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException )
+            catch (BO.ThereIsNoNearbyBaseStationThatTheDroneCanReachException)
             {
                 MessageBox.Show($"No charge for sending for charging");
             }
@@ -137,7 +137,7 @@ namespace PL
                 if (!selectedDrone.Equals(null))
                 {
                     TabItem tabItem = new TabItem();
-                    tabItem.Content = new Drone(PO.ListsModel.Bl.GetBLDrone(selectedDrone.Id));
+                    tabItem.Content = new Drone(ListsModel.Bl.GetBLDrone(selectedDrone.Id));
                     tabItem.Header = "Update drone";
                     tabItem.Visibility = Visibility.Visible;
                     Tabs.AddTab(tabItem);
@@ -166,8 +166,8 @@ namespace PL
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
 
-            PO.ListsModel.RefreshStations();
-            PO.ListsModel.RefreshDrones();
+            ListsModel.RefreshStations();
+            ListsModel.RefreshDrones();
 
         }
 
@@ -177,17 +177,17 @@ namespace PL
             {
                 if (update_name.Text != null && update_num_of_charging_ports.Text != null)
                 {
-                    PO.ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
+                    ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
                     //(sender as Button).IsEnabled = false;
                 }
                 else if (update_name.Text != null)
                 {
-                    PO.ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, baseStationViewModel.BaseStationInList.AvailableChargingPorts);
+                    ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, baseStationViewModel.BaseStationInList.AvailableChargingPorts);
                     (sender as Button).IsEnabled = false;
                 }
                 else
                 {
-                    PO.ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, baseStationViewModel.BaseStationInList.Name, int.Parse(update_num_of_charging_ports.Text));
+                    ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, baseStationViewModel.BaseStationInList.Name, int.Parse(update_num_of_charging_ports.Text));
                     (sender as Button).IsEnabled = false;
                 }
                 if (MessageBox.Show("The base station has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)

@@ -9,7 +9,6 @@ namespace PL
 {
     public class Tabs
     {
-        //static event EventHandler Tab
         static Action<TabItem> addTab;
         public static void SetAddTab(Action<TabItem> addTab1)
         {
@@ -18,11 +17,6 @@ namespace PL
         public static void AddTab(TabItem tabItem)
         {
             addTab(tabItem);
-            //TabItem tabItem = new TabItem();
-            //tabItem.Content = new Drone(ConvertFunctions.PODroneForListToBO(selectedDrone), droneListViewModel.Bl/*, RefreshDroneList*/);
-            //tabItem.Header = "Update drone";
-            //tabItem.Visibility = Visibility.Visible;
-            //this.droneListViewModel.AddTab(tabItem);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace PL
 
         private void DeleteParcel(object sender, RoutedEventArgs e)
         {
-            PO.ListsModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
+            ListsModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
             if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -72,10 +72,10 @@ namespace PL
         {
             try
             {
-                BO.Customer senderCustomer = PO.ListsModel.Bl.GetBLCustomer(int.Parse(senderId.Text));
-                BO.Customer recieveCustomer = PO.ListsModel.Bl.GetBLCustomer(int.Parse(reciverId.Text));
+                BO.Customer senderCustomer = ListsModel.Bl.GetBLCustomer(int.Parse(senderId.Text));
+                BO.Customer recieveCustomer = ListsModel.Bl.GetBLCustomer(int.Parse(reciverId.Text));
 
-                PO.ListsModel.Bl.AddParcel(new BO.Parcel()
+                ListsModel.Bl.AddParcel(new BO.Parcel()
                 {
                     Id = idParcel++,
                     Weight = (BO.Enums.WeightCategories)Weight.SelectedItem,
@@ -134,8 +134,8 @@ namespace PL
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
 
-            PO.ListsModel.RefreshParcels();
-            PO.ListsModel.RefreshCustomers();
+            ListsModel.RefreshParcels();
+            ListsModel.RefreshCustomers();
 
         }
 
@@ -157,14 +157,14 @@ namespace PL
         {
             try
             {
-                if (PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id) == null)
+                if (ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id) == null)
                 {
                     MessageBox.Show($"Sorry, customer deleted.");
                 }
                 else
                 {
                     TabItem tabItem = new TabItem();
-                    tabItem.Content = new Customer(PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id));
+                    tabItem.Content = new Customer(ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerSender.Id));
                     tabItem.Header = "update Sender Customer";
                     tabItem.Visibility = Visibility.Visible;
                     Tabs.AddTab(tabItem);
@@ -184,14 +184,14 @@ namespace PL
         {
             try
             {
-                if (PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id) == null)
+                if (ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id) == null)
                 {
                     MessageBox.Show($"Sorry, customer deleted.");
                 }
                 else
                 {
                     TabItem tabItem = new TabItem();
-                    tabItem.Content = new Customer(PO.ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id));
+                    tabItem.Content = new Customer(ListsModel.Bl.GetCustomerForList().FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.CustomerReceives.Id));
                     tabItem.Header = "update Receives Customer";
                     tabItem.Visibility = Visibility.Visible;
                     Tabs.AddTab(tabItem);
@@ -212,7 +212,7 @@ namespace PL
             try
             {
                 TabItem tabItem = new TabItem();
-                tabItem.Content = new Drone(PO.ListsModel.Bl.GetDroneForList()
+                tabItem.Content = new Drone(ListsModel.Bl.GetDroneForList()
                     .FirstOrDefault(c => c.Id == parcelViewModel.ParcelInList.DroneParcel.Id));
                 tabItem.Header = "update  drone";
                 tabItem.Visibility = Visibility.Visible;

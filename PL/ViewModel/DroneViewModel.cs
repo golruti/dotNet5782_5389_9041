@@ -65,9 +65,9 @@ namespace PL.ViewModel
             {
                 DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
 
-                PO.ListsModel.RefreshDrones();
-                PO.ListsModel.RefreshStations();
-                PO.ListsModel.RefreshParcels();
+                ListsModel.RefreshDrones();
+                ListsModel.RefreshStations();
+                ListsModel.RefreshParcels();
             }
         }
 
@@ -79,7 +79,7 @@ namespace PL.ViewModel
             {
                 Auto = true;
                 worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
-                worker.DoWork += (sender, args) => PO.ListsModel.Bl.StartDroneSimulator((int)args.Argument, UpdateDrone, CheckStop);
+                worker.DoWork += (sender, args) => ListsModel.Bl.StartDroneSimulator((int)args.Argument, UpdateDrone, CheckStop);
                 worker.RunWorkerCompleted += (sender, args) => Auto = false;
                 worker.ProgressChanged += (sender, args) => UpdateDroneView();
                 worker.RunWorkerAsync(DroneInList.Id);
@@ -104,12 +104,12 @@ namespace PL.ViewModel
         private void UpdateDroneView()
         {
             DroneInList = PO.ConvertFunctions.BODroneToPO(ListsModel.Bl.GetBLDrone(droneInList.Id));
-            PO.ListsModel.RefreshDrone(DroneInList.Id);
+            ListsModel.RefreshDrone(DroneInList.Id);
             //PO.ListsModel.RefreshDroneInList();
-            PO.ListsModel.RefreshDrones();
-            PO.ListsModel.RefreshStations();
-            PO.ListsModel.RefreshParcels();
-            PO.ListsModel.RefreshCustomers();
+            ListsModel.RefreshDrones();
+            ListsModel.RefreshStations();
+            ListsModel.RefreshParcels();
+            ListsModel.RefreshCustomers();
         }
     }
 }

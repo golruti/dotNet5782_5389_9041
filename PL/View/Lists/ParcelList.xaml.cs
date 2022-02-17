@@ -35,8 +35,8 @@ namespace PL
             parcelListViewModel = new ParcelListViewModel(customerId);
             this.DataContext = parcelListViewModel;
             parcelListViewModel.ParcelsForList.Filter += FilterParcel;
-            SenderId.DataContext = PO.ListsModel.Bl.GetParcelForList().Select(item => item.SendCustomer).Distinct();
-            ReceiveId.DataContext = PO.ListsModel.Bl.GetParcelForList().Select(item => item.ReceiveCustomer).Distinct();
+            SenderId.DataContext = ListsModel.Bl.GetParcelForList().Select(item => item.SendCustomer).Distinct();
+            ReceiveId.DataContext = ListsModel.Bl.GetParcelForList().Select(item => item.ReceiveCustomer).Distinct();
             ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
             if (customerId != null)
             {
@@ -164,8 +164,8 @@ namespace PL
                     && (ParcelStatuses.SelectedItem == null || parcel.Status == (PO.Enums.ParcelStatuses)ParcelStatuses.SelectedItem)
                     && (SenderId.SelectedItem == null || parcel.SendCustomer == SenderId.SelectedItem.ToString())
                     && (ReceiveId.SelectedItem == null || parcel.ReceiveCustomer == ReceiveId.SelectedItem.ToString())
-                    && (From.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate)
-                    && (To.SelectedDate == null || PO.ListsModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate);
+                    && (From.SelectedDate == null || ListsModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate)
+                    && (To.SelectedDate == null || ListsModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate);
             }
             return false;
         }

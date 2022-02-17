@@ -25,7 +25,7 @@ namespace PL
             this.DataContext = droneViewModel;
             Add_grid.Visibility = Visibility.Visible;
             DroneWeights.DataContext = Enum.GetValues(typeof(Enums.WeightCategories));
-            StationsId.DataContext = PO.ListsModel.Bl.GetBaseStationForList().Select(item => item.Id);
+            StationsId.DataContext = ListsModel.Bl.GetBaseStationForList().Select(item => item.Id);
         }
 
         public Drone(DroneForList droneForList)
@@ -45,7 +45,7 @@ namespace PL
         }
         private void DeleteDrone(object sender, RoutedEventArgs e)
         {
-            PO.ListsModel.Bl.DeleteBLDrone(droneViewModel.DroneInList.Id);
+            ListsModel.Bl.DeleteBLDrone(droneViewModel.DroneInList.Id);
             if (MessageBox.Show("the drone was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -61,7 +61,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.AddDrone(new BO.Drone()
+                ListsModel.Bl.AddDrone(new BO.Drone()
                 {
                     Id = int.Parse(Id.Text),
                     Model = Model.Text,
@@ -71,8 +71,8 @@ namespace PL
                     Delivery = null,
                     Location = new Location()
                     {
-                        Longitude = PO.ListsModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude,
-                        Latitude = PO.ListsModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude
+                        Longitude = ListsModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Longitude,
+                        Latitude = ListsModel.Bl.GetBLBaseStation(int.Parse(StationsId.Text)).Location.Latitude
                     }
                 }, int.Parse(StationsId.Text));
 
@@ -113,7 +113,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.AssignParcelToDrone(droneViewModel.DroneInList.Id);
+                ListsModel.Bl.AssignParcelToDrone(droneViewModel.DroneInList.Id);
                 //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -157,8 +157,8 @@ namespace PL
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
             //  droneViewModel.RefreshDroneInList();
-            PO.ListsModel.RefreshDrones();
-            PO.ListsModel.RefreshStations();
+            ListsModel.RefreshDrones();
+            ListsModel.RefreshStations();
 
             if (droneViewModel.worker != null && droneViewModel.worker.IsBusy)
                 droneViewModel.worker.CancelAsync();
@@ -187,7 +187,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.UpdateRelease(droneViewModel.DroneInList.Id);
+                ListsModel.Bl.UpdateRelease(droneViewModel.DroneInList.Id);
                 //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -225,7 +225,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.UpdateCharge(droneViewModel.DroneInList.Id);
+                ListsModel.Bl.UpdateCharge(droneViewModel.DroneInList.Id);
                 if (MessageBox.Show("The drone was sent for loading", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
@@ -262,7 +262,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.ParcelCollection(droneViewModel.DroneInList.Id);
+                ListsModel.Bl.ParcelCollection(droneViewModel.DroneInList.Id);
                 //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -300,7 +300,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.UpdateParcelDelivered(droneViewModel.DroneInList.Id);
+                ListsModel.Bl.UpdateParcelDelivered(droneViewModel.DroneInList.Id);
                // (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("he parcel was successfully delivered", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
@@ -338,7 +338,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.UpdateDroneModel(droneViewModel.DroneInList.Id, droneViewModel.DroneInList.Model);
+                ListsModel.Bl.UpdateDroneModel(droneViewModel.DroneInList.Id, droneViewModel.DroneInList.Model);
                 if (MessageBox.Show("The drone model has been updated successfully!", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();

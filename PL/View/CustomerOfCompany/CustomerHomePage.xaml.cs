@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static PL.Tabs;
+using PL.ViewModel;
 
 namespace PL
 {
@@ -43,7 +44,7 @@ namespace PL
         private void AddParcel_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel( PO.ListsModel.Bl.GetUser(userId, password,BO.Enums.Access.Client));
+            tabItem.Content = new Parcel(ListsModel.Bl.GetUser(userId, password,BO.Enums.Access.Client));
             tabItem.Header = "parcel list";
             AddTab(tabItem);
         }

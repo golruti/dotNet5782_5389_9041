@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static PL.Tabs;
-using static PO.ListsModel;
+using static PL.ViewModel.ListsModel;
 
 namespace PL
 {

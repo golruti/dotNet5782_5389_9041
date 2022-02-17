@@ -15,7 +15,6 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
-        <Converters:AtLleastOneContentConvert x:Key="atLleastOneContentConvert"></Converters:AtLleastOneContentConvert>
         <Converters:MultyConvert5Items x:Key="multyConvert5Items"></Converters:MultyConvert5Items>
         <Converters:ListLengthToVisibilityConverter x:Key="ListLengthToVisibilityConverter" />
     </UserControl.Resources>

@@ -18,7 +18,7 @@ namespace PL.ViewModel
         public const string NONE_VALUE = "None";
         public DroneListViewModel()
         {
-            DronesList = new ListCollectionView(PO.ListsModel.drones);
+            DronesList = new ListCollectionView(ListsModel.drones);
             DroneWeights = Enum.GetValues(typeof(Enums.WeightCategories)).OfType<object>().Union(new List<object>() { NONE_VALUE });
             DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses)).OfType<object>().Union(new List<object>() { NONE_VALUE });
         }

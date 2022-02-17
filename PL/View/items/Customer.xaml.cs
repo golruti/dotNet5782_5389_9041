@@ -51,7 +51,7 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
-            PO.ListsModel.RefreshCustomers();
+            ListsModel.RefreshCustomers();
             //customerViewModel.RefreshCustomersList();
         }
 
@@ -59,7 +59,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.DeleteBLCustomer(customerViewModel.CustomerInList.Id);
+                ListsModel.Bl.DeleteBLCustomer(customerViewModel.CustomerInList.Id);
 
             }
             catch (KeyNotFoundException)
@@ -96,7 +96,7 @@ namespace PL
 
             try
             {
-                PO.ListsModel.Bl.AddCustomer(new BO.Customer()
+                ListsModel.Bl.AddCustomer(new BO.Customer()
                 {
                     Id = int.Parse(ID.Text),
                     Name = name.Text,
@@ -132,7 +132,7 @@ namespace PL
         {
             try
             {
-                PO.ListsModel.Bl.UpdateCustomer(customerViewModel.CustomerInList.Id, customerViewModel.CustomerInList.Name, customerViewModel.CustomerInList.Phone);
+                ListsModel.Bl.UpdateCustomer(customerViewModel.CustomerInList.Id, customerViewModel.CustomerInList.Name, customerViewModel.CustomerInList.Phone);
             }
             catch (KeyNotFoundException ex)
             {

@@ -16,7 +16,7 @@ namespace PL.ViewModel
     {
         public CustomerListViewModel()
         {
-            CustomersForList = new ListCollectionView(PO.ListsModel.customers);
+            CustomersForList = new ListCollectionView(ListsModel.customers);
         }
 
 

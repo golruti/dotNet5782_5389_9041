@@ -16,7 +16,6 @@
      FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
         <Convert:MultyConvert5Items x:Key="multyConvert5Items"/>
-        <Convert:AtLleastOneContentConvert x:Key="atLleastOneContentConvert"/>
         <Convert:ListLengthToVisibilityConverter x:Key="ListLengthToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid Background="White" >
@@ -77,14 +76,7 @@
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,398,0,10">
 
                 <Button  Content="Update " Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
-                    <Button.IsEnabled>
-                        <MultiBinding Converter="{StaticResource atLleastOneContentConvert}">
-                            <Binding Path="BaseStationInList.Name" />
-                            <Binding Path="BaseStationInList.availableChargingPorts"/>
-                            <Binding Path="BaseStationInList.Name" />
-                            <Binding Path="BaseStationInList.availableChargingPorts"/>
-                        </MultiBinding>
-                    </Button.IsEnabled>
+                    
                 </Button>
                 <Button Content="close"   Height="40" Width="130" Background="DarkCyan"  Click="Close_Page" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
                 <Button Content="delete"   Height="40" Width="130" Background="DarkCyan"  Click="DeleteBaseStation" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>

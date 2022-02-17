@@ -28,7 +28,7 @@
      
     </UserControl.Resources>
     <Grid>
-        <Grid Background="Gray">
+        <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="56*"/>
                 <RowDefinition Height="299*"/>
@@ -74,7 +74,7 @@
             </ListView>
 
            
-            
+        
             
             <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
             <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddBaseStationWindow" Content="add base station" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>

@@ -52,7 +52,7 @@ namespace PL.ViewModel
         public void RefreshParcelInList()
         {
             ParcelInList = ConvertFunctions.BOParcelToPO(ListsModel.Bl.GetBLParcel(parcelInList.Id));
-            PO.ListsModel.RefreshParcels();
+            ListsModel.RefreshParcels();
         }
     }
 }

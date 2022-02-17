@@ -4,9 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PO;
 using Singleton;
 
-namespace PO
+namespace PL.ViewModel
 {
     static public class ListsModel /*: Singleton.Singleton<ListsModel>*/
     {
@@ -26,7 +27,7 @@ namespace PO
             stations = ConvertFunctions.BOBaseStationForListToPO(Bl.GetAvaBaseStationForList());
             customers = ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList());
             parcels = ConvertFunctions.BOParcelForListToPO(Bl.GetParcelForList());
-            //dronesCharging = ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging());
+            // = ConvertFunctions.BODroneInChargingTOPO(Bl.GetDronesInCharging());
         }
 
 
