@@ -18,7 +18,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Get drone charge -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get drone charge -BL-" + ex.Message, ex);
             }
         }
         //---------------------------------------------Show list----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

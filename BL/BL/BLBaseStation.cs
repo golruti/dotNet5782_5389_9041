@@ -34,7 +34,7 @@ namespace BL
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
         }
         //---------------------------------------------Delete ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Delete base station -BL-" + ex.Message);
+                throw new KeyNotFoundException("Delete base station -BL-" + ex.Message, ex);
             }
         }
 
@@ -83,7 +83,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Get base station -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get base station -BL-" + ex.Message, ex);
             }
 
 
@@ -120,7 +120,7 @@ namespace BL
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
         }
 
@@ -141,7 +141,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Get base station -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get base station -BL-" + ex.Message, ex);
             }
         }
 

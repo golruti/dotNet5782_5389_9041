@@ -35,7 +35,7 @@ namespace BL
             }
             catch (DO.ThereIsAnObjectWithTheSameKeyInTheListException ex)
             {
-                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message);
+                throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
         }
 
@@ -56,7 +56,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Delete customer -BL-" + ex.Message);
+                throw new KeyNotFoundException("Delete customer -BL-" + ex.Message, ex);
             }
         }
 
@@ -81,7 +81,7 @@ namespace BL
             catch (KeyNotFoundException ex)
             {
 
-                throw new KeyNotFoundException("Get customer by id -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get customer by id -BL-" + ex.Message, ex);
             }
 
             if (name == "-1")
@@ -129,7 +129,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Get customer by id -BL-" + ex.Message);
+                throw new KeyNotFoundException("Get customer by id -BL-" + ex.Message, ex);
             }
         }
 
