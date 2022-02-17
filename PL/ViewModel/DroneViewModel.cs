@@ -90,8 +90,6 @@ namespace PL.ViewModel
                 worker.CancelAsync();
                 //Auto = false;
             }
-
-
         }
         public bool Auto
         {

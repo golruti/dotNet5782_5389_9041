@@ -36,13 +36,18 @@ namespace PL
         }
 
 
-        public Parcel(int parcelInListId)
+        public Parcel(int parcelInListId, bool IsInCustomerMode = false)
         {
             InitializeComponent();
             parcelViewModel = new ParcelViewModel(parcelInListId);
             this.DataContext = parcelViewModel;
 
             Update_grid.Visibility = Visibility.Visible;
+
+            if (IsInCustomerMode)
+            {
+                ChangeButtons.Visibility = Visibility.Collapsed;
+            }
         }
 
         //עבור ממשק לקוח
@@ -52,6 +57,7 @@ namespace PL
             parcelViewModel = new ParcelViewModel(user);
             this.DataContext = parcelViewModel;
             Add_grid.Visibility = Visibility.Visible;
+            ChangeButtons.Visibility = Visibility.Collapsed;
         }
 
         private void DeleteParcel(object sender, RoutedEventArgs e)

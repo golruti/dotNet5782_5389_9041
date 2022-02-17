@@ -89,7 +89,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="Gray">
+    <Grid Background="Gray" Height="450" VerticalAlignment="Bottom">
         <Grid.RowDefinitions>
 
             <RowDefinition Height="56*"/>
@@ -106,14 +106,15 @@
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
 
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions >
-
             <Label Grid.Column="0" Content="  Drone weight:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
             <ComboBox Grid.Column="1" x:Name="DroneWeights" ItemsSource="{Binding DroneWeights}" SelectionChanged="DroneWeights_SelectionChanged" Grid.RowSpan="2"/>
             <Label Grid.Column="2" Content="   Drone status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Background="Gray" Grid.RowSpan="2"/>
             <ComboBox  Grid.Column="3" x:Name="DroneStatuses" ItemsSource="{Binding DroneStatuses}" SelectionChanged="DroneDtatuses_SelectionChanged" Grid.RowSpan="2" />
+            <CheckBox Grid.Column="4" Click="CheckBox_Click" Content="Group" Margin="20,0"  FontFamily="Copperplate Gothic Bold" FontSize="15"  />
 
         </Grid>
         <ListView x:Name="DronesListView" ItemsSource="{Binding DronesList}" Grid.Row="1"  MouseDoubleClick="DronesListView_MouseDoubleClick">

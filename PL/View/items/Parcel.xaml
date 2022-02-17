@@ -67,15 +67,16 @@
 
             </Grid>
             <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,372,0,52">
+                <StackPanel Orientation="Horizontal" x:Name="ChangeButtons">
+                    <Button Content="CustomerReceives"   Height="40" Width="130" Background="DarkCyan"  Click="CustomerReceives" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
+                    <Button Content="CustomerSender"   Height="40" Width="130" Background="DarkCyan"  Click="CustomerSender" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
+                    <Button Content="Drone"   Height="40" Width="130" Background="DarkCyan"  Click="Drone" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
 
-                <Button Content="CustomerReceives"   Height="40" Width="130" Background="DarkCyan"  Click="CustomerReceives" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-                <Button Content="CustomerSender"   Height="40" Width="130" Background="DarkCyan"  Click="CustomerSender" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
+
+                    <Button Content="delete" IsEnabled="{Binding ParcelInList, Converter={StaticResource ParcelToEnableDeletionConverter}}"  Height="40" Width="130" Background="DarkCyan"  Click="DeleteParcel" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold" />
+                    <!--<Button  Content="Update" Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>-->
+                </StackPanel>
                 <Button Content="close"   Height="40" Width="130" Background="DarkCyan"  Click="Close_Page" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-                <Button Content="Drone"   Height="40" Width="130" Background="DarkCyan"  Click="Drone" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>
-
-
-                <Button Content="delete" IsEnabled="{Binding ParcelInList, Converter={StaticResource ParcelToEnableDeletionConverter}}"  Height="40" Width="130" Background="DarkCyan"  Click="DeleteParcel" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold" />
-                <!--<Button  Content="Update" Click="Update_Click" Background="DarkCyan"  Height="40" Width="130" FontSize="10" FontFamily="Consolas" HorizontalAlignment = "Center" FontWeight="Bold"/>-->
             </StackPanel>
 
         </Grid>

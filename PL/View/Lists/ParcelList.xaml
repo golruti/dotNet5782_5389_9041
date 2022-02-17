@@ -92,29 +92,32 @@
     <Grid  Background="Gray">
         <Grid.RowDefinitions>
 
+            <RowDefinition Height="30*"/>
             <RowDefinition Height="156*"/>
             <RowDefinition Height="299*"/>
             <RowDefinition Height="95*"/>
 
         </Grid.RowDefinitions>
-        <Grid   Name="UpGrid"  Grid.Row="0" Margin="0,13,0,13" Height="55">
+
+        <CheckBox Content="Do Not Filter" Click="CheckBox_Click" />
+        <Grid Name="UpGrid"  Grid.Row="1" Margin="0,13,0,13" Height="55">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="0*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="40*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="40*"/>
-                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="58.824"/>
+                <ColumnDefinition Width="59*"/>
+                <ColumnDefinition Width="59*"/>
+                <ColumnDefinition Width="59*"/>
+                <ColumnDefinition Width="59*"/>
+                <ColumnDefinition Width="59*"/>
+                <ColumnDefinition Width="59*"/>
+                <ColumnDefinition Width="59*"/>
+                <ColumnDefinition Width="94*"/>
+                <ColumnDefinition Width="47*"/>
+                <ColumnDefinition Width="94*"/>
+                <ColumnDefinition Width="94*"/>
 
             </Grid.ColumnDefinitions >
 
@@ -135,7 +138,7 @@
                 <RadioButton Content="Don't Group" Click="RadioButton_Click" />
             </StackPanel>
         </Grid>
-        <ListView x:Name="ParcelesListView"   ItemsSource="{Binding ParcelsForList}" Grid.Row="1"  MouseDoubleClick="ParcelListView_MouseDoubleClick">
+        <ListView x:Name="ParcelesListView"   ItemsSource="{Binding ParcelsForList}" Grid.Row="2"  MouseDoubleClick="ParcelListView_MouseDoubleClick">
             <ListView.View >
 
                 <GridView  >
@@ -173,9 +176,7 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-
-
-        <Grid x:Name="Buttons" Margin="10,19,-10,20" Grid.Row="2" Visibility="Visible">
+        <Grid x:Name="Buttons" Margin="10,19,-10,20" Grid.Row="3" Visibility="Visible">
             <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="Close_Page" Content="close" Width="100" Margin="208,0,492,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
             <Button Style="{DynamicResource RoundCorner}" Height="25" VerticalAlignment="Center" Click="ShowAddParcelWindow" Content="add parcel" Width="100" Margin="337,0,363,0" Grid.Row="2" FontSize="10" FontFamily="Consolas" FontWeight="Bold"/>
         </Grid>

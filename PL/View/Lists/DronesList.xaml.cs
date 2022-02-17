@@ -32,7 +32,6 @@ namespace PL
             droneListViewModel = new DroneListViewModel();
             droneListViewModel.DronesList.Filter = FilterDrone;
             this.DataContext = droneListViewModel;
-            droneListViewModel.DronesList.GroupDescriptions.Add(new PropertyGroupDescription("Status"));
         }
 
 
@@ -149,6 +148,20 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
+        }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+
+            if (checkBox.IsChecked == true)
+            {
+                droneListViewModel.DronesList.GroupDescriptions.Add(new PropertyGroupDescription("Status"));
+            }
+            else
+            {
+                droneListViewModel.DronesList.GroupDescriptions.Clear();
+            }
         }
     }
 }

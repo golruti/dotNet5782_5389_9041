@@ -25,6 +25,10 @@ namespace PL
     {
         ParcelListViewModel parcelListViewModel;
 
+        public bool ShouldFilter { get; set; } = true;
+
+        public bool IsInCustomerMode { get; set; } = false;
+
         public ParcelList(int? customerId = null)
         {
             InitializeComponent();
@@ -36,7 +40,10 @@ namespace PL
             ReceiveId.DataContext = PO.ListsModel.Bl.GetParcelForList().Select(item => item.ReceiveCustomer).Distinct();
             ParcelStatuses.DataContext = Enum.GetValues(typeof(Enums.ParcelStatuses));
             if (customerId != null)
+            {
                 Buttons.Visibility = Visibility.Collapsed;
+                IsInCustomerMode = true;
+            }
             else
                 Buttons.Visibility = Visibility.Visible;
                 //customerId != null ? Buttons.Visibility = Visibility.Collapsed : Buttons.Visibility = Visibility.Visible;
@@ -107,7 +114,7 @@ namespace PL
             if (selectedParcel != null)
             {
                 TabItem tabItem = new TabItem();
-                tabItem.Content = new Parcel(selectedParcel.Id);
+                tabItem.Content = new Parcel(selectedParcel.Id, IsInCustomerMode);
                 tabItem.Header = "Update Parcel";
                 tabItem.Visibility = Visibility.Visible;
                 Tabs.AddTab(tabItem);
@@ -151,6 +158,8 @@ namespace PL
 
         private bool FilterParcel(object obj)
         {
+            if (!ShouldFilter) return true;
+
             if (obj is PO.ParcelForList parcel)
             {
                 return (parcelListViewModel.Customer == null || parcel.SendCustomer == parcelListViewModel.Customer.Name || parcel.ReceiveCustomer == parcelListViewModel.Customer.Name)
@@ -166,6 +175,14 @@ namespace PL
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
             parcelListViewModel.ParcelsForList.GroupDescriptions.Clear();
+        }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+
+            ShouldFilter = checkBox.IsChecked != true;
+            RefreshFilter();
         }
     }
 }
