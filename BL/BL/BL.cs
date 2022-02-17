@@ -38,7 +38,6 @@ namespace BL
             mediumWeight = arr[2];
             heavyWeight = arr[3];
             chargingRate = arr[4];
-
         }
 
         /// <summary>

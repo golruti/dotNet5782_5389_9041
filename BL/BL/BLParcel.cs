@@ -11,10 +11,6 @@ namespace BL
     partial class BL
     {
         //--------------------------------------------Adding-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Add a parcel to the list of purcels
-        /// </summary>
-        /// <param name="tempParcel">The parcel for Adding</param>
         public void AddParcel(Parcel tempParcel)
         {
             try
@@ -42,37 +38,80 @@ namespace BL
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
         }
-        //--------------------------------------------Delete-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function gets a customer ID and tries to delete it
-        /// </summary>
-        /// <param name="station"></param>
-        public void deleteBLParcel(int parcelId)
+
+        //--------------------------------------------Update-------------------------------------------------------------------------------------------
+        public void AssignParcelToDrone(int id)
         {
-            var parcel = GetBLParcel(parcelId);
-            if (parcel.Scheduled != null && parcel.Delivered == null)
-                throw new TheParcelIsAssociatedAndCannotBeDeleted();
-            try
+            Drone drone = GetBLDrone(id);
+
+            if (drone.Equals(default(Drone)) || drone.Status != DroneStatuses.Available)
+                throw new KeyNotFoundException("drone not exist  or not available -BL-");
+
+            int parcelId = -1;
+            bool isExist = false;
+            Priorities priority = Priorities.Regular;
+            WeightCategories weight = WeightCategories.Light;
+            double distance = double.MaxValue;
+            IEnumerable<DO.Parcel> parcels;
+            lock (dal) { parcels = dal.GetParcels(parcel => parcel.IsDeleted == false && parcel.Scheduled == null); }
+
+            foreach (DO.Parcel parcel in parcels)
             {
-                lock (dal) { dal.DeleteParcel(parcelId); }
+                if (parcel.Scheduled == null)
+                {
+                    var batteryWayToSender = minBattery(drone.Location, GetBLCustomer(parcel.SenderId).Location, DroneStatuses.Available, drone.MaxWeight);
+                    var batteryWayToTarget = minBattery(GetBLCustomer(parcel.SenderId).Location, GetBLCustomer(parcel.TargetId).Location, DroneStatuses.Delivery, (WeightCategories)parcel.Weight);
+                    if ((batteryWayToSender + batteryWayToTarget) < drone.Battery && (WeightCategories)parcel.Weight <= drone.MaxWeight)
+                    {
+                        if ((Priorities)parcel.Priority > priority)
+                        {
+                            parcelId = parcel.Id;
+                            priority = (Priorities)parcel.Priority;
+                            isExist = true;
+                        }
+                        else
+                        {
+                            if ((WeightCategories)parcel.Weight > weight && (Priorities)parcel.Priority == priority)
+                            {
+                                parcelId = parcel.Id;
+                                weight = (WeightCategories)parcel.Weight;
+                                isExist = true;
+                            }
+                            else
+                            {
+                                if (this.distance(drone.Location.Latitude, GetBLCustomer(parcel.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(parcel.SenderId).Location.Longitude) < distance && (Enums.WeightCategories)parcel.Weight == weight && (Enums.Priorities)parcel.Priority == priority)
+                                {
+                                    isExist = true;
+                                    parcelId = parcel.Id;
+                                    distance = this.distance(drone.Location.Latitude, GetBLCustomer(parcel.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(parcel.SenderId).Location.Longitude);
+                                }
+                                else
+                                {
+                                    if (isExist == false)
+                                    {
+                                        isExist = true;
+                                        parcelId = parcel.Id;
+                                        priority = (Enums.Priorities)parcel.Priority;
+                                        weight = (Enums.WeightCategories)parcel.Weight;
+                                        distance = this.distance(drone.Location.Latitude, GetBLCustomer(parcel.SenderId).Location.Latitude, drone.Location.Longitude, GetBLCustomer(parcel.SenderId).Location.Longitude);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            catch (KeyNotFoundException ex)
+            if (isExist == false)
+                throw new NoParcelFoundForConnectionToTheDroneException("-BL-");
+            else
             {
-                throw new KeyNotFoundException("Delete parcel -BL-" + ex.Message, ex);
-            }
-            catch (DO.TheParcelIsAssociatedAndCannotBeDeleted ex)
-            {
-                throw new TheParcelIsAssociatedAndCannotBeDeleted("Delete parcel -BL-" + ex.Message, ex);
+                UpdateDroneStatus(drone.Id, DroneStatuses.Delivery, drone.Battery, parcelId, drone.Location.Longitude, drone.Location.Latitude);
+                UpdateParcelScheduled(parcelId, drone.Id);
             }
         }
 
-        //--------------------------------------------Update-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function updates the details when the parcel is associated with the drone
-        /// </summary>
-        /// <param name="parcelId"></param>
-        /// <param name="droneId"></param>
-        /// <param name="dateTime"></param>
+
         public void UpdateParcelScheduled(int parcelId, int droneId)
         {
             try
@@ -85,12 +124,97 @@ namespace BL
             }
         }
 
-        //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Retrieves the requested parcel from the data and converts it to BL parcel
-        /// </summary>
-        /// <param name="parcelId">The requested parcel</param>
-        /// <returns>A Bl parcel to print</returns>
+
+
+        public void ParcelCollection(int droneID)
+        {
+            DroneForList droneForList = drones.FirstOrDefault(drone => drone.Id == droneID);
+            DO.Parcel parcel;
+            DO.Customer customer;
+
+            if (droneForList != null)
+            {
+                if (droneForList.Status == DroneStatuses.Delivery)
+                {
+                    int parcelId = -1;
+                    foreach (var tempParcel in dal.GetParcels().Where(p => p.IsDeleted == false))
+                    {
+                        if (tempParcel.Droneld == droneID && tempParcel.PickedUp == null)
+                        {
+                            parcelId = tempParcel.Id;
+                            break;
+                        }
+                    }
+
+                    if (parcelId != -1)
+                    {
+                        lock (dal) { parcel = dal.GetParcel(parcelId); }
+                        lock (dal) { customer = dal.GetCustomer(parcel.TargetId); }
+                        Location location = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
+                        droneForList.Battery -= minBattery(droneForList.Location, location, droneForList.Status, droneForList.MaxWeight) + 1;
+                        droneForList.Location = location;
+                        lock (dal) { dal.UpdateParcelPickedUp(parcel.Id); }
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException("not find the parcel -BL-");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException("the drone not in delivery");
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException("not find the drone -BL-");
+            }
+        }
+
+
+        public void UpdateParcelDelivered(int droneId)
+        {
+            DroneForList drone = GetBLDroneInList(droneId);
+            IEnumerable<DO.Parcel> parcels;
+            lock (dal) { parcels = dal.GetParcels(p => p.IsDeleted == false); }
+
+            if (drone.ParcelDeliveredId != -1)
+            {
+                DO.Parcel parcel = new DO.Parcel();
+
+                foreach (DO.Parcel item in parcels)
+                {
+                    if (item.Id == drone.ParcelDeliveredId)
+                    {
+                        if (item.PickedUp != null && item.Delivered == null)
+                        {
+                            parcel = item;
+                            break;
+                        }
+                        else
+                        {
+                            throw new ArgumentNullException("not find the drone -BL-");
+                        }
+                    }
+                }
+
+                //update local drone list
+                Customer customer = GetBLCustomer(parcel.TargetId);
+                drone.Status = DroneStatuses.Available;
+                drone.Battery -= minBattery(drone.Location, customer.Location, drone.Status, drone.MaxWeight) + 1;
+                drone.Location = customer.Location;
+                drone.ParcelDeliveredId = -1;
+                //update data list
+                lock (dal) { dal.UpdateParcelDelivered(parcel.Id); }
+            }
+            else
+            {
+                throw new ArgumentNullException("the drone not in delivery -BL-");
+            }
+        }
+
+
+        //---------------------------------------------Show item---------------------------------------------------------------------
         public Parcel GetBLParcel(int parcelId)
         {
             try
@@ -103,11 +227,7 @@ namespace BL
             }
         }
 
-        //--------------------------------------------Show list--------------------------------------------------------------------            
-        /// <summary>
-        /// he function returns the parcel list from DAL to the ParcelForList list
-        /// </summary>
-        /// <returns>The list of ParcelForList parcels</returns>
+        //--------------------------------------------Show list----------------------------------------------------------------------            
         public IEnumerable<ParcelForList> GetParcelForList()
         {
             List<ParcelForList> ParcelsForList = new List<ParcelForList>();
@@ -138,19 +258,55 @@ namespace BL
             return ParcelsForList;
         }
 
-        /// <summary>
-        /// The function receives a predicate and returns the list that maintains the predicate
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>List of ParcelForList that maintain the predicate</returns>
         public IEnumerable<ParcelForList> GetParcelForList(Predicate<ParcelForList> predicate)
         {
             return GetParcelForList().Where(parcel => predicate(parcel));
         }
 
 
+        //--------------------------------------------Delete-------------------------------------------------------------------------------------------
+        public void deleteBLParcel(int parcelId)
+        {
+            var parcel = GetBLParcel(parcelId);
+            if (parcel.Scheduled != null && parcel.Delivered == null)
+                throw new TheParcelIsAssociatedAndCannotBeDeleted();
+            try
+            {
+                lock (dal) { dal.DeleteParcel(parcelId); }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Delete parcel -BL-" + ex.Message, ex);
+            }
+            catch (DO.TheParcelIsAssociatedAndCannotBeDeleted ex)
+            {
+                throw new TheParcelIsAssociatedAndCannotBeDeleted("Delete parcel -BL-" + ex.Message, ex);
+            }
+        }
+
 
         //--------------------------------------------Initialize the parcel --------------------------------------------------------
+
+        public Enums.ParcelStatuses GetParcelStatusByDrone(int parcelId)
+        {
+            Parcel parcel;
+            try
+            {
+                lock (dal) { parcel = mapParcel(dal.GetParcel(parcelId)); }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Get parcel by id -BL-" + ex.Message, ex);
+            }
+
+            if (parcel.Delivered != null)
+                return Enums.ParcelStatuses.Provided;
+            if (parcel.PickedUp != null)
+                return Enums.ParcelStatuses.Collected;
+            if (parcel.Scheduled != null)
+                return Enums.ParcelStatuses.Associated;
+            return Enums.ParcelStatuses.Created;
+        }
 
         /// <summary>
         /// Retrieves the list of parcels from the data and converts it to BL parcel 
@@ -172,31 +328,7 @@ namespace BL
             return GetAllParcels().Where(parcel => predicate(parcel));
         }
 
-        /// <summary>
-        /// The function returns the status of the package according to the drone to which it is associated
-        /// </summary>
-        /// <param name="parcelId"></param>
-        /// <returns></returns>
-        public Enums.ParcelStatuses GetParcelStatusByDrone(int parcelId)
-        {
-            Parcel parcel;
-            try
-            {
-                lock (dal) { parcel = mapParcel(dal.GetParcel(parcelId)); }
-            }
-            catch (KeyNotFoundException ex)
-            {
-                throw new KeyNotFoundException("Get parcel by id -BL-" + ex.Message, ex);
-            }
 
-            if (parcel.Delivered != null)
-                return Enums.ParcelStatuses.Provided;
-            if (parcel.PickedUp != null)
-                return Enums.ParcelStatuses.Collected;
-            if (parcel.Scheduled != null)
-                return Enums.ParcelStatuses.Associated;
-            return Enums.ParcelStatuses.Created;
-        }
 
         /// <summary>
         /// Convert a DAL parcel to BL parcel
@@ -250,8 +382,6 @@ namespace BL
 
             lock (dal) { sender = dal.GetCustomer(parcel.SenderId); }
             lock (dal) { target = dal.GetCustomer(parcel.TargetId); }
-            //if (sender.Equals(default(DO.Customer)) || target.Equals(default(DO.Customer)))
-              //  throw new KeyNotFoundException("not found sender customer/target customer -BL-");
 
             return new ParcelByTransfer
             {

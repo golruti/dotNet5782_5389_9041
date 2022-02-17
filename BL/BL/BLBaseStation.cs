@@ -9,11 +9,7 @@ namespace BL
 {
     partial class BL
     {
-        //--------------------------------------------Adding-------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Add a station to the list of base stations
-        /// </summary>
-        /// <param name="tempBaseStation">The station for Adding</param>
+        //--------------------------------------------Adding---------------------------------------------------------------------------------------------
         public void AddBaseStation(BaseStation tempBaseStation)
         {
             try
@@ -37,40 +33,8 @@ namespace BL
                 throw new ThereIsAnObjectWithTheSameKeyInTheListException(ex.Message, ex);
             }
         }
-        //---------------------------------------------Delete ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function gets a station ID and tries to delete it
-        /// </summary>
-        /// <param name="station"></param>
-        public void deleteBLBaseStation(int stationId)
-        {
-            //Delete drone in charge if any
-            BaseStation station;
-            IEnumerable<int> dronesIds;
-            lock (dal) { station = mapBaseStation(dal.GetBaseStation(stationId)); }
-            lock (dal) { dronesIds = station.DronesInCharging.Select(d => d.Id); }
-            lock (dal) { dronesIds.ToList().ForEach(id => UpdateRelease(id)); }
 
-            try
-            {
-                lock (dal)
-                {
-                    dal.DeleteBaseStation(stationId);
-                }
-            }
-            catch (KeyNotFoundException ex)
-            {
-                throw new KeyNotFoundException("Delete base station -BL-" + ex.Message, ex);
-            }
-        }
-
-        //---------------------------------------------Update ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// update base station 
-        /// </summary>
-        /// <param name="id">id of the base station</param>
-        /// <param name="name">name of the base station</param>
-        /// <param name="chargeSlote">sum of charge slote</param>
+        //---------------------------------------------Update -----------------------------------------------------------------------------------------
         public void UpdateBaseStation(int id, string name = "-1", int chargeSlote = -1)
         {
             DO.BaseStation tempBaseStation;
@@ -85,7 +49,6 @@ namespace BL
             {
                 throw new KeyNotFoundException("Get base station -BL-" + ex.Message, ex);
             }
-
 
             if (name == "-1")
             {
@@ -124,12 +87,7 @@ namespace BL
             }
         }
 
-        //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Retrieves the requested base station from the data and converts it to BL base station
-        /// </summary>
-        /// <param name="id">The requested base station id</param>
-        /// <returns>A Bl base station to print</returns>
+        //---------------------------------------------Show item--------------------------------------------------------------------------------------------
         public BaseStation GetBLBaseStation(int id)
         {
             try
@@ -145,11 +103,7 @@ namespace BL
             }
         }
 
-        //---------------------------------------------Show list ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function returns the base station list from DAL converts it to BL base station list
-        /// </summary>
-        /// <returns> The list of BaseStationForList stations </returns>
+        //---------------------------------------------Show list -------------------------------------------------------------------------------------------
         public IEnumerable<BaseStationForList> GetBaseStationForList()
         {
             List<BaseStationForList> BaseStationsForList = new List<BaseStationForList>();
@@ -175,22 +129,12 @@ namespace BL
         }
 
 
-        /// <summary>
-        /// The function receives a predicate and returns the list that maintains the predicate
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>List of BaseStationForList that maintain the predicate</returns>
         public IEnumerable<BaseStationForList> GetBaseStationForList(Predicate<BaseStationForList> predicate)
         {
             return GetBaseStationForList().Where(station => predicate(station));
         }
 
 
-        /// <summary>
-        /// Returns the stations with with free charging stations
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
         public IEnumerable<BaseStationForList> GetAvaBaseStationForList()
         {
             List<BaseStationForList> BaseStationsForList = new List<BaseStationForList>();
@@ -213,8 +157,34 @@ namespace BL
             return BaseStationsForList;
         }
 
-        //--------------------------------------------Initialize the parcel list--------------------------------------------------------
 
+
+        //---------------------------------------------Delete ------------------------------------------------------------------------------------------
+        public void deleteBLBaseStation(int stationId)
+        {
+            //Delete drone in charge if any
+            BaseStation station;
+            IEnumerable<int> dronesIds;
+            lock (dal) { station = mapBaseStation(dal.GetBaseStation(stationId)); }
+            lock (dal) { dronesIds = station.DronesInCharging.Select(d => d.Id); }
+            lock (dal) { dronesIds.ToList().ForEach(id => UpdateRelease(id)); }
+
+            try
+            {
+                lock (dal)
+                {
+                    dal.DeleteBaseStation(stationId);
+                }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Delete base station -BL-" + ex.Message, ex);
+            }
+        }
+
+
+
+        //--------------------------------------------Initialize the parcel list---------------------------------------------------------------------
         /// <summary>
         /// Convert a DAL station to BL satation
         /// </summary>
@@ -245,21 +215,6 @@ namespace BL
                 droneCharges = dal.GetDronesCharges(droneCharge => droneCharge.StationId == stationId && droneCharge.IsDeleted == false);
             }
             return droneCharges.Count();
-        }
-
-        /// <summary>
-        /// The function returns a single ID of a lottery station from among the existing stations
-        /// </summary>
-        /// <returns> ids station</returns>
-        private int randStation()
-        {
-            IEnumerable<int> ids;
-            lock (dal)
-            {
-                ids = dal.GetAvaBaseStations().Where(s => s.IsDeleted == false).Select(s => s.Id);
-            }
-            var randStationId = ids.ToList()[rand.Next(0, ids.Count() - 1)];
-            return randStationId;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace BL
 {
     partial class BL
     {
-        //---------------------------------------------Show item----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //---------------------------------------------Show item-------------------------------------------------------------------------------------------
         internal DO.DroneCharge GetDroneInChargByID(int id)
         {
             try
@@ -21,12 +21,7 @@ namespace BL
                 throw new KeyNotFoundException("Get drone charge -BL-" + ex.Message, ex);
             }
         }
-        //---------------------------------------------Show list----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// The function returns a list of drones loaded at a particular base station
-        /// </summary>
-        /// <param name="stationId">The station ID</param>
-        /// <returns>The list of drones in charge</returns>
+        //---------------------------------------------Show list------------------------------------------------------------------------------------------
         public IEnumerable<DroneInCharging> GetDronesInCharging(int stationId)
         {
             IEnumerable<DO.DroneCharge> droneChargeList;
@@ -48,10 +43,6 @@ namespace BL
             return droneInChargings;
         }
 
-        /// <summary>
-        /// The function returns the list drone charges
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<DroneInCharging> GetDronesInCharging()
         {
             IEnumerable<DO.DroneCharge> droneChargaeList;

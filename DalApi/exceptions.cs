@@ -9,6 +9,11 @@ using System.Runtime.Serialization;
 
 namespace DO
 {
+
+
+    /// <summary>
+    /// When adding a new object - there is an object in the data with a similar ID.
+    /// </summary>
     #region ThereIsAnObjectWithTheSameKeyInTheListException
     [Serializable]
     public class ThereIsAnObjectWithTheSameKeyInTheListException : Exception
@@ -25,6 +30,10 @@ namespace DO
     }
     #endregion
 
+
+    /// <summary>
+    /// For the factory operation to the DAL layer.
+    /// </summary>
     #region DalConfigException
     public class DalConfigException : Exception
     {
@@ -34,7 +43,9 @@ namespace DO
     #endregion
 
 
-    //החבילה מקושרת לרחפן ולא יכולה להימחק
+    /// <summary>
+    /// The parcel is linked to a drone and cannot be deleted.
+    /// </summary>
     #region TheParcelIsAssociatedAndCannotBeDeleted
     [Serializable]
 

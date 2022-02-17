@@ -8,7 +8,10 @@ using System.Runtime.Serialization;
 
 namespace BO
 {
-    //אין תחנת בסיס קרובה שהרחפן יכול להגיע אליה
+    /// <summary>
+    /// There is no nearby base station that the drone can reach.
+    /// </summary>
+    #region
     [Serializable]
     public class ThereIsNoNearbyBaseStationThatTheDroneCanReachException : Exception
     {
@@ -22,8 +25,13 @@ namespace BO
             return Message + "There is no nearby base station that the drone can reach exception";
         }
     }
+    #endregion
 
-    //קיים מישהו עם אותו מזהה
+
+    /// <summary>
+    /// When adding a new object - there is an object in the data with a similar ID.
+    /// </summary>
+   #region
     [Serializable]
     public class ThereIsAnObjectWithTheSameKeyInTheListException : Exception
     {
@@ -37,10 +45,14 @@ namespace BO
             return Message + "An element with the same key already exists in the list";
         }
     }
+    #endregion
 
-    //החבילה מקושרת לרחפן ולא יכולה להימחק
+
+    /// <summary>
+    /// The parcel is linked to the drone and can not be deleted.
+    /// </summary>
+    #region
     [Serializable]
-    
     public class TheParcelIsAssociatedAndCannotBeDeleted : Exception
     {
         public TheParcelIsAssociatedAndCannotBeDeleted() : base() { }
@@ -53,11 +65,14 @@ namespace BO
             return Message + "The parcel is associated with a drone and cannot be deleted";
         }
     }
+    #endregion
 
 
-    //אין חבילה לשלחיחה
+    /// <summary>
+    /// No parcel suitable for the conditions of the drone has been found.
+    /// </summary>
+    #region
     [Serializable]
-
     public class NoParcelFoundForConnectionToTheDroneException : Exception
     {
         public NoParcelFoundForConnectionToTheDroneException() : base() { }
@@ -70,13 +85,17 @@ namespace BO
             return Message + "There is no parcel that needs to be sent - associate it with the drone";
         }
     }
+    #endregion
 
 
-
+    /// <summary>
+    /// For the factory operation to the BL layer.
+    /// </summary>
+    #region
     public class BLConfigException : Exception
     {
         public BLConfigException(string msg) : base(msg) { }
         public BLConfigException(string msg, Exception ex) : base(msg, ex) { }
     }
-
+    #endregion
 }
