@@ -10,8 +10,6 @@ namespace PL.ViewModel
 {
     public class CustomerViewModel
     {
-        public PO.Customer CustomerInList { get; set; }
-
         public CustomerViewModel()
         {
             this.CustomerInList = new PO.Customer();
@@ -20,5 +18,8 @@ namespace PL.ViewModel
         {
             this.CustomerInList = ConvertFunctions.BOCustomerToPO(ListsModel.Bl.GetBLCustomer(customerInList.Id));
         }
+
+        public PO.Customer CustomerInList { get; set; }
+
     }
 }

@@ -13,8 +13,6 @@ namespace PL.ViewModel
     public class DroneInChargeListViewModel : INotifyPropertyChanged
     {
 
-        private int stationId { get;  set; }
-        private ListCollectionView dronesInChargeList;
         public ListCollectionView DronesInChargeList
         {
             get { return dronesInChargeList; }
@@ -25,12 +23,6 @@ namespace PL.ViewModel
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
-
-
-        //public DroneInChargeListViewModel(int stationId)
-        //{
-        //    DronesInChargeList = new ListCollectionView(PO.ListsModel.dronesCharging);
-        //    this.stationId = stationId;
-        //}
+        private ListCollectionView dronesInChargeList;
     }
 }

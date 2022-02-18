@@ -16,6 +16,7 @@ namespace PL.ViewModel
     public class DroneListViewModel : INotifyPropertyChanged
     {
         public const string NONE_VALUE = "None";
+
         public DroneListViewModel()
         {
             DronesList = new ListCollectionView(ListsModel.drones);
@@ -23,10 +24,6 @@ namespace PL.ViewModel
             DroneStatuses = Enum.GetValues(typeof(Enums.DroneStatuses)).OfType<object>().Union(new List<object>() { NONE_VALUE });
         }
 
-
-        public IEnumerable DroneStatuses { get; set; }
-        public IEnumerable DroneWeights { get; set; }
-        private ListCollectionView dronesList;
         public ListCollectionView DronesList
         {
             get { return dronesList; }
@@ -36,7 +33,9 @@ namespace PL.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DronesList)));
             }
         }
+        private ListCollectionView dronesList;
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public IEnumerable DroneStatuses { get; set; }
+        public IEnumerable DroneWeights { get; set; }
     }
 }

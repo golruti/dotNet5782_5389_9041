@@ -20,10 +20,6 @@ namespace PL.ViewModel
         }
 
 
-        private ListCollectionView customersForList;
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
         public ListCollectionView CustomersForList
         {
             get { return customersForList; }
@@ -33,5 +29,7 @@ namespace PL.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CustomersForList)));
             }
         }
+        private ListCollectionView customersForList;
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

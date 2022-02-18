@@ -187,12 +187,12 @@
     <Id>83</Id>
     <SenderId>89</SenderId>
     <TargetId>100</TargetId>
-    <Droneld>-1</Droneld>
+    <Droneld>410</Droneld>
     <Weight>Light</Weight>
     <Priority>Regular</Priority>
     <Requested>2022-02-18T02:10:17.5927966+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
+    <Scheduled>2022-02-18T02:50:12.2080056+02:00</Scheduled>
+    <PickedUp>2022-02-18T02:50:15.2446172+02:00</PickedUp>
+    <Delivered>2022-02-18T02:50:15.2626223+02:00</Delivered>
   </Parcel>
 </ArrayOfParcel>

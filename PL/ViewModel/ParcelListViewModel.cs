@@ -6,10 +6,6 @@ namespace PL.ViewModel
 {
     public class ParcelListViewModel
     {
-        private ListCollectionView parcelsForList;
-        public event PropertyChangedEventHandler PropertyChanged;
-        public BO.Customer Customer { get; set; }
-
         public ParcelListViewModel(int? customerId = null)
         {
             ParcelsForList = new ListCollectionView(ListsModel.parcels);
@@ -26,5 +22,8 @@ namespace PL.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ParcelsForList)));
             }
         }
+        private ListCollectionView parcelsForList;
+        public BO.Customer Customer { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

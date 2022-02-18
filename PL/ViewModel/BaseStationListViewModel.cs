@@ -14,9 +14,6 @@ namespace PL.ViewModel
 {
     public class BaseStationListViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        ListCollectionView baseStationsList;
 
         public BaseStationListViewModel()
         {
@@ -32,6 +29,8 @@ namespace PL.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BaseStationsList)));
             }
         }
+        ListCollectionView baseStationsList;
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
 

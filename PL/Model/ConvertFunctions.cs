@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace PO
 {
+    /// <summary>
+    /// This class converts BO objects to PO type.
+    /// </summary>
     public class ConvertFunctions
     {
         internal static Enums.WeightCategories BOEnumWeightCategoriesToPO(BO.Enums.WeightCategories weight)
