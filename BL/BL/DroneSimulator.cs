@@ -49,6 +49,8 @@ namespace BL
                 catch (Exception)
                 {
                     break;
+                    Thread.Sleep(6000);
+
                 }
                 update();
                 Thread.Sleep(1000);
@@ -80,6 +82,7 @@ namespace BL
                         {
                             //If no station is found close to charging -
                             //the simulator will keep trying again and again until space becomes available.
+                            
                         }
                     }
                 }

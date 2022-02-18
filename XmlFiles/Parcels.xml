@@ -236,19 +236,6 @@
   </Parcel>
   <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
-    <Id>87</Id>
-    <SenderId>89</SenderId>
-    <TargetId>89</TargetId>
-    <Droneld>410</Droneld>
-    <Weight>Heavy</Weight>
-    <Priority>Regular</Priority>
-    <Requested>2022-02-18T04:43:23.1361758+02:00</Requested>
-    <Scheduled>2022-02-18T04:48:09.5035761+02:00</Scheduled>
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
     <Id>88</Id>
     <SenderId>100</SenderId>
     <TargetId>89</TargetId>
@@ -304,65 +291,65 @@
     <Id>92</Id>
     <SenderId>100</SenderId>
     <TargetId>89</TargetId>
-    <Droneld>-1</Droneld>
+    <Droneld>20</Droneld>
     <Weight>Light</Weight>
     <Priority>Regular</Priority>
     <Requested>2022-02-18T04:51:21.3330383+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
+    <Scheduled>2022-02-18T06:36:32.6749494+02:00</Scheduled>
+    <PickedUp>2022-02-18T06:36:34.6965909+02:00</PickedUp>
+    <Delivered>2022-02-18T06:36:34.7030783+02:00</Delivered>
   </Parcel>
   <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
     <Id>93</Id>
     <SenderId>789</SenderId>
     <TargetId>89</TargetId>
-    <Droneld>-1</Droneld>
+    <Droneld>20</Droneld>
     <Weight>Light</Weight>
     <Priority>Fast</Priority>
     <Requested>2022-02-18T04:51:33.5541876+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
+    <Scheduled>2022-02-18T06:36:26.613059+02:00</Scheduled>
+    <PickedUp>2022-02-18T06:36:28.629754+02:00</PickedUp>
+    <Delivered>2022-02-18T06:36:28.63382+02:00</Delivered>
   </Parcel>
   <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
     <Id>94</Id>
     <SenderId>789</SenderId>
     <TargetId>89</TargetId>
-    <Droneld>-1</Droneld>
+    <Droneld>20</Droneld>
     <Weight>Light</Weight>
     <Priority>Emergency</Priority>
     <Requested>2022-02-18T04:51:43.1210123+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
+    <Scheduled>2022-02-18T06:36:20.5118151+02:00</Scheduled>
+    <PickedUp>2022-02-18T06:36:23.0499816+02:00</PickedUp>
+    <Delivered>2022-02-18T06:36:23.0550762+02:00</Delivered>
   </Parcel>
   <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
     <Id>95</Id>
     <SenderId>12</SenderId>
     <TargetId>89</TargetId>
-    <Droneld>-1</Droneld>
+    <Droneld>20</Droneld>
     <Weight>Light</Weight>
     <Priority>Fast</Priority>
     <Requested>2022-02-18T04:51:51.6496098+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
+    <Scheduled>2022-02-18T06:36:24.0795135+02:00</Scheduled>
+    <PickedUp>2022-02-18T06:36:25.5915522+02:00</PickedUp>
+    <Delivered>2022-02-18T06:36:25.5976443+02:00</Delivered>
   </Parcel>
   <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
     <Id>96</Id>
     <SenderId>100</SenderId>
     <TargetId>12</TargetId>
-    <Droneld>-1</Droneld>
+    <Droneld>20</Droneld>
     <Weight>Light</Weight>
     <Priority>Fast</Priority>
     <Requested>2022-02-18T04:52:01.5967349+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
+    <Scheduled>2022-02-18T06:36:29.6474937+02:00</Scheduled>
+    <PickedUp>2022-02-18T06:36:31.6605045+02:00</PickedUp>
+    <Delivered>2022-02-18T06:36:31.6651508+02:00</Delivered>
   </Parcel>
   <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
@@ -376,5 +363,57 @@
     <Scheduled xsi:nil="true" />
     <PickedUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
+  </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>98</Id>
+    <SenderId>789</SenderId>
+    <TargetId>89</TargetId>
+    <Droneld>20</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <Requested>2022-02-18T06:40:11.356563+02:00</Requested>
+    <Scheduled>2022-02-18T06:40:29.5002321+02:00</Scheduled>
+    <PickedUp>2022-02-18T06:40:40.4728408+02:00</PickedUp>
+    <Delivered>2022-02-18T06:40:40.4791531+02:00</Delivered>
+  </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>99</Id>
+    <SenderId>89</SenderId>
+    <TargetId>89</TargetId>
+    <Droneld>20</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <Requested>2022-02-18T06:42:45.1425525+02:00</Requested>
+    <Scheduled>2022-02-18T06:42:56.4039911+02:00</Scheduled>
+    <PickedUp>2022-02-18T06:43:02.1390822+02:00</PickedUp>
+    <Delivered>2022-02-18T06:43:02.1466005+02:00</Delivered>
+  </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>100</Id>
+    <SenderId>100</SenderId>
+    <TargetId>89</TargetId>
+    <Droneld>20</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <Requested>2022-02-18T06:44:20.0276527+02:00</Requested>
+    <Scheduled>2022-02-18T06:44:29.5179892+02:00</Scheduled>
+    <PickedUp>2022-02-18T06:44:34.8611107+02:00</PickedUp>
+    <Delivered>2022-02-18T06:44:34.8770358+02:00</Delivered>
+  </Parcel>
+  <Parcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>101</Id>
+    <SenderId>12</SenderId>
+    <TargetId>89</TargetId>
+    <Droneld>20</Droneld>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <Requested>2022-02-18T06:46:04.7182519+02:00</Requested>
+    <Scheduled>2022-02-18T06:46:13.0201435+02:00</Scheduled>
+    <PickedUp>2022-02-18T06:46:21.5156077+02:00</PickedUp>
+    <Delivered>2022-02-18T06:46:21.5236826+02:00</Delivered>
   </Parcel>
 </ArrayOfParcel>

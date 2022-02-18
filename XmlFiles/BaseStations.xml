@@ -213,8 +213,8 @@
     <Name>station2</Name>
     <Longitude>36</Longitude>
     <Latitude>51</Latitude>
-    <ChargeSlote>2</ChargeSlote>
-    <AvailableChargingPorts>2</AvailableChargingPorts>
+    <ChargeSlote>0</ChargeSlote>
+    <AvailableChargingPorts>0</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>true</IsDeleted>
@@ -294,7 +294,16 @@
     <Name>stationn</Name>
     <Longitude>23</Longitude>
     <Latitude>23</Latitude>
-    <ChargeSlote>8</ChargeSlote>
-    <AvailableChargingPorts>7</AvailableChargingPorts>
+    <ChargeSlote>0</ChargeSlote>
+    <AvailableChargingPorts>0</AvailableChargingPorts>
+  </BaseStation>
+  <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <IsDeleted>false</IsDeleted>
+    <Id>452</Id>
+    <Name>54</Name>
+    <Longitude>23</Longitude>
+    <Latitude>85</Latitude>
+    <ChargeSlote>50</ChargeSlote>
+    <AvailableChargingPorts>50</AvailableChargingPorts>
   </BaseStation>
 </ArrayOfBaseStation>

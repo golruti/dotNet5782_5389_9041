@@ -277,7 +277,7 @@ namespace BL
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        throw new KeyNotFoundException(ex.Message, ex);
+                        throw new NoStationAvailableForCharging(ex.Message, ex);
                     }
                 }
                 else
@@ -287,7 +287,7 @@ namespace BL
             }
             else
             {
-                throw new ArgumentNullException("the drone not available -BL-");
+                throw new NoStationAvailableForCharging("the drone not available -BL-");
             }
         }
 
