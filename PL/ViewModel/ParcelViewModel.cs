@@ -23,6 +23,7 @@ namespace PL.ViewModel
             this.ParcelInList = ConvertFunctions.BOParcelToPO(ListsModel.Bl.GetBLParcel(parcelInListId));
         }
 
+
         /// <summary>
         /// For logging in as a customer.
         /// </summary>
