@@ -27,6 +27,9 @@ namespace PL
     {
         BaseStationViewModel baseStationViewModel;
 
+        /// <summary>
+        /// Constructor for "Add Station" page.
+        /// </summary>
         public BaseStation()
         {
             InitializeComponent();
@@ -35,6 +38,9 @@ namespace PL
             Add_grid.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Constructor for "Update Station" page.
+        /// </summary>
         public BaseStation(BaseStationForList baseStationForList)
         {
             InitializeComponent();
@@ -43,6 +49,12 @@ namespace PL
             Update_grid.Visibility = Visibility.Visible;
         }
 
+
+        /// <summary>
+        /// Deleting a station.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteBaseStation(object sender, RoutedEventArgs e)
         {
             try
@@ -63,6 +75,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Adding a new station.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void add_Station_Click(object sender, RoutedEventArgs e)
         {
             if (double.TryParse(longitude.Text, out double @long) && double.TryParse(latitude.Text, out double lat))
@@ -119,16 +136,10 @@ namespace PL
 
 
         /// <summary>
-        /// Input filter for ID
+        /// View a specific station.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
@@ -153,24 +164,12 @@ namespace PL
             }
         }
 
-        private void Close_Page(object sender, RoutedEventArgs e)
-        {
-            object tmp = sender;
-            TabItem tabItem = null;
-            while (tmp.GetType() != typeof(TabControl))
-            {
-                if (tmp.GetType() == typeof(TabItem))
-                    tabItem = (tmp as TabItem);
-                tmp = ((FrameworkElement)tmp).Parent;
-            }
-            if (tmp is TabControl tabControl)
-                tabControl.Items.Remove(tabItem);
 
-            ListsModel.RefreshStations();
-            ListsModel.RefreshDrones();
-
-        }
-
+        /// <summary>
+        /// Update station information.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -178,7 +177,6 @@ namespace PL
                 if (update_name.Text != null && update_num_of_charging_ports.Text != null)
                 {
                     ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
-                    //(sender as Button).IsEnabled = false;
                 }
                 else if (update_name.Text != null)
                 {
@@ -219,6 +217,28 @@ namespace PL
             {
                 MessageBox.Show($"The base station could not be updated");
             }
+        }
+
+        /// <summary>
+        /// Close the tab.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Close_Page(object sender, RoutedEventArgs e)
+        {
+            Tabs.RemoveTab(sender, e);
+        }
+
+
+        /// <summary>
+        /// Input filter for ID/Location/phone.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

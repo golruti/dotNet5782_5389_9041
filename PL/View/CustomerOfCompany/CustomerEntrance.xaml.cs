@@ -19,7 +19,7 @@ using static PL.ViewModel.ListsModel;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for AA.xaml
+    /// Behind code for login and customer.
     /// </summary>
     public partial class CustomerEntrance : UserControl
     {
@@ -28,6 +28,11 @@ namespace PL
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Login of an existing customer.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sign_in_show_CustomerPageHome(object sender, RoutedEventArgs e)
         {
             int parse;
@@ -49,6 +54,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Add another user to the system.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sign_up_show_CustomerPageHome(object sender, RoutedEventArgs e)
         {
             bool succeeded = true;
@@ -99,18 +109,14 @@ namespace PL
         /// <param name="e"></param>
         private void Close_Page(object sender, RoutedEventArgs e)
         {
-            object tmp = sender;
-            TabItem tabItem = null;
-            while (tmp.GetType() != typeof(TabControl))
-            {
-                if (tmp.GetType() == typeof(TabItem))
-                    tabItem = (tmp as TabItem);
-                tmp = ((FrameworkElement)tmp).Parent;
-            }
-            if (tmp is TabControl tabControl)
-                tabControl.Items.Remove(tabItem);
+            Tabs.RemoveTab(sender, e);
         }
 
+        /// <summary>
+        /// Back button to previous page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Id_sign_up.Visibility = Visibility.Collapsed;
@@ -124,6 +130,11 @@ namespace PL
             back.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Screen display - existing user login.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Show_SignIn_buttons(object sender, RoutedEventArgs e)
         {
             Id_sign_in.Visibility = Visibility.Visible;
@@ -132,9 +143,13 @@ namespace PL
             center_sign_in.Visibility = Visibility.Collapsed;
             center_sign_up.Visibility = Visibility.Collapsed;
             back.Visibility = Visibility.Visible;
-
-
         }
+
+        /// <summary>
+        /// Screen display - Add user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Show_SignUp_buttons(object sender, RoutedEventArgs e)
         {
             Id_sign_up.Visibility = Visibility.Visible;
@@ -143,7 +158,6 @@ namespace PL
             center_sign_in.Visibility = Visibility.Collapsed;
             center_sign_up.Visibility = Visibility.Collapsed;
             back.Visibility = Visibility.Visible;
-
         }
     }
 }

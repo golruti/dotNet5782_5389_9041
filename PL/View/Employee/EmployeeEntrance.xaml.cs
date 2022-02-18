@@ -28,6 +28,11 @@ namespace PL
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Displays the options menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void show_EmployeeHomePage(object sender, RoutedEventArgs e)
         {
             int parse;
@@ -53,22 +58,13 @@ namespace PL
         }
 
         /// <summary>
-        /// the function close the page
+        /// Close the page.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Close_Page(object sender, RoutedEventArgs e)
         {
-            object tmp = sender;
-            TabItem tabItem = null;
-            while (tmp.GetType() != typeof(TabControl))
-            {
-                if (tmp.GetType() == typeof(TabItem))
-                    tabItem = (tmp as TabItem);
-                tmp = ((FrameworkElement)tmp).Parent;
-            }
-            if (tmp is TabControl tabControl)
-                tabControl.Items.Remove(tabItem);
+            Tabs.RemoveTab(sender, e);
         }
     }
 }

@@ -16,6 +16,9 @@ namespace PL
     {
         CustomerViewModel customerViewModel;
 
+        /// <summary>
+        /// Constructor for "Add Customer" page.
+        /// </summary>
         public Customer()
         {
             InitializeComponent();
@@ -24,6 +27,9 @@ namespace PL
             Add_grid.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Constructor for "Update Customer" page.
+        /// </summary>
         public Customer(CustomerForList customerInList)
         {
             if (customerInList == null)
@@ -39,22 +45,11 @@ namespace PL
             }
         }
 
-        private void Close_Page(object sender, RoutedEventArgs e)
-        {
-            object tmp = sender;
-            TabItem tabItem = null;
-            while (tmp.GetType() != typeof(TabControl))
-            {
-                if (tmp.GetType() == typeof(TabItem))
-                    tabItem = (tmp as TabItem);
-                tmp = ((FrameworkElement)tmp).Parent;
-            }
-            if (tmp is TabControl tabControl)
-                tabControl.Items.Remove(tabItem);
-            ListsModel.RefreshCustomers();
-            //customerViewModel.RefreshCustomersList();
-        }
-
+        /// <summary>
+        /// Deleting a customer.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -66,7 +61,7 @@ namespace PL
             {
                 MessageBox.Show($"Customer not exists");
             }
-            catch (ArgumentNullException )
+            catch (ArgumentNullException)
             {
                 MessageBox.Show($"Customer not exists");
             }
@@ -80,6 +75,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Adding a new customer.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Add_Customer_finish_click(object sender, RoutedEventArgs e)
         {
             if (double.Parse(longitude.Text) < -90 || double.Parse(longitude.Text) > 90 || double.Parse(latitude.Text) < -90 || double.Parse(latitude.Text) > 90)
@@ -88,7 +88,7 @@ namespace PL
                 return;
             }
 
-            if (int.Parse(phone.Text) < 500000000 || int.Parse(phone.Text) > 599999999 )
+            if (int.Parse(phone.Text) < 500000000 || int.Parse(phone.Text) > 599999999)
             {
                 MessageBox.Show("Phone not in the middle");
                 return;
@@ -128,6 +128,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Update customer information.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -156,6 +161,26 @@ namespace PL
             }
         }
 
+
+        /// <summary>
+        /// View a specific customer.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ToCustomerView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (ToCustomerView.SelectedItem != null)
+            {
+                var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelToCustomer;
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Parcel(selectedCustomer.Id);
+                tabItem.Header = "Update parcel";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+            }
+        }
+
+
         /// <summary>
         /// Input filter for ID
         /// </summary>
@@ -167,19 +192,15 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void ToCustomerView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+
+        /// <summary>
+        /// Close the tab
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Close_Page(object sender, RoutedEventArgs e)
         {
-            if (ToCustomerView.SelectedItem != null)
-            {
-                var selectedCustomer = ToCustomerView.SelectedItem as PO.ParcelToCustomer;
-                TabItem tabItem = new TabItem();
-                tabItem.Content = new Parcel(selectedCustomer.Id);
-                tabItem.Header = "Update parcel";
-                tabItem.Visibility = Visibility.Visible;
-                Tabs.AddTab(tabItem);
-
-            }
-
+            Tabs.RemoveTab(sender, e);
         }
     }
 }

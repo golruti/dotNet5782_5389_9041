@@ -41,6 +41,11 @@ namespace PL
             AddTab(tabItem);
         }
 
+        /// <summary>
+        /// open the parcel list window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowParcelListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
@@ -49,6 +54,11 @@ namespace PL
             AddTab(tabItem);
         }
 
+        /// <summary>
+        /// open the station list window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowBaseStationListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
@@ -57,20 +67,17 @@ namespace PL
             AddTab(tabItem);
         }
 
+        /// <summary>
+        /// open the customer list window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void showCustomersListWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
             tabItem.Content = new CustomersList();
             tabItem.Header = "Customers list";
             AddTab(tabItem);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new CustomerEntrance();
-            tabItem.Header = "Customer entrance";
-            AddTab(tabItem);
-        }     
+        }        
     }
 }

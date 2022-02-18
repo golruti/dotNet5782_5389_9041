@@ -33,6 +33,11 @@ namespace PL
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Displays the list of parcels sent or received by the user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowParcelList_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
@@ -41,6 +46,11 @@ namespace PL
             AddTab(tabItem);
         }
 
+        /// <summary>
+        /// Add a new parcel to send.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddParcel_Click(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();

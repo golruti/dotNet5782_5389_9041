@@ -25,7 +25,9 @@ namespace PL
     {
         ParcelViewModel parcelViewModel;
 
-        static int idParcel { get; set; } = 10;
+        /// <summary>
+        /// Constructor for "Add Parcel tomer" page.
+        /// </summary>
         public Parcel()
         {
             InitializeComponent();
@@ -34,13 +36,14 @@ namespace PL
             Add_grid.Visibility = Visibility.Visible;
         }
 
-
+        /// <summary>
+        /// Constructor for "Update Parcel" page.
+        /// </summary>
         public Parcel(int parcelInListId, bool IsInCustomerMode = false)
         {
             InitializeComponent();
             parcelViewModel = new ParcelViewModel(parcelInListId);
             this.DataContext = parcelViewModel;
-
             Update_grid.Visibility = Visibility.Visible;
 
             if (IsInCustomerMode)
@@ -49,7 +52,9 @@ namespace PL
             }
         }
 
-        //עבור ממשק לקוח
+        /// <summary>
+        /// Constructor for "Update Drone" page for customer login.
+        /// </summary>
         public Parcel(BO.User user)
         {
             InitializeComponent();
@@ -59,16 +64,42 @@ namespace PL
             ChangeButtons.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Deleting a parcel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteParcel(object sender, RoutedEventArgs e)
         {
-            ListsModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
+            try
+            {
+                ListsModel.Bl.deleteBLParcel(parcelViewModel.ParcelInList.Id);
+            }
+            catch (TheParcelIsAssociatedAndCannotBeDeleted)
+            {
+                MessageBox.Show($"The package can not be deleted, it is connected to the drone.");
+            }
+            catch (KeyNotFoundException)
+            {
+                MessageBox.Show($"The parcel was not found and not deleted.");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"The parcel was not deleted.");
+            }
             if (MessageBox.Show("the customer was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
             }
         }
 
-        private void Finish_Click(object sender, RoutedEventArgs e)
+
+        /// <summary>
+        /// Adding a new parcel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -77,7 +108,6 @@ namespace PL
 
                 ListsModel.Bl.AddParcel(new BO.Parcel()
                 {
-                    Id = idParcel++,
                     Weight = (BO.Enums.WeightCategories)Weight.SelectedItem,
                     Priority = (BO.Enums.Priorities)Priority.SelectedItem,
                     CustomerReceives = new BO.CustomerDelivery() { Id = senderCustomer.Id, Name = senderCustomer.Name },
@@ -117,42 +147,10 @@ namespace PL
         }
 
         /// <summary>
-        /// Closes the page
+        /// Entrance to a sender customer page.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Close_Page(object sender, RoutedEventArgs e)
-        {
-            object tmp = sender;
-            TabItem tabItem = null;
-            while (tmp.GetType() != typeof(TabControl))
-            {
-                if (tmp.GetType() == typeof(TabItem))
-                    tabItem = (tmp as TabItem);
-                tmp = ((FrameworkElement)tmp).Parent;
-            }
-            if (tmp is TabControl tabControl)
-                tabControl.Items.Remove(tabItem);
-
-            ListsModel.RefreshParcels();
-            ListsModel.RefreshCustomers();
-
-        }
-
-
-
-        /// <summary>
-        /// Input filter for ID
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
-
         private void CustomerSender(object sender, RoutedEventArgs e)
         {
             try
@@ -180,6 +178,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Entrance to a receive customer page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CustomerReceives(object sender, RoutedEventArgs e)
         {
             try
@@ -199,14 +202,19 @@ namespace PL
             }
             catch (KeyNotFoundException ex)
             {
-                MessageBox.Show($"The station could not be found in the database, {ex.Message}");
+                MessageBox.Show($"The customer could not be found in the database, {ex.Message}");
             }
             catch (Exception)
             {
-                MessageBox.Show($"The station can not be displayed");
+                MessageBox.Show($"The customer can not be displayed");
             }
         }
 
+        /// <summary>
+        /// Entrance to a drone page linked to the parcel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Drone(object sender, RoutedEventArgs e)
         {
             try
@@ -220,12 +228,36 @@ namespace PL
             }
             catch (KeyNotFoundException ex)
             {
-                MessageBox.Show($"The station could not be found in the database, {ex.Message}");
+                MessageBox.Show($"The drone could not be found in the database, {ex.Message}");
             }
             catch (Exception)
             {
-                MessageBox.Show($"The station can not be displayed");
+                MessageBox.Show($"The drone can not be displayed");
             }
         }
+
+        /// <summary>
+        /// Closes the page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Close_Page(object sender, RoutedEventArgs e)
+        {
+            Tabs.RemoveTab(sender, e);
+        }
+
+
+
+        /// <summary>
+        /// Input filter for ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textID_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
     }
 }

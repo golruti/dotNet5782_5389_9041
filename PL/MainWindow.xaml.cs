@@ -29,6 +29,8 @@ namespace PL
             bl = BlApi.BlFactory.GetBl();
             InitializeComponent();
             Tabs.SetAddTab(AddTab);
+            Tabs.SetRemoveTab(RemoveTab);
+
         }
 
         /// <summary>
@@ -40,6 +42,7 @@ namespace PL
             tub_control.Items.Add(tabItem);
             tub_control.SelectedItem = tabItem;
         }
+
 
         internal void RemoveTab(object sender, RoutedEventArgs e)
         {
@@ -53,7 +56,13 @@ namespace PL
             }
             if (tmp is TabControl tabControl)
                 tabControl.Items.Remove(tabItem);
+            ViewModel.ListsModel.RefreshDrones();
+            ViewModel.ListsModel.RefreshStations();
+            ViewModel.ListsModel.RefreshParcels();
+            ViewModel.ListsModel.RefreshCustomers();
         }
+
+
         private void CloseTab(object sender, RoutedEventArgs e)
         {
             object tmp = sender;

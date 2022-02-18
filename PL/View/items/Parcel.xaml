@@ -118,7 +118,7 @@
                     <ColumnDefinition Width="137*"/>
                     <ColumnDefinition Width="63*"/>
                 </Grid.ColumnDefinitions>
-                <Button  Content="finish"  Margin="40,15,37,15" Click="Finish_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
+                <Button  Content="finish"  Margin="40,15,37,15" Click="Add_Click" Height="20" Width="60" Background="DarkCyan" FontSize="10" FontFamily="Consolas" FontWeight="Bold">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource multyConvert4Items}">
                             <Binding ElementName="senderId" Path="Text"></Binding>

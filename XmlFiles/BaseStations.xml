@@ -532,7 +532,7 @@
     <AvailableChargingPorts>12</AvailableChargingPorts>
   </BaseStation>
   <BaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>false</IsDeleted>
+    <IsDeleted>true</IsDeleted>
     <Id>12</Id>
     <Name>12</Name>
     <Longitude>12</Longitude>

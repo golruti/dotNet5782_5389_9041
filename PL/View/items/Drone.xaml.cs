@@ -18,6 +18,9 @@ namespace PL
     {
         DroneViewModel droneViewModel;
 
+        /// <summary>
+        /// Constructor for "Add Drone" page.
+        /// </summary>
         public Drone()
         {
             InitializeComponent();
@@ -28,6 +31,9 @@ namespace PL
             StationsId.DataContext = ListsModel.Bl.GetBaseStationForList().Select(item => item.Id);
         }
 
+        /// <summary>
+        /// Constructor for "Update Drone" page.
+        /// </summary>
         public Drone(DroneForList droneForList)
         {
             InitializeComponent();
@@ -36,6 +42,9 @@ namespace PL
             Update_grid.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Constructor for "Update Drone" page.
+        /// </summary>
         public Drone(BO.Drone droneForList)
         {
             InitializeComponent();
@@ -43,9 +52,31 @@ namespace PL
             this.DataContext = droneViewModel;
             Update_grid.Visibility = Visibility.Visible;
         }
+
+        /// <summary>
+        /// Deleting a drone.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteDrone(object sender, RoutedEventArgs e)
         {
-            ListsModel.Bl.DeleteBLDrone(droneViewModel.DroneInList.Id);
+            try
+            {
+                ListsModel.Bl.DeleteBLDrone(droneViewModel.DroneInList.Id);
+            }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show($"The drone was not found and not deleted ");
+
+            }
+            catch (KeyNotFoundException)
+            {
+                MessageBox.Show($"The drone was not found and not deleted ");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"The drone was not deleted ");
+            }
             if (MessageBox.Show("the drone was seccessfully deleted", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Close_Page(sender, e);
@@ -53,11 +84,11 @@ namespace PL
         }
 
         /// <summary>
-        /// Puts the new Harhan on the list and updates the details
+        /// Adding a new drone.
         /// </summary>
         /// <param name="sender"></paramz
         /// <param name="e"></param>
-        private void Finish_Click(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -105,7 +136,7 @@ namespace PL
 
 
         /// <summary>
-        /// sending drone to delivery
+        /// sending drone to delivery.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -114,7 +145,6 @@ namespace PL
             try
             {
                 ListsModel.Bl.AssignParcelToDrone(droneViewModel.DroneInList.Id);
-                //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
@@ -137,49 +167,15 @@ namespace PL
             {
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show($"The drone could not be shipped, {ex.Message}");
             }
         }
 
-        private void Close_Page(object sender, RoutedEventArgs e)
-        {
-            object tmp = sender;
-            TabItem tabItem = null;
-            while (tmp.GetType() != typeof(TabControl))
-            {
-                if (tmp.GetType() == typeof(TabItem))
-                    tabItem = (tmp as TabItem);
-                tmp = ((FrameworkElement)tmp).Parent;
-            }
-            if (tmp is TabControl tabControl)
-                tabControl.Items.Remove(tabItem);
-            //  droneViewModel.RefreshDroneInList();
-            ListsModel.RefreshDrones();
-            ListsModel.RefreshStations();
-
-            if (droneViewModel.worker != null && droneViewModel.worker.IsBusy)
-                droneViewModel.worker.CancelAsync();
-        }
-
-        private void Close_Page_notDo(object sender, RoutedEventArgs e)
-        {
-            object tmp = sender;
-            TabItem tabItem = null;
-            while (tmp.GetType() != typeof(TabControl))
-            {
-                if (tmp.GetType() == typeof(TabItem))
-                    tabItem = (tmp as TabItem);
-                tmp = ((FrameworkElement)tmp).Parent;
-            }
-            if (tmp is TabControl tabControl)
-                tabControl.Items.Remove(tabItem);
-        }
 
         /// <summary>
-        /// release drone from charging
+        /// Release drone from charging.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -188,7 +184,6 @@ namespace PL
             try
             {
                 ListsModel.Bl.UpdateRelease(droneViewModel.DroneInList.Id);
-                //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone succeed to free itself from charging", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
@@ -217,7 +212,7 @@ namespace PL
         }
 
         /// <summary>
-        /// sending drone to charging
+        /// Sending drone to charging.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -254,7 +249,7 @@ namespace PL
         }
 
         /// <summary>
-        /// collection percel by drone
+        /// Collection percel by drone.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -263,7 +258,6 @@ namespace PL
             try
             {
                 ListsModel.Bl.ParcelCollection(droneViewModel.DroneInList.Id);
-                //(sender as Button).IsEnabled = false;
                 if (MessageBox.Show("The drone is sent for delivery", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
@@ -292,7 +286,7 @@ namespace PL
         }
 
         /// <summary>
-        /// Package delivery
+        /// The drone reached its destination and אthe parcel was collected
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -301,7 +295,6 @@ namespace PL
             try
             {
                 ListsModel.Bl.UpdateParcelDelivered(droneViewModel.DroneInList.Id);
-               // (sender as Button).IsEnabled = false;
                 if (MessageBox.Show("he parcel was successfully delivered", "success", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     droneViewModel.RefreshDroneInList();
@@ -330,7 +323,7 @@ namespace PL
         }
 
         /// <summary>
-        /// update the drone
+        /// Update drone information.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -377,6 +370,11 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        /// <summary>
+        ///  View a specific drone.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void parcelByDrone_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (droneViewModel.DroneInList.Delivery.Id != 0)
@@ -393,13 +391,37 @@ namespace PL
             }
         }
 
-
+        /// <summary>
+        /// Starting a drone simulator.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
-
             droneViewModel.StartDroneSimulator();
         }
 
+        /// <summary>
+        /// Close the tab and stops the simulator activity
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Close_Page(object sender, RoutedEventArgs e)
+        {
+            Tabs.RemoveTab(sender, e);
 
+            if (droneViewModel.worker != null && droneViewModel.worker.IsBusy)
+                droneViewModel.worker.CancelAsync();
+        }
+
+        /// <summary>
+        /// Close the tab
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Close_Page_notDo(object sender, RoutedEventArgs e)
+        {
+            Tabs.RemoveTab(sender, e);
+        }
     }
 }
