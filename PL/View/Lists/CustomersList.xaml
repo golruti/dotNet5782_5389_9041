@@ -47,7 +47,7 @@
             </ListView.GroupStyle>
         </ListView>
         <StackPanel Orientation="Horizontal" Height="305">
-            <Button x:Name="add_customer" Content="add customer" Height="84" Width="207" Background="DarkCyan"  Click="add_customer_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold" RenderTransformOrigin="0.41,-0.984"/>
+            <Button x:Name="add_customer" Content="add customer" Height="84" Width="207" Background="DarkCyan"  Click="Add_customer_Click" FontSize="10" FontFamily="Consolas" FontWeight="Bold" RenderTransformOrigin="0.41,-0.984"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

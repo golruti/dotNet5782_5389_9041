@@ -24,7 +24,9 @@ namespace PL
     public partial class CustomersList
     {
         CustomerListViewModel customerListViewModel;
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public CustomersList()
         {
             InitializeComponent();
@@ -32,6 +34,24 @@ namespace PL
             this.DataContext = customerListViewModel;
         }
 
+        /// <summary>
+        /// Show "Add Customer" window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Add_customer_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new Customer();
+            tabItem.Header = "Add customer";
+            Tabs.AddTab(tabItem);
+        }
+
+        /// <summary>
+        /// View a specific customer.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CustomersListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
            
@@ -46,14 +66,11 @@ namespace PL
             }
         }
 
-        private void add_customer_Click(object sender, RoutedEventArgs e)
-        {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Customer();
-            tabItem.Header = "Add customer";
-            Tabs.AddTab(tabItem);
-        }
-
+        /// <summary>
+        /// View customers by groups.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;

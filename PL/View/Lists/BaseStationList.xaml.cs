@@ -13,6 +13,9 @@ namespace PL
     {
         BaseStationListViewModel baseStationListViewModel;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public BaseStationList()
         {
             InitializeComponent();
@@ -21,15 +24,11 @@ namespace PL
             baseStationListViewModel.BaseStationsList.Filter = FilterBaseStation;
         }
 
-        private bool FilterBaseStation(object obj)
-        {
-            if (obj is PO.BaseStationForList station)
-            {
-                return (this.Available.IsChecked ?? false) ? station.AvailableChargingPorts > 0 : true;
-            }
-            return false;
-        }
-
+        /// <summary>
+        /// Show "Add Station" window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowAddBaseStationWindow(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = new TabItem();
@@ -39,7 +38,7 @@ namespace PL
         }
 
         /// <summary>
-        /// window winder that allows you to update the details of the glider that you double-clicked
+        /// View a specific station.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -56,25 +55,46 @@ namespace PL
             }
         }
 
+
         /// <summary>
-        /// the function close the page
+        /// View stations that have free charging slotes.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Close_Page(object sender, RoutedEventArgs e)
-        {
-            Tabs.RemoveTab(sender, e);
-        }
-
         private void Available_Checked(object sender, RoutedEventArgs e)
         {
             baseStationListViewModel.BaseStationsList.Refresh();
         }
+        /// <summary>
+        /// View all stations.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Available_Unchecked(object sender, RoutedEventArgs e)
         {
             baseStationListViewModel.BaseStationsList.Refresh();
         }
-        
+
+        /// <summary>
+        /// Filter for filtering the stations list.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private bool FilterBaseStation(object obj)
+        {
+            if (obj is PO.BaseStationForList station)
+            {
+                return (this.Available.IsChecked ?? false) ? station.AvailableChargingPorts > 0 : true;
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// View stations by groups.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
@@ -88,8 +108,16 @@ namespace PL
                 baseStationListViewModel.BaseStationsList.GroupDescriptions.Clear();
             }
         }
-        
 
+        /// <summary>
+        /// Close the page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Close_Page(object sender, RoutedEventArgs e)
+        {
+            Tabs.RemoveTab(sender, e);
+        }
     }
 }
 

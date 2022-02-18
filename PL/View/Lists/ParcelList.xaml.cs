@@ -29,6 +29,11 @@ namespace PL
 
         public bool IsInCustomerMode { get; set; } = false;
 
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="customerId"></param>
         public ParcelList(int? customerId = null)
         {
             InitializeComponent();
@@ -45,6 +50,61 @@ namespace PL
             }
             else
                 Buttons.Visibility = Visibility.Visible;
+        }
+
+
+
+        /// <summary>
+        /// Show "Add Parcel" window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowAddParcelWindow(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = new TabItem();
+            tabItem.Content = new Parcel();
+            tabItem.Header = "Add parcel";
+            Tabs.AddTab(tabItem);
+        }
+
+        /// <summary>
+        /// View a specific parcel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var selectedParcel = ParcelesListView.SelectedItem as PO.ParcelForList;
+            if (selectedParcel != null)
+            {
+                TabItem tabItem = new TabItem();
+                tabItem.Content = new Parcel(selectedParcel.Id, IsInCustomerMode);
+                tabItem.Header = "Update Parcel";
+                tabItem.Visibility = Visibility.Visible;
+                Tabs.AddTab(tabItem);
+            }
+        }
+
+
+        /// <summary>
+        /// Filter for filtering the parcels list.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private bool FilterParcel(object obj)
+        {
+            if (!ShouldFilter) return true;
+
+            if (obj is PO.ParcelForList parcel)
+            {
+                return (parcelListViewModel.Customer == null || parcel.SendCustomer == parcelListViewModel.Customer.Name || parcel.ReceiveCustomer == parcelListViewModel.Customer.Name)
+                    && (ParcelStatuses.SelectedItem == null || parcel.Status == (PO.Enums.ParcelStatuses)ParcelStatuses.SelectedItem)
+                    && (SenderId.SelectedItem == null || parcel.SendCustomer == SenderId.SelectedItem.ToString())
+                    && (ReceiveId.SelectedItem == null || parcel.ReceiveCustomer == ReceiveId.SelectedItem.ToString())
+                    && (From.SelectedDate == null || ListsModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate)
+                    && (To.SelectedDate == null || ListsModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate);
+            }
+            return false;
         }
 
 
@@ -88,46 +148,6 @@ namespace PL
         {
             RefreshFilter();
         }
-        /// <summary>
-        /// Opens a window for adding a skimmer
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ShowAddParcelWindow(object sender, RoutedEventArgs e)
-        {
-            TabItem tabItem = new TabItem();
-            tabItem.Content = new Parcel();
-            tabItem.Header = "Add parcel";
-            Tabs.AddTab(tabItem);
-        }
-
-        /// <summary>
-        /// window winder that allows you to update the details of the glider that you double-clicked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var selectedParcel = ParcelesListView.SelectedItem as PO.ParcelForList;
-            if (selectedParcel != null)
-            {
-                TabItem tabItem = new TabItem();
-                tabItem.Content = new Parcel(selectedParcel.Id, IsInCustomerMode);
-                tabItem.Header = "Update Parcel";
-                tabItem.Visibility = Visibility.Visible;
-                Tabs.AddTab(tabItem);
-            }
-        }
-
-        /// <summary>
-        /// the function close the page
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Close_Page(object sender, RoutedEventArgs e)
-        {
-            Tabs.RemoveTab(sender, e);
-        }
 
         private void MoveToSender(object sender, RoutedEventArgs e)
         {
@@ -140,38 +160,45 @@ namespace PL
             parcelListViewModel.ParcelsForList.GroupDescriptions.Clear();
             parcelListViewModel.ParcelsForList.GroupDescriptions.Add(new PropertyGroupDescription(nameof(ParcelForList.ReceiveCustomer)));
         }
-        private void RefreshFilter()
-        {
-            parcelListViewModel.ParcelsForList.Refresh();
-        }
 
-        private bool FilterParcel(object obj)
-        {
-            if (!ShouldFilter) return true;
-
-            if (obj is PO.ParcelForList parcel)
-            {
-                return (parcelListViewModel.Customer == null || parcel.SendCustomer == parcelListViewModel.Customer.Name || parcel.ReceiveCustomer == parcelListViewModel.Customer.Name)
-                    && (ParcelStatuses.SelectedItem == null || parcel.Status == (PO.Enums.ParcelStatuses)ParcelStatuses.SelectedItem)
-                    && (SenderId.SelectedItem == null || parcel.SendCustomer == SenderId.SelectedItem.ToString())
-                    && (ReceiveId.SelectedItem == null || parcel.ReceiveCustomer == ReceiveId.SelectedItem.ToString())
-                    && (From.SelectedDate == null || ListsModel.Bl.GetBLParcel(parcel.Id).Requested > From.SelectedDate)
-                    && (To.SelectedDate == null || ListsModel.Bl.GetBLParcel(parcel.Id).Requested < To.SelectedDate);
-            }
-            return false;
-        }
-
-        private void RadioButton_Click(object sender, RoutedEventArgs e)
-        {
-            parcelListViewModel.ParcelsForList.GroupDescriptions.Clear();
-        }
-
+        /// <summary>
+        /// Displays the list without filters.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
 
             ShouldFilter = checkBox.IsChecked != true;
             RefreshFilter();
+        }
+
+        private void RefreshFilter()
+        {
+            parcelListViewModel.ParcelsForList.Refresh();
+        }
+
+
+        /// <summary>
+        /// View parcels by groups.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            parcelListViewModel.ParcelsForList.GroupDescriptions.Clear();
+        }
+
+
+        /// <summary>
+        /// Close the page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Close_Page(object sender, RoutedEventArgs e)
+        {
+            Tabs.RemoveTab(sender, e);
         }
     }
 }

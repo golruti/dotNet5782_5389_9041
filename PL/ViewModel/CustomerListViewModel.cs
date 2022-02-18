@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace PL.ViewModel
 {
-    public class CustomerListViewModel : /*Singleton.Singleton<PL>,*/ INotifyPropertyChanged
+    public class CustomerListViewModel : INotifyPropertyChanged
     {
         public CustomerListViewModel()
         {
