@@ -76,7 +76,7 @@ namespace BL
                         Longitude = tempBaseStation.Longitude,
                         Latitude = tempBaseStation.Latitude,
                         ChargeSlote = chargeSlote,
-                        AvailableChargingPorts = GetDronesInCharging(tempBaseStation.Id).Count() + tempBaseStation.AvailableChargingPorts,
+                        AvailableChargingPorts = chargeSlote - GetDronesInCharging(tempBaseStation.Id).Count(),
                         IsDeleted = false
                     });
                 }
@@ -164,10 +164,10 @@ namespace BL
         {
             //Delete drone in charge if any
             BaseStation station;
-            IEnumerable<int> dronesIds;
-            lock (dal) { station = mapBaseStation(dal.GetBaseStation(stationId)); }
-            lock (dal) { dronesIds = station.DronesInCharging.Select(d => d.Id); }
-            lock (dal) { dronesIds.ToList().ForEach(id => UpdateRelease(id)); }
+            //IEnumerable<int> dronesIds;
+            //lock (dal) { station = mapBaseStation(dal.GetBaseStation(stationId)); }
+            //lock (dal) { dronesIds = station.DronesInCharging.Select(d => d.Id); }
+            //lock (dal) { dronesIds.ToList().ForEach(id => UpdateRelease(id)); }
 
             try
             {

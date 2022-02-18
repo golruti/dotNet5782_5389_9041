@@ -176,11 +176,11 @@ namespace PL
             {
                 if (update_name.Text != null && update_num_of_charging_ports.Text != null)
                 {
-                    ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, int.Parse(update_num_of_charging_ports.Text));
+                    ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, -1);
                 }
                 else if (update_name.Text != null)
                 {
-                    ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, baseStationViewModel.BaseStationInList.AvailableChargingPorts);
+                    ListsModel.Bl.UpdateBaseStation(baseStationViewModel.BaseStationInList.Id, update_name.Text, -1);
                     (sender as Button).IsEnabled = false;
                 }
                 else
