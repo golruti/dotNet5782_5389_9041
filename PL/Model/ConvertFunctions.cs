@@ -350,7 +350,7 @@ namespace PO
                 Id = drone.Id,
                 Model = drone.Model,
                 MaxWeight = BOEnumWeightCategoriesToPO(drone.MaxWeight),
-                Battery = drone.Battery,
+                Battery = Math.Round(drone.Battery),
                 Status = BOEnumDroneStatusesToPO(drone.Status),
                 Location = BOLocationToPO(drone.Location),
                 ParcelDeliveredId = drone.ParcelDeliveredId

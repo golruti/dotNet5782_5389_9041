@@ -189,7 +189,7 @@ namespace BL
         {
             double delta = distance < STEP ? distance : STEP;
             double proportion = delta / distance;
-            drone.Battery = Math.Max(0.0, drone.Battery - delta * elecricity);
+            drone.Battery =  Math.Round(Math.Max(0.0, drone.Battery - delta * elecricity));
             double lat = drone.Location.Latitude + (targetLocation.Latitude - drone.Location.Latitude) * proportion;
             double lon = drone.Location.Longitude + (targetLocation.Longitude - drone.Location.Longitude) * proportion;
             lock (bl) drone.Location = new() { Latitude = lat, Longitude = lon };
