@@ -200,6 +200,10 @@ namespace PL
         /// <param name="e"></param>
         private void Close_Page(object sender, RoutedEventArgs e)
         {
+            ListsModel.RefreshCustomers();
+            ListsModel.RefreshParcels();
+            ListsModel.RefreshDrones();
+            ListsModel.RefreshStations();
             Tabs.RemoveTab(sender, e);
         }
     }

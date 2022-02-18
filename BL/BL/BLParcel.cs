@@ -465,7 +465,12 @@ namespace BL
         private string getSendCustomerName(DO.Parcel parcel)
         {
             DO.Customer senderCustomerName;
-            lock (dal) { senderCustomerName = dal.GetCustomers().FirstOrDefault(c => c.Id == parcel.SenderId); }
+            lock (dal)
+            {
+                senderCustomerName = dal.GetCustomers(c => c.IsDeleted == false).FirstOrDefault(c => c.Id == parcel.SenderId);
+            }
+            if(senderCustomerName.Equals(default(DO.Customer)))
+                 lock (dal) { senderCustomerName = dal.GetCustomers().FirstOrDefault(c => c.Id == parcel.SenderId); }
 
             if (senderCustomerName.Equals(default(DO.Customer)))
             {
@@ -482,7 +487,13 @@ namespace BL
         private string getReceiveCustomer(DO.Parcel parcel)
         {
             DO.Customer receiveCustomerName;
-            lock (dal) { receiveCustomerName = dal.GetCustomers().FirstOrDefault(c => c.Id == parcel.TargetId); }
+            lock (dal)
+            {
+                receiveCustomerName = dal.GetCustomers(c => c.IsDeleted == false).FirstOrDefault(c => c.Id == parcel.TargetId);
+            }
+            if (receiveCustomerName.Equals(default(DO.Customer)))
+                lock (dal) { receiveCustomerName = dal.GetCustomers().FirstOrDefault(c => c.Id == parcel.TargetId); }
+
             if (receiveCustomerName.Equals(default(DO.Customer)))
             {
                 throw new ArgumentNullException("Get recieve customer  -BL-");
