@@ -78,9 +78,9 @@ namespace BL
                         }
                         catch(NoStationAvailableForCharging)
                         {
-                            
+                            //If no station is found close to charging -
+                            //the simulator will keep trying again and again until space becomes available.
                         }
-
                     }
                 }
             }

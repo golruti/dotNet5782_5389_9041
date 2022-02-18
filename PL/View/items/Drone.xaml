@@ -26,7 +26,7 @@
         <Converters:MultyConvert4Items x:Key="multyConvert4Items"></Converters:MultyConvert4Items>
     </UserControl.Resources>
     <Grid Background="White">
-        <Grid x:Name="Update_grid" Visibility="Collapsed">
+        <Grid x:Name="Update_grid" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="480"/>
                 <RowDefinition Height="100"/>
@@ -83,7 +83,7 @@
 
 
 
-            <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,250,0,52">
+            <StackPanel x:Name="ButtonsGroup" Orientation="Horizontal" Margin="0,290,7,52">
                 <Button Content = "Sending a drone for charging" Click = "SendingDroneForCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" Visibility="{Binding DroneInList.Status, Converter={StaticResource droneAvailableStatusConvert}}"/>
                 <Button Content = " Connecting a parcel to a drone" Click= "SendingDroneForDelivery_Click" Background = "DarkCyan" Height ="40" Width = "130" Visibility="{Binding DroneInList.Status,Converter={StaticResource droneAvailableStatusConvert}}"/>
                 <Button Content = "Release drone from charging" Click= "ReleaseDroneFromCharging_Click" Background = "DarkCyan" Height = "40" Width = "130" HorizontalAlignment ="Center" Visibility="{Binding  DroneInList.Status, Converter={StaticResource droneMaintenanceStatusConvert}}"/>
@@ -98,7 +98,7 @@
             </StackPanel>
 
             <ContentControl x:Name="parcelByDrone" MouseDoubleClick="parcelByDrone_MouseDoubleClick">
-                <StackPanel>
+                <StackPanel Margin="10,10,-10,-10">
                     <Label Content="Parcel by transfer:
                    " Margin="151,269,412,177" />
                     <Label Content="ID:" Margin="151,286,614,168" RenderTransformOrigin="0.798,0.568"/>
@@ -109,7 +109,16 @@
                     <TextBlock Text="{Binding parcelsByDrone.Weight}" HorizontalAlignment="Left" Margin="209,321,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.018,0.699"/>
                 </StackPanel>
             </ContentControl>
-            <Button Content="{Binding Auto,Converter={StaticResource SimulatorConvert}}" HorizontalAlignment="Left" Margin="616,335,0,0" VerticalAlignment="Top" Click="Automatic_Click"/>
+            <Button Content="{Binding Auto,Converter={StaticResource SimulatorConvert}}" HorizontalAlignment="Left" Margin="736,31,0,0" VerticalAlignment="Top" Click="Automatic_Click" RenderTransformOrigin="1.126,0.609" Width="199" Height="32">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.087"/>
+                        <TranslateTransform X="-0.005" Y="0.12"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
         </Grid>
         <Grid x:Name="Add_grid" Visibility="Collapsed" >
             <Grid Grid.Row="0"  Name="UpGrid"  Margin="176,50,176,150" Height="170" Width="252" >
