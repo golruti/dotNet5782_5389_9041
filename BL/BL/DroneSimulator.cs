@@ -49,8 +49,6 @@ namespace BL
                 catch (Exception)
                 {
                     break;
-                    Thread.Sleep(6000);
-
                 }
                 update();
                 Thread.Sleep(1000);

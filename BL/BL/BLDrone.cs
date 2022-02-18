@@ -255,6 +255,8 @@ namespace BL
             double distance = double.MaxValue;
             IEnumerable<DO.BaseStation> availableStations;
             lock (dal) { availableStations = dal.GetAvaBaseStations().Where(s => s.IsDeleted == false); }
+            if (availableStations.Count() == 0)
+                throw new NoStationAvailableForCharging();
 
             if (tempDrone.Status == DroneStatuses.Available)
             {
@@ -277,17 +279,17 @@ namespace BL
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        throw new NoStationAvailableForCharging(ex.Message, ex);
+                        throw new KeyNotFoundException(ex.Message, ex);
                     }
                 }
-                else
+                else 
                 {
-                    throw new NoStationAvailableForCharging("the drone not have enough battery  -BL-");
+                    throw new ArgumentNullException("the drone not have enough battery  -BL-");
                 }
             }
             else
             {
-                throw new NoStationAvailableForCharging("the drone not available -BL-");
+                throw new ArgumentNullException("the drone not available -BL-");
             }
         }
 
