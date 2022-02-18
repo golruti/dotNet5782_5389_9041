@@ -30,7 +30,6 @@ namespace PL
             InitializeComponent();
             Tabs.SetAddTab(AddTab);
             Tabs.SetRemoveTab(RemoveTab);
-
         }
 
         /// <summary>

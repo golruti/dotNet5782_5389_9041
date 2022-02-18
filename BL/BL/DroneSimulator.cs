@@ -72,7 +72,14 @@ namespace BL
                     //- the drone is sent for loading.
                     if (drone.Battery < 100)
                     {
-                        bl.UpadateChargaSimulator(drone.Id);
+                        try
+                        {
+                            bl.UpadateChargaSimulator(drone.Id);
+                        }
+                        catch(NoStationAvailableForCharging)
+                        {
+                            
+                        }
 
                     }
                 }

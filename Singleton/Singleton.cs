@@ -3,6 +3,10 @@ using System.Reflection;
 
 namespace Singleton
 {
+    /// <summary>
+    /// A generic singleton class whose job is to create a single show from a class.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     abstract public class Singleton<T> where T : Singleton<T>
     {
         static Singleton() { }

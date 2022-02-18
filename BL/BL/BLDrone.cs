@@ -282,7 +282,7 @@ namespace BL
                 }
                 else
                 {
-                    throw new ArgumentNullException("the drone not have enough battery  -BL-");
+                    throw new NoStationAvailableForCharging("the drone not have enough battery  -BL-");
                 }
             }
             else

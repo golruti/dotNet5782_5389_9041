@@ -24,7 +24,18 @@ namespace PL.ViewModel
 
         static ListsModel()
         {
-            Bl = BlApi.BlFactory.GetBl();
+            try
+            {
+                Bl = BlApi.BlFactory.GetBl();
+            }
+            catch (System.TypeInitializationException e)
+            {
+                return;
+            }
+            catch (BO.BLConfigException)
+            {
+                return;
+            }
             drones = ConvertFunctions.BODroneForListToPO(Bl.GetDroneForList());
             stations = ConvertFunctions.BOBaseStationForListToPO(Bl.GetAvaBaseStationForList());
             customers = ConvertFunctions.BOCustomerForListToPO(Bl.GetCustomerForList());

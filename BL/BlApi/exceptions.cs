@@ -11,7 +11,7 @@ namespace BO
     /// <summary>
     /// There is no nearby base station that the drone can reach.
     /// </summary>
-    #region
+    #region ThereIsNoNearbyBaseStationThatTheDroneCanReachException
     [Serializable]
     public class ThereIsNoNearbyBaseStationThatTheDroneCanReachException : Exception
     {
@@ -31,7 +31,7 @@ namespace BO
     /// <summary>
     /// When adding a new object - there is an object in the data with a similar ID.
     /// </summary>
-   #region
+   #region ThereIsAnObjectWithTheSameKeyInTheListException
     [Serializable]
     public class ThereIsAnObjectWithTheSameKeyInTheListException : Exception
     {
@@ -51,7 +51,7 @@ namespace BO
     /// <summary>
     /// The parcel is linked to the drone and can not be deleted.
     /// </summary>
-    #region
+    #region TheParcelIsAssociatedAndCannotBeDeleted
     [Serializable]
     public class TheParcelIsAssociatedAndCannotBeDeleted : Exception
     {
@@ -71,7 +71,7 @@ namespace BO
     /// <summary>
     /// No parcel suitable for the conditions of the drone has been found.
     /// </summary>
-    #region
+    #region NoParcelFoundForConnectionToTheDroneException
     [Serializable]
     public class NoParcelFoundForConnectionToTheDroneException : Exception
     {
@@ -87,11 +87,29 @@ namespace BO
     }
     #endregion
 
+    /// <summary>
+    /// No station available for charging
+    /// </summary>
+    #region NoStationAvailableForCharging
+    [Serializable]
+    public class NoStationAvailableForCharging : Exception
+    {
+        public NoStationAvailableForCharging() : base() { }
+        public NoStationAvailableForCharging(string message) : base(message) { }
+        public NoStationAvailableForCharging(string message, Exception inner) : base(message, inner) { }
+        protected NoStationAvailableForCharging(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
+        public override string ToString()
+        {
+            return Message + "There is no parcel that needs to be sent - associate it with the drone";
+        }
+    }
+    #endregion
 
     /// <summary>
     /// For the factory operation to the BL layer.
     /// </summary>
-    #region
+    #region BLConfigException
     public class BLConfigException : Exception
     {
         public BLConfigException(string msg) : base(msg) { }

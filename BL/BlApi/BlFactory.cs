@@ -21,11 +21,11 @@ namespace BlApi
             }
             catch (BO.BLConfigException e)
             {
-                throw e;
+                throw new BO.BLConfigException(e.Message, e);
             }
             catch (System.TypeInitializationException e)
             {
-                throw e;
+                throw new System.TypeInitializationException(e.Message, e);
             }
         }
     }

@@ -179,9 +179,9 @@ namespace BL
                         Enums.DroneStatuses.Available, drone.MaxWeight);
                     }
                 }
-                catch (KeyNotFoundException ex)
+                catch (ArgumentNullException)
                 {
-                    throw new KeyNotFoundException("Drone battery -BL-" + ex.Message, ex);
+                    minTargetBaseStation = 100;
                 }
 
                 return rand.Next((int)(minDroneTarget + minTargetBaseStation), 100);
@@ -208,13 +208,13 @@ namespace BL
                            Longitude = nearestBaseStation(dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Latitude, dal.GetCustomers().FirstOrDefault(customer => customer.IsDeleted == false && customer.Id == drone.ParcelDeliveredId).Longitude).Longitude
                        },
                        Enums.DroneStatuses.Available, drone.MaxWeight);
-                    return rand.Next((int)(minDroneBaseStation), 101);
                 }
             }
-            catch (KeyNotFoundException ex)
+            catch (ArgumentNullException )
             {
-                throw new KeyNotFoundException("Drone battery -BL-" + ex.Message, ex);
+                minDroneBaseStation = 100;
             }
+            return rand.Next((int)(minDroneBaseStation), 101);
         }
 
         /// <summary>
