@@ -33,22 +33,6 @@
     <Latitude>68</Latitude>
   </Customer>
   <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>12</Id>
-    <Name>OPOP</Name>
-    <Phone>005545424</Phone>
-    <Longitude>57</Longitude>
-    <Latitude>54</Latitude>
-  </Customer>
-  <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsDeleted>true</IsDeleted>
-    <Id>12</Id>
-    <Name>ruti</Name>
-    <Phone>055545424</Phone>
-    <Longitude>57</Longitude>
-    <Latitude>54</Latitude>
-  </Customer>
-  <Customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <IsDeleted>false</IsDeleted>
     <Id>100</Id>
     <Name>efrat</Name>
