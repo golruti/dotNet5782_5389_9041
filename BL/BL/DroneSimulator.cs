@@ -149,7 +149,7 @@ namespace BL
             }
 
 
-            //Collect the package from the customer of origin
+            //Collect the parcel from the customer of origin
             parcel = bl.GetBLParcel(senderAndTarget.Id);
             if (parcel.PickedUp == null)
                 bl.ParcelCollection(drone.Id);

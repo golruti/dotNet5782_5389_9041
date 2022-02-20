@@ -250,6 +250,7 @@ namespace BL
         internal void UpadateChargaSimulator(int droneId)
         {
             DroneForList tempDrone = GetBLDroneInList(droneId);
+            bool noBatery = false;
             int baseStationId = -1;
             Location location = new Location() { };
             double distance = double.MaxValue;
@@ -268,6 +269,7 @@ namespace BL
                         baseStationId = item.Id;
                         distance = tempDistance;
                         location = new Location() { Longitude = item.Longitude, Latitude = item.Latitude };
+                        noBatery = true;
                     }
                 }
                 if (minBattery(tempDrone.Location, location, tempDrone.Status, tempDrone.MaxWeight) < tempDrone.Battery)
@@ -282,9 +284,14 @@ namespace BL
                         throw new KeyNotFoundException(ex.Message, ex);
                     }
                 }
-                else 
+                else
                 {
-                    throw new ArgumentNullException("the drone not have enough battery  -BL-");
+                    if (noBatery == true)
+                        throw new NoStationAvailableForCharging();
+                    else
+                    {
+                        throw new ArgumentNullException("the drone not have enough battery  -BL-");
+                    }
                 }
             }
             else

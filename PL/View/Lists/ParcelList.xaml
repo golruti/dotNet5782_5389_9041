@@ -121,17 +121,17 @@
 
             </Grid.ColumnDefinitions >
 
-            <Label Grid.Column="0" Content="  status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" />
-            <ComboBox x:Name="ParcelStatuses" ItemsSource="{Binding}" SelectionChanged="ParcelStatuses_SelectionChanged" Grid.ColumnSpan="3" Margin="53,0,53,0" />
-            <Label Grid.Column="2" Content=" sender id:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Grid.ColumnSpan="2" Margin="29,0,40,0" />
+            <Label Grid.Column="0" Content="  status:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Grid.ColumnSpan="2" Margin="-11,-3,48,3" />
+            <ComboBox x:Name="ParcelStatuses" ItemsSource="{Binding}" SelectionChanged="ParcelStatuses_SelectionChanged" Grid.ColumnSpan="2" Margin="10,-1,37,1" Grid.Column="1" />
+            <Label Grid.Column="2" Content=" sender:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Grid.ColumnSpan="2" Margin="0,-2,13,2" HorizontalAlignment="Right" Width="78" />
             <ComboBox Grid.Column="4" x:Name="SenderId" ItemsSource="{Binding}" SelectionChanged="SenderId_SelectionChanged" Margin="0,-2,1,2"/>
-            <Label Grid.Column="5" Content="receive id:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"  Grid.ColumnSpan="2" Margin="17,0,29,0"/>
-            <ComboBox  Grid.Column="6" x:Name="ReceiveId" ItemsSource="{Binding}" SelectionChanged="ReceiveId_SelectionChanged" Grid.ColumnSpan="2" Margin="10,-2,49,2" />
+            <Label Grid.Column="5" Content="receive:" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"  Grid.ColumnSpan="2" Margin="17,0,29,0"/>
+            <ComboBox  Grid.Column="6" x:Name="ReceiveId" ItemsSource="{Binding}" SelectionChanged="ReceiveId_SelectionChanged" Grid.ColumnSpan="2" Margin="35,-2,24,2" />
 
             <Label Grid.Column="8" Content="from :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold" Grid.ColumnSpan="3" Margin="10,0,25,0" />
-            <DatePicker Grid.Column="8" x:Name="From" Height="26" HorizontalAlignment="Left" SelectedDateChanged="To_time_selectionChanged"    Width="89" Grid.ColumnSpan="2" Margin="42,12,0,0" VerticalAlignment="Top"   />
+            <DatePicker Grid.Column="8" x:Name="From" Height="26" HorizontalAlignment="Left" SelectedDateChanged="To_time_selectionChanged"    Width="89" Grid.ColumnSpan="2" Margin="47,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.666,2.325"   />
             <Label Grid.Column="9" Content="to :" FontSize="15" FontWeight="SemiBold" FontFamily="Copperplate Gothic Bold"  Grid.ColumnSpan="3" Margin="47,-3,-47,3" />
-            <DatePicker Grid.Column="10" x:Name="To" Height="26" HorizontalAlignment="Center" SelectedDateChanged="From_time_selectionChanged" Width="94" />
+            <DatePicker Grid.Column="10" x:Name="To" Height="26" HorizontalAlignment="Center" SelectedDateChanged="From_time_selectionChanged" Width="94" Margin="0,19,0,0" VerticalAlignment="Top" />
             <StackPanel Grid.Column="11" Grid.ColumnSpan="2" >
                 <RadioButton Content="by sender"  Click="MoveToSender" />
                 <RadioButton Content="by recived" Click="MoveToRecive" />
