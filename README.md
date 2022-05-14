@@ -1,2 +1,5 @@
 # dotNet5782_5389_9041
-To calculate the distance we used an existing function located in the directories
+
+March 2022 /
+Development of a drone management system -
+3-layer model, design patterns, reading from XML files, threads...
